@@ -49,6 +49,8 @@
        :desc "previous buffer" "[" #'previous-buffer
        :desc "next buffer" "]" #'next-buffer
 
+       :desc "popup term" "`" #'+vterm/toggle
+
        :desc "easy motion" "se" #'evil-avy-goto-char-2
        ))
 
