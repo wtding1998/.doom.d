@@ -1,6 +1,7 @@
 ;;; dwt/edit/config.el -*- lexical-binding: t; -*-
 ;;; evil-snipe
 (use-package! evil-snipe
+  :defer t
   :config
   (setq evil-snipe-scope 'visible)
   (setq evil-snipe-repeat-scope 'visible)
@@ -15,6 +16,7 @@
 ;;; evil-multiedit
 ;; Highlights all matches of the selection in the buffer.
 (use-package! evil-multiedit
+  :defer t
   :config
   (define-key evil-visual-state-map "R" 'evil-multiedit-match-all)
   ;; Match the word under cursor (i.e. make it an edit region). Consecutive presses will
