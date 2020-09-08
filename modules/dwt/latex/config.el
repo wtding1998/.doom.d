@@ -19,7 +19,9 @@
 (use-package! cdlatex
   :defer t
   :hook (cdlatex-mode . (lambda()
-                          (define-key cdlatex-mode-map (kbd "(") nil))))
+                          (define-key cdlatex-mode-map (kbd "(") nil)
+                          )))
+
 (use-package! reftex-toc
   :defer t
   :config
