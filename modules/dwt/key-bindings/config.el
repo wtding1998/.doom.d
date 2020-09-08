@@ -1,6 +1,5 @@
 ;;; dwt/bindings/config.el -*- lexical-binding: t; -*-
 
-
 ;;; evil-key-binding
 (map! :nvm "Z" (kbd "%") ;; normal+visual+motion
       :nvm "L" (kbd "$")
@@ -24,21 +23,21 @@
       ;; awesome-pair
       :i "M-k" 'awesome-pair-kill
       :i "M-j" 'awesome-pair-backward-kill)
-
+;; test
 ;;; doom-leader-def
 ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#map
 ;; create a new prefix and add key-binding:
 (map! (:leader
        ;; :desc "test" :prefix "a"
-       :desc "snippet" "it" #'yas-insert-snippet
+       :desc "snippet" "it" #'company-yasnippet
        ;; :desc "jump item" "ii" #'evilmi-jump-items
        :desc "delete item" "id" #'evilmi-delete-items
        :desc "select item" "is" #'evilmi-select-items
 
        ;; replace gitgutter
-       :desc "next hunk" "g[" #'diff-hl-previous-hunk
-       :desc "previous hunk" "g]" #'diff-hl-next-hunk
+       ;; :desc "next hunk" "g[" #'diff-hl-previous-hunk
+       ;; :desc "previous hunk" "g]" #'diff-hl-next-hunk
 
        ;; change the exitnet keybinding
        ;; :desc "my swiper buffer" "s s" #'my-swiper
@@ -55,8 +54,6 @@
 
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
-
-
 
 ;; === Chenbin's set for comma leader ===
 ;; copied from https://github.com/redguardtoo/emacs.d/blob/b61d75b8e3359304f4b4781ad11443a4524c79db/lisp/init-evil.el#L426
