@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: doint
+# key: doint
+# --
+${1:Enter Your Formula here$(when yas-moving-away-p (cm/calc-int yas-text))}$0

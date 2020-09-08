@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: chinese-header
+# key: cnh
+# condition: 'auto
+# --
+#+LATEX_COMPILER: xelatex
+#+LATEX_HEADER: \usepackage[scheme=plain]{ctex}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+EXPORT_FILE_NAME: ../latex/$1/$1.tex
+#+LATEX_HEADER: \input{../preamble.tex}
+#+OPTIONS: ^:nil

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: test
+# key: test_snippet
+# --
+#!/usr/bin/env python
+# coding:utf-8
+# Filename:`(file-name-nondirectory buffer-file-name)`
+
+$0

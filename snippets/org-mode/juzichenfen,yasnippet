@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: juzichenfen
+# key: cf
+# --
+($1)// $0
