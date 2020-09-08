@@ -185,5 +185,8 @@
        :dwt
        key-bindings       ; my own key bindings
        latex              ; my own latex settings
+       company            ; my own company settings
+       rime               ; Chinese insert
+       edit
 			 )
 
