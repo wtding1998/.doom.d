@@ -188,6 +188,7 @@
        company            ; my own company settings
        rime               ; Chinese insert
        edit
+       org
 			 yasnippet
 			 )
 
