@@ -8,7 +8,6 @@
 ;;   (setq TeX-command-default "XeLaTeX"
 ;;         TeX-save-query nil
 ;;         TeX-show-compilation t))
-
 ;;; use xetex ass default engine
 (setq-default TeX-engine 'xetex
               TeX-PDF-mode t)
