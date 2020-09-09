@@ -52,6 +52,8 @@
        :desc "popup term" "`" #'+vterm/toggle
 
        :desc "easy motion" "se" #'evil-avy-goto-char-2
+
+       :desc "vterm-yank" "vv" #'vterm-repl-yank
        ))
 
 ;; === redo map key binding ===
