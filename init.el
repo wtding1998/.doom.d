@@ -183,13 +183,13 @@
        (default +bindings +smartparens)
 
        :dwt
-       key-bindings       ; my own key bindings
-       latex              ; my own latex settings
-       company            ; my own company settings
-       rime               ; Chinese insert
-       edit
-       org
-			 yasnippet
-       vterm
+       dwt-key-bindings       ; my own key bindings
+       dwt-latex              ; my own latex settings
+       dwt-company            ; my own company settings
+       dwt-rime               ; Chinese insert
+       dwt-edit
+       dwt-org
+			 dwt-yasnippet
+       dwt-vterm
 			 )
 
