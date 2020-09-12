@@ -88,3 +88,5 @@
     ;; set scale for latex-preview
     (plist-put org-format-latex-options :scale 2.7)
     )
+
+(setq system-time-locale "C")
