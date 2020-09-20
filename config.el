@@ -24,7 +24,7 @@
                     :weight 'normal
                     :style 'Retina
                     :slant 'normal
-                    :size 22.0))
+                    :size 19.0))
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
     (set-fontset-font
      (frame-parameter nil 'font)
