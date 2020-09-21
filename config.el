@@ -73,3 +73,6 @@
 
 ;; maxmize frame when start
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; auto-save
+(auto-save-visited-mode +1)
