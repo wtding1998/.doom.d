@@ -1,5 +1,16 @@
 ;;; dwt/bindings/config.el -*- lexical-binding: t; -*-
 
+;; my-function
+;; (defun dwt-forward-jump-sexp()
+;;   (interactive)
+;;   (call-interactively #'sp-end-of-sexp)
+;;   (forward-char 1))
+
+;; (defun dwt-backward-jump-sexp()
+;;   (interactive)
+;;   (call-interactively #'sp-beginning-of-sexp)
+;;   (backward-char 1))
+
 ;;; evil-key-binding
 (map! :nvm "Z" (kbd "%") ;; normal+visual+motion
       :nvm "L" (kbd "$")
@@ -14,15 +25,17 @@
       :i "C-n" nil
       :i "C-p" nil
       ;; cursor move
-      ;; :i "C-k" 'previous-line
-      ;; :i "C-j" 'next-line
-      ;; :i "C-l" 'right-char
-      ;; :i "C-h" 'left-char
+      :i "C-k" 'previous-line
+      :i "C-j" 'next-line
+      :i "C-l" 'right-char
+      :i "C-h" 'left-char
       ;; show doc
       :n "gh" '+lookup/documentation
       ;; awesome-pair
-      :i "M-k" 'awesome-pair-kill
-      :i "M-j" 'awesome-pair-backward-kill)
+      ;; :i "M-p" 'dwt-forward-jump-sexp
+      ;; :i "M-n" 'dwt-backward-jump-sexp
+      )
+
 ;; test
 ;;; doom-leader-def
 ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
@@ -54,6 +67,8 @@
        :desc "easy motion" "se" #'evil-avy-goto-char-2
 
        :desc "vterm-yank" "vv" #'vterm-repl-yank
+
+       :desc "kill-ring" "kk" #'counsel-browse-kill-ring
        ))
 
 ;; === redo map key binding ===
