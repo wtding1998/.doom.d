@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: subsection_no_num
+# key: subn
+# --
+\subsection*{$0}

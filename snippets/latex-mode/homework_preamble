@@ -18,8 +18,8 @@
 \usepackage[scheme=plain]{ctex}
 \usepackage[utf8]{inputenc}
 \input{/mnt/d/Onedrive/Documents/study note/latex/preamble.tex}
-\author{Ding Wentao //
-SDS //
+\author{Ding Wentao \\\\
+SDS \\\\
 220049024
 }
 \date{\today}
