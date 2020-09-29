@@ -104,6 +104,7 @@
   "`" 'cdlatex-math-symbol
   "le" 'cdlatex-environment
   "lt" 'reftex-toc
+  "lc" 'TeX-command-master
 
   ;; yasnippet
   "yn" 'yas-new-snippet
@@ -135,11 +136,11 @@
 
   ;; buffer
   ;; "bb" 'awesome-tab-ace-jump
-  "bk" 'centaur-tabs-kill-all-buffers-in-current-group
-  "bg" 'centaur-tabs-counsel-switch-group
-  "bn" 'centaur-tabs-forward-tab
-  "bp" 'centaur-tabs-backward-tab
-  "b0" 'centaur-tabs-kill-other-buffers-in-current-group
+  "tk" 'centaur-tabs--kill-this-buffer-dont-ask
+  "tt" 'centaur-tabs-counsel-switch-group
+  "tl" 'centaur-tabs-forward-tab
+  "th" 'centaur-tabs-backward-tab
+  "t1" 'centaur-tabs-kill-other-buffers-in-current-group
   "1" 'centaur-tabs-select-visible-tab
   "2" 'centaur-tabs-select-visible-tab
   "3" 'centaur-tabs-select-visible-tab
@@ -192,7 +193,7 @@
   "xo" 'ace-window
   "ff" 'my-toggle-full-window ;; I use WIN+F in i3
   "ip" 'find-file-in-project
-  "tt" 'find-file-in-current-directory
+  ;; "tt" 'find-file-in-current-directory
   "jj" 'find-file-in-project-at-point
   ;; "kk" 'find-file-in-project-by-selected
   "kn" 'find-file-with-similar-name ; ffip v5.3.1
@@ -201,7 +202,7 @@
   "tff" 'toggle-frame-fullscreen
   "tfm" 'toggle-frame-maximized
   "ti" 'fastdef-insert
-  "th" 'fastdef-insert-from-history
+  ;; "th" 'fastdef-insert-from-history
   "cl" 'evilnc-comment-or-uncomment-lines
   "cq" 'evilnc-quick-comment-or-uncomment-to-the-line
   "cc" 'evilnc-copy-and-comment-lines
