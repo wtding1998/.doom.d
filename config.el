@@ -43,7 +43,7 @@
 
 ;; (setq themes-list (list 'doom-one 'doom-flatwhite))
 ;; (setq doom-theme (nth (random (length themes-list)) themes-list))
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-flatwhite)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
