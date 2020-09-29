@@ -5,6 +5,21 @@
  ;; If there is more than one, they won't work right.
  '(cdlatex-math-modify-alist '((97 "\\mathbb" "" t nil nil)))
  '(cdlatex-math-symbol-alist '((99 ("\\eta"))))
+ '(evil-surround-pairs-alist
+   '((40 "( " . " )")
+     (91 "[ " . " ]")
+     (123 "{ " . " }")
+     (41 "(" . ")")
+     (93 "[" . "]")
+     (125 "{" . "}")
+     (35 "#{" . "}")
+     (98 "(" . ")")
+     (66 "{" . "}")
+     (62 "<" . ">")
+     (116 . evil-surround-read-tag)
+     (60 . evil-surround-read-tag)
+     (102 . evil-surround-function)
+     (36 "$" . "$")))
  '(org-agenda-files
    '("/mnt/d/OneDrive/Documents/diary/org/research.org" "/mnt/d/OneDrive/Documents/diary/org/agenda.org" "/mnt/d/OneDrive/Documents/study note/org/emacs_note.org" "/mnt/d/Onedrive/Documents/journal.org" "/mnt/d/Onedrive/Documents/notes.org")))
 (custom-set-faces
