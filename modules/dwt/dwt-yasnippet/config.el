@@ -11,6 +11,7 @@
       (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
         (yas-expand))))
   (add-hook 'post-command-hook #'my-yas-try-expanding-auto-snippets)
+
   (defun my-org-latex-yas ()
     "Activate org and LaTeX yas expansion in org-mode buffers."
     (yas-minor-mode)
@@ -18,6 +19,50 @@
 
   (add-hook 'org-mode-hook #'my-org-latex-yas)
   )
+
+;; (use-package auto-activating-snippets
+;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
+;;   :hook (org-mode . auto-activating-snippets-mode)
+;;   :config
+;;   (aas-set-snippets 'text-mode
+;;                     ;; expand unconditionally
+;;                     "o-" "ō"
+;;                     "i-" "ī"
+;;                     "a-" "ā"
+;;                     "u-" "ū"
+;;                     "e-" "ē")
+;;   (aas-set-snippets 'latex-mode
+;;                     ;; set condition!
+;;                     :cond #'texmathp ; expand only while in math
+;;                     "supp" "\\supp"
+;;                     "On" "O(n)"
+;;                     "O1" "O(1)"
+;;                     "Olog" "O(\\log n)"
+;;                     "Olon" "O(n \\log n)"
+;;                     ;; bind to functions!
+;;                     "//" (lambda () (interactive)
+;;                              (yas-expand-snippet "\\frac{$1}{$2}$0"))
+;;                     "Span" (lambda () (interactive)
+;;                              (yas-expand-snippet "\\Span($1)$0"))))
+
+;; (use-package! latex-auto-activating-snippets
+;;   :after latex ; auctex's LaTeX package
+;;   :config ; do whatever here
+;;   (auto-activating-snippets-mode)
+;;   (aas-set-snippets 'latex-mode
+;;                     ;; set condition!
+;;                     :cond #'texmathp ; expand only while in math
+;;                     "supp" "\\supp"
+;;                     "On" "O(n)"
+;;                     "O1" "O(1)"
+;;                     "Olog" "O(\\log n)"
+;;                     "Olon" "O(n \\log n)"
+;;                     ;; bind to functions!
+;;                     "//" (lambda () (interactive)
+;;                              (yas-expand-snippet "\\frac{$1}{$2}$0"))
+;;                     "Span" (lambda () (interactive)
+;;                              (yas-expand-snippet "\\Span($1)$0"))))
+
 ;; (defun cm/calc-int (exp)
 ;;   (require 'calc)
 ;;   (require 'calc-lang)

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: footmark
+# key: ff
+# condition: (and (texmathp) 'auto)
+# --
+_{$0}

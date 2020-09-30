@@ -47,6 +47,7 @@
 			     org-cdlatex-mode
 			     org-agenda-log-mode
            TeX-mode
+           python-mode
            latex-mode
 			     diary-mode))
 	  "OrgMode")
