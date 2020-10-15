@@ -80,7 +80,12 @@
    :map LaTeX-mode-map
    :localleader
    :desc "View" "v" #'TeX-view
-   :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode))
+   :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
+   :desc "Preview Environment" "e" #'preview-environment
+   :desc "Preview Buffer" "b" #'preview-buffer
+   :desc "Clean preview" "r" #'preview-clearout-buffer
+   :desc "Command" "c" "TeX-command-master"
+   :desc "toc" "t" #'reftex-toc))
 
 ;;; python key binding
 ;; (after! python
