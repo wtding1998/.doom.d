@@ -74,6 +74,21 @@
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
 
+;;; latex key binding
+(after! tex
+  (map!
+   :map LaTeX-mode-map
+   :localleader
+   :desc "View" "v" #'TeX-view
+   :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode))
+
+;;; python key binding
+;; (after! python
+;;   (map!
+;;    :map python-mode-map
+;;    :localleader
+;;    :desc debug "d" #'realgud:pdb))
+
 ;; === Chenbin's set for comma leader ===
 ;; copied from https://github.com/redguardtoo/emacs.d/blob/b61d75b8e3359304f4b4781ad11443a4524c79db/lisp/init-evil.el#L426
 ;; {{ use `,` as leader key
