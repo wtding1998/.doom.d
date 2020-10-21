@@ -21,6 +21,26 @@
   :hook (cdlatex-mode . (lambda()
                           (define-key cdlatex-mode-map (kbd "(") nil)
                           )))
+(after! tex
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "llpp"))
+  (add-to-list 'TeX-view-program-list
+             '("llpp"
+               ("llpp "
+                (mode-io-correlate " ")
+                " %o")
+               "llpp")))
+;; this setting failed
+;; TODO: add synctex forward and backward
+;; (add-to-list 'TeX-view-program-list
+;;              '("Zathura"
+;;                ("zathura "
+;;                 (mode-io-correlate " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\" ")
+;;                 " %o")
+;;                "zathura"))
+;; (add-to-list 'TeX-view-program-selection
+;;              '(output-pdf "Zathura"))
+
 
 (use-package! reftex-toc
   :defer t
