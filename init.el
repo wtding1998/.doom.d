@@ -194,6 +194,6 @@
        dwt-lsp
        dwt-wsl2
 			 dwt-ui
-       ; dwt-dired
+       dwt-dired
 			 )
 
