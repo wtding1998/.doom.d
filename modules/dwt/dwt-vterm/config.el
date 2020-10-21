@@ -46,3 +46,7 @@
     (vterm-send-return)
     (when arg
       (evil-window-next 1))))
+
+;; (after! vterm
+;;   (define-key vterm-mode-map (kbd "C-c C-l") 'vterm-send-C-l)
+;;   )

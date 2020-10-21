@@ -83,7 +83,8 @@
    :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
    :desc "Preview Environment" "e" #'preview-environment
    :desc "Preview Buffer" "b" #'preview-buffer
-   :desc "Clean preview" "r" #'preview-clearout-buffer
+   :desc "Clean preview" "R" #'preview-clearout-buffer
+   :desc "Clean preview" "r" #'preview-clearout-at-point
    :desc "Command" "c" "TeX-command-master"
    :desc "toc" "t" #'reftex-toc))
 
