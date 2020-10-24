@@ -71,6 +71,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+
 ;; maxmize frame when start
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
