@@ -13,7 +13,7 @@
               TeX-PDF-mode t)
 ;;; auctex preview scale
 (after! preview
-    (setq-default preview-scale 3)
+    (setq-default preview-scale 2.5)
   )
 
 (use-package! cdlatex
@@ -28,10 +28,11 @@
              '("llpp"
                ("llpp "
                 (mode-io-correlate " ")
-                " %o")
+                "%o")
                "llpp")))
 ;; this setting failed
 ;; TODO: add synctex forward and backward
+;; (after! tex
 ;; (add-to-list 'TeX-view-program-list
 ;;              '("Zathura"
 ;;                ("zathura "
@@ -39,7 +40,7 @@
 ;;                 " %o")
 ;;                "zathura"))
 ;; (add-to-list 'TeX-view-program-selection
-;;              '(output-pdf "Zathura"))
+;;              '(output-pdf "Zathura")))
 
 
 (use-package! reftex-toc
