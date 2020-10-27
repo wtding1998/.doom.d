@@ -20,9 +20,14 @@
 (when (display-graphic-p)
   (set-face-attribute
    'default nil
-   :font (font-spec :name "Fira Code"
+   ;; :font (font-spec :name "Fira Code"
+   ;;                  :weight 'normal
+   ;;                  :style 'Retina
+   ;;                  :slant 'normal
+   ;;                  :size 19.0))
+   :font (font-spec :name "Source Code Pro"
                     :weight 'normal
-                    :style 'Retina
+                    :style 'Regular
                     :slant 'normal
                     :size 19.0))
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
