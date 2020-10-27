@@ -19,8 +19,8 @@
       :nvm "K" (kbd "5k")
       :nvm "W" (kbd "5w")
       :nvm "B" (kbd "5b")
-      :n "Q" 'delete-window
-      :i "C-v" 'evil-paste-after
+      :n "Q" 'kill-current-buffer
+      :i "C-v" 'evil-paste-before
       ;; C-n, C-p is binded to evil bydefault, to make them available in company-mode, disable them firstly
       :i "C-n" nil
       :i "C-p" nil
@@ -80,12 +80,14 @@
    :map LaTeX-mode-map
    :localleader
    :desc "View" "v" #'TeX-view
+   :desc "Run" "c" #'TeX-command-run-all
    :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
    :desc "Preview Environment" "e" #'preview-environment
    :desc "Preview Buffer" "b" #'preview-buffer
+   :desc "Preview at Point" "p" #'preview-at-point
    :desc "Clean preview" "R" #'preview-clearout-buffer
    :desc "Clean preview" "r" #'preview-clearout-at-point
-   :desc "Command" "c" "TeX-command-master"
+   ;; :desc "Command" "c" "TeX-command-master"
    :desc "toc" "t" #'reftex-toc))
 
 ;;; python key binding
