@@ -16,27 +16,31 @@
 ;; + `doom-variable-pitch-font'
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;;
-(when (display-graphic-p)
-  (set-face-attribute
-   'default nil
-   ;; :font (font-spec :name "Fira Code"
-   ;;                  :weight 'normal
-   ;;                  :style 'Retina
-   ;;                  :slant 'normal
-   ;;                  :size 19.0))
-   :font (font-spec :name "Source Code Pro"
-                    :weight 'normal
-                    :style 'Regular
-                    :slant 'normal
-                    :size 19.0))
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font
-     (frame-parameter nil 'font)
-     charset
-     (font-spec :name "WenQuanYi Micro Hei Mono"
-                :weight 'normal
-                :slant 'normal))))
+;; setting for GUI
+(if (display-graphic-p)
+    (progn
+      (set-face-attribute
+        'default nil
+        ;; :font (font-spec :name "Fira Code"
+        ;;                  :weight 'normal
+        ;;                  :style 'Retina
+        ;;                  :slant 'normal
+        ;;                  :size 19.0))
+        :font (font-spec :name "Source Code Pro"
+                          :weight 'normal
+                          :style 'Regular
+                          :slant 'normal
+                          :size 19.0))
+        (dolist (charset '(kana han symbol cjk-misc bopomofo))
+          (set-fontset-font
+          (frame-parameter nil 'font)
+          charset
+          (font-spec :name "WenQuanYi Micro Hei Mono"
+                      :weight 'normal
+                      :slant 'normal)))
+      (setq doom-theme 'doom-flatwhite))
+  ;; setting  for terminal
+  (setq doom-theme 'doom-opera))
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
@@ -48,7 +52,6 @@
 
 ;; (setq themes-list (list 'doom-one 'doom-flatwhite))
 ;; (setq doom-theme (nth (random (length themes-list)) themes-list))
-(setq doom-theme 'doom-flatwhite)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
