@@ -12,7 +12,7 @@
 
   ;; set UI
   (setq rime-posframe-properties
-                          (list :font "WenQuanYi Micro Hei Mono"))
+                          (list :font "Source Han Serif CN"))
 
   ;; use English automatically after English words
   (setq rime-disable-predicates

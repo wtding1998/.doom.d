@@ -17,30 +17,67 @@
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
 ;; setting for GUI
+;; (if (display-graphic-p)
+;;     (progn
+;;       (set-face-attribute
+;;         'default nil
+;;         ;; :font (font-spec :name "Fira Code"
+;;         ;;                  :weight 'normal
+;;         ;;                  :style 'Retina
+;;         ;;                  :slant 'normal
+;;         ;;                  :size 19.0))
+;;         :font (font-spec :name "Source Code Pro"
+;;                           :weight 'normal
+;;                           :style 'Regular
+;;                           :slant 'normal
+;;                           :size 19.0))
+;;         (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;           (set-fontset-font
+;;           (frame-parameter nil 'font)
+;;           charset
+;;           (font-spec :name "WenQuanYi Micro Hei Mono"
+;;                       :weight 'normal
+;;                       :slant 'normal)))
+;;       (setq doom-theme 'doom-tomorrow-night))
+;;   ;; setting  for emacs client
+;;   ;; TODO setting fonts for Chinese
+;;   (progn
+;;     (setq doom-theme 'doom-tomorrow-night)
+;;     (setq doom-font (font-spec :family "Source Code Pro" :size 25))
+;;     (set-fontset-font t 'unicode (font-spec :family "WenQuanYi Micro Hei Mono" :weight 'normal :slant 'normal))
+
+;;     ;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;     ;;       (set-fontset-font
+;;     ;;       (frame-parameter nil 'font)
+;;     ;;       charset
+;;     ;;       (font-spec :name "WenQuanYi Micro Hei Mono"
+;;     ;;                   :weight 'normal
+;;     ;;                   :slant 'normal)))
+;;     )
+;;   )
+;; https://blog.csdn.net/xh_acmagic/article/details/78939246
+(defun dwt/better-font()
+;; english font
 (if (display-graphic-p)
     (progn
-      (set-face-attribute
-        'default nil
-        ;; :font (font-spec :name "Fira Code"
-        ;;                  :weight 'normal
-        ;;                  :style 'Retina
-        ;;                  :slant 'normal
-        ;;                  :size 19.0))
-        :font (font-spec :name "Source Code Pro"
-                          :weight 'normal
-                          :style 'Regular
-                          :slant 'normal
-                          :size 19.0))
+        (setq doom-theme 'doom-tomorrow-night)
+        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
+        ;; chinese font
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
-          (set-fontset-font
-          (frame-parameter nil 'font)
-          charset
-          (font-spec :name "WenQuanYi Micro Hei Mono"
-                      :weight 'normal
-                      :slant 'normal)))
-      (setq doom-theme 'doom-flatwhite))
-  ;; setting  for terminal
-  (setq doom-theme 'doom-opera))
+        (set-fontset-font (frame-parameter nil 'font)
+                            charset
+                            (font-spec :family "Source Han Serif CN")))) ;; 14 16 20 22 28
+    ))
+
+(defun dwt/init-font(frame)
+(with-selected-frame frame
+    (if (display-graphic-p)
+        (dwt/better-font))))
+
+(if (and (fboundp 'daemonp) (daemonp))
+    (add-hook 'after-make-frame-functions #'dwt/init-font)
+(dwt/better-font))
+
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
