@@ -62,6 +62,7 @@
     (progn
         (setq doom-theme 'doom-tomorrow-night)
         (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 27)) ;; 11 13 17 19 23
         ;; chinese font
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
         (set-fontset-font (frame-parameter nil 'font)
@@ -122,3 +123,6 @@
 
 ;; auto-save
 (auto-save-visited-mode +1)
+;; better default setting
+(setq evil-want-fine-undo t)
+;; (setq auto-save-default t)
