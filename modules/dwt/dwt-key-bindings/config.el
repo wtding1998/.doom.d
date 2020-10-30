@@ -28,10 +28,10 @@
       :i "C-n" nil
       :i "C-p" nil
       ;; cursor move
-      :i "C-k" 'previous-line
-      :i "C-j" 'next-line
-      :i "C-l" 'right-char
-      :i "C-h" 'left-char
+      ;; :i "C-k" 'previous-line
+      ;; :i "C-j" 'next-line
+      ;; :i "C-l" 'right-char
+      ;; :i "C-h" 'left-char
       ;; show doc
       :n "gh" '+lookup/documentation
       ;; awesome-pair
@@ -77,21 +77,6 @@
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
 
-;;; latex key binding
-(after! tex
-  (map!
-   :map LaTeX-mode-map
-   :localleader
-   :desc "View" "v" #'TeX-view
-   :desc "Run" "c" #'TeX-command-run-all
-   :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
-   :desc "Preview Environment" "e" #'preview-environment
-   :desc "Preview Buffer" "b" #'preview-buffer
-   :desc "Preview at Point" "p" #'preview-at-point
-   :desc "Clean preview" "R" #'preview-clearout-buffer
-   :desc "Clean preview" "r" #'preview-clearout-at-point
-   ;; :desc "Command" "c" "TeX-command-master"
-   :desc "toc" "t" #'reftex-toc))
 
 ;;; python key binding
 ;; (after! python
