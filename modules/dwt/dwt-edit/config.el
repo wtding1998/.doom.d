@@ -158,3 +158,30 @@ If N is nil, use `ivy-mode' to browse `kill-ring'."
 ;; (define-key awesome-pair-mode-map (kbd "M-p") 'awesome-pair-jump-right)
 ;; (define-key awesome-pair-mode-map (kbd "M-n") 'awesome-pair-jump-left)
 ;; (define-key awesome-pair-mode-map (kbd "M-:") 'awesome-pair-jump-out-pair-and-newline)
+
+;;; meow
+;; Put these in the :config section in use-package
+(use-package! meow
+  :defer t
+  ;; :init
+  ;; (meow-global-mode 1)
+  :custom
+  ;; layout options: qwerty, dvorak, dvp, colemak
+  (meow-layout 'qwerty)
+  :config
+  (meow-leader-define-key
+    '("k" . kill-buffer)
+    '("l" . goto-line)
+    '("h" . other-window)
+    '("o" . delete-other-windows)
+    '("-" . split-window-below)
+    '("/" . swiper)
+    '("\\" . split-window-right)
+    '("m" . magit-status)
+    '("f" . find-file)
+    '("F" . find-file-literally))
+  (meow-leader-define-mode-key
+    'emacs-lisp-mode
+    '("RET" . eval-buffer)
+    '("SPC" . eval-defun))
+  )
