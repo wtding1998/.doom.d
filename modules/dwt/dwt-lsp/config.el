@@ -28,6 +28,30 @@
 (use-package! eldoc-box
   :defer t)
 
-(use-package! eglot
+(use-package! lsp-mode
+  :defer t
   :config
-  (setq eglot-ignored-server-capabilites '(:documentHighlightProvider)))
+  (setq lsp-auto-guess-root t)
+  (setq lsp-signature-auto-activate t)
+  (setq lsp-signature-doc-lines 1)
+  (setq lsp-enable-symbol-highlighting t)
+  (setq lsp-keymap-prefix "C-c l"
+        lsp-keep-workspace-alive nil
+        lsp-modeline-code-actions-enable nil
+        lsp-modeline-diagnostics-enable nil
+        lsp-modeline-workspace-status-enable nil
+
+        lsp-enable-file-watchers nil
+        lsp-enable-folding nil
+        lsp-enable-semantic-highlighting nil
+        lsp-enable-symbol-highlighting nil
+        lsp-enable-text-document-color nil
+
+        lsp-enable-indentation nil
+        lsp-enable-on-type-formatting nil))
+
+
+
+;; (use-package! eglot
+;;   :config
+;;   (setq eglot-ignored-server-capabilites '(:documentHighlightProvider)))
