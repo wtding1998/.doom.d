@@ -27,3 +27,7 @@
 
 (use-package! eldoc-box
   :defer t)
+
+(use-package! eglot
+  :config
+  (setq eglot-ignored-server-capabilites '(:documentHighlightProvider)))
