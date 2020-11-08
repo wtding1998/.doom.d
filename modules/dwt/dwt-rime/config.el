@@ -19,9 +19,12 @@
                           '(rime-predicate-evil-mode-p
                                   rime-predicate-tex-math-or-command-p
                                   rime-predicate-evil-mode-p
+                                  rime-predicate-prog-in-code-p
+                                  rime-predicate-in-code-string-p
+                                  rime-predicate-punctuation-after-space-cc-p
                                   rime-predicate-space-after-cc-p
                                   rime-predicate-current-uppercase-letter-p
-                                  rime-predicate-after-ascii-char-p))
+                                  rime-predicate-after-alphabet-char-p))
 
   ;; Force to enter chinese ignoring rime-disable-predicates
   (define-key rime-mode-map (kbd "M-c") 'rime-force-enable)
