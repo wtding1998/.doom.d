@@ -65,7 +65,8 @@
         ;; (setq doom-theme 'doom-one-light)
         (setq doom-theme 'doom-tomorrow-night)
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 25)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 27)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 27)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 27)) ;; 11 13 17 19 23
         ;; chinese font
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
