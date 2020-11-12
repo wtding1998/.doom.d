@@ -22,6 +22,8 @@
       :nv "[q" (kbd "C-c C-c")
       :nv "[p" 'goto-last-change
       :nv "]p" 'goto-last-change-reverse
+      :nv "[g" 'git-gutter:previous-hunk
+      :nv "]g" 'git-gutter:next-hunk
       :n "Q" 'kill-current-buffer
       :i "C-v" 'evil-paste-before
       ;; C-n, C-p is binded to evil bydefault, to make them available in company-mode, disable them firstly
@@ -34,6 +36,8 @@
       ;; :i "C-h" 'left-char
       ;; show doc
       :n "gh" '+lookup/documentation
+
+      :i "C-SPC" 'evil-visual-char
       ;; awesome-pair
       ;; :i "M-p" 'dwt-forward-jump-sexp
       ;; :i "M-n" 'dwt-backward-jump-sexp
@@ -62,8 +66,8 @@
        :desc "delete other windows" "1" #'delete-other-windows
        :desc "delete window" "0" #'+workspace/close-window-or-workspace
 
-       :desc "previous buffer" "[" #'previous-buffer
-       :desc "next buffer" "]" #'next-buffer
+       ;; :desc "previous buffer" "[" #'previous-buffer
+       ;; :desc "next buffer" "]" #'next-buffer
 
        :desc "popup term" "`" #'+vterm/toggle
 
