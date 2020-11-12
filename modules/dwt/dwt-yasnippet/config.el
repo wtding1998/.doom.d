@@ -20,6 +20,14 @@
   (add-hook 'org-mode-hook #'my-org-latex-yas)
   )
 
+(defun dwt/math-auto-expand-yasnippet ()
+  (interactive)
+  (insert "# condition: (and (texmathp) 'auto)"))
+
+(map! (:leader
+      :desc "math auto expand" "ia" #'dwt/math-auto-expand-yasnippet))
+
+
 ;; (use-package auto-activating-snippets
 ;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
 ;;   :hook (org-mode . auto-activating-snippets-mode)
