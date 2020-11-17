@@ -29,6 +29,45 @@
                 (mode-io-correlate " ")
                 "%o")
                "llpp"))
+
+  ;;;###autoload
+  (defun dwt/find-math-next()
+  "Goto the next math environment in tex buffer."
+    (interactive)
+    (while (texmathp)
+        (evil-forward-word-begin))
+    (while (not (texmathp))
+      (evil-forward-word-begin)))
+
+  ;;;###autoload
+  (defun dwt/find-math-prev()
+  "Goto the last math environment in tex buffer."
+    (interactive)
+    (while (texmathp)
+        (evil-backward-word-begin))
+    (while (not (texmathp))
+      (evil-backward-word-begin)))
+
+  (defun dwt/insert-dollar ()
+    (interactive)
+    (unless (texmathp)
+      (insert "$$")
+      (left-char)))
+
+  (defun dwt/insert-superscript ()
+    (interactive)
+    (insert "^{}")
+    (left-char))
+
+  (defun dwt/insert-transpose ()
+    (interactive)
+    (insert "^{T}"))
+
+
+  (defun dwt/insert-star ()
+    (interactive)
+    (insert "^{*}"))
+
   (map!
    :map LaTeX-mode-map
    :localleader
@@ -49,7 +88,11 @@
               (define-key evil-normal-state-local-map (kbd "}") 'dwt/find-math-next)
               (define-key evil-visual-state-local-map (kbd "}") 'dwt/find-math-next)
               (define-key evil-normal-state-local-map (kbd "{") 'dwt/find-math-prev)
-              (define-key evil-visual-state-local-map (kbd "{") 'dwt/find-math-prev))))
+              (define-key evil-visual-state-local-map (kbd "{") 'dwt/find-math-prev)
+              (define-key evil-insert-state-local-map (kbd "M-\\") 'dwt/insert-dollar)
+              (define-key evil-insert-state-local-map (kbd "M-[") 'dwt/insert-superscript)
+              (define-key evil-insert-state-local-map (kbd "M-]") 'dwt/insert-transpose)
+              (define-key evil-insert-state-local-map (kbd "M-8") 'dwt/insert-star))))
 ;; this setting failed
 ;; TODO: add synctex forward and backward
 ;; (after! tex
@@ -74,20 +117,3 @@
 
 ;;; find next or previous math environment
 
-;;;###autoload
-(defun dwt/find-math-next()
- "Goto the next math environment in tex buffer."
-  (interactive)
-  (while (texmathp)
-      (evil-forward-word-begin))
-  (while (not (texmathp))
-    (evil-forward-word-begin)))
-
-;;;###autoload
-(defun dwt/find-math-prev()
- "Goto the last math environment in tex buffer."
-  (interactive)
-  (while (texmathp)
-      (evil-backward-word-begin))
-  (while (not (texmathp))
-    (evil-backward-word-begin)))
