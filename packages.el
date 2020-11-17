@@ -49,3 +49,8 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 (unpin! doom-themes)
+(package! tao-theme)
+(package! dog-themes :recipe
+  (:host github
+   :repo "DogLooksGood/.emacs.d"
+   :files ("*.el" "themes/*.el")))

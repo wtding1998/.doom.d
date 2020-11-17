@@ -131,3 +131,8 @@
 ;; better default setting
 (setq evil-want-fine-undo t)
 ;; (setq auto-save-default t)
+
+;; load theme of DogLooksGood
+(require 'joker-theme)
+(require 'storybook-theme)
+(require 'printed-theme)
