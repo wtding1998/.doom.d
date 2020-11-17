@@ -19,6 +19,8 @@
       :nvm "K" (kbd "5k")
       :nvm "W" (kbd "5w")
       :nvm "B" (kbd "5b")
+      :nv "8" (kbd "^")
+      :nv "9" (kbd "$")
       :nv "[q" (kbd "C-c C-c")
       :nv "[p" 'goto-last-change
       :nv "]p" 'goto-last-change-reverse
