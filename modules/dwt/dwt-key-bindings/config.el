@@ -45,6 +45,7 @@
       ;; :i "M-n" 'dwt-backward-jump-sexp
       )
 
+
 ;; test
 ;;; doom-leader-def
 ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
@@ -78,7 +79,13 @@
        :desc "vterm-yank" "vv" #'vterm-repl-yank
 
        :desc "kill-ring" "kk" #'counsel-browse-kill-ring
+
+       ;; tabs
+       :desc "kill other tabs" "t1" #'centaur-tabs-kill-other-buffers-in-current-group
+       :desc "switch tabs group" "tt" #'centaur-tabs-counsel-switch-group
        ))
+
+
 
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
