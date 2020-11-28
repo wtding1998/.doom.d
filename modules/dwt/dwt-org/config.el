@@ -13,6 +13,8 @@
   (add-hook (quote org-mode-hook)
           (lambda ()
             (org-shifttab 2)))
+   ;; highlight latex related part
+  (setq org-highlight-latex-and-related '(latex scripe entities))
 ;; === templates ===
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
@@ -79,14 +81,15 @@
                  (file+olp "/mnt/d/OneDrive/Documents/study note/org/reading.org" "Emacs Materials")
                  "* TODO %t %^{title}\n" ))
   ;; === cancel bold font in header ===
-    (dolist (face '(org-level-1
-                  org-level-2 org-level-3
-                  org-level-4 org-level-5
-                  org-level-6 org-level-7
-                  org-level-8))
-      (set-face-attribute face nil :weight 'normal))
+    ;; (dolist (face '(org-level-1
+    ;;               org-level-2 org-level-3
+    ;;               org-level-4 org-level-5
+    ;;               org-level-6 org-level-7
+    ;;               org-level-8))
+    ;;   (set-face-attribute face nil :weight 'normal))
     ;; set scale for latex-preview
     (plist-put org-format-latex-options :scale 2.7)
+
     )
 
 (setq system-time-locale "C")
