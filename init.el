@@ -148,7 +148,8 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        ;; (org +ipython)               ; organize your plain life in plain text
-       org              ; organize your plain life in plain text
+       (org +pretty +jupyter)              ; organize your plain life in plain text
+       ;; (org +pretty)              ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -199,4 +200,5 @@
        ;; dwt-ui
        dwt-python
        dwt-useful-func
+       dwt-eaf
        )
