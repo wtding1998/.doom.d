@@ -87,6 +87,7 @@
        ;; file
        :desc "fzf" "fz" #'counsel-fzf
        :desc "rg" "fg" #'counsel-rg
+       :desc "find file other window" "fv" #'find-file-other-window
        :desc "open by extern program" "fo" #'counsel-find-file-extern
        ))
 
