@@ -83,6 +83,11 @@
        ;; tabs
        :desc "kill other tabs" "t1" #'centaur-tabs-kill-other-buffers-in-current-group
        :desc "switch tabs group" "tt" #'centaur-tabs-counsel-switch-group
+
+       ;; file
+       :desc "fzf" "fz" #'counsel-fzf
+       :desc "rg" "fg" #'counsel-rg
+       :desc "open by extern program" "fo" #'counsel-find-file-extern
        ))
 
 
@@ -90,6 +95,8 @@
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
 
+(map! :n "gl" 'evil-avy-goto-line
+      :n "go" 'evil-avy-goto-char-2)
 
 ;;; python key binding
 ;; (after! python
