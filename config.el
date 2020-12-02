@@ -40,7 +40,6 @@
 ;;                       :slant 'normal)))
 ;;       (setq doom-theme 'doom-tomorrow-night))
 ;;   ;; setting  for emacs client
-;;   ;; TODO setting fonts for Chinese
 ;;   (progn
 ;;     (setq doom-theme 'doom-tomorrow-night)
 ;;     (setq doom-font (font-spec :family "Source Code Pro" :size 25))
@@ -137,4 +136,6 @@
 ;; better default setting
 (setq evil-want-fine-undo t)
 ;; (setq auto-save-default t)
-
+;; set title bar
+;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
+(setq-default frame-title-format '("DOOM-EMACS - " user-login-name " - %b"))
