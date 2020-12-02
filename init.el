@@ -85,7 +85,7 @@
 
        :tools
        ;;ansible
-       debugger          ; FIXME stepping through code, to help you add bugs
+       ;; debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
@@ -147,7 +147,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       ;; (org +ipython)               ; organize your plain life in plain text
+       ;; (org +pretty +jupyter +roam)              ; organize your plain life in plain text
        (org +pretty +jupyter)              ; organize your plain life in plain text
        ;; (org +pretty)              ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
