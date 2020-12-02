@@ -139,3 +139,9 @@
 ;; set title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
 (setq-default frame-title-format '("DOOM-EMACS - " user-login-name " - %b"))
+;; display time modeline
+(setq display-time-day-and-date t)
+(setq display-time-24hr-format t)
+(display-time-mode 1)
+;; display battery in modeline
+(display-battery-mode 1)
