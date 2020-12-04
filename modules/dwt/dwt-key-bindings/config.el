@@ -24,6 +24,8 @@
       :nv "[q" (kbd "C-c C-c")
       :nv "[p" 'goto-last-change
       :nv "]p" 'goto-last-change-reverse
+      :nv "[z" 'goto-last-change
+      :nv "]z" 'goto-last-change-reverse
       :nv "[g" 'git-gutter:previous-hunk
       :nv "]g" 'git-gutter:next-hunk
       :n "Q" 'kill-current-buffer
@@ -39,11 +41,11 @@
       ;; show doc
       :n "gh" '+lookup/documentation
 
-      :i "C-SPC" 'evil-visual-char
+      :i "C-SPC" 'evil-visual-char)
       ;; awesome-pair
       ;; :i "M-p" 'dwt-forward-jump-sexp
       ;; :i "M-n" 'dwt-backward-jump-sexp
-      )
+
 
 
 ;; test
@@ -89,7 +91,10 @@
        :desc "rg" "fg" #'counsel-rg
        :desc "find file other window" "fv" #'find-file-other-window
        :desc "open by extern program" "fo" #'counsel-find-file-extern
-       ))
+
+       ;; help
+       :desc "battery" "hB" #'battery))
+
 
 
 
@@ -97,7 +102,16 @@
 (map! :n "U" 'undo-fu-only-redo)
 
 (map! :n "gl" 'evil-avy-goto-line
-      :n "go" 'evil-avy-goto-char-2)
+      :n "go" 'evil-avy-goto-char-2
+      :n "zs" 'basic-save-buffer
+      :n "zq" 'save-buffers-kill-terminal)
+
+;; TODO bind "ze" in normal state to eval-last-sexp in elisp mode
+;; (add-hook 'elisp-mode-hook
+;;         (lambda ()
+;;           (define-key evil-normal-state-local-map (kbd "ze") 'eval-last-sexp)))
+
+(map! "C-s" #'+default/search-buffer)
 
 ;;; python key binding
 ;; (after! python
@@ -105,7 +119,8 @@
 ;;    :map python-mode-map
 ;;    :localleader
 ;;    :desc debug "d" #'realgud:pdb))
-
+;; test
+;; test
 ;; === Chenbin's set for comma leader ===
 ;; copied from https://github.com/redguardtoo/emacs.d/blob/b61d75b8e3359304f4b4781ad11443a4524c79db/lisp/init-evil.el#L426
 ;; {{ use `,` as leader key
