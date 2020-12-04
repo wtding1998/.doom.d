@@ -60,14 +60,20 @@
 (require 'joker-theme)
 (require 'storybook-theme)
 (require 'printed-theme)
+
+;; load doom-themes
+;; (use-package doom-themes
+;;   :load-path "~/.emacs.d/.local/straight/repos/emacs-doom-themes")
+
 (defun dwt/better-font()
-;; english font
-(if (display-graphic-p)
-    (progn
-        (setq doom-theme 'doom-flatwhite)
+  ;; english font
+  (if (display-graphic-p)
+      (progn
+        ;; (setq doom-theme 'doom-flatwhite)
+        ;; (setq doom-theme 'doom-one)
         ;; (setq doom-theme 'dichromacy)
         ;; (setq doom-theme 'doom-one-light)
-        ;; (setq doom-theme 'doom-tomorrow-night)
+        (setq doom-theme 'doom-tomorrow-night)
         ;; (setq doom-theme 'storybook)
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 27)) ;; 11 13 17 19 23
@@ -75,13 +81,13 @@
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 27)) ;; 11 13 17 19 23
         ;; chinese font
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
-        (set-fontset-font (frame-parameter nil 'font)
+          (set-fontset-font (frame-parameter nil 'font)
                             charset
                             (font-spec :family "Source Han Serif CN")))) ;; 14 16 20 22 28
     ))
 
 (defun dwt/init-font(frame)
-(with-selected-frame frame
+  (with-selected-frame frame
     (if (display-graphic-p)
         (dwt/better-font))))
 
@@ -138,7 +144,7 @@
 ;; (setq auto-save-default t)
 ;; set title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
-(setq-default frame-title-format '("DOOM-EMACS - " user-login-name " - %b"))
+(setq-default frame-title-format '("Doom-Emacs - " user-login-name " - %b"))
 ;; display time modeline
 (setq display-time-day-and-date t)
 (setq display-time-24hr-format t)
