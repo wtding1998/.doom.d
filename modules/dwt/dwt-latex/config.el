@@ -19,8 +19,8 @@
 (use-package! cdlatex
   :defer t
   :hook (cdlatex-mode . (lambda()
-                          (define-key cdlatex-mode-map (kbd "(") nil)
-                          )))
+                          (define-key cdlatex-mode-map (kbd "(") nil))))
+
 (after! tex
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "llpp"))
@@ -29,7 +29,23 @@
                  ("llpp "
                   (mode-io-correlate " ")
                   "%o")
-                 "llpp")))
+                 "llpp"))
+  (defmacro define-and-bind-text-object (key start-regex end-regex)
+    (let ((inner-name (make-symbol "inner-name"))
+          (outer-name (make-symbol "outer-name")))
+      `(progn
+         (evil-define-text-object ,inner-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+         (evil-define-text-object ,outer-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count t))
+         (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+         (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
+  (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
+  ;; TODO add // in outer-name
+  (define-and-bind-text-object "-" "&" "&"))
+
+
 
   ;;;###autoload
 (defun dwt/find-math-next()
@@ -49,14 +65,30 @@
   (while (not (texmathp))
     (evil-backward-word-begin)))
 
+;; (defun dwt/insert-dollar ()
+;;   (interactive)
+;;   (unless (texmathp)
+;;     (insert "$$")
+;;     (left-char)))
+
 (defun dwt/insert-dollar ()
+  "Insert a pair of dollar when texmathp returns false. If there is a word at point, also wrap it."
   (interactive)
   (unless (texmathp)
-    (insert "$$")
-    (left-char)))
+    (progn
+      (if (thing-at-point 'word)
+          (progn
+            (call-interactively #'backward-word)
+            (insert "$")
+            (call-interactively #'forward-word)
+            (insert "$")
+            (left-char 1)
+            )
+        (insert "$$")
+        (left-char 1)))))
 
 (defun dwt/insert-superscript ()
-  "if not in math environment, insert math and wrap the word connects with it"
+  "If it's in math environment, insert a superscript, otherwise insert dollar and also wrap the word at point"
   (interactive)
   (if (texmathp)
       (progn
@@ -75,7 +107,7 @@
         (left-char 4)))))
 
 (defun dwt/insert-subscript ()
-  "if not in math environment, insert math and wrap the word connects with it"
+  "If it's in math environment, insert a subscript, otherwise insert dollar and also wrap the word at point"
   (interactive)
   (if (texmathp)
       (progn
@@ -95,30 +127,40 @@
 
 
 (defun dwt/insert-transpose ()
+  "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
   (interactive)
-  (when (texmathp)
-    (insert "^{T}")))
-
-
-(defun dwt/insert-star ()
-  (interactive)
-  (when (texmathp)
-    (insert "^{*}")))
+  (if (texmathp)
+      (progn
+        (insert "^{t}"))
+    (progn
+      (if (thing-at-point 'word)
+          (progn
+            (call-interactively #'backward-word)
+            (insert "$")
+            (call-interactively #'forward-word)
+            (insert "^{T}$"))
+        (insert "$^{T}$"))
+      (left-char))))
 
 (map!
  :map LaTeX-mode-map
- :localleader
- :desc "View" "v" #'TeX-view
- :desc "Run" "c" #'TeX-command-run-all
- :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
- :desc "Preview Environment" "e" #'preview-environment
- :desc "Preview Buffer" "b" #'preview-buffer
- :desc "Preview at Point" "p" #'preview-at-point
- :desc "Clean preview" "R" #'preview-clearout-buffer
- :desc "Clean preview" "r" #'preview-clearout-at-point
- :desc "Master" "m" #'TeX-command-master
- ;; :desc "Command" "c" "TeX-command-master"
- :desc "toc" "t" #'reftex-toc)
+ (
+  :localleader
+  :desc "View" "v" #'TeX-view
+  :desc "Run" "c" #'TeX-command-run-all
+  :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
+  :desc "Preview Environment" "e" #'preview-environment
+  :desc "Preview Buffer" "b" #'preview-buffer
+  :desc "Preview at Point" "p" #'preview-at-point
+  :desc "Clean preview" "R" #'preview-clearout-buffer
+  :desc "Clean preview" "r" #'preview-clearout-at-point
+  :desc "Master" "m" #'TeX-command-master
+  ;; :desc "Command" "c" "TeX-command-master"
+  :desc "toc" "t" #'reftex-toc))
+;; test if () can separate key word in map!
+;; :n "[X" #'dwt/insert-subscript
+
+
 
 (add-hook 'LaTeX-mode-hook
           (lambda ()
