@@ -1,5 +1,5 @@
 ;;; dwt/dwt-wsl2/config.el -*- lexical-binding: t; -*-
-
+;; open url by windows explorer
 (defun wsl-browse-url-xdg-open (url &optional ignored)
   (interactive (browse-url-interactive-arg "URL: "))
   (shell-command-to-string (concat "explorer.exe " url)))
@@ -27,3 +27,7 @@
 
 (wsl--open-with open-in-default-program "explorer.exe" buffer-file-name)
 (wsl--open-with reveal-in-explorer "explorer.exe" default-directory)
+
+(map! :leader
+      :desc "reveal in windows" "oe" #'wsl/reveal-in-explorer
+      :desc "open by windows program" "ow" #'wsl/open-in-default-program)
