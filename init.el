@@ -29,7 +29,7 @@
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
-       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
@@ -150,7 +150,7 @@
        ;; (org +ipython)               ; organize your plain life in plain text
        ;; (org +pretty +jupyter +roam)              ; organize your plain life in plain text
        ;; (org +pretty)              ; organize your plain life in plain text
-       org
+       (org +roam)
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
