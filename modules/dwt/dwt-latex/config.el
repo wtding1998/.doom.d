@@ -160,7 +160,29 @@
 ;; test if () can separate key word in map!
 ;; :n "[X" #'dwt/insert-subscript
 
+;; TODO add tex template
+;; for beamer: ...
+;; for paper: ...
+;; for homework: ...
 
+;;;###autoload
+(defun dwt/new-TeX-dir ()
+  "Make new dir in DIR-PATH with name DIR-NAME."
+  (interactive)
+  (let (project-path dir-name subdir-names)
+    (setq project-path (ivy-read "Switch to project: " projectile-known-projects))
+    ;; TODO list only the name of dir rather than their path
+    (setq subdir-names '())
+    (dolist (path (f-directories project-path))
+      (push (car (last (split-string path "/"))) subdir-names))
+    ;; (setq dir-name (ivy-read "New dir name: " (f-directories project-path)))
+    (setq dir-name (ivy-read "New dir name: " subdir-names))
+    (unless (member dir-name subdir-names)
+      (make-directory (concat project-path dir-name))
+      (find-file (concat project-path dir-name "/" dir-name ".tex")))))
+
+(map! :leader
+      :desc "New TeX dir" "ol" #'dwt/new-TeX-dir)
 
 (add-hook 'LaTeX-mode-hook
           (lambda ()
