@@ -40,6 +40,8 @@
       ;; :i "C-h" 'left-char
       ;; show doc
       :n "gh" '+lookup/documentation
+      :nv "A" #'evil-avy-goto-char-2
+      :n "-" #'evil-append-line
 
       :i "C-SPC" 'evil-visual-char)
       ;; awesome-pair
@@ -386,4 +388,3 @@
   "ww" 'narrow-or-widen-dwim
   "ycr" 'my-yas-reload-all
   "wf" 'popup-which-function)
-;; }}
