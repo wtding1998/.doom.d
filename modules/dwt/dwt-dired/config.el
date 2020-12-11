@@ -12,3 +12,22 @@
 ;;   (setq ranger-show-literal t)
 ;;   (setq ranger-width-preview 0.55)
 ;;   )
+
+;; (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "evince"))
+;;                                   ("\\.doc\\'" "libreoffice")
+;;                                   ("\\.docx\\'" "libreoffice")
+;;                                   ("\\.ppt\\'" "libreoffice")
+;;                                   ("\\.pptx\\'" "libreoffice")
+;;                                   ("\\.xls\\'" "libreoffice")
+;;                                   ("\\.xlsx\\'" "libreoffice")
+;;                                   ("\\.jpg\\'" "pinta")
+;;                                   ("\\.png\\'" "pinta")
+;;                                   ("\\.java\\'" "idea"))
+;; use & to open pdf
+(after! dired-x
+  (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "SumatraPDF-3.2-64.exe"))))
+
+(after!
+  (map! :map dired-mode-map
+        :localleader
+        :desc "find file" "g" #'grep-dired-dwim))

@@ -201,4 +201,5 @@
        dwt-python
        dwt-useful-func
        dwt-eaf
+       dwt-dired
        )
