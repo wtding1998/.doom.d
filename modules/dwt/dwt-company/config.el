@@ -11,7 +11,7 @@
          :map company-active-map
          ("C-p" . company-select-previous)
          ("C-n" . company-select-next)
-         ;; ("<backtab>" . my-company-yasnippet)
+         ("<backtab>" . my-company-yasnippet)
          :map company-search-map
          ("C-p" . company-select-previous)
          ("C-n" . company-select-next))

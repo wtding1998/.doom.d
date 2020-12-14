@@ -84,6 +84,10 @@
 
        :desc "kill-ring" "kk" #'counsel-browse-kill-ring
 
+       ;; winner
+       :desc "winner-undo" "w[" #'winner-undo
+       :desc "winner-redi" "w]" #'winner-redo
+
        ;; tabs
        :desc "kill other tabs" "t1" #'centaur-tabs-kill-other-buffers-in-current-group
        :desc "switch tabs group" "tt" #'centaur-tabs-counsel-switch-group
@@ -135,8 +139,8 @@
 (my-comma-leader-def
   "," 'evilnc-comment-operator
   "." 'repeat
-  "[" 'previous-buffer
-  "]" 'next-buffer
+  "[" 'winner-undo
+  "]" 'winner-redo
 
   ;; latex
   "pp" 'preview-at-point
