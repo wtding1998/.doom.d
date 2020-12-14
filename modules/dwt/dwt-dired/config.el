@@ -27,7 +27,8 @@
 (after! dired-x
   (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "SumatraPDF-3.2-64.exe"))))
 
-(after!
+(after! dired
   (map! :map dired-mode-map
         :localleader
-        :desc "find file" "g" #'grep-dired-dwim))
+        :desc "find file" "g" #'grep-dired-dwim
+        :desc "fd" "f" #'fd-dired))
