@@ -184,6 +184,21 @@
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-TeX-dir)
 
+;; set company-backends
+;; default:
+;; Value in #<buffer optimization.tex>
+;; (company-reftex-labels company-reftex-citations
+;;                        (+latex-symbols-company-backend company-auctex-macros company-auctex-environments)
+;;                        company-dabbrev company-yasnippet company-ispell company-capf)
+;; new:
+(after! latex
+  (add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
+  (add-to-list '+latex--company-backends #'company-yasnippet nil #'eq)
+  (add-to-list '+latex--company-backends #'company-ispell nil #'eq)
+  (add-to-list '+latex--company-backends #'company-capf nil #'eq)
+  (set-company-backend! 'latex-mode +latex--company-backends)
+  )
+
 (add-hook 'LaTeX-mode-hook
           (lambda ()
                                         ; bind { and  } to next math and previous math
