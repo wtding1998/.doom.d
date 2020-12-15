@@ -32,3 +32,16 @@
         :localleader
         :desc "find file" "g" #'grep-dired-dwim
         :desc "fd" "f" #'fd-dired))
+
+;;;###autoload
+(defun dwt/goto-recent-directory ()
+  "Open recent directory with dired"
+  (interactive)
+  (unless recentf-mode (recentf-mode 1))
+  (let ((collection
+         (delete-dups
+          (append (mapcar 'file-name-directory recentf-list)))))
+    (ivy-read "directories:" collection :action 'dired)))
+
+(map! :leader
+      :desc "recent dir" "oD" #'dwt/goto-recent-directory)
