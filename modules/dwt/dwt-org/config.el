@@ -88,7 +88,14 @@
                   org-level-8))
     (set-face-attribute face nil :weight 'normal))
   ;; set scale for latex-preview
-  (plist-put org-format-latex-options :scale 2.7))
+  (plist-put org-format-latex-options :scale 2.7)
+  ;; set app
+  (setq org-file-apps
+        '((auto-mode . emacs)
+          ("\\.pdf::\\([0-9]+\\)?\\'" . "zathura %s -P %1")
+          ("\\.pdf\\'" . "zathura %s")
+          (directory . emacs))))
+
 ;; roam
 (setq org-roam-directory "~/OneDrive/Documents/roam")
 (map! :leader
