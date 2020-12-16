@@ -23,13 +23,13 @@
 
 (after! tex
   (add-to-list 'TeX-view-program-selection
-               '(output-pdf "llpp"))
+               '(output-pdf "zathura"))
   (add-to-list 'TeX-view-program-list
-               '("llpp"
-                 ("llpp "
+               '("zathura"
+                 ("zathura "
                   (mode-io-correlate " ")
                   "%o")
-                 "llpp"))
+                 "zathura"))
   (defmacro define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-name"))
           (outer-name (make-symbol "outer-name")))
