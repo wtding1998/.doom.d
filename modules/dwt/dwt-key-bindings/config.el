@@ -91,6 +91,9 @@
        ;; tabs
        :desc "kill other tabs" "t1" #'centaur-tabs-kill-other-buffers-in-current-group
        :desc "switch tabs group" "tt" #'centaur-tabs-counsel-switch-group
+       :desc "next-group" "tn" #'centaur-tabs-forward-group
+       :desc "last-group" "tp" #'centaur-tabs-backward-group
+       :desc "kill-group" "tk" #'centaur-tabs-kill-all-buffers-in-current-group
 
        ;; file
        :desc "fzf" "fz" #'counsel-fzf
@@ -193,6 +196,8 @@
   "tt" 'centaur-tabs-counsel-switch-group
   "tl" 'centaur-tabs-forward-tab
   "th" 'centaur-tabs-backward-tab
+  "tn" 'centaur-tabs-forward-group
+  "tp" 'centaur-tabs-backward-group
   "t1" 'centaur-tabs-kill-other-buffers-in-current-group
   "1" 'centaur-tabs-select-visible-tab
   "2" 'centaur-tabs-select-visible-tab
