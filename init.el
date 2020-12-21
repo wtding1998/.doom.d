@@ -94,7 +94,7 @@
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        ;; (lsp +eglot)
-       lsp
+       ;; lsp
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -154,7 +154,9 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp +pyright)            ; beautiful is better than ugly
+       ;; (python +lsp +pyright)            ; beautiful is better than ugly
+       ;; (python +lsp)
+       (python)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -197,6 +199,7 @@
        dwt-yasnippet
        dwt-vterm
        ;; dwt-lsp
+       dwt-nox
        dwt-wsl2
        dwt-python
        dwt-useful-func
