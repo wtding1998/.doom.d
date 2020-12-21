@@ -25,7 +25,7 @@
 ;;                                   ("\\.java\\'" "idea"))
 ;; use & to open pdf
 (after! dired-x
-  (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "SumatraPDF-3.2-64.exe"))))
+  (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "zathura"))))
 
 (after! dired
   (map! :map dired-mode-map
@@ -44,4 +44,4 @@
     (ivy-read "directories:" collection :action 'dired)))
 
 (map! :leader
-      :desc "recent dir" "oD" #'dwt/goto-recent-directory)
+      :desc "recent dir" "od" #'dwt/goto-recent-directory)
