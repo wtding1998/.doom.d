@@ -2,12 +2,12 @@
 
 ;;; TODO write the configuration of how to enter certain files quickly.
 
-(defun dwt/create-config-links (label link)
-  (insert label ": ")
-  (insert-button link
-                 'action (lambda (_) (find-file link))
-                 'follow-link t)
-  (insert "\n"))
+;; (defun dwt/create-config-links (label link)
+;;   (insert label ": ")
+;;   (insert-button link
+;;                  'action (lambda (_) (find-file link))
+;;                  'follow-link t)
+;;   (insert "\n"))
 
 ;; (defun dwt/quick-open-configuration ()
 ;;   (interactive)
@@ -29,6 +29,8 @@
   (interactive)
   (let ((configs '("~/.zshrc"
                    "~/.doom.d/"
+                   "~/.config/zathura/zathurarc"
+                   "~/.config/ranger/rifle.conf"
                    "~/.emacs.d.vanilia/init.el"
                    "~/.emacs.d/"
                    "~/.config")))

@@ -56,25 +56,12 @@
 ;;   )
 ;; https://blog.csdn.net/xh_acmagic/article/details/78939246
 
-;; load theme of DogLooksGood
-(require 'joker-theme)
-(require 'storybook-theme)
-(require 'printed-theme)
-
-;; load doom-themes
-;; (use-package doom-themes
-;;   :load-path "~/.emacs.d/.local/straight/repos/emacs-doom-themes")
-
 (defun dwt/better-font()
   ;; english font
   (if (display-graphic-p)
       (progn
-        ;; (setq doom-theme 'doom-flatwhite)
-        ;; (setq doom-theme 'doom-one)
-        ;; (setq doom-theme 'dichromacy)
-        ;; (setq doom-theme 'doom-one-light)
-        (setq doom-theme 'doom-tomorrow-night)
-        ;; (setq doom-theme 'storybook)
+        (defvar dwt/themes '(doom-Iosvkem doom-wilmersdorf doom-monokai-pro doom-monokai-spectrum doom-tomorrow-night doom-one doom-flatwhite))
+        (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 27)) ;; 11 13 17 19 23
         (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 25)) ;; 11 13 17 19 23
@@ -151,3 +138,8 @@
 (display-time-mode 1)
 ;; display battery in modeline
 (display-battery-mode 1)
+
+;;; ivy
+(setq ivy-count-format "%d/%d ")
+
+(setq system-time-locale "C")

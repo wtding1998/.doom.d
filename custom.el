@@ -21,7 +21,7 @@
      (102 . evil-surround-function)
      (36 "$" . "$")))
  '(org-agenda-files
-   '("/mnt/d/OneDrive/Documents/study note/org/cuhksz.org" "/mnt/d/OneDrive/Documents/diary/org/research.org" "/mnt/d/OneDrive/Documents/diary/org/agenda.org" "/mnt/d/OneDrive/Documents/study note/org/emacs_note.org" "/mnt/d/Onedrive/Documents/journal.org" "/mnt/d/Onedrive/Documents/notes.org")))
+   '("/mnt/d/OneDrive/Documents/diary/org/tensor-optimization.org" "/mnt/d/OneDrive/Documents/study note/org/cuhksz.org" "/mnt/d/OneDrive/Documents/diary/org/research.org" "/mnt/d/OneDrive/Documents/diary/org/agenda.org" "/mnt/d/OneDrive/Documents/study note/org/emacs_note.org" "/mnt/d/Onedrive/Documents/journal.org" "/mnt/d/Onedrive/Documents/notes.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
