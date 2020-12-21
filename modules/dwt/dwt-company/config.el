@@ -142,13 +142,13 @@
   (define-key company-search-map (kbd "TAB") nil))
   ;;(set-default company-backends '((company-capf :with company-yasnippet)
    ;;                               (company-dabbrev-code company-keywords company-files company-dabbrev)))
-(after! anaconda-mode
-  (set-company-backend! 'anaconda-mode '(company-anaconda company-yasnippet)))
+;; (after! anaconda-mode
+;;   (set-company-backend! 'anaconda-mode '(company-anaconda)))
 
 
-(after! lsp
-  ;; (set-company-backend! 'anaconda-mode '(company-anaconda company-yasnippet))
-  (setq +lsp-company-backends nil))
+;; (after! lsp
+;;   ;; (set-company-backend! 'anaconda-mode '(company-anaconda company-yasnippet))
+;;   (setq +lsp-company-backends nil))
 
 (use-package! company-prescient
   :defer t
