@@ -94,6 +94,8 @@
        :desc "next-group" "tn" #'centaur-tabs-forward-group
        :desc "last-group" "tp" #'centaur-tabs-backward-group
        :desc "kill-group" "tk" #'centaur-tabs-kill-all-buffers-in-current-group
+       ;; switch themes
+       :desc "switch theme" "tT" #'dwt/random-load-theme
 
        ;; file
        :desc "fzf" "fz" #'counsel-fzf
@@ -110,10 +112,11 @@
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
 
-(map! :n "gl" 'evil-avy-goto-line
+(map! :n "gl" 'evil-avy-goto-char-2
       :n "go" 'evil-avy-goto-char-2
       :n "zs" 'basic-save-buffer
-      :n "zq" 'save-buffers-kill-terminal)
+      :n "zq" 'save-buffers-kill-terminal
+      :map emacs-lisp-mode-map :n :desc "eval-last-sexp" "ze" #'eval-last-sexp)
 
 ;; TODO bind "ze" in normal state to eval-last-sexp in elisp mode
 ;; (add-hook 'elisp-mode-hook
@@ -163,8 +166,8 @@
   "lc" 'TeX-command-master
 
   ;; yasnippet
-  "yn" 'yas-new-snippet
-  "yv" 'yas-visit-snippet-file
+  "yn" #'yas-new-snippet
+  "yv" #'yas-visit-snippet-file
   "yy" 'company-snippet
 
   ;; symbol-overlay
