@@ -56,11 +56,29 @@
 ;;   )
 ;; https://blog.csdn.net/xh_acmagic/article/details/78939246
 
+(defvar dwt/themes '(doom-material
+                     doom-oceanic-next
+                     doom-nova
+                     doom-spacegrey
+                     doom-opera
+                     doom-fairy-floss
+                     doom-dracula
+                     doom-vibrant
+                     doom-miramare
+                     doom-wilmersdorf
+                     doom-monokai-pro
+                     doom-tomorrow-night
+                     doom-one
+                     doom-flatwhite))
+(defun dwt/random-load-theme ()
+  "Load theme randomly from dwt/themes."
+  (interactive)
+  (load-theme (nth (random (length dwt/themes)) dwt/themes)) t nil)
+
 (defun dwt/better-font()
   ;; english font
   (if (display-graphic-p)
       (progn
-        (defvar dwt/themes '(doom-Iosvkem doom-wilmersdorf doom-monokai-pro doom-monokai-spectrum doom-tomorrow-night doom-one doom-flatwhite))
         (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 27)) ;; 11 13 17 19 23
@@ -122,8 +140,8 @@
 
 
 ;; maxmize frame when start
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
+(toggle-frame-fullscreen)
+;; (toggle-frame-maximized)
 ;; auto-save
 (auto-save-visited-mode +1)
 ;; better default setting
