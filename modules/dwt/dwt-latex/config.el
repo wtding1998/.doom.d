@@ -141,13 +141,12 @@
             (insert "^{T}$"))
         (insert "$^{T}$"))
       (left-char))))
-
 (map!
  :map LaTeX-mode-map
  (
   :localleader
   :desc "View" "v" #'TeX-view
-  :desc "Run" "c" #'TeX-command-run-all
+  :desc "Run" "c" #'dwt/TeX-save-and-run-all
   :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
   :desc "Preview Environment" "e" #'preview-environment
   :desc "Preview Buffer" "b" #'preview-buffer
@@ -166,6 +165,12 @@
 ;; for homework: ...
 
 ;;;###autoload
+(defun dwt/TeX-save-and-run-all ()
+  (interactive)
+  (save-buffer)
+  (call-interactively #'TeX-command-run-all))
+
+;;;###autoload
 (defun dwt/new-TeX-dir ()
   "Make new dir in DIR-PATH with name DIR-NAME."
   (interactive)
@@ -180,6 +185,31 @@
     (unless (member dir-name subdir-names)
       (make-directory (concat project-path dir-name))
       (find-file (concat project-path dir-name "/" dir-name ".tex")))))
+
+;; (defun dwt/insert-bar ()
+;;   "Insert `-' in text environment, while `_{}' in math environment."
+;;   (interactive)
+;;   (if (texmathp)
+;;       (progn (insert "_{}")
+;;              (backward-char))
+;;     (progn (insert "-"))))
+
+
+;; (defun dwt/insert-semicolon ()
+;;   "Insert `;' in text environment, while `^{}' in math environment."
+;;   (interactive)
+;;   (if (texmathp)
+;;       (progn (insert "^{}")
+;;              (backward-char))
+;;     (progn (insert ";"))))
+
+
+;; (defun dwt/insert-colon ()
+;;   "Insert `:' in text environment, while `^{T}' in math environment."
+;;   (interactive)
+;;   (if (texmathp)
+;;       (progn (insert "^{T}"))
+;;     (progn (insert ":"))))
 
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-TeX-dir)
@@ -196,8 +226,10 @@
   (add-to-list '+latex--company-backends #'company-yasnippet nil #'eq)
   (add-to-list '+latex--company-backends #'company-ispell nil #'eq)
   (add-to-list '+latex--company-backends #'company-capf nil #'eq)
-  (set-company-backend! 'latex-mode +latex--company-backends)
-  )
+  (set-company-backend! 'latex-mode +latex--company-backends))
+
+
+
 
 (add-hook 'LaTeX-mode-hook
           (lambda ()
@@ -205,13 +237,23 @@
             (define-key evil-normal-state-local-map (kbd "}") 'dwt/find-math-next)
             (define-key evil-visual-state-local-map (kbd "}") 'dwt/find-math-next)
             (define-key evil-normal-state-local-map (kbd "{") 'dwt/find-math-prev)
-            (define-key evil-visual-state-local-map (kbd "{") 'dwt/find-math-prev)
-            (define-key evil-insert-state-local-map (kbd "M-\\") 'dwt/insert-dollar)
-            (define-key evil-insert-state-local-map (kbd "M-[") 'dwt/insert-superscript)
-            (define-key evil-insert-state-local-map (kbd "M--") 'dwt/insert-subscript)
-            ;; (define-key evil-insert-state-local-map (kbd "M-]") 'dwt/insert-transpose)
-            ;; (define-key evil-insert-state-local-map (kbd "M-8") 'dwt/insert-star)
-            ))
+            (define-key evil-visual-state-local-map (kbd "{") 'dwt/find-math-prev)))
+            ;; (define-key evil-insert-state-local-map (kbd "M-\\") 'dwt/insert-dollar)
+            ;; (define-key evil-insert-state-local-map (kbd "M-[") 'dwt/insert-superscript)
+            ;; (define-key evil-insert-state-local-map (kbd "M--") 'dwt/insert-subscript)))
+;; (define-key evil-insert-state-local-map (kbd "M-]") 'dwt/insert-transpose)
+;; (define-key evil-insert-state-local-map (kbd "M-8") 'dwt/insert-star)
+
+(map! :map TeX-mode-map
+      :i ";" #'dwt/insert-subscript
+      :i ":" #'dwt/insert-superscript
+      ;; :i "\"" #'dwt/insert-dollar)
+      :i "'" #'dwt/insert-dollar)
+
+(setq cdlatex-math-modify-prefix (read-kbd-macro "\""))
+;; TODO
+;; add ;,:,' to cdlatex math symbol or modify list
+
 ;; this setting failed
 ;; TODO: add synctex forward and backward
 ;; (after! tex
