@@ -1,7 +1,7 @@
 ;;; dwt/dwt-nox/config.el -*- lexical-binding: t; -*-
 
 (use-package! nox
-  :defer 2
+  :defer t
   :init
   (set-company-backend! 'python-mode
     '(company-capf :with company-yasnippet) '(company-dabbrev-code company-keywords company-files :with company-yasnippet) '(company-dabbrev))
@@ -9,6 +9,7 @@
     ;; '(company-capf) '(company-dabbrev-code company-keywords company-files :with company-yasnippet) '(company-dabbrev))
   (setq nox-python-path (executable-find "python3"))
   (setq nox-python-server "pyright")
+  (map! :map python-mode-map :nvi "M-q" #'nox-show-doc)
   ;; (setq nox-python-server "mspyls")
         ;; nox-python-server-dir "~/.emacs.d/nox/mspyls/")
   (dolist (hook (list
