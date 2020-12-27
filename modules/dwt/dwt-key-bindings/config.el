@@ -76,7 +76,7 @@
        ;; :desc "previous buffer" "[" #'previous-buffer
        ;; :desc "next buffer" "]" #'next-buffer
 
-       :desc "popup term" "`" #'+vterm/toggle
+       :desc "popup term" "`" #'tmm-menubar
 
        :desc "easy motion" "se" #'evil-avy-goto-char-2
 
@@ -107,7 +107,7 @@
        :desc "battery" "hB" #'battery))
 
 
-
+(map! "M-`" #'+vterm/toggle)
 
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
@@ -400,3 +400,4 @@
   "ww" 'narrow-or-widen-dwim
   "ycr" 'my-yas-reload-all
   "wf" 'popup-which-function)
+
