@@ -74,18 +74,20 @@
 (defun dwt/insert-dollar ()
   "Insert a pair of dollar when texmathp returns false. If there is a word at point, also wrap it."
   (interactive)
-  (unless (texmathp)
+  (if (not (texmathp))
+      (progn
+        (if (thing-at-point 'word)
+            (progn
+              (call-interactively #'backward-word)
+              (insert "$")
+              (call-interactively #'forward-word)
+              (insert "$")
+              (left-char 1)
+              )
+          (insert "$$")
+          (left-char 1)))
     (progn
-      (if (thing-at-point 'word)
-          (progn
-            (call-interactively #'backward-word)
-            (insert "$")
-            (call-interactively #'forward-word)
-            (insert "$")
-            (left-char 1)
-            )
-        (insert "$$")
-        (left-char 1)))))
+      (call-interactively #'cdlatex-math-modify))))
 
 (defun dwt/insert-superscript ()
   "If it's in math environment, insert a superscript, otherwise insert dollar and also wrap the word at point"
