@@ -29,6 +29,7 @@
 
 (after! dired
   (map! :map dired-mode-map
+        :n "J" nil
         :localleader
         :desc "find file" "g" #'grep-dired-dwim
         :desc "fd" "f" #'fd-dired))
@@ -41,7 +42,7 @@
   (let ((collection
          (delete-dups
           (append (mapcar 'file-name-directory recentf-list)))))
-    (ivy-read "directories:" collection :action 'dired)))
+    (ivy-read "Directories: " collection :action 'dired)))
 
 (map! :leader
       :desc "recent dir" "od" #'dwt/goto-recent-directory)
