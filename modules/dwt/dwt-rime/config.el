@@ -6,40 +6,43 @@
   :custom
   (default-input-method "rime")
   (rime-show-candidate 'posframe)
+  ;; (rime-show-candidate 'minibuffer)
+  ;; set to minibuffer for better performance
+  ;; (setq rime-show-candidate 'minibuffer)
   :config
   ;; set rime configuration dir
   (setq rime-user-data-dir "~/.config/fcitx/rime")
 
   ;; set UI
   (setq rime-posframe-properties
-                          (list :font "Source Han Serif CN"))
+        (list :font "Source Han Serif CN"))
 
   ;; use English automatically after English words
   (setq rime-disable-predicates
-                          '(rime-predicate-evil-mode-p
-                                  rime-predicate-tex-math-or-command-p
-                                  rime-predicate-evil-mode-p
-                                  rime-predicate-prog-in-code-p
-                                  rime-predicate-in-code-string-p
-                                  rime-predicate-punctuation-after-space-cc-p
-                                  rime-predicate-space-after-cc-p
-                                  rime-predicate-current-uppercase-letter-p
-                                  rime-predicate-after-alphabet-char-p))
+        '(rime-predicate-evil-mode-p
+          rime-predicate-tex-math-or-command-p
+          rime-predicate-evil-mode-p
+          rime-predicate-prog-in-code-p
+          rime-predicate-in-code-string-p
+          rime-predicate-punctuation-after-space-cc-p
+          rime-predicate-space-after-cc-p
+          rime-predicate-current-uppercase-letter-p
+          rime-predicate-after-alphabet-char-p))
 
   ;; Force to enter chinese ignoring rime-disable-predicates
   (define-key rime-mode-map (kbd "M-c") 'rime-force-enable)
   ;; fix the bug of posframe
-    (defun +rime--posframe-display-content-a (args)
-      "给 `rime--posframe-display-content' 传入的字符串加一个全角空
+  (defun +rime--posframe-display-content-a (args)
+    "给 `rime--posframe-display-content' 传入的字符串加一个全角空
   格，以解决 `posframe' 偶尔吃字的问题。"
-      (cl-destructuring-bind (content) args
-        (let ((newresult (if (string-blank-p content)
-                            content
-                          (concat content "　"))))
-          (list newresult))))
+    (cl-destructuring-bind (content) args
+      (let ((newresult (if (string-blank-p content)
+                           content
+                         (concat content "　"))))
+        (list newresult))))
 
-    (if (fboundp 'rime--posframe-display-content)
-        (advice-add 'rime--posframe-display-content
-                    :filter-args
-                    #'+rime--posframe-display-content-a)
-      (error "Function `rime--posframe-display-content' is not available.")))
+  (if (fboundp 'rime--posframe-display-content)
+      (advice-add 'rime--posframe-display-content
+                  :filter-args
+                  #'+rime--posframe-display-content-a)
+    (error "Function `rime--posframe-display-content' is not available.")))
