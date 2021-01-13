@@ -156,6 +156,7 @@
   :desc "Clean preview" "R" #'preview-clearout-buffer
   :desc "Clean preview" "r" #'preview-clearout-at-point
   :desc "Master" "m" #'TeX-command-master
+  :desc "Input String" "s" #'dwt/insert
   ;; :desc "Command" "c" "TeX-command-master"
   :desc "toc" "t" #'reftex-toc))
 ;; test if () can separate key word in map!
@@ -248,13 +249,25 @@
 
 (map! :map TeX-mode-map
       :i ";" #'dwt/insert-subscript
+      :i "\";" #'(lambda () (interactive) (insert ";"))
       :i ":" #'dwt/insert-superscript
+      :i "\":" #'(lambda () (interactive) (insert ":"))
       ;; :i "\"" #'dwt/insert-dollar)
-      :i "'" #'dwt/insert-dollar)
+      :i "'" #'dwt/insert-dollar
+      :i "\"'" #'(lambda () (interactive) (insert "'"))
+      )
 
-(setq cdlatex-math-modify-prefix (read-kbd-macro "\""))
+(setq cdlatex-math-modify-prefix (read-kbd-macro "\"\""))
 ;; TODO
 ;; add ;,:,' to cdlatex math symbol or modify list
+;; to insert : in latex
+;; (insert-char ?:) or (insert ":")
+
+;;;###autoload
+(defun dwt/insert (input-string)
+  "Input string"
+  (interactive "sEnter String: ")
+  (insert input-string))
 
 ;; this setting failed
 ;; TODO: add synctex forward and backward
@@ -280,3 +293,11 @@
 
 ;;; find next or previous math environment
 
+(use-package org-latex-impatient
+  :defer t
+  :hook (org-mode . org-latex-impatient-mode)
+  :init
+  (setq org-latex-impatient-tex2svg-bin
+        ;; location of tex2svg executable
+        "~/node_modules/mathjax-node-cli/bin/tex2svg")
+  (setq org-latex-impatient-scale 3.0))
