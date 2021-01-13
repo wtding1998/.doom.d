@@ -50,7 +50,7 @@
 ;(unpin! t)
 
 (unpin! doom-themes)
-(package! tao-theme)
+;; (package! tao-theme)
 ;; (package! dog-themes :recipe
 ;;   (:host github
 ;;    :repo "DogLooksGood/.emacs.d"

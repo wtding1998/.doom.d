@@ -39,30 +39,30 @@
 
 
 ;;; proxy
-(setq dwt/proxy "http://172.29.80.1:1081")
-(defun show-proxy ()
-  "Show http/https proxy."
-  (interactive)
-  (if url-proxy-services
-      (message "Current proxy is \"%s\"" dwt/proxy)
-    (message "No proxy")))
+;; (setq dwt/proxy "http://172.29.80.1:1081")
+;; (defun show-proxy ()
+;;   "Show http/https proxy."
+;;   (interactive)
+;;   (if url-proxy-services
+;;       (message "Current proxy is \"%s\"" dwt/proxy)
+;;     (message "No proxy")))
 
-(defun set-proxy ()
-  "Set http/https proxy."
-  (interactive)
-  (setq url-proxy-services `(("http" . ,dwt/proxy)
-                             ("https" . ,dwt/proxy)))
-  (show-proxy))
+;; (defun set-proxy ()
+;;   "Set http/https proxy."
+;;   (interactive)
+;;   (setq url-proxy-services `(("http" . ,dwt/proxy)
+;;                              ("https" . ,dwt/proxy)))
+;;   (show-proxy))
 
-(defun unset-proxy ()
-  "Unset http/https proxy."
-  (interactive)
-  (setq url-proxy-services nil)
-  (show-proxy))
+;; (defun unset-proxy ()
+;;   "Unset http/https proxy."
+;;   (interactive)
+;;   (setq url-proxy-services nil)
+;;   (show-proxy))
 
-(defun toggle-proxy ()
-  "Toggle http/https proxy."
-  (interactive)
-  (if url-proxy-services
-      (unset-proxy)
-    (set-proxy)))
+;; (defun toggle-proxy ()
+;;   "Toggle http/https proxy."
+;;   (interactive)
+;;   (if url-proxy-services
+;;       (unset-proxy)
+;;     (set-proxy)))

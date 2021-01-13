@@ -17,8 +17,8 @@
       :nvm "H" (kbd "0")
       :nvm "J" (kbd "5j")
       :nvm "K" (kbd "5k")
-      :nvm "W" (kbd "5w")
-      :nvm "B" (kbd "5b")
+      ;; :nvm "W" (kbd "5w")
+      ;; :nvm "B" (kbd "5b")
       :nv "8" (kbd "^")
       :nv "9" (kbd "$")
       :nv "[q" (kbd "C-c C-c")
@@ -57,6 +57,9 @@
 ;; create a new prefix and add key-binding:
 (map! (:leader
        ;; :desc "test" :prefix "a"
+       :desc "shell command" ";" #'shell-command
+       :desc "eval expression" ":" #'eval-expression
+       :desc "M-x" "<SPC>" #'counsel-M-x
        :desc "snippet" "it" #'company-yasnippet
        ;; :desc "jump item" "ii" #'evilmi-jump-items
        :desc "delete item" "id" #'evilmi-delete-items
@@ -71,7 +74,9 @@
        :desc "comment" "c l" #'evilnc-comment-or-uncomment-lines
 
        :desc "delete other windows" "1" #'delete-other-windows
-       :desc "delete window" "0" #'+workspace/close-window-or-workspace
+       :desc "delete window" "0" #'delete-window
+       :desc "winner-undo" "2" #'winner-undo
+       :desc "winner-undo" "3" #'winner-redo
 
        ;; :desc "previous buffer" "[" #'previous-buffer
        ;; :desc "next buffer" "]" #'next-buffer
@@ -91,11 +96,14 @@
        ;; tabs
        :desc "kill other tabs" "t1" #'centaur-tabs-kill-other-buffers-in-current-group
        :desc "switch tabs group" "tt" #'centaur-tabs-counsel-switch-group
-       :desc "next-group" "tn" #'centaur-tabs-forward-group
+       :desc "next-group" "tn" #'centaur-tabs-forward-fggroup
        :desc "last-group" "tp" #'centaur-tabs-backward-group
        :desc "kill-group" "tk" #'centaur-tabs-kill-all-buffers-in-current-group
        ;; switch themes
        :desc "switch theme" "tT" #'dwt/random-load-theme
+
+       ;; shell command
+       :desc "shell command" ">" #'async-shell-command
 
        ;; file
        :desc "fzf" "fz" #'counsel-fzf
@@ -112,11 +120,12 @@
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
 
-(map! :n "gl" 'evil-avy-goto-char-2
+(map! :n "gl" 'evil-avy-goto-line
+      :n "D" 'evil-avy-goto-char-2
       :n "go" 'evil-avy-goto-char-2
       :n "zs" 'basic-save-buffer
-      :n "zq" 'save-buffers-kill-terminal
-      :map emacs-lisp-mode-map :n :desc "eval-last-sexp" "ze" #'eval-last-sexp)
+      :n "zq" 'evil-avy-goto-char-2
+      :map emacs-lisp-mode-map :n "ze" #'eval-last-sexp)
 
 ;; TODO bind "ze" in normal state to eval-last-sexp in elisp mode
 ;; (add-hook 'elisp-mode-hook

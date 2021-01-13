@@ -64,8 +64,15 @@
                      doom-fairy-floss
                      doom-dracula
                      doom-vibrant
+                     doom-rouge
+                     doom-sourcerer
                      doom-miramare
+                     doom-one-light
+                     doom-nord-light
+                     doom-tomorrow-day
                      doom-wilmersdorf
+                     doom-moonlight
+                     doom-horizon
                      doom-monokai-pro
                      doom-tomorrow-night
                      doom-one
@@ -81,10 +88,11 @@
       (progn
         (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 27)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 25)) ;; 11 13 17 19 23
         (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 25)) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 27)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 29)) ;; 11 13 17 19 23
         ;; chinese font
+        (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
           (set-fontset-font (frame-parameter nil 'font)
                             charset

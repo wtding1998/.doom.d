@@ -6,12 +6,12 @@
 (advice-add #'browse-url-xdg-open :override #'wsl-browse-url-xdg-open)
 
 ;;;###autoload
-
 (defmacro wsl--open-with (id &optional app dir)
   `(defun ,(intern (format "wsl/%s" id)) ()
      (interactive)
      (wsl-open-with ,app ,dir)))
 
+;;;###autoload
 (defun wsl-open-with (&optional app-name path)
   "Send PATH to APP-NAME on WSL."
   (interactive)
@@ -23,11 +23,18 @@
                             (buffer-file-name)))
                  nil t)))
          (command (format "%s `wslpath -w %s`" (shell-quote-argument app-name) path)))
+    (message command)
     (shell-command-to-string command)))
 
 (wsl--open-with open-in-default-program "explorer.exe" buffer-file-name)
 (wsl--open-with reveal-in-explorer "explorer.exe" default-directory)
 
+;;;###autoload
+(defun dwt/reveal-in-explorer ()
+  (interactive)
+  (shell-command "explorer.exe ."))
+
 (map! :leader
-      :desc "reveal in windows" "oe" #'wsl/reveal-in-explorer
+      ;; :desc "reveal in windows" "oe" #'wsl/reveal-in-explorer
+      :desc "reveal in windows" "oe" #'dwt/reveal-in-explorer
       :desc "open by windows program" "ow" #'wsl/open-in-default-program)
