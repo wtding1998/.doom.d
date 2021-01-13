@@ -83,11 +83,11 @@ If N is nil, use `ivy-mode' to browse `kill-ring'."
 (define-key evil-visual-state-map "R" 'evil-multiedit-match-all)
 ;; Match the word under cursor (i.e. make it an edit region). Consecutive presses will
 ;; incrementally add the next unmatched match.
-(define-key evil-normal-state-map (kbd "C-k") 'evil-multiedit-match-and-next)
+(define-key evil-normal-state-map (kbd "M-d") 'evil-multiedit-match-and-next)
 ;; Match selected region.
-(define-key evil-visual-state-map (kbd "C-k") 'evil-multiedit-match-and-next)
+(define-key evil-visual-state-map (kbd "M-d") 'evil-multiedit-match-and-next)
 ;; Insert marker at point
-(define-key evil-insert-state-map (kbd "C-k") 'evil-multiedit-toggle-marker-here)
+(define-key evil-insert-state-map (kbd "M-d") 'evil-multiedit-toggle-marker-here)
 
 (after! evil-multiedit
   ;; RET will toggle the region under the cursor
