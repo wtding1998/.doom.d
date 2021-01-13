@@ -2,5 +2,5 @@
 ;;; dwt/dwt-lsp/packages.el
 
 
-(package! nox :recipe (:host github :repo "manateelazycat/nox"))
-(package! eldoc-box)
+;; (package! nox :recipe (:host github :repo "manateelazycat/nox"))
+;; (package! eldoc-box)
