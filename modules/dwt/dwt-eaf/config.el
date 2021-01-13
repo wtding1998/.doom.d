@@ -3,6 +3,8 @@
 (use-package! eaf
   :load-path "~/.doom.d/emacs-application-framework"; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
   :defer t
+  :init
+  (map! :leader "oE" #'eaf-open)
   :custom
   (eaf-find-alternate-file-in-dired t)
   :config
@@ -14,4 +16,6 @@
   (eaf-setq eaf-terminal-font-family "SF MONO")
   (eaf-setq eaf-jupyter-font-size "22")
   (eaf-setq eaf-jupyter-font-family "SF MONO")
-  (eaf-setq eaf-browser-default-zoom "2"))
+  (eaf-setq eaf-browser-default-zoom "2")
+  ;; switch insert mode
+  (add-to-list 'evil-insert-state-modes 'eaf-mode))
