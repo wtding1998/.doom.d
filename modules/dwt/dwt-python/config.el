@@ -82,8 +82,10 @@ immediately after."
         (evil-insert-state)))))
 
 (after! python
-  (map! :map python-mode-map :localleader "s" #'+python/open-repl
-                                          "c" #'dwt/run-current-py-in-vterm))
+  (map! :map python-mode-map :localleader "s" #'run-python
+        "r" #'python-shell-send-region
+        "f" #'python-shell-send-file
+        "d" #'python-shell-send-defun))
 (add-hook 'python-mode-hook
         (lambda ()
           (define-key global-map (kbd "S-<return>") nil)

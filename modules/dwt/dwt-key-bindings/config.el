@@ -59,6 +59,7 @@
        ;; :desc "test" :prefix "a"
        :desc "shell command" ";" #'shell-command
        :desc "eval expression" ":" #'eval-expression
+       :desc "buffer" "," #'counsel-ibuffer
        :desc "M-x" "<SPC>" #'counsel-M-x
        :desc "snippet" "it" #'company-yasnippet
        ;; :desc "jump item" "ii" #'evilmi-jump-items
@@ -96,7 +97,7 @@
        ;; tabs
        :desc "kill other tabs" "t1" #'centaur-tabs-kill-other-buffers-in-current-group
        :desc "switch tabs group" "tt" #'centaur-tabs-counsel-switch-group
-       :desc "next-group" "tn" #'centaur-tabs-forward-fggroup
+       :desc "next-group" "tn" #'centaur-tabs-forward-group
        :desc "last-group" "tp" #'centaur-tabs-backward-group
        :desc "kill-group" "tk" #'centaur-tabs-kill-all-buffers-in-current-group
        ;; switch themes
@@ -120,11 +121,8 @@
 ;; === redo map key binding ===
 (map! :n "U" 'undo-fu-only-redo)
 
-(map! :n "gl" 'evil-avy-goto-line
-      :n "D" 'evil-avy-goto-char-2
-      :n "go" 'evil-avy-goto-char-2
+(map! :n "D" 'evil-avy-goto-char-2
       :n "zs" 'basic-save-buffer
-      :n "zq" 'evil-avy-goto-char-2
       :map emacs-lisp-mode-map :n "ze" #'eval-last-sexp)
 
 ;; TODO bind "ze" in normal state to eval-last-sexp in elisp mode

@@ -44,5 +44,15 @@
           (append (mapcar 'file-name-directory recentf-list)))))
     (ivy-read "Directories: " collection :action 'dired)))
 
+;;;###autoload
+(defun dwt/dired-projectile ()
+  "Open dired in a project"
+  (interactive)
+  (unless projectile-mode (projectile-mode 1))
+  (let (project-path)
+    (setq project-path (ivy-read "Project: " projectile-known-projects))
+    (dired project-path)))
+
 (map! :leader
-      :desc "recent dir" "od" #'dwt/goto-recent-directory)
+      :desc "recent dir" "od" #'dwt/goto-recent-directory
+      :desc "project dir" "pd" #'dwt/dired-projectile)

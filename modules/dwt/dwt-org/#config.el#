@@ -94,39 +94,13 @@
         '((auto-mode . emacs)
           ("\\.pdf::\\([0-9]+\\)?\\'" . "zathura %s -P %1")
           ("\\.pdf\\'" . "zathura %s")
-          (directory . emacs)))
-  )
-
-(after! org-roam
-  (setq org-roam-capture-templates
-        '(
-          ("d" "default" plain (function org-roam-capture--get-point)
-          "%?"
-          :file-name "%${slug}"
-          :head "#+title: ${title}\n#+roam_alias:\n\n")))
-  (add-to-list 'org-roam-capture-templates
-             '("p" "Paper Note" plain (function org-roam-capture--get-point)
-               "* Paper \n\n* TODO \n\n* Problem\n\n%?\n* Idea\n\n* Method\n\n* Result\n\n* My Idea\n"
-               :file-name "%${slug}"
-               :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
-               :unnarrowed t
-               ))
-  (add-to-list 'org-roam-capture-templates
-             '("u" "Useful Facts" plain (function org-roam-capture--get-point)
-               "* Problem\n\n%?\n* * Result\n\n* My Idea\n"
-               :file-name "%${slug}"
-               :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
-               :unnarrowed t
-               ))
-  )
-
+          (directory . emacs))))
 
 ;; roam
 (setq org-roam-directory "~/OneDrive/Documents/roam")
 (map! :leader
       :desc "roam-find-file" "of" #'org-roam-find-file
       :desc "roam-find-ref" "or" #'org-roam-find-ref
-      :desc "roam-find-ref" "oc" #'org-roam-capture
       :desc "roam-insert-link" "oi" #'org-roam-insert)
 
 ;; (let ((org-id-files (org-roam--list-files org-roam-directory))

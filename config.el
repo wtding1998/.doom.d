@@ -1,4 +1,3 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -61,7 +60,7 @@
                      doom-nova
                      doom-spacegrey
                      doom-opera
-                     doom-fairy-floss
+                     ;; doom-fairy-floss
                      doom-dracula
                      doom-vibrant
                      doom-rouge
@@ -69,6 +68,7 @@
                      doom-miramare
                      doom-one-light
                      doom-nord-light
+                     doom-nord
                      doom-tomorrow-day
                      doom-wilmersdorf
                      doom-moonlight
@@ -106,7 +106,7 @@
 
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions #'dwt/init-font)
-(dwt/better-font))
+  (dwt/better-font))
 
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
