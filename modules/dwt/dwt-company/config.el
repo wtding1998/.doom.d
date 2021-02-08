@@ -5,16 +5,16 @@
   :defines (company-dabbrev-ignore-case company-dabbrev-downcase)
   :commands company-cancel
   :bind (("M-/" . company-complete)
-         ("C-M-i" . company-complete)
+         ("C-M-i" . company-complete))
          ;; :map company-mode-map
          ;; ("<backtab>" . my-company-yasnippet)
-         :map company-active-map
-         ("C-p" . company-select-previous)
-         ("C-n" . company-select-next)
-         ("<backtab>" . my-company-yasnippet)
-         :map company-search-map
-         ("C-p" . company-select-previous)
-         ("C-n" . company-select-next))
+         ;; :map company-active-map
+         ;; ("C-p" . company-select-previous)
+         ;; ("C-n" . company-select-next)
+         ;; ("<backtab>" . my-company-yasnippet)
+         ;; :map company-search-map
+         ;; ("C-p" . company-select-previous)
+         ;; ("C-n" . company-select-next))
   :hook (after-init . global-company-mode)
   :init
   (setq company-tooltip-align-annotations t
