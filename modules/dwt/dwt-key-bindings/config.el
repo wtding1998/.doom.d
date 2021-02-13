@@ -49,7 +49,12 @@
       ;; :i "M-n" 'dwt-backward-jump-sexp
 
 
-
+(evil-define-key '(normal visual) prog-mode-map (kbd "<tab>a") #'align)
+(evil-define-key 'visual prog-mode-map (kbd "<tab><tab>") #'indent-region)
+(evil-define-key 'normal prog-mode-map (kbd "<tab><tab>") #'indent-for-tab-command)
+;; (evil-define-key 'normal 'global (kbd "<tab>t") #'awesome-tab-ace-jump)
+;; (evil-define-key 'normal 'global (kbd "<tab>T") #'awesome-tab-counsel-switch-group)
+(evil-define-key 'normal prog-mode-map (kbd"<tab>j") #'evil-toggle-fold)
 ;; test
 ;;; doom-leader-def
 ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/

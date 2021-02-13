@@ -295,7 +295,7 @@
 
 (use-package org-latex-impatient
   :defer t
-  :hook (org-mode . org-latex-impatient-mode)
+  ;; :hook (org-mode . org-latex-impatient-mode)
   :init
   (setq org-latex-impatient-tex2svg-bin
         ;; location of tex2svg executable

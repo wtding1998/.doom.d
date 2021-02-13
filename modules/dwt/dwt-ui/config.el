@@ -13,10 +13,18 @@
 ;;   ;; Set splash image when theme changed.
 ;;   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
 
+(after! centaur-tabs
+  (setq centaur-tabs-set-close-button nil)
+  (setq centaur-tabs-set-modified-marker nil))
+
+(map! :n "[t" #'centaur-tabs-forward-group
+      :n "]t" #'centaur-tabs-backward-group)
 
 (use-package! diff-hl
   :config
-  (diff-hl-margin-mode 0)
+  (map! :n "[g" #'diff-hl-previous-hunk)
+  (map! :n "]g" #'diff-hl-next-hunk)
+  (diff-hl-margin-mode -1)
   :hook
   (prog-mode . global-diff-hl-mode)
   (prog-mode . diff-hl-flydiff-mode))
