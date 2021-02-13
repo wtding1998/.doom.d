@@ -19,8 +19,8 @@
 
   (defun dwt/org-clear-cache ()
     (interactive)
-    (delete-directory "~/.emacs.d/.local/cache/org-latex"))
-
+    (shell-command "rm -rf ~/.emacs.d/.local/cache/org-latex"))
+  (evil-define-key 'normal org-mode-map (kbd "<SPC>mR") #'dwt/org-clear-cache)
   ;; (setq org-preview-latex-default-process 'dvipng)
   ;; make background of fragments transparent
   ;; (let ((dvipng--plist (alist-get 'dvipng org-preview-latex-process-alist)))
@@ -38,8 +38,8 @@
   ;;                                     'default)
   ;;                                 :background nil t))))
   ;; (add-to-list 'org-latex-regexps '("\\ce" "^\\\\ce{\\(?:[^\000{}]\\|{[^\000}]+?}\\)}" 0 nil))
-  ;; (use-package! org-fragtog
-  ;;   :hook (org-mode . org-fragtog-mode))
+  (use-package! org-fragtog
+    :hook (org-roam-mode . org-fragtog-mode))
   ;; === templates ===
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
