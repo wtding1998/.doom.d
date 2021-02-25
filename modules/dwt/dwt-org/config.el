@@ -10,6 +10,7 @@
   (setq org-log-into-drawer t)
   (setq org-enforce-todo-dependencies t)
   (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-fontify-done-headline t)
   (add-hook (quote org-mode-hook)
             (lambda ()
               (org-shifttab 2)))
@@ -121,8 +122,8 @@
           ("\\.pdf\\'" . "zathura %s")
           (directory . emacs)))
 
-  (add-hook 'org-mode-hook 'cdlatex-mode)
-  (add-hook 'org-mode-hook 'evil-tex-mode)
+  (add-hook 'org-roam-mode-hook 'cdlatex-mode)
+  (add-hook 'org-roam-mode-hook 'evil-tex-mode)
 
   (defun dwt/toggle-all-fragments ()
     (interactive)
@@ -157,6 +158,14 @@
         :i "<tab>" #'dwt/tab-in-org
         ;; :i (kbd "<m-n>") #'cdlatex-tab
         )
+
+  ;; (defun dwt/latex-quote ()
+  ;;   (interactive)
+  ;;   (let ((enter-char
+  ;;          (read-string "Enter Char: ")))
+  ;;     (if (string-equal enter-char "\"")
+  ;;         (call-interactively 'cdlatex-math-modify-prefix)
+  ;;       (insert enter-char))))
 
   (defun dwt/tab-in-org ()
     "If cannot expand snippet, then use cdlatex-tab."
@@ -209,19 +218,19 @@
         '(
           ("d" "default" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "%${slug}"
+           :file-name "${slug}"
            :head "#+title: ${title}\n#+roam_alias:\n\n")))
   (add-to-list 'org-roam-capture-templates
                '("p" "Paper Note" plain (function org-roam-capture--get-point)
                  "* Paper \n\n* TODO \n\n* Problem\n\n%?\n* Idea\n\n* Method\n\n* Result\n\n* My Idea\n"
-                 :file-name "%${slug}"
+                 :file-name "${slug}"
                  :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
                  :unnarrowed t
                  ))
   (add-to-list 'org-roam-capture-templates
                '("u" "Useful Facts" plain (function org-roam-capture--get-point)
                  "* Problem\n\n%?\n* * Result\n\n* My Idea\n"
-                 :file-name "%${slug}"
+                 :file-name "${slug}"
                  :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
                  :unnarrowed t
                  ))
