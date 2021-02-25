@@ -51,11 +51,11 @@
 
 (evil-define-key '(normal visual) prog-mode-map (kbd "<tab>a") #'align)
 (evil-define-key 'visual prog-mode-map (kbd "<tab><tab>") #'indent-region)
+(evil-define-key 'visual 'global (kbd "gC") #'capitalize-region)
 (evil-define-key 'normal prog-mode-map (kbd "<tab><tab>") #'indent-for-tab-command)
 ;; (evil-define-key 'normal 'global (kbd "<tab>t") #'awesome-tab-ace-jump)
 ;; (evil-define-key 'normal 'global (kbd "<tab>T") #'awesome-tab-counsel-switch-group)
 (evil-define-key 'normal prog-mode-map (kbd"<tab>j") #'evil-toggle-fold)
-;; test
 ;;; doom-leader-def
 ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#map
@@ -100,11 +100,11 @@
        :desc "winner-redi" "w]" #'winner-redo
 
        ;; tabs
-       :desc "kill other tabs" "t1" #'centaur-tabs-kill-other-buffers-in-current-group
-       :desc "switch tabs group" "tt" #'centaur-tabs-counsel-switch-group
-       :desc "next-group" "tn" #'centaur-tabs-forward-group
-       :desc "last-group" "tp" #'centaur-tabs-backward-group
-       :desc "kill-group" "tk" #'centaur-tabs-kill-all-buffers-in-current-group
+       :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
+       :desc "switch tabs group" "tt" #'awesome-tab-counsel-switch-group
+       :desc "next-group" "tn" #'awesome-tab-forward-group
+       :desc "last-group" "tp" #'awesome-tab-backward-group
+       :desc "kill-group" "tk" #'awesome-tab-kill-all-buffers-in-current-group
        ;; switch themes
        :desc "switch theme" "tT" #'dwt/random-load-theme
 
@@ -206,24 +206,17 @@
   "rp" 'evil-multiedit-prev
 
   ;; buffer
+  ;; tabs
+  "1" #'awesome-tab-select-visible-tab
+  "2" #'awesome-tab-select-visible-tab
+  "3" #'awesome-tab-select-visible-tab
+  "4" #'awesome-tab-select-visible-tab
+  "5" #'awesome-tab-select-visible-tab
+  "6" #'awesome-tab-select-visible-tab
+  "7" #'awesome-tab-select-visible-tab
+  "8" #'awesome-tab-select-visible-tab
+  "tt" #'awesome-tab-ace-jump'
   ;; "bb" 'awesome-tab-ace-jump
-  "tk" 'centaur-tabs--kill-this-buffer-dont-ask
-  "tt" 'centaur-tabs-counsel-switch-group
-  "tl" 'centaur-tabs-forward-tab
-  "th" 'centaur-tabs-backward-tab
-  "tn" 'centaur-tabs-forward-group
-  "tp" 'centaur-tabs-backward-group
-  "t1" 'centaur-tabs-kill-other-buffers-in-current-group
-  "1" 'centaur-tabs-select-visible-tab
-  "2" 'centaur-tabs-select-visible-tab
-  "3" 'centaur-tabs-select-visible-tab
-  "4" 'centaur-tabs-select-visible-tab
-  "5" 'centaur-tabs-select-visible-tab
-  "6" 'centaur-tabs-select-visible-tab
-  "7" 'centaur-tabs-select-visible-tab
-  "8" 'centaur-tabs-select-visible-tab
-  "9" 'delete-other-windows
-  "0" 'evil-window-delete
 
   ;; sdcv
   "es" 'sdcv-search-pointer+
@@ -287,7 +280,7 @@
   "cd" 'org-deadline
   "cs" 'org-schedule
   "ct" 'org-todo
-  ; "ca" 'org-archive-subtree
+                                        ; "ca" 'org-archive-subtree
   "ic" 'my-imenu-comments
   ;; {{ window move
   "wh" 'evil-window-left
@@ -326,9 +319,9 @@
   "c<" 'org-do-promote ; `C-c C-<'
   "c>" 'org-do-demote ; `C-c C->'
   "cam" 'org-tags-view ; `C-c a m': search items in org-file-apps by tag
-  ; "cxi" 'org-clock-in ; `C-c C-x C-i'
-  ; "cxo" 'org-clock-out ; `C-c C-x C-o'
-  ; "cxr" 'org-clock-report ; `C-c C-x C-r'
+                                        ; "cxi" 'org-clock-in ; `C-c C-x C-i'
+                                        ; "cxo" 'org-clock-out ; `C-c C-x C-o'
+                                        ; "cxr" 'org-clock-report ; `C-c C-x C-r'
   ;; "qq" 'my-multi-purpose-grep
   "dd" 'counsel-etags-grep-current-directory
   ;; "rr" 'my-counsel-recentf

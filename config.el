@@ -86,10 +86,11 @@
   ;; english font
   (if (display-graphic-p)
       (progn
-        (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
+        ;; (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
+        (setq doom-theme 'doom-flatwhite)
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 25)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 25)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 26)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 29)) ;; 11 13 17 19 23
         ;; chinese font
         (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
