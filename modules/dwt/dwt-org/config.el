@@ -246,6 +246,7 @@
         "i" #'org-noter-insert-note)
   (map! :map org-noter-doc-mode-map
         :nvi "ni" #'org-noter-insert-note
+        :nvi "i" #'org-noter-insert-note
         :nvi "nq" #'org-noter-kill-session)
   (map! :map org-noter-notes-mode-map
         :nv "ni" #'org-noter-sync-current-note
