@@ -6,15 +6,29 @@
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{amsmath}
 \usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsthm}
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 
-% \usetheme{CambridgeUs}
 \usetheme{Madrid}
-\usecolortheme{beaver}
+% \usetheme{CambridgeUS}
+% \usecolortheme{whale}
+\usecolortheme{default}
+
+\setbeamertemplate{theorems}[ams style]
+\setbeamertemplate{definitions}[ams style]
+\setbeamertemplate{examples}[ams style]
+% Removes icon in bibliography
+\setbeamertemplate{bibliography item}[text]
+
+\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{sections/subsections in toc}{\inserttocsectionnumber.~\inserttocsection}
+% \setbeamertemplate{sections/subsections in toc}[square]
 
 \title[Preparations]{Preparations}
-\subtitle{MAT 3220 Tutorial 1}
+\subtitle{}
 \institute[SDS]{School of Data Science\\\\
 The Chinese University of Hong Kong, Shenzhen}
 \author[Wentao Ding]{Wentao Ding \\\\

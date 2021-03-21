@@ -1,8 +1,7 @@
 # -*- mode: snippet -*-
-# name:homework_preamble
-# key: hompre
+# name:scratch
+# key: scratch
 # --
-% Intended LaTeX compiler: xelatex
 \documentclass[11pt]{article}
 \usepackage{graphicx}
 \usepackage{grffile}
@@ -13,9 +12,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\newenvironment{solution}
-{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
-  {\end{proof}}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{problem}{Problem}
 \usepackage{textcomp}
 \usepackage{capt-of}
 \usepackage{hyperref}
@@ -28,15 +26,5 @@
   top=20mm
 }
 % \input{/mnt/d/Onedrive/Documents/study note/latex/preamble.tex}
-\author{
-  Wentao Ding \\\\
-  School of Data Science \\\\
-  The Chinese University of Hong Kong, Shenzhen\\\\
-  \texttt{220049024@link.cuhk.edu.cn} \\\\
-}
-\date{\today}
-\title{$1 Homework $2}
 \begin{document}
-\maketitle
-$0
 \end{document}

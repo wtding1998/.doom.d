@@ -1,0 +1,57 @@
+# -*- mode: snippet -*-
+# name: tutorial-pre
+# key: tutorial-pre
+# --
+\\documentclass{beamer}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\\usepackage{amsmath}
+\\usepackage{amsthm}
+\\usepackage{amsfonts}       % blackboard math symbols
+\\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\\usepackage{microtype}      % microtypography
+\\usepackage[]{mathtools}
+
+\\newtheorem{properties}{Properties}
+\\newtheorem{defs}{Definition}
+\\newtheorem{exas}{Example}
+\\newtheorem{thms}{Theorem}
+\\newcommand{\\RR}{\\mathbf R}
+\\newcommand{\\KK}{{\\cal K}}
+\\usetheme{Madrid}
+% \\usetheme{CambridgeUS}
+% \\usecolortheme{whale}
+\\usecolortheme{default}
+
+%% formatting
+\\setbeamercovered{transparent}
+% \\setbeamertemplate{theorems}[numbered]
+\\setbeamertemplate{theorems}[ams style]
+\\setbeamertemplate{definitions}[ams style]
+\\setbeamertemplate{examples}[ams style]
+% Removes icon in bibliography
+\\setbeamertemplate{bibliography item}[text]
+
+\\setbeamertemplate{itemize subitem}{--}
+\\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{sections/subsections in toc}{\inserttocsectionnumber.~\inserttocsection}
+% \setbeamertemplate{sections/subsections in toc}[square]
+% \\setbeamertemplate{frametitle} {
+% 	\\begin{center}
+% 	  {\\large\\bf \\insertframetitle}
+% 	\\end{center}
+% }
+
+\\title[]{}
+\\subtitle{}
+\\institute[SDS]{School of Data Science\\\\
+The Chinese University of Hong Kong, Shenzhen}
+\\author[Wentao Ding]{Wentao Ding \\\\
+\\texttt{220049024@link.cuhk.edu.cn}}
+\\date[\\today]{\\today}
+
+\\begin{document}
+\\frame{\\titlepage}
+
+\\end{document}
