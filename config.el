@@ -87,10 +87,13 @@
   (if (display-graphic-p)
       (progn
         ;; (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
-        (setq doom-theme 'doom-flatwhite)
+        ;; (setq doom-theme 'doom-nord)
+        (setq doom-theme 'doom-tomorrow-day)
+        ;; (setq doom-theme nil)
+        ;; (setq doom-theme 'doom-one-light)
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 26)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 26)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 29)) ;; 11 13 17 19 23
         ;; chinese font
         (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
@@ -108,6 +111,9 @@
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions #'dwt/init-font)
   (dwt/better-font))
+
+(unless (display-graphic-p)
+  (setq doom-theme 'doom-dracula))
 
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:

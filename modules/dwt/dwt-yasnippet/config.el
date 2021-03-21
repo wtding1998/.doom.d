@@ -18,6 +18,8 @@
     (yas-activate-extra-mode 'latex-mode))
 
   (add-hook 'org-mode-hook #'my-org-latex-yas)
+  (after! warnings
+    (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
   )
 
 (defun dwt/math-auto-expand-yasnippet ()

@@ -1,4 +1,4 @@
-;;; dwt/latex/config.el -*- lexical-binding: t; -*-
+;; ;;; dwt/latex/config.el -*- lexical-binding: t; -*-
 
 
 ;; === latex ===
@@ -19,7 +19,14 @@
 (use-package! cdlatex
   :defer t
   :hook (cdlatex-mode . (lambda()
-                          (define-key cdlatex-mode-map (kbd "(") nil))))
+                          (define-key cdlatex-mode-map (kbd "(") nil)))
+  :config
+  (define-key cdlatex-mode-map (kbd "<C-return>") nil)
+  (defun dwt/latex-indent-align ()
+    (interactive)
+    (call-interactively #'evil-indent)
+    (call-interactively #'align))
+  (map! :map cdlatex-mode-map :n "=" #'dwt/latex-indent-align))
 
 (after! tex
   (add-to-list 'TeX-view-program-selection
@@ -70,24 +77,40 @@
 ;;   (unless (texmathp)
 ;;     (insert "$$")
 ;;     (left-char)))
-
-(defun dwt/insert-dollar ()
+;; TODO set \( \) to be dollar in org-mode
+(defun dwt/insert-inline-math-env ()
   "Insert a pair of dollar when texmathp returns false. If there is a word at point, also wrap it."
   (interactive)
-  (if (not (texmathp))
+  (when (derived-mode-p 'tex-mode)
+    (if (not (texmathp))
+        (progn
+          (if (thing-at-point 'word)
+              (progn
+                (call-interactively #'backward-word)
+                (insert "$")
+                (call-interactively #'forward-word)
+                (insert "$")
+                (left-char 1)
+                )
+            (insert "$$")
+            (left-char 1)))
       (progn
-        (if (thing-at-point 'word)
-            (progn
-              (call-interactively #'backward-word)
-              (insert "$")
-              (call-interactively #'forward-word)
-              (insert "$")
-              (left-char 1)
-              )
-          (insert "$$")
-          (left-char 1)))
-    (progn
-      (call-interactively #'cdlatex-math-modify))))
+        (call-interactively #'cdlatex-math-modify))))
+  (when (derived-mode-p 'org-mode)
+    (if (not (texmathp))
+        (progn
+          (if (thing-at-point 'word)
+              (progn
+                (call-interactively #'backward-word)
+                (insert "\\(")
+                (call-interactively #'forward-word)
+                (insert "\\)")
+                (left-char 2)
+                )
+            (insert "\\(\\)")
+            (left-char 2)))
+      (progn
+        (call-interactively #'cdlatex-math-modify)))))
 
 (defun dwt/insert-superscript ()
   "If it's in math environment, insert a superscript, otherwise insert dollar and also wrap the word at point"
@@ -189,30 +212,30 @@
       (make-directory (concat project-path dir-name))
       (find-file (concat project-path dir-name "/" dir-name ".tex")))))
 
-;; (defun dwt/insert-bar ()
-;;   "Insert `-' in text environment, while `_{}' in math environment."
-;;   (interactive)
-;;   (if (texmathp)
-;;       (progn (insert "_{}")
-;;              (backward-char))
-;;     (progn (insert "-"))))
+(defun dwt/insert-bar ()
+  "Insert `-' in text environment, while `_{}' in math environment."
+  (interactive)
+  (if (texmathp)
+      (progn (insert "_{}")
+             (backward-char))
+    (progn (insert "-"))))
 
 
-;; (defun dwt/insert-semicolon ()
-;;   "Insert `;' in text environment, while `^{}' in math environment."
-;;   (interactive)
-;;   (if (texmathp)
-;;       (progn (insert "^{}")
-;;              (backward-char))
-;;     (progn (insert ";"))))
+(defun dwt/insert-semicolon ()
+  "Insert `;' in text environment, while `^{}' in math environment."
+  (interactive)
+  (if (texmathp)
+      (progn (insert "^{}")
+             (backward-char))
+    (progn (insert ";"))))
 
 
-;; (defun dwt/insert-colon ()
-;;   "Insert `:' in text environment, while `^{T}' in math environment."
-;;   (interactive)
-;;   (if (texmathp)
-;;       (progn (insert "^{T}"))
-;;     (progn (insert ":"))))
+(defun dwt/insert-colon ()
+  "Insert `:' in text environment, while `^{T}' in math environment."
+  (interactive)
+  (if (texmathp)
+      (progn (insert "^{T}"))
+    (progn (insert ":"))))
 
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-TeX-dir)
@@ -241,20 +264,21 @@
             (define-key evil-visual-state-local-map (kbd "}") 'dwt/find-math-next)
             (define-key evil-normal-state-local-map (kbd "{") 'dwt/find-math-prev)
             (define-key evil-visual-state-local-map (kbd "{") 'dwt/find-math-prev)))
-            ;; (define-key evil-insert-state-local-map (kbd "M-\\") 'dwt/insert-dollar)
+            ;; (define-key evil-insert-state-local-map (kbd "M-\\") 'dwt/insert-inline-math-env)
             ;; (define-key evil-insert-state-local-map (kbd "M-[") 'dwt/insert-superscript)
             ;; (define-key evil-insert-state-local-map (kbd "M--") 'dwt/insert-subscript)))
 ;; (define-key evil-insert-state-local-map (kbd "M-]") 'dwt/insert-transpose)
 ;; (define-key evil-insert-state-local-map (kbd "M-8") 'dwt/insert-star)
 
-(map! :map TeX-mode-map
+(map! :map cdlatex-mode-map
       :i ";" #'dwt/insert-subscript
       :i "\";" #'(lambda () (interactive) (insert ";"))
       :i ":" #'dwt/insert-superscript
       :i "\":" #'(lambda () (interactive) (insert ":"))
-      ;; :i "\"" #'dwt/insert-dollar)
-      :i "'" #'dwt/insert-dollar
+      ;; :i "\"" #'dwt/insert-inline-math-env)
+      :i "'" #'dwt/insert-inline-math-env
       :i "\"'" #'(lambda () (interactive) (insert "'"))
+      :i "M-n" #'cdlatex-tab
       )
 
 (setq cdlatex-math-modify-prefix (read-kbd-macro "\"\""))
@@ -268,6 +292,7 @@
   "Input string"
   (interactive "sEnter String: ")
   (insert input-string))
+
 
 ;; this setting failed
 ;; TODO: add synctex forward and backward
@@ -293,11 +318,35 @@
 
 ;;; find next or previous math environment
 
-(use-package org-latex-impatient
-  :defer t
+(use-package! org-latex-impatient
+  ;; :defer t
   ;; :hook (org-mode . org-latex-impatient-mode)
   :init
   (setq org-latex-impatient-tex2svg-bin
         ;; location of tex2svg executable
         "~/node_modules/mathjax-node-cli/bin/tex2svg")
   (setq org-latex-impatient-scale 3.0))
+;;
+;; (after! cdlatex
+;;   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
+;;    cdlatex-math-symbol-alist
+;;    '( ;; adding missing functions to 3rd level symbols
+;;      (?_    ("\\downarrow"  ""           "\\inf"))
+;;      (?2    ("^2"           "\\sqrt{?}"     ""     ))
+;;      (?3    ("^3"           "\\sqrt[3]{?}"  ""     ))
+;;      (?^    ("\\uparrow"    ""           "\\sup"))
+;;      (?k    ("\\kappa"      ""           "\\ker"))
+;;      (?m    ("\\mu"         ""           "\\lim"))
+;;      (?c    (""             "\\circ"     "\\cos"))
+;;      (?d    ("\\delta"      "\\partial"  "\\dim"))
+;;      (?D    ("\\Delta"      "\\nabla"    "\\deg"))
+;;      ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
+;;      (?F    ("\\Phi"))
+;;      ;; now just conveniance
+;;      (?.    ("\\cdot" "\\dots"))
+;;      (?:    ("\\vdots" "\\ddots"))
+;;      (?*    ("\\times" "\\star" "\\ast")))
+;;    cdlatex-math-modify-alist
+;;    '( ;; my own stuff
+;;      (?B    "\\mathbb"        nil          t    nil  nil)
+;;      (?a    "\\abs"           nil          t    nil  nil))))

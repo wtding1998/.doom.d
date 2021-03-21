@@ -40,7 +40,7 @@
       ;; :i "C-h" 'left-char
       ;; show doc
       :n "gh" '+lookup/documentation
-      :nv "A" #'evil-avy-goto-char-2
+      :n "gj" #'evil-avy-goto-char-2
       :n "-" #'evil-append-line
 
       :i "C-SPC" 'evil-visual-char)
@@ -351,7 +351,7 @@
   "lb" 'langtool-check-buffer
   "ll" 'langtool-goto-next-error
   ;; "pe" 'flymake-goto-prev-error
-  "ne" 'flymake-goto-next-error
+  ;; "ne" 'flymake-goto-next-error
   "oga" 'org-agenda
   "ogd" 'org-agenda-day-view
   "ogw" 'org-agenda-week-view

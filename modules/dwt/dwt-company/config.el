@@ -6,15 +6,14 @@
   :commands company-cancel
   :bind (("M-/" . company-complete)
          ("C-M-i" . company-complete))
-         ;; :map company-mode-map
-         ;; ("<backtab>" . my-company-yasnippet)
-         ;; :map company-active-map
-         ;; ("C-p" . company-select-previous)
-         ;; ("C-n" . company-select-next)
-         ;; ("<backtab>" . my-company-yasnippet)
-         ;; :map company-search-map
-         ;; ("C-p" . company-select-previous)
-         ;; ("C-n" . company-select-next))
+        ;; :map company-active-map
+        ;; ("C-p" . nil)
+        ;; ("C-n" . nil)
+        ;; ("C-<RET>" . nil)
+        ;; ("<backtab>" . my-company-yasnippet)
+        ;; :map company-search-map
+        ;; ("C-p" . company-select-previous)
+        ;; ("C-n" . company-select-next))
   :hook (after-init . global-company-mode)
   :init
   (setq company-tooltip-align-annotations t
@@ -29,11 +28,11 @@
         company-dabbrev-downcase nil
         company-global-modes '(not erc-mode message-mode help-mode
                                    gud-mode eshell-mode shell-mode))
-        ;; company-frontends '(company-pseudo-tooltip-frontend
-        ;;                     company-echo-metadata-frontend)
-        ;; company-backends '((company-capf :with company-yasnippet)
-        ;;                    (company-dabbrev-code company-keywords company-files)
-        ;;                    company-dabbrev))
+  ;; company-frontends '(company-pseudo-tooltip-frontend
+  ;;                     company-echo-metadata-frontend)
+  ;; company-backends '((company-capf :with company-yasnippet)
+  ;;                    (company-dabbrev-code company-keywords company-files)
+  ;;                    company-dabbrev))
   (defun my-company-yasnippet ()
     "Hide the current completeions and show snippets."
     (interactive)
@@ -134,6 +133,11 @@
   ;;   (setq company-backends'(company-capf :with company-yasnippet) '(company-dabbrev-code company-keywords company-files) '(company-dabbrev)))
   ;; (add-hook 'python-mode-hook #'dwt/set-company)
   ;; disable tab in company-mode
+  (define-key company-active-map (kbd "C-n") nil)
+  (define-key company-active-map (kbd "C-<RET>") nil)
+  (define-key company-mode-map (kbd "C-n") nil)
+  (define-key company-active-map (kbd "C-p") nil)
+  (define-key company-mode-map (kbd "C-p") nil)
   (define-key company-active-map (kbd "<tab>") nil)
   (define-key company-mode-map (kbd "<tab>") nil)
   (define-key company-search-map (kbd "<tab>") nil)

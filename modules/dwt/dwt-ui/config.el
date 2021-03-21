@@ -59,7 +59,6 @@
 
 (use-package! awesome-tab
   :config
-  ;; (setq awesome-tab-show-tab-index t)
   (evil-define-key 'normal 'global "gt" #'awesome-tab-forward-tab)
   (evil-define-key 'normal 'global "gT" #'awesome-tab-backward-tab)
   (evil-define-key 'normal 'global "]t" #'awesome-tab-forward-group)
@@ -78,8 +77,14 @@
        (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)
-       (string-prefix-p "*org-latex-impatient" name)
+       (string-prefix-p " *rime-posframe" name)
        (and (string-prefix-p "magit" name)
-            (not (file-name-extension name)))
-       )))
+            (not (file-name-extension name))))))
+
   (awesome-tab-mode t))
+
+
+
+
+(unless (display-graphic-p)
+  (evil-terminal-cursor-changer-activate))

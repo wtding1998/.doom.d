@@ -4,6 +4,7 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+  (map! :map org-mode-map "<tab>" nil)
   (setq org-use-fast-todo-selection t)
   (setq org-todo-keywords '((sequence "TODO(t)" "Wait(w)" "|" "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
   (setq org-log-done t)
@@ -15,8 +16,8 @@
             (lambda ()
               (org-shifttab 2)))
   ;; highlight latex related part
-  ;; (setq org-highlight-latex-and-related '(latex scripe entities))
-  (setq org-highlight-latex-and-related '(native script entities))
+  (setq org-highlight-latex-and-related '(latex script entities))
+  ;; (setq org-highlight-latex-and-related '(native script entities))
 
   (defun dwt/org-clear-cache ()
     (interactive)
@@ -28,9 +29,10 @@
   ;;   (plist-put dvipng--plist :use-xcolor t)
   ;;   (plist-put dvipng--plist :image-converter '("dvipng -D %D -bg 'transparent' -T tight -o %O %f")))
 
-  (let ((dvipng--plist (alist-get 'dvipng org-preview-latex-process-alist)))
-    (plist-put dvipng--plist :use-xcolor t)
-    (plist-put dvipng--plist :image-converter '("dvipng -D %D -T tight -o %O %f")))
+  ;; (let ((dvipng--plist (alist-get 'dvipng org-preview-latex-process-alist)))
+  ;;   (plist-put dvipng--plist :use-xcolor t)
+  ;;   (plist-put dvipng--plist :image-converter '("dvipng -D %D -T tight -o %O %f")))
+  ;;
   ;; (add-hook! 'doom-load-theme-hook
   ;;   (defun +org-refresh-latex-background ()
   ;;     (plist-put! org-format-latex-options
@@ -140,24 +142,12 @@
                 (insert "\\(")
                 (call-interactively #'forward-word)
                 (insert "\\)")
-                (left-char 2)
-                )
+                (left-char 2))
+
             (insert "\\(\\)")
             (left-char 2)))
       (progn
         (call-interactively #'cdlatex-math-modify))))
-
-  (map! :map org-mode-map
-        :i ";" #'dwt/insert-subscript
-        :i "\";" #'(lambda () (interactive) (insert ";"))
-        :i ":" #'dwt/insert-superscript
-        :i "\":" #'(lambda () (interactive) (insert ":"))
-        ;; :i "\"" #'dwt/insert-dollar)
-        :i "'" #'dwt/insert-inline-math
-        :i "\"'" #'(lambda () (interactive) (insert "'"))
-        :i "<tab>" #'dwt/tab-in-org
-        ;; :i (kbd "<m-n>") #'cdlatex-tab
-        )
 
   ;; (defun dwt/latex-quote ()
   ;;   (interactive)
@@ -195,8 +185,8 @@
 
         (when-let ((ovs (overlays-at (point))))
           (when (->> ovs
-                     (--map (overlay-get it 'org-overlay-type))
-                     (--filter (equal it 'org-latex-overlay)))
+                  (--map (overlay-get it 'org-overlay-type))
+                  (--filter (equal it 'org-latex-overlay)))
             (org-latex-preview)
             (setq +org-last-in-latex t)))
 
@@ -210,10 +200,13 @@
     nil
     (if org-latex-auto-toggle
         (add-hook 'post-command-hook '+org-post-command-hook nil t)
-      (remove-hook 'post-command-hook '+org-post-command-hook t)))
-  )
+      (remove-hook 'post-command-hook '+org-post-command-hook t))))
 
-(after! org-roam
+
+(use-package! org-roam
+  :init
+  (setq org-roam-directory "~/OneDrive/Documents/roam")
+  :config
   (setq org-roam-capture-templates
         '(
           ("d" "default" plain (function org-roam-capture--get-point)
@@ -238,12 +231,26 @@
 
 
 ;; roam
-(setq org-roam-directory "~/OneDrive/Documents/roam")
 (map! :leader
       :desc "roam-find-file" "of" #'org-roam-find-file
       :desc "roam-find-ref" "or" #'org-roam-find-ref
       :desc "roam-find-ref" "oc" #'org-roam-capture
       :desc "roam-insert-link" "oi" #'org-roam-insert)
+;;; noter
+(use-package! org-noter
+  :config
+  (setq org-noter-auto-save-last-location nil)
+  (map! :map org-noter-doc-mode-map
+        :localleader
+        "q" #'org-noter-kill-session
+        "i" #'org-noter-insert-note)
+  (map! :map org-noter-doc-mode-map
+        :nvi "ni" #'org-noter-insert-note
+        :nvi "nq" #'org-noter-kill-session)
+  (map! :map org-noter-notes-mode-map
+        :nv "ni" #'org-noter-sync-current-note
+        :nv "nq" #'org-noter-kill-session))
+
 
 ;; (let ((org-id-files (org-roam--list-files org-roam-directory))
 ;;       org-agenda-files)
