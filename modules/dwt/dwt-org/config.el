@@ -5,6 +5,9 @@
 ;; org-function
 (after! org
   (map! :map org-mode-map "<tab>" nil)
+  (map! :map org-mode-map
+        :localleader
+        "C" #'cdlatex-mode)
   (setq org-use-fast-todo-selection t)
   (setq org-todo-keywords '((sequence "TODO(t)" "Wait(w)" "|" "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
   (setq org-log-done t)

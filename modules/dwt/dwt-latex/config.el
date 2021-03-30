@@ -278,8 +278,12 @@
       ;; :i "\"" #'dwt/insert-inline-math-env)
       :i "'" #'dwt/insert-inline-math-env
       :i "\"'" #'(lambda () (interactive) (insert "'"))
-      :i "M-n" #'cdlatex-tab
-      )
+      :i "M-n" #'cdlatex-tab)
+
+;; TODO scratch function
+;; (defun dwt/tex-scratch ()
+;;   (interactive)
+;;   (find-file "~/OneDrive/Documents/study note/latex/scratch"))
 
 (setq cdlatex-math-modify-prefix (read-kbd-macro "\"\""))
 ;; TODO

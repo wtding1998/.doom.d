@@ -41,6 +41,8 @@
       ;; show doc
       :n "gh" '+lookup/documentation
       :n "gj" #'evil-avy-goto-char-2
+      :n "gb" #'avy-goto-char-2
+      :n "go" #'avy-goto-line
       :n "-" #'evil-append-line
 
       :i "C-SPC" 'evil-visual-char)

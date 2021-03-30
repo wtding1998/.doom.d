@@ -155,8 +155,8 @@
 
 
 ;; maxmize frame when start
-(toggle-frame-fullscreen)
-;; (toggle-frame-maximized)
+;; (toggle-frame-fullscreen)
+(toggle-frame-maximized)
 ;; auto-save
 (auto-save-visited-mode +1)
 ;; better default setting
@@ -164,7 +164,8 @@
 ;; (setq auto-save-default t)
 ;; set title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
-(setq-default frame-title-format '("Doom-Emacs - " user-login-name " - %b"))
+;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
+(setq-default frame-title-format '("Emacs - %b"))
 ;; display time modeline
 (setq display-time-day-and-date t)
 (setq display-time-24hr-format t)
