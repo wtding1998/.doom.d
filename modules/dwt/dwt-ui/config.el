@@ -13,37 +13,6 @@
 ;;   ;; Set splash image when theme changed.
 ;;   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
 
-;; (after! centaur-tabs
-;;   (setq centaur-tabs-set-close-button nil)
-;;   (setq centaur-tabs-set-modified-marker nil)
-
-;;   (defun centaur-tabs-hide-tab (x)
-;;     "Do no to show buffer X in tabs."
-;;     (let ((name (format "%s" x)))
-;;       (or
-;;        ;; Current window is not dedicated window.
-;;        (window-dedicated-p (selected-window))
-;;        ;; Buffer name not match below blacklist.
-;;        (string-prefix-p "*epc" name)
-;;        (string-prefix-p "*helm" name)
-;;        (string-prefix-p "*Helm" name)
-;;        (string-prefix-p "*Compile-Log*" name)
-;;        (string-prefix-p "*lsp" name)
-;;        (string-prefix-p "*LSP" name)
-;;        (string-prefix-p "*company" name)
-;;        (string-prefix-p "*Flycheck" name)
-;;        (string-prefix-p "*tramp" name)
-;;        (string-prefix-p " *Mini" name)
-;;        (string-prefix-p "*help" name)
-;;        (string-prefix-p "*straight" name)
-;;        (string-prefix-p " *temp" name)
-;;        (string-prefix-p "*Help" name)
-;;        (string-prefix-p "*org-latex-impatient" name)
-;;        ;; Is not magit buffer.
-;;        (and (string-prefix-p "magit" name)
-;; 	          (not (file-name-extension name)))
-;;        )))
-;;   )
 
 (map! :n "[t" #'centaur-tabs-forward-group
       :n "]t" #'centaur-tabs-backward-group)
@@ -57,6 +26,18 @@
   (prog-mode . global-diff-hl-mode)
   (prog-mode . diff-hl-flydiff-mode))
 
+(use-package! kaolin-themes
+ :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes"); Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
+
+(use-package! printed-theme
+  :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
+
+(use-package! joker-theme
+  :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
+
+(use-package! storybook-theme
+  :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
+
 (use-package! awesome-tab
   :config
   (evil-define-key 'normal 'global "gt" #'awesome-tab-forward-tab)
@@ -68,7 +49,9 @@
   (evil-define-key 'normal 'global (kbd"<leader>t0") #'awesome-tab-kill-all-buffers-in-current-group)
   (evil-define-key 'normal 'global (kbd"<leader>tn") #'awesome-tab-forward-tab)
   (evil-define-key 'normal 'global (kbd"<leader>tp") #'awesome-tab-backward-tab)
+
   (define-key global-map (kbd "M-o") #'other-window)
+  ;; define tab-hide-rule
   (setq awesome-tab-height 190)
   (defun awesome-tab-hide-tab (x)
     (let ((name (format "%s" x)))
@@ -77,14 +60,12 @@
        (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)
+       (string-prefix-p "*org-latex" name)
        (string-prefix-p " *rime-posframe" name)
        (and (string-prefix-p "magit" name)
             (not (file-name-extension name))))))
 
   (awesome-tab-mode t))
-
-
-
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))

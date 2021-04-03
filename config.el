@@ -77,6 +77,16 @@
                      doom-tomorrow-night
                      doom-one
                      doom-flatwhite))
+
+(defvar dwt/light-themes '(storybook
+                           doom-tomorrow-day
+                           doom-one-light
+                           doom-flatwhite))
+(defun dwt/random-load-light-theme ()
+  "Load light theme."
+  (interactive)
+  (load-theme (nth (random (length dwt/themes)) dwt/light-themes)) t nil)
+
 (defun dwt/random-load-theme ()
   "Load theme randomly from dwt/themes."
   (interactive)
@@ -87,8 +97,9 @@
   (if (display-graphic-p)
       (progn
         ;; (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
+        (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
         ;; (setq doom-theme 'doom-nord)
-        (setq doom-theme 'doom-tomorrow-day)
+        ;; (setq doom-theme 'doom-tomorrow-day)
         ;; (setq doom-theme nil)
         ;; (setq doom-theme 'doom-one-light)
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23

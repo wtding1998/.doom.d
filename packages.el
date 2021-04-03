@@ -56,16 +56,16 @@
 ;;    :repo "DogLooksGood/.emacs.d"
 ;;    :files ("*.el" "themes/*.el")))
 
-(package! printed-theme :recipe
-  (:host github
-   :repo "DogLooksGood/printed-theme"))
+;; (package! printed-theme :recipe
+;;   (:host github
+;;    :repo "DogLooksGood/printed-theme"))
 
-(package! storybook-theme :recipe
-  (:host github
-   :repo "DogLooksGood/storybook-theme"))
+;; (package! storybook-theme :recipe
+;;   (:host github
+;;    :repo "DogLooksGood/storybook-theme"))
 
-(package! joker-theme :recipe
-  (:host github
-   :repo "DogLooksGood/joker-theme"))
+;; (package! joker-theme :recipe
+;;   (:host github
+;;    :repo "DogLooksGood/joker-theme"))
 
 (package! python-pytest :disable t)
