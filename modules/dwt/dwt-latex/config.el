@@ -13,6 +13,7 @@
 (setq-default TeX-engine 'xetex
               TeX-PDF-mode t)
 ;;; auctex preview scale
+;; (require 'preview)
 (after! preview
   (setq-default preview-scale 2.5))
 

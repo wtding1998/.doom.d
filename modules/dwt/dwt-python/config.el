@@ -82,6 +82,7 @@ immediately after."
         (evil-insert-state)))))
 
 (after! python
+  ;; (setq python-shell-exec-path "/home/wtding/miniconda3/bin/python")
   (map! :map python-mode-map :localleader "s" #'run-python
         "r" #'python-shell-send-region
         "f" #'python-shell-send-file

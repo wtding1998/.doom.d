@@ -7,8 +7,9 @@
     '(company-capf :with company-yasnippet) '(company-dabbrev-code company-keywords company-files :with company-yasnippet) '(company-dabbrev))
   :config
     ;; '(company-capf) '(company-dabbrev-code company-keywords company-files :with company-yasnippet) '(company-dabbrev))
-  (setq nox-python-path (executable-find "python3"))
+  ;; (setq nox-python-path (executable-find "python3"))
   (setq nox-python-server "pyright")
+  (setq nox-python-path "/home/wtding/miniconda3/bin/python")
   (map! :map python-mode-map :nvi "M-q" #'nox-show-doc)
   ;; (setq nox-python-server "mspyls")
         ;; nox-python-server-dir "~/.emacs.d/nox/mspyls/")

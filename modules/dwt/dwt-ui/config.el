@@ -13,6 +13,8 @@
 ;;   ;; Set splash image when theme changed.
 ;;   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
 
+;; disable global-hl-line
+(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
 (map! :n "[t" #'centaur-tabs-forward-group
       :n "]t" #'centaur-tabs-backward-group)
@@ -27,7 +29,7 @@
   (prog-mode . diff-hl-flydiff-mode))
 
 (use-package! kaolin-themes
- :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes"); Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
+ :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes")
 
 (use-package! printed-theme
   :load-path "~/.emacs.d/.local/straight/repos/printed-theme")

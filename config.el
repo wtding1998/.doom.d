@@ -80,6 +80,7 @@
 
 (defvar dwt/light-themes '(storybook
                            doom-tomorrow-day
+                           modus-operandi
                            doom-one-light
                            doom-flatwhite))
 (defun dwt/random-load-light-theme ()
@@ -97,8 +98,8 @@
   (if (display-graphic-p)
       (progn
         ;; (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
-        (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-        ;; (setq doom-theme 'doom-nord)
+        ;; (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
+        (setq doom-theme 'modus-operandi)
         ;; (setq doom-theme 'doom-tomorrow-day)
         ;; (setq doom-theme nil)
         ;; (setq doom-theme 'doom-one-light)

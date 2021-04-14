@@ -4,7 +4,14 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+
+  ;;; clock
+  (map! :map org-mode-map :localleader
+        "cu" #'org-dblock-update)
   (map! :map org-mode-map "<tab>" nil)
+  (add-hook 'org-mode-hook #'cdlatex-mode)
+  (add-hook 'org-mode-hook #'evil-tex-mode)
+  (add-hook 'org-mode-hook #'org-latex-auto-toggle)
   (map! :map org-mode-map
         :localleader
         "C" #'cdlatex-mode)
@@ -44,8 +51,8 @@
   ;;                                     'default)
   ;;                                 :background nil t))))
   ;; (add-to-list 'org-latex-regexps '("\\ce" "^\\\\ce{\\(?:[^\000{}]\\|{[^\000}]+?}\\)}" 0 nil))
-  (use-package! org-fragtog
-    :hook (org-roam-mode . org-fragtog-mode))
+  ;; (use-package! org-fragtog
+  ;;   :hook (org-roam-mode . org-fragtog-mode))
   ;; === templates ===
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
@@ -208,6 +215,10 @@
 
 (use-package! org-roam
   :init
+  ;; (setq org-roam-buffer-window-parameters nil)
+  ;; (setq +org-roam-open-buffer-on-find-file nil)
+  ;; solve the problem roam doesn't read the database
+  (setq org-roam-db-location "~/mycode/org-roam.db")
   (setq org-roam-directory "~/OneDrive/Documents/roam")
   :config
   (setq org-roam-capture-templates
@@ -215,22 +226,22 @@
           ("d" "default" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "${slug}"
-           :head "#+title: ${title}\n#+roam_alias:\n\n")))
+           :head "#+title: ${title}\n#+roam_tags:\n\n")))
   (add-to-list 'org-roam-capture-templates
                '("p" "Paper Note" plain (function org-roam-capture--get-point)
                  "* Paper \n\n* TODO \n\n* Problem\n\n%?\n* Idea\n\n* Method\n\n* Result\n\n* My Idea\n"
                  :file-name "${slug}"
                  :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
-                 :unnarrowed t
-                 ))
+                 :unnarrowed t))
+
   (add-to-list 'org-roam-capture-templates
                '("u" "Useful Facts" plain (function org-roam-capture--get-point)
                  "* Problem\n\n%?\n* * Result\n\n* My Idea\n"
                  :file-name "${slug}"
                  :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
-                 :unnarrowed t
-                 ))
-  )
+                 :unnarrowed t)))
+
+  
 
 
 ;; roam
