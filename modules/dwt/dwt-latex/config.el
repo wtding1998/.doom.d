@@ -105,11 +105,11 @@
                 (call-interactively #'backward-word)
                 (insert "\\(")
                 (call-interactively #'forward-word)
-                (insert "\\)")
-                (left-char 2)
+                (insert " \\)")
+                (left-char 3)
                 )
-            (insert "\\(\\)")
-            (left-char 2)))
+            (insert "\\( \\)")
+            (left-char 3)))
       (progn
         (call-interactively #'cdlatex-math-modify)))))
 
@@ -332,26 +332,29 @@
         "~/node_modules/mathjax-node-cli/bin/tex2svg")
   (setq org-latex-impatient-scale 3.0))
 ;;
-;; (after! cdlatex
-;;   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
-;;    cdlatex-math-symbol-alist
-;;    '( ;; adding missing functions to 3rd level symbols
-;;      (?_    ("\\downarrow"  ""           "\\inf"))
-;;      (?2    ("^2"           "\\sqrt{?}"     ""     ))
-;;      (?3    ("^3"           "\\sqrt[3]{?}"  ""     ))
-;;      (?^    ("\\uparrow"    ""           "\\sup"))
-;;      (?k    ("\\kappa"      ""           "\\ker"))
-;;      (?m    ("\\mu"         ""           "\\lim"))
-;;      (?c    (""             "\\circ"     "\\cos"))
-;;      (?d    ("\\delta"      "\\partial"  "\\dim"))
-;;      (?D    ("\\Delta"      "\\nabla"    "\\deg"))
-;;      ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
-;;      (?F    ("\\Phi"))
-;;      ;; now just conveniance
-;;      (?.    ("\\cdot" "\\dots"))
-;;      (?:    ("\\vdots" "\\ddots"))
-;;      (?*    ("\\times" "\\star" "\\ast")))
-;;    cdlatex-math-modify-alist
-;;    '( ;; my own stuff
-;;      (?B    "\\mathbb"        nil          t    nil  nil)
-;;      (?a    "\\abs"           nil          t    nil  nil))))
+(after! cdlatex
+  (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
+   cdlatex-math-symbol-alist
+   '( ;; adding missing functions to 3rd level symbols
+     (?_    ("\\downarrow"  ""           "\\inf"))
+     (?2    ("^2"           "\\sqrt{?}"     ""     ))
+     (?3    ("^3"           "\\sqrt[3]{?}"  ""     ))
+     (?^    ("\\uparrow"    ""           "\\sup"))
+     (?k    ("\\kappa"      ""           "\\ker"))
+     (?m    ("\\mu"         ""           "\\lim"))
+     (?c    (""             "\\circ"     "\\cos"))
+     (?d    ("\\delta"      "\\partial"  "\\dim"))
+     (?D    ("\\Delta"      "\\nabla"    "\\deg"))
+     ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
+     (?F    ("\\Phi"))
+     ;; now just conveniance
+     (?.    ("\\cdot" "\\dots"))
+     (?:    ("\\vdots" "\\ddots"))
+     (?*    ("\\times" "\\star" "\\ast")))
+   cdlatex-math-modify-alist
+   '( ;; my own stuff
+     (?a    "\\mathbb"        nil          t    nil  nil)
+     (?1    "\\hat"           nil          t    nil  nil)
+     (?1    "\\bar"           nil          t    nil  nil)
+     (?s    "\\mathscr"           nil          t    nil  nil)
+     (?A    "\\abs"           nil          t    nil  nil))))

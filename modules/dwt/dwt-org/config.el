@@ -231,7 +231,7 @@
                '("p" "Paper Note" plain (function org-roam-capture--get-point)
                  "* Paper \n\n* TODO \n\n* Problem\n\n%?\n* Idea\n\n* Method\n\n* Result\n\n* My Idea\n"
                  :file-name "${slug}"
-                 :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
+                 :head "#+title: ${title}\n#+roam_tags:\n#+roam_tags:paper \n\n"
                  :unnarrowed t))
 
   (add-to-list 'org-roam-capture-templates
