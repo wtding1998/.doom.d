@@ -274,6 +274,8 @@
 (map! :map cdlatex-mode-map
       :i ";" #'dwt/insert-subscript
       :i "\";" #'(lambda () (interactive) (insert ";"))
+      :i "\"_" #'(lambda () (interactive) (insert "_"))
+      :i "\"$" #'(lambda () (interactive) (insert "$"))
       :i ":" #'dwt/insert-superscript
       :i "\":" #'(lambda () (interactive) (insert ":"))
       ;; :i "\"" #'dwt/insert-inline-math-env)
@@ -350,6 +352,8 @@
      ;; now just conveniance
      (?.    ("\\cdot" "\\dots"))
      (?:    ("\\vdots" "\\ddots"))
+     (?_     ("_"          ""             ""     ))
+     (?4     ("$"          ""             ""     ))
      (?*    ("\\times" "\\star" "\\ast")))
    cdlatex-math-modify-alist
    '( ;; my own stuff

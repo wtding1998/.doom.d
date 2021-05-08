@@ -125,7 +125,7 @@
   (dwt/better-font))
 
 (unless (display-graphic-p)
-  (setq doom-theme 'doom-dracula))
+  (setq doom-theme 'kaolin-mono-dark))
 
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:

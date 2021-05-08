@@ -6,3 +6,5 @@
 
 (add-to-list 'load-path "~/.doom.d/matlab-emacs")
 (load-library "matlab-load")
+(after! matlab
+  (map! :map matlab-mode-map "C-<return>" nil))

@@ -11,7 +11,7 @@
   (map! :map org-mode-map "<tab>" nil)
   (add-hook 'org-mode-hook #'cdlatex-mode)
   (add-hook 'org-mode-hook #'evil-tex-mode)
-  (add-hook 'org-mode-hook #'org-latex-auto-toggle)
+  ;; (add-hook 'org-mode-hook #'org-latex-auto-toggle)
   (map! :map org-mode-map
         :localleader
         "C" #'cdlatex-mode)
