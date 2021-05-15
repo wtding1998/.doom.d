@@ -11,11 +11,110 @@
 ;;                                           (rx ".png" eos))))
 ;;             (elt banners (random (length banners))))))
 ;;   ;; Set splash image when theme changed.
+;;
+;; see banner configurration https://tecosaur.github.io/emacs-config/config.html
 ;;   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
+;;
+(defun doom-dashboard-draw-ascii-emacs-banner-fn ()
+  (let* ((banner
+          ;; '(",---.,-.-.,---.,---.,---."
+          ;;   "|---'| | |,---||    `---."
+          ;;   "`---'` ' '`---^`---'`---'"))
+          '("知而不行，未知之矣。"
+            "大道甚夷，而人好径。胜人者有力，自胜者强."
+            "上士闻道，勤而行之。中士闻道，若存若亡。下士闻道，大笑之，不笑不足以为道。"))
 
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat
+                 line (make-string (max 0 (- longest-line (length line)))
+                                   32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
+;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
+;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
+
+(setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 ;; disable global-hl-line
 (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
+(defvar dwt/themes '(doom-material
+                     doom-oceanic-next
+                     doom-nova
+                     doom-spacegrey
+                     doom-opera
+                     ;; doom-fairy-floss
+                     doom-dracula
+                     doom-vibrant
+                     doom-rouge
+                     doom-sourcerer
+                     doom-miramare
+                     doom-one-light
+                     doom-nord-light
+                     doom-nord
+                     doom-tomorrow-day
+                     doom-wilmersdorf
+                     doom-moonlight
+                     doom-horizon
+                     doom-monokai-pro
+                     doom-tomorrow-night
+                     doom-one
+                     doom-flatwhite))
+
+(defvar dwt/light-themes '(storybook
+                           doom-tomorrow-day
+                           modus-operandi
+                           doom-one-light
+                           doom-flatwhite))
+(defun dwt/random-load-light-theme ()
+  "Load light theme."
+  (interactive)
+  (load-theme (nth (random (length dwt/themes)) dwt/light-themes)) t nil)
+
+(defun dwt/random-load-theme ()
+  "Load theme randomly from dwt/themes."
+  (interactive)
+  (load-theme (nth (random (length dwt/themes)) dwt/themes)) t nil)
+
+(defun dwt/better-font()
+  ;; english font
+  (if (display-graphic-p)
+      (progn
+        ;; (setq doom-theme (nth (random (length dwt/themes)) dwt/themes))
+        ;; (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
+        (setq doom-theme 'modus-operandi)
+        ;; (setq doom-theme 'tao-yang)
+        ;; (setq doom-theme 'doom-tomorrow-day)
+        ;; (setq doom-theme nil)
+        ;; (setq doom-theme 'doom-one-light)
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "SF Mono" 26)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 29)) ;; 11 13 17 19 23
+        ;; chinese font
+        (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
+        (dolist (charset '(kana han symbol cjk-misc bopomofo))
+          (set-fontset-font (frame-parameter nil 'font)
+                            charset
+                            (font-spec :family "Source Han Serif CN")))) ;; 14 16 20 22 28
+    ))
+
+(defun dwt/init-font(frame)
+  (with-selected-frame frame
+    (if (display-graphic-p)
+        (dwt/better-font))))
+
+(if (and (fboundp 'daemonp) (daemonp))
+    (add-hook 'after-make-frame-functions #'dwt/init-font)
+  (dwt/better-font))
+
+(unless (display-graphic-p)
+  (setq doom-theme 'kaolin-mono-dark))
 (map! :n "[t" #'centaur-tabs-forward-group
       :n "]t" #'centaur-tabs-backward-group)
 
@@ -59,6 +158,7 @@
     (let ((name (format "%s" x)))
       (or
        (string-prefix-p "*epc" name)
+       (string-prefix-p "*" name)
        (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)
