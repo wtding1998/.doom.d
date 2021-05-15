@@ -82,7 +82,14 @@ immediately after."
         (evil-insert-state)))))
 
 (after! python
-  ;; (setq python-shell-exec-path "/home/wtding/miniconda3/bin/python")
+  ;; (setq python-shell-exec-path '("home/wtding/miniconda3/bin/python"))
+  ;;; pyvenv
+  (setenv "WORKON_HOME" "/home/wtding/miniconda3/envs")
+  (map! :map python-mode-map :localleader
+        "v" #'pyvenv-workon)
+  (set-popup-rules!
+    ;; '(("^\\*Python*" :side right :size 15 :select t)))
+    '(("^\\*Python*" :size 15 :select t)))
   (map! :map python-mode-map :localleader "s" #'run-python
         "r" #'python-shell-send-region
         "f" #'python-shell-send-file
