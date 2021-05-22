@@ -100,6 +100,10 @@
 (toggle-frame-maximized)
 ;; auto-save
 (auto-save-visited-mode +1)
+
+;; (add-hook 'evil-normal-state-entry-hook
+;;           (lambda ()
+;;             (call-interactively #'basic-save-buffer)))
 ;; better default setting
 (setq evil-want-fine-undo t)
 ;; (setq auto-save-default t)
