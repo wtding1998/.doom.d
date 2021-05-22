@@ -158,7 +158,7 @@
     (let ((name (format "%s" x)))
       (or
        (string-prefix-p "*epc" name)
-       (string-prefix-p "*" name)
+       ;; (string-prefix-p "*" name)
        (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)

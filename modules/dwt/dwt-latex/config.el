@@ -5,15 +5,11 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 (add-hook 'LaTeX-mode-hook 'hl-todo-mode)
 ;; (add-hook! LaTeX-mode
-;;   (add-to-list TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
-;;   (setq TeX-command-default "XeLaTeX"
-;;         TeX-save-query nil
-;;         TeX-show-compilation t))
+
 ;;; use xetex ass default engine
 (setq-default TeX-engine 'xetex
               TeX-PDF-mode t)
 ;;; auctex preview scale
-;; (require 'preview)
 (after! preview
   (setq-default preview-scale 2.5))
 
@@ -30,6 +26,26 @@
   (map! :map cdlatex-mode-map :n "=" #'dwt/latex-indent-align))
 
 (after! tex
+  (set-popup-rules!
+    ;; '(("^\\*Python*" :side right :size 15 :select t)))
+    '(("^\\*TeX Help*" :size 15)))
+  (add-to-list 'TeX-command-list '("Shell Escape"
+                                   "%`xelatex%(mode)%' -shell-escape %t"
+                                   TeX-run-TeX
+                                   nil
+                                   t
+                                   :help "For Minted"))
+  ;; (setq TeX-command-default "XeLaTeX"
+  ;;       TeX-save-query nil
+  ;;       TeX-show-compilation t)
+  (add-to-list
+   'TeX-command-list
+   '("DVI2PDF"
+     "dvipdf %d"
+     TeX-run-command
+     nil                              ; ask for confirmation
+     t                                ; active in all modes
+     :help "Convert DVI->PDF"))
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "zathura"))
   (add-to-list 'TeX-view-program-list
