@@ -39,7 +39,8 @@
       ;; :i "C-l" 'right-char
       ;; :i "C-h" 'left-char
       ;; show doc
-      :n "gh" '+lookup/documentation
+      :n "gh" #'+lookup/documentation
+      :n "ge" #'awesome-tab-ace-jump
       :n "gj" #'evil-avy-goto-char-2
       :n "gb" #'avy-goto-char-2
       :n "go" #'avy-goto-line
