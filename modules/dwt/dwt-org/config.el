@@ -9,7 +9,7 @@
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
   (map! :map org-mode-map "<tab>" nil)
-  (add-hook 'org-mode-hook #'cdlatex-mode)
+  ;; (add-hook 'org-mode-hook #'cdlatex-mode)
   (add-hook 'org-mode-hook #'evil-tex-mode)
   ;; (add-hook 'org-mode-hook #'org-latex-auto-toggle)
   (map! :map org-mode-map
@@ -266,6 +266,8 @@
         :nv "ni" #'org-noter-sync-current-note
         :nv "nq" #'org-noter-kill-session))
 
+(use-package! org-appear
+  :init (add-hook 'org-mode-hook 'org-appear-mode))
 
 ;; (let ((org-id-files (org-roam--list-files org-roam-directory))
 ;;       org-agenda-files)
