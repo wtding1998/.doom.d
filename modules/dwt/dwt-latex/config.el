@@ -48,12 +48,25 @@
      :help "Convert DVI->PDF"))
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "zathura"))
+  (setq TeX-source-correlate-start-server t)
   (add-to-list 'TeX-view-program-list
                '("zathura"
                  ("zathura "
                   (mode-io-correlate " ")
                   "%o")
                  "zathura"))
+
+  (defun dwt/view-pdf-by-pdf-tools ()
+    (interactive)
+    "Open pdf tool for .tex file"
+    (let ((f-name (file-name-sans-extension (buffer-name)))
+          (f-type (file-name-extension (buffer-name))))
+      (when (string= f-type "tex")
+        (when (file-exists-p (concat f-name ".pdf"))
+          (call-interactively #'evil-window-vsplit)
+          (other-window 1)
+          (find-file (concat f-name ".pdf"))))))
+
   (defmacro define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-name"))
           (outer-name (make-symbol "outer-name")))
@@ -188,6 +201,8 @@
  (
   :localleader
   :desc "View" "v" #'TeX-view
+  :desc "View by pdf-tools" "d" #'dwt/view-pdf-by-pdf-tools
+  :desc "Run" "C" #'dwt/TeX-save-and-run-all
   :desc "Run" "c" #'dwt/TeX-save-and-run-all
   :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
   :desc "Preview Environment" "e" #'preview-environment
@@ -360,7 +375,7 @@
      (?^    ("\\uparrow"    ""           "\\sup"))
      (?k    ("\\kappa"      ""           "\\ker"))
      (?m    ("\\mu"         ""           "\\lim"))
-     (?c    (""             "\\circ"     "\\cos"))
+     (?c    ("\\contr"             "\\circ"     "\\cos"))
      (?d    ("\\delta"      "\\partial"  "\\dim"))
      (?D    ("\\Delta"      "\\nabla"    "\\deg"))
      ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
@@ -374,7 +389,8 @@
    cdlatex-math-modify-alist
    '( ;; my own stuff
      (?a    "\\mathbb"        nil          t    nil  nil)
+     (?q    "\\matr"        nil          t    nil  nil)
+     (?t    "\\tens"        nil          t    nil  nil)
      (?1    "\\hat"           nil          t    nil  nil)
-     (?1    "\\bar"           nil          t    nil  nil)
      (?s    "\\mathscr"           nil          t    nil  nil)
      (?A    "\\abs"           nil          t    nil  nil))))
