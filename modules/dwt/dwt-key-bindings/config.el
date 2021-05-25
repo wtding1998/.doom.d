@@ -45,11 +45,7 @@
       :n "gb" #'avy-goto-char-2
       :n "go" #'avy-goto-line
       :n "-" #'evil-append-line
-
       :i "C-SPC" 'evil-visual-char)
-      ;; awesome-pair
-      ;; :i "M-p" 'dwt-forward-jump-sexp
-      ;; :i "M-n" 'dwt-backward-jump-sexp
 
 
 (evil-define-key '(normal visual) prog-mode-map (kbd "<tab>a") #'align)
@@ -85,7 +81,7 @@
        :desc "delete other windows" "1" #'delete-other-windows
        :desc "delete window" "0" #'delete-window
        :desc "winner-undo" "2" #'winner-undo
-       :desc "winner-undo" "3" #'winner-redo
+       :desc "winner-redo" "3" #'winner-redo
 
        ;; :desc "previous buffer" "[" #'previous-buffer
        ;; :desc "next buffer" "]" #'next-buffer
@@ -116,6 +112,7 @@
 
        ;; file
        :desc "fzf" "fz" #'counsel-fzf
+       :desc "file log" "fh" #'magit-log-buffer-file
        :desc "rg" "fg" #'counsel-rg
        :desc "find file other window" "fv" #'find-file-other-window
        :desc "open by extern program" "fo" #'counsel-find-file-extern
