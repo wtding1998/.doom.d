@@ -97,12 +97,11 @@
 
 ;; maxmize frame when start
 ;; (toggle-frame-fullscreen)
-(toggle-frame-maximized)
 ;; auto-save
 (auto-save-visited-mode +1)
 (add-hook 'evil-insert-state-exit-hook
           (lambda ()
-            (unless (string-prefix-p "*" (buffer-name))
+            (unless (or (string-prefix-p "*" (buffer-name)) (string-prefix-p "+" (buffer-name)))
               (call-interactively #'basic-save-buffer))))
 ;; better default setting
 (setq evil-want-fine-undo t)
