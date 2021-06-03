@@ -16,6 +16,7 @@
         ;; ("C-n" . company-select-next))
   :hook (after-init . global-company-mode)
   :init
+  (setq company-icon-size '(auto-scale . 25))
   (setq company-tooltip-align-annotations t
         company-tooltip-limit 12
         company-idle-delay 0
