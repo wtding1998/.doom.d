@@ -174,7 +174,7 @@
       (call-interactively 'cdlatex-tab)))
 
   (set-company-backend! 'org-mode +latex--company-backends)
-  (add-hook 'org-mode-hook '(lambda () (plist-put org-format-latex-options :scale 2.3)))
+  (add-hook 'org-mode-hook #'(lambda () (plist-put org-format-latex-options :scale 2.3)))
   (add-hook 'org-roam-mode-hook 'dwt/preview-all-latex)
   (defun dwt/preview-all-latex ()
     (interactive)

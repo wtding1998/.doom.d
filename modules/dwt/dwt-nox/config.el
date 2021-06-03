@@ -27,5 +27,5 @@
                  'haskell-mode-hook))
 
     (add-hook hook #'(lambda () (nox-ensure))))
-  (add-hook 'python-mode-hook '(lambda () (remove-hook 'completion-at-point-functions 'python-completion-at-point t))))
+  (add-hook 'python-mode-hook #'(lambda () (remove-hook 'completion-at-point-functions 'python-completion-at-point t))))
   ;; (eldoc-box-hover-at-point-mode)
