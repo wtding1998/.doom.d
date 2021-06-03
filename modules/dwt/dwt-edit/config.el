@@ -1,4 +1,8 @@
 ;;; dwt/edit/config.el -*- lexical-binding: t; -*-
+;;; evil
+(setq evil-insert-state-message nil)
+(setq evil-normal-state-message nil)
+(setq evil-visual-state-message nil)
 ;;; evil-snipe
 (use-package! evil-snipe
   :defer t
