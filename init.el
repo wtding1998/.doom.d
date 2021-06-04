@@ -194,7 +194,7 @@
        :dwt
        dwt-key-bindings       ; my own key bindings
        dwt-latex              ; my own latex settings
-       dwt-company            ; my own company settings
+       dwt-complete            ; my own company settings
        dwt-rime               ; Chinese insert
        dwt-edit
        dwt-org
@@ -209,6 +209,5 @@
        dwt-useful-func
        dwt-eaf
        dwt-dired
-       dwt-custom
        dwt-matlab
        )

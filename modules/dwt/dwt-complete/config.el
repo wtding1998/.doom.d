@@ -158,3 +158,9 @@
 (use-package! company-prescient
   :defer t
   :init (company-prescient-mode 1))
+
+(use-package! ivy
+  :config
+  (setq ivy-count-format "%d/%d ")
+  (map! :map ivy-minibuffer-map
+        "<tab>" #'ivy-partial))
