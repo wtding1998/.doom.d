@@ -118,6 +118,5 @@
 (display-battery-mode 1)
 
 ;;; ivy
-(setq ivy-count-format "%d/%d ")
 
 (setq system-time-locale "C")

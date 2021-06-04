@@ -5,14 +5,13 @@
   :defer t
   :custom
   (default-input-method "rime")
-  (rime-show-candidate 'posframe)
+  ;; (rime-show-candidate 'posframe)
+  (rime-show-candidate 'minibuffer)
   ;; (rime-show-candidate 'minibuffer)
   ;; set to minibuffer for better performance
-  ;; (setq rime-show-candidate 'minibuffer)
   :config
   ;; set rime configuration dir
   (setq rime-user-data-dir "~/.config/fcitx/rime")
-
   ;; set UI
   (setq rime-posframe-properties
         (list :font "Source Han Serif CN"))

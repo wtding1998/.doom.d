@@ -65,7 +65,8 @@
                            ;; storybook
                            doom-tomorrow-day
                            doom-homage-white
-                           modus-operandi))
+                          ; modus-operandi
+                           ))
                            ;; doom-one-light
                            ;; doom-flatwhite))
 (defun dwt/random-load-light-theme ()
@@ -125,7 +126,7 @@
   (map! :n "]g" #'diff-hl-next-hunk)
   (diff-hl-margin-mode -1)
   :hook
-  (prog-mode . global-diff-hl-mode)
+  (prog-mode . diff-hl-mode)
   (prog-mode . diff-hl-flydiff-mode))
 
 (use-package! kaolin-themes
@@ -153,9 +154,11 @@
   (evil-define-key 'normal 'global (kbd"<leader>tp") #'awesome-tab-backward-tab)
 
   (define-key global-map (kbd "M-o") #'other-window)
-  ;; define tab-hide-rule
+  ;; height
   (setq awesome-tab-height 100)
+  (setq awesome-tab-active-bar-height 20)
 
+  ;; define tab-hide-rule
   (defun awesome-tab-hide-tab (x)
     (let ((name (format "%s" x)))
       (or
