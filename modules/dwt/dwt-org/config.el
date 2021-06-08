@@ -126,7 +126,7 @@
                   org-level-8))
     (set-face-attribute face nil :weight 'normal))
   ;; set scale for latex-preview
-  (plist-put org-format-latex-options :scale 2.7)
+  (plist-put org-format-latex-options :scale 2.3)
   ;; set app
   (setq org-file-apps
         '((auto-mode . emacs)
@@ -174,8 +174,8 @@
       (call-interactively 'cdlatex-tab)))
 
   (set-company-backend! 'org-mode +latex--company-backends)
-  (add-hook 'org-mode-hook #'(lambda () (plist-put org-format-latex-options :scale 2.3)))
-  (add-hook 'org-roam-mode-hook 'dwt/preview-all-latex)
+  ;; (add-hook 'org-mode-hook #'(lambda () (plist-put org-format-latex-options :scale 2.3)))
+  ;; (add-hook 'org-roam-mode-hook 'dwt/preview-all-latex)
   (defun dwt/preview-all-latex ()
     (interactive)
     (let ((current-prefix-arg '(16)))

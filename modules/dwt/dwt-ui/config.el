@@ -93,7 +93,7 @@
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 29)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" 13)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" 26)) ;; 11 13 17 19 23
 
         ;; chinese font
         ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
@@ -155,8 +155,8 @@
 
   (define-key global-map (kbd "M-o") #'other-window)
   ;; height
-  (setq awesome-tab-height 100)
-  (setq awesome-tab-active-bar-height 20)
+  (setq awesome-tab-height 180)
+  ;; (setq awesome-tab-active-bar-height 20)
 
   ;; define tab-hide-rule
   (defun awesome-tab-hide-tab (x)
