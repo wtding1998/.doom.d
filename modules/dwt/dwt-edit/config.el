@@ -65,6 +65,7 @@
         :desc "delete window" "0" #'delete-window
         :desc "winner-undo" "2" #'winner-undo
         :desc "winner-redo" "3" #'winner-redo
+        :desc "window-size" "w`" #'hydra-window-size/body
 
         ;; :desc "previous buffer" "[" #'previous-buffer
         ;; :desc "next buffer" "]" #'next-buffer
@@ -99,6 +100,16 @@
   ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
   ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#map
   ;; create a new prefix and add key-binding:
+
+  ;;; window shrinkage
+  (defhydra hydra-window-size (:color red)
+    "Windows size"
+    ("h" shrink-window-horizontally "shrink horizontal")
+    ("j" shrink-window "shrink vertical")
+    ("k" enlarge-window "enlarge vertical")
+    ("l" enlarge-window-horizontally "enlarge horizontal")
+    ("q" nil "quit"))
+
 
 
   ;;; comma leader-def
