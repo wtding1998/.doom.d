@@ -28,11 +28,15 @@
   (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "zathura"))))
 
 (after! dired
-  (map! :map dired-mode-map
+  (map! :n "-" #'dired-jump
+        :map dired-mode-map
         :n "J" nil
         :localleader
         :desc "find file" "g" #'grep-dired-dwim
-        :desc "fd" "f" #'fd-dired))
+        :desc "fd" "f" #'fd-dired)
+  (set-popup-rules!
+    '(("^\\*Fd*" :size 15 :select t)))
+  )
 
 ;;;###autoload
 (defun dwt/goto-recent-directory ()
