@@ -104,6 +104,8 @@
                             (font-spec :family "Source Han Serif CN")))) ;; 14 16 20 22 28
     ))
 
+
+
 (defun dwt/init-font(frame)
   (with-selected-frame frame
     (if (display-graphic-p)
@@ -112,8 +114,11 @@
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions #'dwt/init-font)
   (dwt/better-font))
-;; frame
-(toggle-frame-maximized)
+;; frame maximize
+;; (toggle-frame-maximized) ; this fail on client
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; full screen
+;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 (unless (display-graphic-p)
   (setq doom-theme 'kaolin-mono-dark))
