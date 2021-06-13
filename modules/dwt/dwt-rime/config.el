@@ -16,6 +16,13 @@
   (setq rime-posframe-properties
         (list :font "Source Han Serif CN"))
 
+  ;; remove background https://github.com/DogLooksGood/emacs-rime/issues/149
+  (set-face-attribute 'rime-default-face       nil  :background nil)
+  (set-face-attribute 'rime-code-face          nil  :background nil)
+  (set-face-attribute 'rime-candidate-num-face nil  :background nil)
+  (set-face-attribute 'rime-comment-face       nil  :background nil)
+  (set-face-attribute 'rime-highlight-candidate-face nil  :background nil)
+
   ;; use English automatically after English words
   (setq rime-disable-predicates
         '(rime-predicate-evil-mode-p
