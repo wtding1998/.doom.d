@@ -398,6 +398,11 @@
   "C-n" #'evil-multiedit-next
   "C-p" #'evil-multiedit-prev))
 
+;;; evil-escape
+(use-package! evil-escape
+  :config
+  (setq evil-escape-key-sequence "fd"))
+
 
   ;; ;; RET will toggle the region under the cursor
   ;; (define-key evil-multiedit-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
