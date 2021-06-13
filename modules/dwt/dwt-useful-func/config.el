@@ -28,6 +28,7 @@
 (defun dwt/ivy-open-configuration ()
   (interactive)
   (let ((configs '("~/.zshrc"
+                   "~/.vim/init"
                    "~/.doom.d/"
                    "~/.config/zathura/zathurarc"
                    "~/.config/ranger/rifle.conf"

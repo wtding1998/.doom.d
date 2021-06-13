@@ -11,5 +11,6 @@
 (package! solaire-mode :disable t)
 (package! tao-theme :recipe (:host github :repo "11111000000/tao-theme-emacs"))
 (package! minimal-theme :recipe (:host github :repo "anler/minimal-theme"))
+(package! berrys-theme :recipe (:host github :repo "vbuzin/berrys-theme"))
 ;; (package! elegant-theme :recipe (:host github :repo "oracleyue/elegant-theme"))
 ;; (package! nord-emacs :recipe (:host github :repo "arcticicestudio/nord-emacs"))

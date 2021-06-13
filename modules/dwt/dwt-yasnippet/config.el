@@ -5,19 +5,24 @@
 (use-package! yasnippet
   :defer t
   :config
-  ;; auto-expand
+  ;; remove the hack of doom
+  ;; (map! :map yas-keymap "<backspace>" nil)
+
+  ;;; auto-expand
   (defun my-yas-try-expanding-auto-snippets ()
     (when yas-minor-mode
       (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
         (yas-expand))))
   (add-hook 'post-command-hook #'my-yas-try-expanding-auto-snippets)
 
+  ;;; Activate org and LaTeX yas expansion in org-mode buffers.
   (defun my-org-latex-yas ()
     "Activate org and LaTeX yas expansion in org-mode buffers."
     (yas-minor-mode)
     (yas-activate-extra-mode 'latex-mode))
-
   (add-hook 'org-mode-hook #'my-org-latex-yas)
+
+  ;;; disable the warning of yasnippet
   (after! warnings
     (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
   )
