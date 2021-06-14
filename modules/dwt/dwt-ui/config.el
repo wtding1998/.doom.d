@@ -20,13 +20,12 @@
           ;; '(",---.,-.-.,---.,---.,---."
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
-          ;; '("知而不行，未知之矣。"
-          ;;   "大道甚夷，而人好径。胜人者有力，自胜者强."
-          ;;   "上士闻道，勤而行之。中士闻道，若存若亡。下士闻道，大笑之，不笑不足以为道。"))
-          ;;   苟日新，日日新，又日新
-          '("苟日新"
-            "日日新"
-            "又日新"))
+          '("知而不行，未知之矣。"
+            "大道甚夷，而人好径。胜人者有力，自胜者强."
+            "上士闻道，勤而行之。中士闻道，若存若亡。下士闻道，大笑之，不笑不足以为道。"))
+          ;; '("苟日新"
+          ;;   "日日新"
+          ;;   "又日新"))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)
@@ -63,9 +62,10 @@
 
 (defvar dwt/light-themes '(
                            ;; storybook
-                           doom-tomorrow-day
+                           ;; doom-tomorrow-day
                            doom-homage-white
-                          ; modus-operandi
+                           doom-opera-light
+                           modus-operandi
                            ))
                            ;; doom-one-light
                            ;; doom-flatwhite))
