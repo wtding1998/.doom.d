@@ -221,6 +221,7 @@
   ;; solve the problem roam doesn't read the database
   (setq org-roam-db-location "~/mycode/org-roam.db")
   (setq org-roam-directory "~/OneDrive/Documents/roam")
+  (add-hook 'org-roam-mode-hook 'org-zotxt-mode)
   :config
   (setq org-roam-capture-templates
         '(
@@ -253,15 +254,20 @@
       :desc "roam-insert-link" "oi" #'org-roam-insert)
 ;;; noter
 (use-package! org-noter
+  :init
+  (add-hook 'org-noter-notes-mode-hook #'cdlatex-mode)
   :config
   (setq org-noter-auto-save-last-location nil)
   (map! :map org-noter-doc-mode-map
         :localleader
         "q" #'org-noter-kill-session
-        "i" #'org-noter-insert-note)
+        "i" #'org-noter-insert-note
+        "I" #'org-noter-insert-precise-note)
   (map! :map org-noter-doc-mode-map
         :nvi "ni" #'org-noter-insert-note
+        :nvi "nI" #'org-noter-insert-precise-note
         :nvi "i" #'org-noter-insert-note
+        :nvi "I" #'org-noter-insert-precise-note
         :nvi "nq" #'org-noter-kill-session)
   (map! :map org-noter-notes-mode-map
         :nv "ni" #'org-noter-sync-current-note
@@ -269,8 +275,14 @@
 
 (use-package! org-zotxt
   :init
-  (map! :map org-mode-map :localleader "zz" #'org-zotxt-mode
+  (map! :map org-mode-map
+        :n "zE" #'org-zotxt-mode
+        :n "ze" #'org-zotxt-noter
+        :localleader
+        "zE" #'org-zotxt-mode
+        "ze" #'org-zotxt-noter
         "za" #'org-zotxt-open-attachment
+        "zt" (lambda () (interactive) (shell-command "zotero &"))
         "zi" #'org-zotxt-insert-reference-link)
   :config
     (defun org-zotxt-noter (arg)
