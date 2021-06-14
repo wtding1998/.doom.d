@@ -98,6 +98,7 @@
         ;; help
         :desc "battery" "hB" #'battery
         )
+  (map! :map emacs-lisp-mode-map :n "ze" #'eval-last-sexp)
   ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
   ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#map
   ;; create a new prefix and add key-binding:
