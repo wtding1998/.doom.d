@@ -15,45 +15,6 @@
 ;; + `doom-variable-pitch-font'
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;; setting for GUI
-;; (if (display-graphic-p)
-;;     (progn
-;;       (set-face-attribute
-;;         'default nil
-;;         ;; :font (font-spec :name "Fira Code"
-;;         ;;                  :weight 'normal
-;;         ;;                  :style 'Retina
-;;         ;;                  :slant 'normal
-;;         ;;                  :size 19.0))
-;;         :font (font-spec :name "Source Code Pro"
-;;                           :weight 'normal
-;;                           :style 'Regular
-;;                           :slant 'normal
-;;                           :size 19.0))
-;;         (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;           (set-fontset-font
-;;           (frame-parameter nil 'font)
-;;           charset
-;;           (font-spec :name "WenQuanYi Micro Hei Mono"
-;;                       :weight 'normal
-;;                       :slant 'normal)))
-;;       (setq doom-theme 'doom-tomorrow-night))
-;;   ;; setting  for emacs client
-;;   (progn
-;;     (setq doom-theme 'doom-tomorrow-night)
-;;     (setq doom-font (font-spec :family "Source Code Pro" :size 25))
-;;     (set-fontset-font t 'unicode (font-spec :family "WenQuanYi Micro Hei Mono" :weight 'normal :slant 'normal))
-
-;;     ;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;     ;;       (set-fontset-font
-;;     ;;       (frame-parameter nil 'font)
-;;     ;;       charset
-;;     ;;       (font-spec :name "WenQuanYi Micro Hei Mono"
-;;     ;;                   :weight 'normal
-;;     ;;                   :slant 'normal)))
-;;     )
-;;   )
-;; https://blog.csdn.net/xh_acmagic/article/details/78939246
 
 
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd

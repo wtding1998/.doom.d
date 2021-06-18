@@ -196,6 +196,10 @@
             (insert "^{T}$"))
         (insert "$^{T}$"))
       (left-char))))
+
+(map! :map LaTeX-mode-map
+      :n "<RET>" #'(lambda () (interactive) (when (texmathp)
+                                (call-interactively #'preview-at-point))))
 (map!
  :map LaTeX-mode-map
  (

@@ -51,9 +51,7 @@
                           doom-spacegrey
                           doom-opera
                           doom-miramare
-                          doom-sourcerer
-                          doom-one-light
-                          doom-nord-light
+                          joker
                           doom-nord
                           doom-horizon
                           doom-monokai-pro
@@ -72,7 +70,7 @@
 (defun dwt/random-load-light-theme ()
   "Load light theme."
   (interactive)
-  (load-theme (nth (random (length dwt/dark-themes)) dwt/light-themes)) t nil)
+  (load-theme (nth (random (length dwt/light-themes)) dwt/light-themes)) t nil)
 
 (defun dwt/random-load-theme ()
   "Load theme randomly from dwt/dark-themes."
@@ -92,9 +90,8 @@
         ;; (setq doom-theme 'doom-one-light)
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 29)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 32)) ;; 11 13 17 19 23
         (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" 26)) ;; 11 13 17 19 23
-
         ;; chinese font
         ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
         (set-fontset-font t 'unicode "Symbola" nil 'prepend)

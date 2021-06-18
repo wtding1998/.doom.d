@@ -237,10 +237,17 @@
                  :unnarrowed t))
 
   (add-to-list 'org-roam-capture-templates
-               '("u" "Useful Facts" plain (function org-roam-capture--get-point)
-                 "* Problem\n%?\n* * Result\n* My Idea\n"
+               '("b" "Book Note" plain (function org-roam-capture--get-point)
+                 "* Book\n%?\n* Summary"
                  :file-name "${slug}"
-                 :head "#+title: ${title}\n#+roam_alias:\n#+roam_tags: \n\n"
+                 :head "#+title: ${title}\n#+roam_tags:book \n\n"
+                 :unnarrowed t))
+
+  (add-to-list 'org-roam-capture-templates
+               '("r" "Research Note" plain (function org-roam-capture--get-point)
+                 "* Problem\n%?\n* Result\n* My Idea\n"
+                 :file-name "${slug}"
+                 :head "#+title: ${title}\n#+roam_tags:research\n\n"
                  :unnarrowed t)))
 
   
@@ -282,7 +289,7 @@
         "zE" #'org-zotxt-mode
         "ze" #'org-zotxt-noter
         "za" #'org-zotxt-open-attachment
-        "zt" (lambda () (interactive) (shell-command "zotero &"))
+        :desc "zotero" "zt" (lambda () (interactive) (shell-command "zotero &"))
         "zi" #'org-zotxt-insert-reference-link)
   :config
     (defun org-zotxt-noter (arg)

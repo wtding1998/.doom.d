@@ -48,10 +48,11 @@
         :v "<tab><tab>" #'indent-region
         :n "<tab><tab>" #'indent-for-tab-command
         :n "<tab>j" #'evil-toggle-fold
+
         :map global-map
         :leader
         ;; :desc "test" :prefix "a"
-        :desc "shell command" ";" #'shell-command
+        :desc "shell command" "'" #'shell-command
         :desc "eval expression" ":" #'eval-expression
         :desc "buffer" "," #'counsel-ibuffer
         :desc "M-x" "<SPC>" #'counsel-M-x
@@ -70,7 +71,7 @@
         ;; :desc "previous buffer" "[" #'previous-buffer
         ;; :desc "next buffer" "]" #'next-buffer
         :desc "popup term" "`" #'ivy-resume
-        :desc "popup term" "'" #'counsel-recentf
+        :desc "popup term" ";" #'counsel-recentf
         :desc "vterm-yank" "vv" #'vterm-repl-yank
         ;; winner
         :desc "winner-undo" "w[" #'winner-undo

@@ -31,6 +31,7 @@
                    "~/.vim/init"
                    "~/.doom.d/"
                    "~/.config/zathura/zathurarc"
+                   "~/.config/fcitx/rime/default.custom.yaml"
                    "~/.config/ranger/rifle.conf"
                    "~/.emacs.d.vanilia/init.el"
                    "~/.emacs.d/"
