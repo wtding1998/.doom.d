@@ -9,8 +9,9 @@
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
   (map! :map org-mode-map "<tab>" nil)
-  ;; (add-hook 'org-mode-hook #'cdlatex-mode)
+  (add-hook 'org-mode-hook #'cdlatex-mode)
   (add-hook 'org-mode-hook #'evil-tex-mode)
+  (add-hook 'org-mode-hook (lambda () (setq word-wrap nil)))
   ;; (add-hook 'org-mode-hook #'org-latex-auto-toggle)
   (map! :map org-mode-map
         :localleader
@@ -336,5 +337,7 @@ See `org-noter' for details and ARG usage."
 ;;       org-agenda-files)
 ;;   (org-id-update-id-locations))
 
+(use-package! ox-hugo
+  :after ox)
 
 (setq system-time-locale "C")

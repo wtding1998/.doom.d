@@ -86,7 +86,13 @@ immediately after."
   ;;; pyvenv
   (setenv "WORKON_HOME" "/home/wtding/miniconda3/envs")
   (map! :map python-mode-map :localleader
-        "v" #'pyvenv-workon)
+        "v" #'pyvenv-workon
+        "m" #'dwt/python-run)
+
+  (defun dwt/python-run ()
+    (interactive)
+    (compile (format "python %s" (buffer-file-name))))
+
   (set-popup-rules!
     ;; '(("^\\*Python*" :side right :size 15 :select t)))
     '(("^\\*Python*" :size 15 :select t)))

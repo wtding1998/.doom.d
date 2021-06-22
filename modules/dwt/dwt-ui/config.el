@@ -1,7 +1,7 @@
 ;;; dwt/dwt-ui/config.el -*- lexical-binding: t; -*-
 
 ;;;banner
-;;; copied from https://github.com/cnsunyour/.doom.d/blob/dfbeb081d2cc3aaafc0e591868a9a4ba1f276f77/modules/cnsunyour/ui/config.el
+;; copied from https://github.com/cnsunyour/.doom.d/blob/dfbeb081d2cc3aaafc0e591868a9a4ba1f276f77/modules/cnsunyour/ui/config.el
 ;; (when (display-graphic-p)
 ;;   (defun cnsunyour/set-splash-image ()
 ;;     "Set random splash image."
@@ -21,7 +21,8 @@
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
           '("知而不行，未知之矣。"
-            "大道甚夷，而人好径。胜人者有力，自胜者强."
+            "大道甚夷，而人好径。"
+            "胜人者有力，自胜者强。"
             "上士闻道，勤而行之。中士闻道，若存若亡。下士闻道，大笑之，不笑不足以为道。"))
           ;; '("苟日新"
           ;;   "日日新"
@@ -43,7 +44,7 @@
 
 (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 ;; disable global-hl-line
-(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
 (defvar dwt/dark-themes '(doom-material
                           doom-oceanic-next
@@ -55,6 +56,7 @@
                           doom-nord
                           doom-horizon
                           doom-monokai-pro
+                          doom-monokai-octagon
                           doom-tomorrow-night
                           doom-one))
 
@@ -63,6 +65,7 @@
                            ;; doom-tomorrow-day
                            doom-homage-white
                            doom-opera-light
+                           doom-tomorrow-day
                            modus-operandi
                            ))
                            ;; doom-one-light
@@ -178,6 +181,8 @@
 
 ;;; +modeline, light line im doom
 (setq +modeline-height 20)
+
+;;; word wrap
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))

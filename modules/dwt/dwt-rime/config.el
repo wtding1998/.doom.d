@@ -6,9 +6,8 @@
   :custom
   (default-input-method "rime")
   ;; (rime-show-candidate 'posframe)
-  (rime-show-candidate 'minibuffer)
-  ;; (rime-show-candidate 'minibuffer)
   ;; set to minibuffer for better performance
+  (rime-show-candidate 'minibuffer)
   :config
   ;; set rime configuration dir
   (setq rime-user-data-dir "~/.config/fcitx/rime")

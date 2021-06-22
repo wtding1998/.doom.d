@@ -2,11 +2,12 @@
 
 ;;; evil
 (use-package! evil
-  :config
+  :init
   ;;; disable evil message
   (setq evil-insert-state-message nil)
   (setq evil-normal-state-message nil)
   (setq evil-visual-state-message nil)
+  :config
   ;;; evil-key-binding
   (map! :nvm "Z" #'evil-jump-item
         :nvm "L" #'evil-end-of-line
@@ -61,12 +62,17 @@
         :desc "delete item" "id" #'evilmi-delete-items
         :desc "select item" "is" #'evilmi-select-items
 
+        ;; toggle useful mode
+        :desc "word wrap" "tw" #'toggle-word-wrap
+        :desc "cdlatex" "tc" #'cdlatex-mode
+
         ;; window
         :desc "delete other windows" "1" #'delete-other-windows
         :desc "delete window" "0" #'delete-window
         :desc "winner-undo" "2" #'winner-undo
         :desc "winner-redo" "3" #'winner-redo
-        :desc "window-size" "w`" #'hydra-window-size/body
+        :desc "window-size" "ww" #'hydra-window-size/body
+        :desc "window-size" "w`'" #'evil-window-next
 
         ;; :desc "previous buffer" "[" #'previous-buffer
         ;; :desc "next buffer" "]" #'next-buffer
