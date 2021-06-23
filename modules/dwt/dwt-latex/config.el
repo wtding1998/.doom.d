@@ -120,8 +120,8 @@
                 (insert "$")
                 (call-interactively #'forward-word)
                 (insert "$")
-                (left-char 1)
-                )
+                (left-char 1))
+                
             (insert "$$")
             (left-char 1)))
       (progn
@@ -135,8 +135,8 @@
                 (insert "\\(")
                 (call-interactively #'forward-word)
                 (insert " \\)")
-                (left-char 3)
-                )
+                (left-char 3))
+                
             (insert "\\( \\)")
             (left-char 3)))
       (progn
@@ -156,8 +156,8 @@
             (insert "$")
             (call-interactively #'forward-word)
             (insert "^{}$")
-            (left-char 2)
-            )
+            (left-char 2))
+            
         (insert "$^{}$")
         (left-char 4)))))
 
@@ -175,8 +175,8 @@
             (insert "$")
             (call-interactively #'forward-word)
             (insert "_{}$")
-            (left-char 2)
-            )
+            (left-char 2))
+            
         (insert "$_{}$")
         (left-char 4)))))
 
@@ -199,7 +199,7 @@
 
 (map! :map LaTeX-mode-map
       :n "<RET>" #'(lambda () (interactive) (when (texmathp)
-                                (call-interactively #'preview-at-point))))
+                                             (call-interactively #'preview-at-point))))
 (map!
  :map LaTeX-mode-map
  (
@@ -367,15 +367,16 @@
   (setq org-latex-impatient-tex2svg-bin
         ;; location of tex2svg executable
         "~/node_modules/mathjax-node-cli/bin/tex2svg")
-  (setq org-latex-impatient-scale 3.0))
+  (setq org-latex-impatient-border-width 0)
+  (setq org-latex-impatient-scale 1.5))
 ;;
 (after! cdlatex
   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
    cdlatex-math-symbol-alist
    '( ;; adding missing functions to 3rd level symbols
      (?_    ("\\downarrow"  ""           "\\inf"))
-     (?2    ("^2"           "\\sqrt{?}"     ""     ))
-     (?3    ("^3"           "\\sqrt[3]{?}"  ""     ))
+     (?2    ("^2"           "\\sqrt{?}"     ""))
+     (?3    ("^3"           "\\sqrt[3]{?}"  ""))
      (?^    ("\\uparrow"    ""           "\\sup"))
      (?H    ("\\nabla^2"    ""           ""))
      (?k    ("\\kappa"      ""           "\\ker"))
@@ -388,8 +389,8 @@
      ;; now just conveniance
      (?.    ("\\cdot" "\\dots"))
      (?:    ("\\vdots" "\\ddots"))
-     (?_     ("_"          ""             ""     ))
-     (?4     ("$"          ""             ""     ))
+     (?_     ("_"          ""             ""))
+     (?4     ("$"          ""             ""))
      (?*    ("\\times" "\\star" "\\ast")))
    cdlatex-math-modify-alist
    '( ;; my own stuff

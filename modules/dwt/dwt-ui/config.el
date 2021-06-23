@@ -42,9 +42,9 @@
 ;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
 
-(setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
+;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 ;; disable global-hl-line
-;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
 (defvar dwt/dark-themes '(doom-material
                           doom-oceanic-next
@@ -66,8 +66,8 @@
                            doom-homage-white
                            doom-opera-light
                            doom-tomorrow-day
-                           modus-operandi
-                           ))
+                           modus-operandi))
+                           
                            ;; doom-one-light
                            ;; doom-flatwhite))
 (defun dwt/random-load-light-theme ()
@@ -101,8 +101,8 @@
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
           (set-fontset-font (frame-parameter nil 'font)
                             charset
-                            (font-spec :family "Source Han Serif CN")))) ;; 14 16 20 22 28
-    ))
+                            (font-spec :family "Source Han Serif CN")))))) ;; 14 16 20 22 28
+    
 
 
 
