@@ -53,6 +53,8 @@
         :map global-map
         :leader
         ;; :desc "test" :prefix "a"
+        :desc "winner undo""[" #'winner-undo
+        :desc "winner undo""]" #'winner-redo
         :desc "shell command" "'" #'shell-command
         :desc "eval expression" ":" #'eval-expression
         :desc "buffer" "," #'counsel-ibuffer
@@ -103,8 +105,8 @@
         :desc "open by extern program" "fo" #'counsel-find-file-extern
 
         ;; help
-        :desc "battery" "hB" #'battery
-        )
+        :desc "battery" "hB" #'battery)
+        
   (map! :map emacs-lisp-mode-map :n "ze" #'eval-last-sexp)
   ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
   ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#map
@@ -375,8 +377,8 @@
     "ir" 'ivy-resume
     "ww" 'narrow-or-widen-dwim
     "ycr" 'my-yas-reload-all
-    "wf" 'popup-which-function)
-  )
+    "wf" 'popup-which-function))
+  
 
 
 ;;; evil-snipe
@@ -390,22 +392,22 @@
 ;;; indent in elisp
 (add-hook 'emacs-lisp-mode-hook
   (function (lambda ()
-          (setq evil-shift-width 2 tab-width 2))))
+             (setq evil-shift-width 2 tab-width 2))))
 
 ;;; evil-multiedit
 (use-package! evil-multiedit
   :config
   (map! :v "R" #'evil-multiedit-match-all
-  :nv "M-d" #'evil-multiedit-match-and-next
-  :i "M-d" #'evil-multiedit-toggle-marker-here
-  :m "<RET>" #'evil-multiedit-toggle-or-restrict-region
-  :map evil-multiedit-state-map
-  "C-n" #'evil-multiedit-next
-  "C-p" #'evil-multiedit-prev
-  "<RET>" #'evil-multiedit-toggle-or-restrict-region
-  :map evil-multiedit-insert-state-map
-  "C-n" #'evil-multiedit-next
-  "C-p" #'evil-multiedit-prev))
+   :nv "M-d" #'evil-multiedit-match-and-next
+   :i "M-d" #'evil-multiedit-toggle-marker-here
+   :m "<RET>" #'evil-multiedit-toggle-or-restrict-region
+   :map evil-multiedit-state-map
+   "C-n" #'evil-multiedit-next
+   "C-p" #'evil-multiedit-prev
+   "<RET>" #'evil-multiedit-toggle-or-restrict-region
+   :map evil-multiedit-insert-state-map
+   "C-n" #'evil-multiedit-next
+   "C-p" #'evil-multiedit-prev))
 
 ;;; evil-escape
 (use-package! evil-escape

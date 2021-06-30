@@ -4,7 +4,8 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
-
+  ;;; remove hl-line
+  (add-hook 'org-mode-hook (lambda () (hl-line-mode -1)))
   ;;; clock
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
@@ -127,7 +128,8 @@
                   org-level-8))
     (set-face-attribute face nil :weight 'normal))
   ;; set scale for latex-preview
-  (plist-put org-format-latex-options :scale 2.3)
+  (when dwt/lenovo
+    (plist-put org-format-latex-options :scale 2.3))
   ;; set app
   (setq org-file-apps
         '((auto-mode . emacs)

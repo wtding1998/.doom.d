@@ -44,7 +44,7 @@
 
 ;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 ;; disable global-hl-line
-(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
 (defvar dwt/dark-themes '(doom-material
                           doom-oceanic-next
@@ -86,6 +86,9 @@
       (progn
         ;; (setq doom-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes))
         (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
+        (setq dwt/fontsize 15)
+        (when dwt/lenovo
+          (setq dwt/fontsize 26))
         ;; (setq doom-theme 'modus-operandi)
         ;; (setq doom-theme 'tao-yang)
         ;; (setq doom-theme 'doom-tomorrow-day)
@@ -94,7 +97,7 @@
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
         ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 32)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" 26)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize)) ;; 11 13 17 19 23
         ;; chinese font
         ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
         (set-fontset-font t 'unicode "Symbola" nil 'prepend)
@@ -160,8 +163,10 @@
 
   (define-key global-map (kbd "M-o") #'other-window)
   ;; height
-  (setq awesome-tab-height 180)
-  ;; (setq awesome-tab-active-bar-height 20)
+  (setq awesome-tab-height 100
+        awesome-tab-active-bar-height 20)
+  (when dwt/lenovo
+    (setq awesome-tab-height 180))
 
   ;; define tab-hide-rule
   (defun awesome-tab-hide-tab (x)
@@ -180,7 +185,8 @@
   (awesome-tab-mode t))
 
 ;;; +modeline, light line im doom
-(setq +modeline-height 20)
+(setq +modeline-height 15)
+
 
 ;;; word wrap
 
