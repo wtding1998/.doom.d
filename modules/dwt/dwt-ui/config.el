@@ -160,6 +160,15 @@
   (evil-define-key 'normal 'global (kbd"<leader>t0") #'awesome-tab-kill-all-buffers-in-current-group)
   (evil-define-key 'normal 'global (kbd"<leader>tn") #'awesome-tab-forward-tab)
   (evil-define-key 'normal 'global (kbd"<leader>tp") #'awesome-tab-backward-tab)
+  (map! "C-1" #'awesome-tab-select-visible-tab)
+  (map! "C-2" #'awesome-tab-select-visible-tab)
+  (map! "C-3" #'awesome-tab-select-visible-tab)
+  (map! "C-4" #'awesome-tab-select-visible-tab)
+  (map! "C-5" #'awesome-tab-select-visible-tab)
+  (map! "C-6" #'awesome-tab-select-visible-tab)
+  (map! "C-7" #'awesome-tab-select-visible-tab)
+  (map! "C-8" #'awesome-tab-select-visible-tab)
+  (map! "C-9" #'awesome-tab-select-visible-tab)
 
   (define-key global-map (kbd "M-o") #'other-window)
   ;; height

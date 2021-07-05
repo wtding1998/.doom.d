@@ -64,8 +64,6 @@
           (lambda ()
             (unless (or (string-prefix-p "*" (buffer-name)) (string-prefix-p "+" (buffer-name)))
               (call-interactively #'basic-save-buffer))))
-;; better default setting
-(setq evil-want-fine-undo t)
 ;; (setq auto-save-default t)
 ;; set title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
@@ -78,11 +76,10 @@
 ;; display battery in modeline
 (display-battery-mode 1)
 
-;;; ivy
-
+;;; system
 (setq system-time-locale "C")
 
 ;;; different number in different resolution
-;;; 1: lenovo
-;;; 2: philips
+;; 1: lenovo
+;; 2: philips
 (setq dwt/lenovo (string-equal "1" (getenv "lenovo")))

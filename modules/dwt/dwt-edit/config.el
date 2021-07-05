@@ -7,6 +7,8 @@
   (setq evil-insert-state-message nil)
   (setq evil-normal-state-message nil)
   (setq evil-visual-state-message nil)
+  ;; better default setting
+  (setq evil-want-fine-undo t)
   :config
   ;;; evil-key-binding
   (map! :nvm "Z" #'evil-jump-item
@@ -32,7 +34,7 @@
         :n "gh" #'+lookup/documentation
         ;; ace jump
         :n "ge" #'awesome-tab-ace-jump
-        ;; :n "gj" #'evil-avy-goto-char-2
+        :n "gj" #'evil-avy-goto-char-2
         ;; :n "gb" #'avy-goto-char-2
         :n "go" #'avy-goto-line
         :v "gC" #'capitalize-region
@@ -119,265 +121,265 @@
     ("j" shrink-window "shrink vertical")
     ("k" enlarge-window "enlarge vertical")
     ("l" enlarge-window-horizontally "enlarge horizontal")
-    ("q" nil "quit"))
+    ("q" nil "quit")))
 
 
 
   ;;; comma leader-def
-  (general-create-definer my-comma-leader-def
-    :prefix ","
-    :states '(normal visual))
-  (my-comma-leader-def
-    "," 'evilnc-comment-operator
-    "." 'repeat
-    "[" 'winner-undo
-    "]" 'winner-redo
+  ;; (general-create-definer my-comma-leader-def
+  ;;   :prefix ","
+  ;;   :states '(normal visual))
+  ;; (my-comma-leader-def
+  ;;   "," 'evilnc-comment-operator
+  ;;   "." 'repeat
+  ;;   "[" 'winner-undo
+  ;;   "]" 'winner-redo
 
-    ;; latex
-    "pp" 'preview-at-point
-    "pb" 'preview-buffer
-    "pr" 'preview-clearout-buffer
-    ;; "prb" 'preview-clearout-buffer
-    ;; "prs" 'preview-clearout-section
-    ;; "prp" 'preview-clearout-at-point
-    "ps" 'preview-section
-    "pe" 'preview-environment
-    ;; "pr" 'preview-region
-    "pm" 'magic-latex-buffer
-    "'" 'cdlatex-math-modify
-    "`" 'cdlatex-math-symbol
-    "le" 'cdlatex-environment
-    "lt" 'reftex-toc
-    "lc" 'TeX-command-master
+  ;;   ;; latex
+  ;;   "pp" 'preview-at-point
+  ;;   "pb" 'preview-buffer
+  ;;   "pr" 'preview-clearout-buffer
+  ;;   ;; "prb" 'preview-clearout-buffer
+  ;;   ;; "prs" 'preview-clearout-section
+  ;;   ;; "prp" 'preview-clearout-at-point
+  ;;   "ps" 'preview-section
+  ;;   "pe" 'preview-environment
+  ;;   ;; "pr" 'preview-region
+  ;;   "pm" 'magic-latex-buffer
+  ;;   "'" 'cdlatex-math-modify
+  ;;   "`" 'cdlatex-math-symbol
+  ;;   "le" 'cdlatex-environment
+  ;;   "lt" 'reftex-toc
+  ;;   "lc" 'TeX-command-master
 
-    ;; yasnippet
-    "yn" #'yas-new-snippet
-    "yv" #'yas-visit-snippet-file
-    "yy" 'company-snippet
+  ;;   ;; yasnippet
+  ;;   "yn" #'yas-new-snippet
+  ;;   "yv" #'yas-visit-snippet-file
+  ;;   "yy" 'company-snippet
 
-    ;; symbol-overlay
-    "si" 'symbol-overlay-put
-    "sn" 'symbol-overlay-switch-forward
-    "sp" 'symbol-overlay-switch-backward
-    "sm" 'symbol-overlay-mode
-    "sr" 'symbol-overlay-remove-all
+  ;;   ;; symbol-overlay
+  ;;   "si" 'symbol-overlay-put
+  ;;   "sn" 'symbol-overlay-switch-forward
+  ;;   "sp" 'symbol-overlay-switch-backward
+  ;;   "sm" 'symbol-overlay-mode
+  ;;   "sr" 'symbol-overlay-remove-all
 
-    ;; function
-    "fb" 'beginning-of-defun
-    "fe" 'end-of-defun
-    "fa" 'mark-defun
+  ;;   ;; function
+  ;;   "fb" 'beginning-of-defun
+  ;;   "fe" 'end-of-defun
+  ;;   "fa" 'mark-defun
 
-    ;; evil-mark-replace and evil-multiedit
-    "rv" 'evilmr-replace-in-defun
-    "rb" 'evilmr-replace-in-buffer
-    "rt" 'evilmr-tag-selected-region
-    "rr" 'evilmr-replace-in-tagged-region
-    "rd" 'evil-multiedit-match-and-next ;; use C-d instead
-    "rD" 'evil-multiedit-match-and-prev
-    "re" 'evil-multiedit-toggle-or-restrict-region
-    "rn" 'evil-multiedit-next
-    "rp" 'evil-multiedit-prev
+  ;;   ;; evil-mark-replace and evil-multiedit
+  ;;   "rv" 'evilmr-replace-in-defun
+  ;;   "rb" 'evilmr-replace-in-buffer
+  ;;   "rt" 'evilmr-tag-selected-region
+  ;;   "rr" 'evilmr-replace-in-tagged-region
+  ;;   "rd" 'evil-multiedit-match-and-next ;; use C-d instead
+  ;;   "rD" 'evil-multiedit-match-and-prev
+  ;;   "re" 'evil-multiedit-toggle-or-restrict-region
+  ;;   "rn" 'evil-multiedit-next
+  ;;   "rp" 'evil-multiedit-prev
 
-    ;; buffer
-    ;; tabs
-    "1" #'awesome-tab-select-visible-tab
-    "2" #'awesome-tab-select-visible-tab
-    "3" #'awesome-tab-select-visible-tab
-    "4" #'awesome-tab-select-visible-tab
-    "5" #'awesome-tab-select-visible-tab
-    "6" #'awesome-tab-select-visible-tab
-    "7" #'awesome-tab-select-visible-tab
-    "8" #'awesome-tab-select-visible-tab
-    "tt" #'awesome-tab-ace-jump'
-    ;; "bb" 'awesome-tab-ace-jump
+  ;;   ;; buffer
+  ;;   ;; tabs
+  ;;   "1" #'awesome-tab-select-visible-tab
+  ;;   "2" #'awesome-tab-select-visible-tab
+  ;;   "3" #'awesome-tab-select-visible-tab
+  ;;   "4" #'awesome-tab-select-visible-tab
+  ;;   "5" #'awesome-tab-select-visible-tab
+  ;;   "6" #'awesome-tab-select-visible-tab
+  ;;   "7" #'awesome-tab-select-visible-tab
+  ;;   "8" #'awesome-tab-select-visible-tab
+  ;;   "tt" #'awesome-tab-ace-jump'
+  ;;   ;; "bb" 'awesome-tab-ace-jump
 
-    ;; sdcv
-    "es" 'sdcv-search-pointer+
-    "et" 'sdcv-search-pointer
-    "ei" 'sdcv-search-input
-    "ey" 'youdao-dictionary-search-at-point
-    "ep" 'youdao-dictionary-search-at-point-posframe
+  ;;   ;; sdcv
+  ;;   "es" 'sdcv-search-pointer+
+  ;;   "et" 'sdcv-search-pointer
+  ;;   "ei" 'sdcv-search-input
+  ;;   "ey" 'youdao-dictionary-search-at-point
+  ;;   "ep" 'youdao-dictionary-search-at-point-posframe
 
-    ;; diff-hl
-    "g]" 'diff-hl-next-hunk
-    "g[" 'diff-hl-previous-hunk
+  ;;   ;; diff-hl
+  ;;   "g]" 'diff-hl-next-hunk
+  ;;   "g[" 'diff-hl-previous-hunk
 
-    ;; clipboard
-    ;; FIXME copy-to-x-clipboard sometimes wrong
-    "aa" 'copy-to-x-clipboard ; used frequently
-    "px" 'paste-from-x-clipboard ; used frequently
+  ;;   ;; clipboard
+  ;;   ;; FIXME copy-to-x-clipboard sometimes wrong
+  ;;   "aa" 'copy-to-x-clipboard ; used frequently
+  ;;   "px" 'paste-from-x-clipboard ; used frequently
 
-    ;; eval
-    "er" 'eval-region
-    "xe" 'eval-last-sexp
+  ;;   ;; eval
+  ;;   "er" 'eval-region
+  ;;   "xe" 'eval-last-sexp
 
-    "bu" 'backward-up-list
-    "bb" (lambda () (interactive) (switch-to-buffer nil)) ; to previous buffer
-    "m" 'counsel-evil-marks
-    "em" 'my-erase-visible-buffer
-    "eb" 'eval-buffer
-    ;; "sd" 'sudo-edit
-    ;; "sc" 'scratch
-    "ee" 'eval-expression
-    "aw" 'ace-swap-window
-    "af" 'ace-maximize-window
-    "ac" 'aya-create
-    "bs" '(lambda () (interactive) (goto-edge-by-comparing-font-face -1))
-    ;; "es" 'goto-edge-by-comparing-font-face
-    "vj" 'my-validate-json-or-js-expression
-    "kc" 'kill-ring-to-clipboard
-    "fn" 'cp-filename-of-current-buffer
-    "fp" 'cp-fullpath-of-current-buffer
-    "dj" 'dired-jump ;; open the dired from current file
-    "xo" 'ace-window
-    "ff" 'my-toggle-full-window ;; I use WIN+F in i3
-    "ip" 'find-file-in-project
-    ;; "tt" 'find-file-in-current-directory
-    "jj" 'find-file-in-project-at-point
-    ;; "kk" 'find-file-in-project-by-selected
-    "kn" 'find-file-with-similar-name ; ffip v5.3.1
-    "fd" 'find-directory-in-project-by-selected
-    "trm" 'get-term
-    "tff" 'toggle-frame-fullscreen
-    "tfm" 'toggle-frame-maximized
-    "ti" 'fastdef-insert
-    ;; "th" 'fastdef-insert-from-history
-    "cl" 'evilnc-comment-or-uncomment-lines
-    "cq" 'evilnc-quick-comment-or-uncomment-to-the-line
-    "cc" 'evilnc-copy-and-comment-lines
-    "cp" 'evilnc-comment-or-uncomment-paragraphs
-    "ct" 'evilnc-comment-or-uncomment-html-tag ; evil-nerd-commenter v3.3.0 required
-    "ci" 'org-clock-in
-    "co" 'org-clock-out
-    "cr" 'org-clock-report
-    "cd" 'org-deadline
-    "cs" 'org-schedule
-    "ct" 'org-todo
-                                          ; "ca" 'org-archive-subtree
-    "ic" 'my-imenu-comments
-    ;; {{ window move
-    "wh" 'evil-window-left
-    "wl" 'evil-window-right
-    "wk" 'evil-window-up
-    "wj" 'evil-window-down
-    ;; }}
-    "cby" 'cb-switch-between-controller-and-view
-    "cbu" 'cb-get-url-from-controller
-    ;; "rt" 'counsel-etags-recent-tag
-    ;; "ft" 'counsel-etags-find-tag
-    "kk" 'counsel-browse-kill-ring
-    "cf" 'counsel-grep ; grep current buffer
-    "gf" 'counsel-git ; find file
-    "gg" 'my-counsel-git-grep ; quickest grep should be easy to press
-    "gd" 'ffip-show-diff-by-description ;find-file-in-project 5.3.0+
-    "gt" 'my-evil-goto-definition ; "gt" is occupied by evil
-    "gl" 'my-git-log-trace-definition ; find history of a function or range
-    "sh" 'my-select-from-search-text-history
-    "rjs" 'run-js
-    "jsr" 'js-send-region
-    "jsb" 'js-clear-send-buffer
-    "kb" 'kill-buffer-and-window ;; "k" is preserved to replace "C-g"
-    "ls" 'highlight-symbol
-    "lq" 'highlight-symbol-query-replace
-    "ln" 'highlight-symbol-nav-mode ; use M-n/M-p to navigation between symbols
-    "ii" 'my-imenu-or-list-tag-in-current-file
-    "." 'evil-ex
-    ;; @see https://github.com/pidu/git-timemachine
-    ;; p: previous; n: next; w:hash; W:complete hash; g:nth version; q:quit
-    "tm" 'my-git-timemachine
-    ;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
-    "oo" 'compile
-    "c$" 'org-archive-subtree ; `C-c $'
-    ;; org-do-demote/org-do-premote support selected region
-    "c<" 'org-do-promote ; `C-c C-<'
-    "c>" 'org-do-demote ; `C-c C->'
-    "cam" 'org-tags-view ; `C-c a m': search items in org-file-apps by tag
-                                          ; "cxi" 'org-clock-in ; `C-c C-x C-i'
-                                          ; "cxo" 'org-clock-out ; `C-c C-x C-o'
-                                          ; "cxr" 'org-clock-report ; `C-c C-x C-r'
-    ;; "qq" 'my-multi-purpose-grep
-    "dd" 'counsel-etags-grep-current-directory
-    ;; "rr" 'my-counsel-recentf
-    "da" 'diff-region-tag-selected-as-a
-    "db" 'diff-region-compare-with-b
-    "di" 'evilmi-delete-items
-    ;; "si" 'evilmi-select-items
-    "jb" 'js-beautify
-    "jp" 'my-print-json-path
-    ;; "0" 'delete-window
-    ;; "1" 'delete-other-windows
-    ;; "2" 'split-window-vertically
-    ;; "3" 'split-window-horizontally
-    "s2" 'ffip-split-window-vertically
-    "s3" 'ffip-split-window-horizontally
-    "xr" 'rotate-windows
-    "xt" 'toggle-two-split-window
-    "uu" 'winner-undo
-    "ur" 'winner-redo
-    "fs" 'ffip-save-ivy-last
-    "fr" 'ffip-ivy-resume
-    "fc" 'cp-ffip-ivy-last
-    "ss" 'my-swiper
-    ;; "fb" 'flyspell-buffer
-    ;; "fe" 'flyspell-goto-next-error
-    ;; "fa" 'flyspell-auto-correct-word
-    "lb" 'langtool-check-buffer
-    "ll" 'langtool-goto-next-error
-    ;; "pe" 'flymake-goto-prev-error
-    ;; "ne" 'flymake-goto-next-error
-    "oga" 'org-agenda
-    "ogd" 'org-agenda-day-view
-    "ogw" 'org-agenda-week-view
-    "otl" 'org-toggle-link-display
-    "oa" '(lambda ()
-            (interactive)
-            (my-ensure 'org)
-            (counsel-org-agenda-headlines))
-    "ut" 'undo-tree-visualize
-    "ar" 'align-regexp
-    "wrn" 'httpd-restart-now
-    "wrd" 'httpd-restart-at-default-directory
-    "bk" 'buf-move-up
-    "bj" 'buf-move-down
-    "bh" 'buf-move-left
-    "bl" 'buf-move-right
-    "x0" 'winum-select-window-0-or-10
-    ;; "x1" 'winum-select-window-1
-    "x1" 'delete-other-windows
-    "x2" 'winum-select-window-2
-    "x3" 'winum-select-window-3
-    "x4" 'winum-select-window-4
-    "x5" 'winum-select-window-5
-    "x6" 'winum-select-window-6
-    "x7" 'winum-select-window-7
-    "x8" 'winum-select-window-8
-    "x9" 'winum-select-window-9
-    "xm" 'counsel-M-x
-    "xx" 'er/expand-region
-    "xf" 'counsel-find-file
-    "xb" 'ivy-switch-buffer-by-pinyin
-    ;; "xh" 'mark-whole-buffer
-    "xh" 'previous-buffer
-    "xl" 'next-buffer
-    "xk" 'kill-buffer
-    "xs" 'save-buffer
-    "xc" 'save-buffers-kill-emacs
-    "xz" 'my-switch-to-shell
-    "vf" 'vc-rename-file-and-buffer
-    "vc" 'vc-copy-file-and-rename-buffer
-    "xv" 'vc-next-action ; 'C-x v v' in original
-    "va" 'git-add-current-file
-    "vk" 'git-checkout-current-file
-    "vg" 'vc-annotate ; 'C-x v g' in original
-    "vv" 'vc-msg-show
-    "v=" 'git-gutter:popup-hunk
-    "hh" 'cliphist-paste-item
-    "yu" 'cliphist-select-item
-    "ih" 'my-goto-git-gutter ; use ivy-mode
-    "ir" 'ivy-resume
-    "ww" 'narrow-or-widen-dwim
-    "ycr" 'my-yas-reload-all
-    "wf" 'popup-which-function))
+  ;;   "bu" 'backward-up-list
+  ;;   "bb" (lambda () (interactive) (switch-to-buffer nil)) ; to previous buffer
+  ;;   "m" 'counsel-evil-marks
+  ;;   "em" 'my-erase-visible-buffer
+  ;;   "eb" 'eval-buffer
+  ;;   ;; "sd" 'sudo-edit
+  ;;   ;; "sc" 'scratch
+  ;;   "ee" 'eval-expression
+  ;;   "aw" 'ace-swap-window
+  ;;   "af" 'ace-maximize-window
+  ;;   "ac" 'aya-create
+  ;;   "bs" '(lambda () (interactive) (goto-edge-by-comparing-font-face -1))
+  ;;   ;; "es" 'goto-edge-by-comparing-font-face
+  ;;   "vj" 'my-validate-json-or-js-expression
+  ;;   "kc" 'kill-ring-to-clipboard
+  ;;   "fn" 'cp-filename-of-current-buffer
+  ;;   "fp" 'cp-fullpath-of-current-buffer
+  ;;   "dj" 'dired-jump ;; open the dired from current file
+  ;;   "xo" 'ace-window
+  ;;   "ff" 'my-toggle-full-window ;; I use WIN+F in i3
+  ;;   "ip" 'find-file-in-project
+  ;;   ;; "tt" 'find-file-in-current-directory
+  ;;   "jj" 'find-file-in-project-at-point
+  ;;   ;; "kk" 'find-file-in-project-by-selected
+  ;;   "kn" 'find-file-with-similar-name ; ffip v5.3.1
+  ;;   "fd" 'find-directory-in-project-by-selected
+  ;;   "trm" 'get-term
+  ;;   "tff" 'toggle-frame-fullscreen
+  ;;   "tfm" 'toggle-frame-maximized
+  ;;   "ti" 'fastdef-insert
+  ;;   ;; "th" 'fastdef-insert-from-history
+  ;;   "cl" 'evilnc-comment-or-uncomment-lines
+  ;;   "cq" 'evilnc-quick-comment-or-uncomment-to-the-line
+  ;;   "cc" 'evilnc-copy-and-comment-lines
+  ;;   "cp" 'evilnc-comment-or-uncomment-paragraphs
+  ;;   "ct" 'evilnc-comment-or-uncomment-html-tag ; evil-nerd-commenter v3.3.0 required
+  ;;   "ci" 'org-clock-in
+  ;;   "co" 'org-clock-out
+  ;;   "cr" 'org-clock-report
+  ;;   "cd" 'org-deadline
+  ;;   "cs" 'org-schedule
+  ;;   "ct" 'org-todo
+  ;;                                         ; "ca" 'org-archive-subtree
+  ;;   "ic" 'my-imenu-comments
+  ;;   ;; {{ window move
+  ;;   "wh" 'evil-window-left
+  ;;   "wl" 'evil-window-right
+  ;;   "wk" 'evil-window-up
+  ;;   "wj" 'evil-window-down
+  ;;   ;; }}
+  ;;   "cby" 'cb-switch-between-controller-and-view
+  ;;   "cbu" 'cb-get-url-from-controller
+  ;;   ;; "rt" 'counsel-etags-recent-tag
+  ;;   ;; "ft" 'counsel-etags-find-tag
+  ;;   "kk" 'counsel-browse-kill-ring
+  ;;   "cf" 'counsel-grep ; grep current buffer
+  ;;   "gf" 'counsel-git ; find file
+  ;;   "gg" 'my-counsel-git-grep ; quickest grep should be easy to press
+  ;;   "gd" 'ffip-show-diff-by-description ;find-file-in-project 5.3.0+
+  ;;   "gt" 'my-evil-goto-definition ; "gt" is occupied by evil
+  ;;   "gl" 'my-git-log-trace-definition ; find history of a function or range
+  ;;   "sh" 'my-select-from-search-text-history
+  ;;   "rjs" 'run-js
+  ;;   "jsr" 'js-send-region
+  ;;   "jsb" 'js-clear-send-buffer
+  ;;   "kb" 'kill-buffer-and-window ;; "k" is preserved to replace "C-g"
+  ;;   "ls" 'highlight-symbol
+  ;;   "lq" 'highlight-symbol-query-replace
+  ;;   "ln" 'highlight-symbol-nav-mode ; use M-n/M-p to navigation between symbols
+  ;;   "ii" 'my-imenu-or-list-tag-in-current-file
+  ;;   "." 'evil-ex
+  ;;   ;; @see https://github.com/pidu/git-timemachine
+  ;;   ;; p: previous; n: next; w:hash; W:complete hash; g:nth version; q:quit
+  ;;   "tm" 'my-git-timemachine
+  ;;   ;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
+  ;;   "oo" 'compile
+  ;;   "c$" 'org-archive-subtree ; `C-c $'
+  ;;   ;; org-do-demote/org-do-premote support selected region
+  ;;   "c<" 'org-do-promote ; `C-c C-<'
+  ;;   "c>" 'org-do-demote ; `C-c C->'
+  ;;   "cam" 'org-tags-view ; `C-c a m': search items in org-file-apps by tag
+  ;;                                         ; "cxi" 'org-clock-in ; `C-c C-x C-i'
+  ;;                                         ; "cxo" 'org-clock-out ; `C-c C-x C-o'
+  ;;                                         ; "cxr" 'org-clock-report ; `C-c C-x C-r'
+  ;;   ;; "qq" 'my-multi-purpose-grep
+  ;;   "dd" 'counsel-etags-grep-current-directory
+  ;;   ;; "rr" 'my-counsel-recentf
+  ;;   "da" 'diff-region-tag-selected-as-a
+  ;;   "db" 'diff-region-compare-with-b
+  ;;   "di" 'evilmi-delete-items
+  ;;   ;; "si" 'evilmi-select-items
+  ;;   "jb" 'js-beautify
+  ;;   "jp" 'my-print-json-path
+  ;;   ;; "0" 'delete-window
+  ;;   ;; "1" 'delete-other-windows
+  ;;   ;; "2" 'split-window-vertically
+  ;;   ;; "3" 'split-window-horizontally
+  ;;   "s2" 'ffip-split-window-vertically
+  ;;   "s3" 'ffip-split-window-horizontally
+  ;;   "xr" 'rotate-windows
+  ;;   "xt" 'toggle-two-split-window
+  ;;   "uu" 'winner-undo
+  ;;   "ur" 'winner-redo
+  ;;   "fs" 'ffip-save-ivy-last
+  ;;   "fr" 'ffip-ivy-resume
+  ;;   "fc" 'cp-ffip-ivy-last
+  ;;   "ss" 'my-swiper
+  ;;   ;; "fb" 'flyspell-buffer
+  ;;   ;; "fe" 'flyspell-goto-next-error
+  ;;   ;; "fa" 'flyspell-auto-correct-word
+  ;;   "lb" 'langtool-check-buffer
+  ;;   "ll" 'langtool-goto-next-error
+  ;;   ;; "pe" 'flymake-goto-prev-error
+  ;;   ;; "ne" 'flymake-goto-next-error
+  ;;   "oga" 'org-agenda
+  ;;   "ogd" 'org-agenda-day-view
+  ;;   "ogw" 'org-agenda-week-view
+  ;;   "otl" 'org-toggle-link-display
+  ;;   "oa" '(lambda ()
+  ;;           (interactive)
+  ;;           (my-ensure 'org)
+  ;;           (counsel-org-agenda-headlines))
+  ;;   "ut" 'undo-tree-visualize
+  ;;   "ar" 'align-regexp
+  ;;   "wrn" 'httpd-restart-now
+  ;;   "wrd" 'httpd-restart-at-default-directory
+  ;;   "bk" 'buf-move-up
+  ;;   "bj" 'buf-move-down
+  ;;   "bh" 'buf-move-left
+  ;;   "bl" 'buf-move-right
+  ;;   "x0" 'winum-select-window-0-or-10
+  ;;   ;; "x1" 'winum-select-window-1
+  ;;   "x1" 'delete-other-windows
+  ;;   "x2" 'winum-select-window-2
+  ;;   "x3" 'winum-select-window-3
+  ;;   "x4" 'winum-select-window-4
+  ;;   "x5" 'winum-select-window-5
+  ;;   "x6" 'winum-select-window-6
+  ;;   "x7" 'winum-select-window-7
+  ;;   "x8" 'winum-select-window-8
+  ;;   "x9" 'winum-select-window-9
+  ;;   "xm" 'counsel-M-x
+  ;;   "xx" 'er/expand-region
+  ;;   "xf" 'counsel-find-file
+  ;;   "xb" 'ivy-switch-buffer-by-pinyin
+  ;;   ;; "xh" 'mark-whole-buffer
+  ;;   "xh" 'previous-buffer
+  ;;   "xl" 'next-buffer
+  ;;   "xk" 'kill-buffer
+  ;;   "xs" 'save-buffer
+  ;;   "xc" 'save-buffers-kill-emacs
+  ;;   "xz" 'my-switch-to-shell
+  ;;   "vf" 'vc-rename-file-and-buffer
+  ;;   "vc" 'vc-copy-file-and-rename-buffer
+  ;;   "xv" 'vc-next-action ; 'C-x v v' in original
+  ;;   "va" 'git-add-current-file
+  ;;   "vk" 'git-checkout-current-file
+  ;;   "vg" 'vc-annotate ; 'C-x v g' in original
+  ;;   "vv" 'vc-msg-show
+  ;;   "v=" 'git-gutter:popup-hunk
+  ;;   "hh" 'cliphist-paste-item
+  ;;   "yu" 'cliphist-select-item
+  ;;   "ih" 'my-goto-git-gutter ; use ivy-mode
+  ;;   "ir" 'ivy-resume
+  ;;   "ww" 'narrow-or-widen-dwim
+  ;;   "ycr" 'my-yas-reload-all
+  ;;   "wf" 'popup-which-function))
   
 
 

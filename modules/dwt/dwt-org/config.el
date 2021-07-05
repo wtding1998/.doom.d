@@ -286,6 +286,10 @@
 
 (use-package! org-zotxt
   :init
+  (defun dwt/open-zotero ()
+    (interactive)
+    (shell-command "zotero &"))
+
   (map! :map org-mode-map
         :n "zE" #'org-zotxt-mode
         :n "ze" #'org-zotxt-noter
@@ -293,7 +297,7 @@
         "zE" #'org-zotxt-mode
         "ze" #'org-zotxt-noter
         "za" #'org-zotxt-open-attachment
-        :desc "zotero" "zt" (lambda () (interactive) (shell-command "zotero &"))
+        :desc "zotero" "zt" #'dwt/open-zotero
         "zi" #'org-zotxt-insert-reference-link)
   :config
   (defun org-zotxt-noter (arg)
@@ -343,4 +347,8 @@ See `org-noter' for details and ARG usage."
 (use-package! ox-hugo
   :after ox)
 
-(setq system-time-locale "C")
+;; (use-package! org-clock-watch
+;;   :load-path "~/.emacs.d/.local/straight/repos/org-clock-watch"
+;;   :init
+;;   ;; (setq org-clock-x11idle-program-name "xprintidle")
+;;   (setq org-clock-watch-work-plan-file-path "~/D/OneDrive/Documents/diary/org/agenda.org"))

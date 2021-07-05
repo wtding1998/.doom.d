@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 ;; (setq dwt/lenovo (string-equal "1" (getenv "lenovo")))
-(setq dwt/lenovo nil)
+(defvar dwt/lenovo nil)
 (setq dwt/lenovo (string-equal "1" (getenv "lenovo")))
 (doom! :input
        ;;chinese
@@ -205,12 +205,12 @@
        dwt-ui
        ;; dwt-vterm
        dwt-lsp
-       dwt-nox
+       ;; dwt-nox
        dwt-wsl2
        dwt-pdf
        dwt-python
        dwt-useful-func
-       dwt-eaf
+       ;; dwt-eaf
        dwt-dired
        dwt-cc)
        ;; dwt-matlab
