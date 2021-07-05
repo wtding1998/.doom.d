@@ -125,8 +125,6 @@
 
 (unless (display-graphic-p)
   (setq doom-theme 'kaolin-mono-dark))
-(map! :n "[t" #'centaur-tabs-forward-group
-      :n "]t" #'centaur-tabs-backward-group)
 
 (use-package! diff-hl
   :config

@@ -217,14 +217,7 @@
   :desc "Master" "m" #'TeX-command-master
   :desc "Input String" "s" #'dwt/insert
   ;; :desc "Command" "c" "TeX-command-master"
-  :desc "toc" "t" #'reftex-toc))
-;; test if () can separate key word in map!
-;; :n "[X" #'dwt/insert-subscript
-
-;; TODO add tex template
-;; for beamer: ...
-;; for paper: ...
-;; for homework: ...
+  :desc "toc" "=" #'reftex-toc))
 
 ;;;###autoload
 (defun dwt/TeX-save-and-run-all ()
@@ -353,10 +346,23 @@
 (use-package! reftex-toc
   :defer t
   :config
+  (setq! reftex-section-levels '(("part" . 0)
+                                 ("chapter" . 1)
+                                 ("section" . 2)
+                                 ("subsection" . 3)
+                                 ("subsubsection" . 4)
+                                 ("frametitle" . -3)
+                                 ("paragraph" . 5)
+                                 ("subparagraph" . 6)
+                                 ("addchap" . -1)
+                                 ("addsec" . -2)))
+  (map! :map reftex-toc-map
+        :n "i" #'reftex-toc-toggle-index
+        :n "c" #'reftex-toc-toggle-context)
   (setq! reftex-toc-follow-mode t
          reftex-toc-split-windows-horizontally t
-         reftex-toc-split-windows-fraction 0.25
-         reftex-toc-follow-mode t))
+         reftex-toc-split-windows-fraction 0.25))
+   
 
 ;;; find next or previous math environment
 
