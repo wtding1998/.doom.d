@@ -235,7 +235,7 @@
            :head "#+title: ${title}\n#+roam_tags:\n\n")))
   (add-to-list 'org-roam-capture-templates
                '("p" "Paper Note" plain (function org-roam-capture--get-point)
-                 "* Paper\n%?\n* Problem\n* Idea\n* Method\n* Result\n* My Idea\n"
+                 "* Paper\n%?\n* Summary\n* Idea\n* Method\n* Result\n* My Idea\n"
                  :file-name "${slug}"
                  :head "#+title: ${title}\n#+roam_tags:paper \n\n"
                  :unnarrowed t))
@@ -265,8 +265,8 @@
       :desc "roam-insert-link" "oi" #'org-roam-insert)
 ;;; noter
 (use-package! org-noter
-  :init
-  (add-hook 'org-noter-notes-mode-hook #'cdlatex-mode)
+  ;; :init
+  ;; (add-hook 'org-noter-notes-mode-hook #'cdlatex-mode)
   :config
   (setq org-noter-auto-save-last-location nil)
   (map! :map org-noter-doc-mode-map

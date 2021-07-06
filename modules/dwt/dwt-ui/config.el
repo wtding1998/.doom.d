@@ -67,7 +67,6 @@
                            doom-opera-light
                            doom-tomorrow-day
                            modus-operandi))
-                           
                            ;; doom-one-light
                            ;; doom-flatwhite))
 (defun dwt/random-load-light-theme ()
@@ -80,50 +79,22 @@
   (interactive)
   (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes)) t nil)
 
-(defun dwt/better-font()
-  ;; english font
-  (if (display-graphic-p)
-      (progn
-        ;; (setq doom-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes))
-        (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-        (setq dwt/fontsize 15)
-        (when dwt/lenovo
-          (setq dwt/fontsize 26))
-        ;; (setq doom-theme 'modus-operandi)
-        ;; (setq doom-theme 'tao-yang)
-        ;; (setq doom-theme 'doom-tomorrow-day)
-        ;; (setq doom-theme nil)
-        ;; (setq doom-theme 'doom-one-light)
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Source Code Pro" 25)) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Fira Code" 26)) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format   "%s:pixelsize=%d" "Inconsolata" 32)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize)) ;; 11 13 17 19 23
-        ;; chinese font
-        ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
-        (set-fontset-font t 'unicode "Symbola" nil 'prepend)
-        (dolist (charset '(kana han symbol cjk-misc bopomofo))
-          (set-fontset-font (frame-parameter nil 'font)
-                            charset
-                            (font-spec :family "Source Han Serif CN")))))) ;; 14 16 20 22 28
-    
+;;; font
+(defvar dwt/fontsize 15)
+(when dwt/lenovo
+  (setq dwt/fontsize 26))
+;; (setq doom-font (font-spec :family "SF Mono" :size 24 :weight 'semi-light))
+(setq doom-font (font-spec :family "Fira Code" :size dwt/fontsize :weight 'semi-light))
+(setq doom-unicode-font (font-spec :family "Source Han Serif CN"))
 
-
-
-(defun dwt/init-font(frame)
-  (with-selected-frame frame
-    (if (display-graphic-p)
-        (dwt/better-font))))
-
-(if (and (fboundp 'daemonp) (daemonp))
-    (add-hook 'after-make-frame-functions #'dwt/init-font)
-  (dwt/better-font))
-;; frame maximize
-;; (toggle-frame-maximized) ; this fail on client
+;;; frame init
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
-(unless (display-graphic-p)
+;;; theme
+(if (display-graphic-p)
+  (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
   (setq doom-theme 'kaolin-mono-dark))
 
 (use-package! diff-hl
@@ -191,9 +162,19 @@
 
   (awesome-tab-mode t))
 
-;;; +modeline, light line im doom
-(setq +modeline-height 15)
+;;; title bar
+;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
+;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
+(setq-default frame-title-format '("Emacs - %b"))
 
+;;; +modeline, light line in doom
+(setq +modeline-height 15)
+;; display time modeline
+(setq display-time-day-and-date t)
+(setq display-time-24hr-format t)
+(display-time-mode 1)
+;; display battery in modeline
+(display-battery-mode 1)
 
 ;;; word wrap
 
