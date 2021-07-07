@@ -72,12 +72,12 @@
 (defun dwt/random-load-light-theme ()
   "Load light theme."
   (interactive)
-  (load-theme (nth (random (length dwt/light-themes)) dwt/light-themes)) t nil)
+  (load-theme (nth (random (length dwt/light-themes)) dwt/light-themes) t nil))
 
 (defun dwt/random-load-theme ()
   "Load theme randomly from dwt/dark-themes."
   (interactive)
-  (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes)) t nil)
+  (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes) t nil))
 
 ;;; font
 (defvar dwt/fontsize 15)
@@ -96,6 +96,7 @@
 (if (display-graphic-p)
   (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
   (setq doom-theme 'kaolin-mono-dark))
+
 
 (use-package! diff-hl
   :config

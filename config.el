@@ -65,16 +65,6 @@
             (unless (or (string-prefix-p "*" (buffer-name)) (string-prefix-p "+" (buffer-name)))
               (call-interactively #'basic-save-buffer))))
 ;; (setq auto-save-default t)
-;; set title bar
-;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
-;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
-(setq-default frame-title-format '("Emacs - %b"))
-;; display time modeline
-(setq display-time-day-and-date t)
-(setq display-time-24hr-format t)
-(display-time-mode 1)
-;; display battery in modeline
-(display-battery-mode 1)
 
 ;;; system
 (setq system-time-locale "C")
