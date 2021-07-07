@@ -277,6 +277,7 @@
 ;;                        company-dabbrev company-yasnippet company-ispell company-capf)
 ;; new:
 (after! latex
+  (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
   (add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
   (add-to-list '+latex--company-backends #'company-yasnippet nil #'eq)
   (add-to-list '+latex--company-backends #'company-ispell nil #'eq)
@@ -410,3 +411,4 @@
      (?1    "\\hat"           nil          t    nil  nil)
      (?s    "\\mathscr"           nil          t    nil  nil)
      (?A    "\\abs"           nil          t    nil  nil))))
+

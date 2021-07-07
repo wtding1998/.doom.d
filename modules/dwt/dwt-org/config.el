@@ -218,7 +218,7 @@
 
 
 (use-package! org-roam
-  :defer 3
+  :after-call org
   :init
   ;; (setq org-roam-buffer-window-parameters nil)
   ;; (setq +org-roam-open-buffer-on-find-file nil)
@@ -285,6 +285,7 @@
         :nv "nq" #'org-noter-kill-session))
 
 (use-package! org-zotxt
+  :after org
   :init
   (defun dwt/open-zotero ()
     (interactive)

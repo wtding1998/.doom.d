@@ -108,7 +108,10 @@
 
         ;; help
         :desc "battery" "hB" #'battery)
-        
+  ;;; use C-z to undo and C-S-z to redo
+  (map! :i "C-z" #'evil-undo)
+  (map! :i "C-S-z" #'undo-fu-only-redo)
+
   (map! :map emacs-lisp-mode-map :n "ze" #'eval-last-sexp)
   ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
   ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#map
@@ -510,3 +513,11 @@
     'emacs-lisp-mode
     '("RET" . eval-buffer)
     '("SPC" . eval-defun)))
+
+(use-package! parinfer-rust-mode
+   :config
+   (setq parinfer-rust-preferred-mode "indent"))
+
+(use-package! gcmh
+  :init
+  (setq garbage-collection-messages t))

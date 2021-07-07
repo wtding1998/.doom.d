@@ -80,7 +80,7 @@
   (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes) t nil))
 
 ;;; font
-(defvar dwt/fontsize 15)
+(defvar dwt/fontsize 16)
 (when dwt/lenovo
   (setq dwt/fontsize 26))
 ;; (setq doom-font (font-spec :family "SF Mono" :size 24 :weight 'semi-light))
@@ -93,10 +93,10 @@
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 ;;; theme
-(if (display-graphic-p)
-  (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-  (setq doom-theme 'kaolin-mono-dark))
-
+;; (if (display-graphic-p)
+;;     (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
+;;     (setq doom-theme 'kaolin-mono-dark))
+(setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
 
 (use-package! diff-hl
   :config
