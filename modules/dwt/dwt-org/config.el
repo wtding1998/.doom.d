@@ -10,7 +10,7 @@
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
   (map! :map org-mode-map "<tab>" nil)
-  (add-hook 'org-mode-hook #'cdlatex-mode)
+  ;; (add-hook 'org-mode-hook #'cdlatex-mode)
   (add-hook 'org-mode-hook #'evil-tex-mode)
   (add-hook 'org-mode-hook (lambda () (setq word-wrap nil)))
   ;; (add-hook 'org-mode-hook #'org-latex-auto-toggle)
@@ -137,8 +137,6 @@
           ("\\.pdf\\'" . "zathura %s")
           (directory . emacs)))
 
-  (add-hook 'org-roam-mode-hook 'cdlatex-mode)
-  (add-hook 'org-roam-mode-hook 'evil-tex-mode)
 
   (defun dwt/toggle-all-fragments ()
     (interactive)
@@ -216,6 +214,9 @@
       (remove-hook 'post-command-hook '+org-post-command-hook t)))
   (map! :leader "ta" #'org-latex-auto-toggle))
 
+(use-package! org-clock
+  :config
+  (setq org-clock-mode-line-total 'today))
 
 (use-package! org-roam
   :after-call org
@@ -225,7 +226,6 @@
   ;; solve the problem roam doesn't read the database
   (setq org-roam-db-location "~/mycode/org-roam.db")
   (setq org-roam-directory "~/OneDrive/Documents/roam")
-  (add-hook 'org-roam-mode-hook 'org-zotxt-mode)
   :config
   (setq org-roam-capture-templates
         '(
@@ -267,8 +267,9 @@
 (use-package! org-noter
   ;; :init
   ;; (add-hook 'org-noter-notes-mode-hook #'cdlatex-mode)
+  ;; (add-hook 'org-noter-notes-mode-hook #'org-latex-impatient-mode)
   :config
-  (setq org-noter-auto-save-last-location nil)
+  (setq org-noter-auto-save-last-location t)
   (map! :map org-noter-doc-mode-map
         :localleader
         "q" #'org-noter-kill-session

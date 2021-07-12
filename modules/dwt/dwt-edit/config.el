@@ -106,6 +106,9 @@
         :desc "find file other window" "fv" #'find-file-other-window
         :desc "open by extern program" "fo" #'counsel-find-file-extern
 
+        ;; kill ring
+        :desc "kill ring" "sa" #'counsel-yank-pop
+
         ;; help
         :desc "battery" "hB" #'battery)
   ;;; use C-z to undo and C-S-z to redo
@@ -384,11 +387,13 @@
   ;;   "ycr" 'my-yas-reload-all
   ;;   "wf" 'popup-which-function))
   
-
+;;; evilnc-comment
+(use-package! evil-nerd-commenter
+  :config
+  (map! :nv "gb" #'evilnc-copy-and-comment-operator))
 
 ;;; evil-snipe
 (use-package! evil-snipe
-  :defer t
   :config
   (setq evil-snipe-scope 'visible)
   (setq evil-snipe-repeat-scope 'visible)
@@ -518,6 +523,6 @@
    :config
    (setq parinfer-rust-preferred-mode "indent"))
 
-(use-package! gcmh
-  :init
-  (setq garbage-collection-messages t))
+;; (use-package! gcmh
+;;   :init
+;;   (setq garbage-collection-messages t))

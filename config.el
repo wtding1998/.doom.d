@@ -55,11 +55,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-
-;; maxmize frame when start
-;; (toggle-frame-fullscreen)
-;; auto-save
+;; auto-save by visited-mode
 (auto-save-visited-mode +1)
+(setq auto-save-visited-interval 10)
 (add-hook 'evil-insert-state-exit-hook
           (lambda ()
             (unless (or (string-prefix-p "*" (buffer-name)) (string-prefix-p "+" (buffer-name)))

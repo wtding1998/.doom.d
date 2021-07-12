@@ -5,10 +5,13 @@
   :defer t
   :custom
   (default-input-method "rime")
-  ;; (rime-show-candidate 'posframe)
+  (rime-show-candidate 'posframe)
   ;; set to minibuffer for better performance
-  (rime-show-candidate 'minibuffer)
+  ;; (rime-show-candidate 'minibuffer)
   :config
+  ;; modelineshi 使用这些东西
+  (setq dwt/rime-modeline '(:eval current-input-method-title " "))
+  (setq-default +modeline-format-right (push dwt/rime-modeline +modeline-format-right))
   ;; set rime configuration dir
   (setq rime-user-data-dir "~/.config/fcitx/rime")
   ;; set UI

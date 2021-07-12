@@ -284,22 +284,6 @@
   (add-to-list '+latex--company-backends #'company-capf nil #'eq)
   (set-company-backend! 'latex-mode +latex--company-backends))
 
-
-
-
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-                                        ; bind { and  } to next math and previous math
-            (define-key evil-normal-state-local-map (kbd "}") 'dwt/find-math-next)
-            (define-key evil-visual-state-local-map (kbd "}") 'dwt/find-math-next)
-            (define-key evil-normal-state-local-map (kbd "{") 'dwt/find-math-prev)
-            (define-key evil-visual-state-local-map (kbd "{") 'dwt/find-math-prev)))
-            ;; (define-key evil-insert-state-local-map (kbd "M-\\") 'dwt/insert-inline-math-env)
-            ;; (define-key evil-insert-state-local-map (kbd "M-[") 'dwt/insert-superscript)
-            ;; (define-key evil-insert-state-local-map (kbd "M--") 'dwt/insert-subscript)))
-;; (define-key evil-insert-state-local-map (kbd "M-]") 'dwt/insert-transpose)
-;; (define-key evil-insert-state-local-map (kbd "M-8") 'dwt/insert-star)
-
 (map! :map cdlatex-mode-map
       :i ";" #'dwt/insert-subscript
       :i "\";" #'(lambda () (interactive) (insert ";"))
@@ -310,7 +294,9 @@
       ;; :i "\"" #'dwt/insert-inline-math-env)
       :i "'" #'dwt/insert-inline-math-env
       :i "\"'" #'(lambda () (interactive) (insert "'"))
-      :i "M-n" #'cdlatex-tab)
+      :i "M-n" #'cdlatex-tab
+      :nv "}" #'dwt/find-math-next
+      :nv "{" #'dwt/find-math-prev)
 
 ;; TODO scratch function
 ;; (defun dwt/tex-scratch ()
@@ -411,4 +397,3 @@
      (?1    "\\hat"           nil          t    nil  nil)
      (?s    "\\mathscr"           nil          t    nil  nil)
      (?A    "\\abs"           nil          t    nil  nil))))
-

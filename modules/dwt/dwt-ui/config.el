@@ -74,18 +74,39 @@
   (interactive)
   (load-theme (nth (random (length dwt/light-themes)) dwt/light-themes) t nil))
 
-(defun dwt/random-load-theme ()
+(defun dwt/random-load-dark-theme ()
   "Load theme randomly from dwt/dark-themes."
   (interactive)
   (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes) t nil))
 
 ;;; font
-(defvar dwt/fontsize 16)
-(when dwt/lenovo
-  (setq dwt/fontsize 26))
-;; (setq doom-font (font-spec :family "SF Mono" :size 24 :weight 'semi-light))
-(setq doom-font (font-spec :family "Fira Code" :size dwt/fontsize :weight 'semi-light))
-(setq doom-unicode-font (font-spec :family "Source Han Serif CN"))
+
+(defun dwt/doom-font()
+  ;; english font
+  (if (display-graphic-p)
+      (progn
+        (setq dwt/fontsize 16)
+        (when dwt/lenovo
+          (setq dwt/fontsize 26))
+        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize)) ;; 11 13 17 19 23
+        ;; chinese font
+        ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
+        (set-fontset-font t 'unicode "Symbola" nil 'prepend)
+        (dolist (charset '(kana han symbol cjk-misc bopomofo))
+          (set-fontset-font (frame-parameter nil 'font)
+                            charset
+                            (font-spec :family "Source Han Serif CN")))))) ;; 14 16 20 22 28
+
+(defun dwt/init-font(frame)
+  (with-selected-frame frame
+    (if (display-graphic-p)
+        (dwt/doom-font))))
+
+(if (and (fboundp 'daemonp) (daemonp))
+    (add-hook 'after-make-frame-functions #'dwt/init-font)
+  (dwt/doom-font))
+
+
 
 ;;; frame init
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -96,7 +117,8 @@
 ;; (if (display-graphic-p)
 ;;     (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
 ;;     (setq doom-theme 'kaolin-mono-dark))
-(setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
+;; (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
+(dwt/random-load-dark-theme)
 
 (use-package! diff-hl
   :config
@@ -110,14 +132,14 @@
 (use-package! kaolin-themes
  :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes")
 
-(use-package! printed-theme
-  :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
+; (use-package! printed-theme
+;   :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
 
-(use-package! joker-theme
-  :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
+; (use-package! joker-theme
+;   :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
 
-(use-package! storybook-theme
-  :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
+; (use-package! storybook-theme
+;   :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
 
 (use-package! awesome-tab
   :config
@@ -139,6 +161,8 @@
   (map! "C-7" #'awesome-tab-select-visible-tab)
   (map! "C-8" #'awesome-tab-select-visible-tab)
   (map! "C-9" #'awesome-tab-select-visible-tab)
+  (map! :nvi "C-<tab>" #'awesome-tab-forward-tab)
+  (map! :nvi "C-<iso-lefttab>" #'awesome-tab-backward-tab)
 
   (define-key global-map (kbd "M-o") #'other-window)
   ;; height
@@ -181,3 +205,4 @@
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
+
