@@ -109,6 +109,10 @@
         ;; kill ring
         :desc "kill ring" "sa" #'counsel-yank-pop
 
+        ;; link
+        :desc "insert link" "nl" #'org-insert-link
+        :desc "store link" "nL" #'org-store-link
+
         ;; help
         :desc "battery" "hB" #'battery)
   ;;; use C-z to undo and C-S-z to redo

@@ -20,10 +20,7 @@
           ;; '(",---.,-.-.,---.,---.,---."
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
-          '("知而不行，未知之矣。"
-            "大道甚夷，而人好径。"
-            "胜人者有力，自胜者强。"
-            "上士闻道，勤而行之。中士闻道，若存若亡。下士闻道，大笑之，不笑不足以为道。"))
+          '("所谓诚其意者：毋自欺也，如恶恶臭，如好好色，此之谓自谦，故君子必慎其独也。"))
           ;; '("苟日新"
           ;;   "日日新"
           ;;   "又日新"))
@@ -39,10 +36,10 @@
                "\n"))
      'face 'doom-dashboard-banner)))
 
-;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
-;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
+(unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
+  (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
+(setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
-;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 ;; disable global-hl-line
 ;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
@@ -152,17 +149,17 @@
   (evil-define-key 'normal 'global (kbd"<leader>t0") #'awesome-tab-kill-all-buffers-in-current-group)
   (evil-define-key 'normal 'global (kbd"<leader>tn") #'awesome-tab-forward-tab)
   (evil-define-key 'normal 'global (kbd"<leader>tp") #'awesome-tab-backward-tab)
-  (map! "C-1" #'awesome-tab-select-visible-tab)
-  (map! "C-2" #'awesome-tab-select-visible-tab)
-  (map! "C-3" #'awesome-tab-select-visible-tab)
-  (map! "C-4" #'awesome-tab-select-visible-tab)
-  (map! "C-5" #'awesome-tab-select-visible-tab)
-  (map! "C-6" #'awesome-tab-select-visible-tab)
-  (map! "C-7" #'awesome-tab-select-visible-tab)
-  (map! "C-8" #'awesome-tab-select-visible-tab)
-  (map! "C-9" #'awesome-tab-select-visible-tab)
-  (map! :nvi "C-<tab>" #'awesome-tab-forward-tab)
-  (map! :nvi "C-<iso-lefttab>" #'awesome-tab-backward-tab)
+  (map! :ni "C-1" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-2" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-3" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-4" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-5" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-6" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-7" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-8" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-9" #'awesome-tab-select-visible-tab)
+  (map! :ni "C-<tab>" #'awesome-tab-forward-tab)
+  (map! :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
 
   (define-key global-map (kbd "M-o") #'other-window)
   ;; height
