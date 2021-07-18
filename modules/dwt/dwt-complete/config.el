@@ -150,7 +150,6 @@
 ;; (after! anaconda-mode
 ;;   (set-company-backend! 'anaconda-mode '(company-anaconda)))
 
-
 ;; (after! lsp
 ;;   ;; (set-company-backend! 'anaconda-mode '(company-anaconda company-yasnippet))
 ;;   (setq +lsp-company-backends nil))
@@ -164,3 +163,8 @@
   (setq ivy-count-format "%d/%d ")
   (map! :map ivy-minibuffer-map
         "<tab>" #'ivy-partial))
+
+(use-package! company-english-helper
+  :after (org latex)
+  :config
+  (map! :i "C-x C-d" #'company-english-helper-search))

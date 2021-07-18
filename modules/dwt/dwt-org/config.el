@@ -219,14 +219,8 @@
   (setq org-clock-mode-line-total 'today))
 
 (use-package! org-roam
-  :after-call org
-  :init
-  ;; (setq org-roam-buffer-window-parameters nil)
-  ;; (setq +org-roam-open-buffer-on-find-file nil)
-  ;; solve the problem roam doesn't read the database
-  (setq org-roam-db-location "~/mycode/org-roam.db")
-  (setq org-roam-directory "~/OneDrive/Documents/roam")
   :config
+  (map! :leader :n "nrt" #'org-roam-buffer-toggle-display)
   (setq org-roam-capture-templates
         '(
           ("d" "default" plain (function org-roam-capture--get-point)

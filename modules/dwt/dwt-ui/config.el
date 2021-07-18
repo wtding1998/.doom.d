@@ -49,7 +49,6 @@
                           doom-spacegrey
                           doom-opera
                           doom-miramare
-                          joker
                           doom-nord
                           doom-horizon
                           doom-monokai-pro
@@ -58,7 +57,6 @@
                           doom-one))
 
 (defvar dwt/light-themes '(
-                           ;; storybook
                            ;; doom-tomorrow-day
                            doom-homage-white
                            doom-opera-light
