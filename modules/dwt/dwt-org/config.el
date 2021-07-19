@@ -219,34 +219,40 @@
   (setq org-clock-mode-line-total 'today))
 
 (use-package! org-roam
+  :init
+  (setq org-roam-directory "~/org/roam")
+  (setq org-roam-v2-ack t)
   :config
-  (map! :leader :n "nrt" #'org-roam-buffer-toggle-display)
+  (org-roam-setup)
+  (map! :leader :prefix ("nr" . "roam")
+        "f" #'org-roam-node-find
+        "i" #'org-roam-node-insert
+        "d" #'org-roam-buffer-toggle
+        "t" #'org-roam-tag-add
+        "T" #'org-roam-tag-remove
+        "j" #'org-roam-dailies-find-today)
+  (map! :leader "of" #'org-roam-node-find
+                "oi" #'org-roam-node-insert)
   (setq org-roam-capture-templates
-        '(
-          ("d" "default" plain (function org-roam-capture--get-point)
-           "%?"
-           :file-name "${slug}"
-           :head "#+title: ${title}\n#+roam_tags:\n\n")))
+        '(("d" "default" plain "%?"
+            :if-new (file+head "${slug}.org" "#+title: ${title}\n")
+            :unnarrowed t)))
   (add-to-list 'org-roam-capture-templates
-               '("p" "Paper Note" plain (function org-roam-capture--get-point)
-                 "* Paper\n%?\n* Summary\n* Idea\n* Method\n* Result\n* My Idea\n"
-                 :file-name "${slug}"
-                 :head "#+title: ${title}\n#+roam_tags:paper \n\n"
+               '("p" "Paper Note" plain "* Paper\n%?\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n"
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:paper \n\n")
                  :unnarrowed t))
-
   (add-to-list 'org-roam-capture-templates
-               '("b" "Book Note" plain (function org-roam-capture--get-point)
-                 "* Book\n%?\n* Summary"
-                 :file-name "${slug}"
-                 :head "#+title: ${title}\n#+roam_tags:book \n\n"
+               '("b" "Book Note" plain "* Book\n%?\n* Summary"
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:book \n\n")
                  :unnarrowed t))
-
   (add-to-list 'org-roam-capture-templates
-               '("r" "Research Note" plain (function org-roam-capture--get-point)
-                 "* Problem\n%?\n* Result\n* My Idea\n"
-                 :file-name "${slug}"
-                 :head "#+title: ${title}\n#+roam_tags:research\n\n"
-                 :unnarrowed t)))
+               '("r" "Research Note" plain "* Problem\n%?\n* Result\n* My Idea\n"
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:research\n\n")
+                 :unnarrowed t))
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %?"
+            :if-new (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n")))))
 
   
 
