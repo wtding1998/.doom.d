@@ -1,10 +1,15 @@
 ;;; dwt/dwt-matlab/config.el -*- lexical-binding: t; -*-
-;; (use-package! matlab-emacs)
-;;  :load-path "~/.doom.d/matlab-emacs"
-;;  :config
-;;  (load-library "matlab-load"))
+(use-package! matlab
+  :load-path "~/.doom.d/matlab-emacs"
+  :defer t
+  :hook (matlab-mode . display-line-numbers-mode)
+  :init
+  (add-to-list 'auto-mode-alist '("\\.m\\'" . matlab-mode))
+  :commands (matlab-mode)
+  :config
+  (map! :map matlab-mode-map "C-<return>" nil)
+  (map! :map matlab-mode-map :localleader "l" :desc "mlint" #'mlint-minor-mode))
 
-(add-to-list 'load-path "~/.doom.d/matlab-emacs")
-(load-library "matlab-load")
-(after! matlab
-  (map! :map matlab-mode-map "C-<return>" nil))
+(use-package! mlint
+  :defer t
+  :commands (mlint-minor-mode))
