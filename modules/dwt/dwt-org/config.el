@@ -219,50 +219,48 @@
   (setq org-clock-mode-line-total 'today))
 
 (use-package! org-roam
+  :defer t
+  :commands (org-roam-node-find
+             org-roam-capture
+             org-roam-dailies-capture-today
+             org-roam-goto-today
+             org-roam-db-sync)
   :init
   (setq org-roam-directory "~/org/roam")
   (setq org-roam-v2-ack t)
-  :config
-  (org-roam-setup)
   (map! :leader :prefix ("nr" . "roam")
         "f" #'org-roam-node-find
         "i" #'org-roam-node-insert
-        "d" #'org-roam-buffer-toggle
-        "t" #'org-roam-tag-add
-        "T" #'org-roam-tag-remove
-        "j" #'org-roam-dailies-find-today)
+        "t" #'org-roam-buffer-toggle
+        "a" #'org-roam-tag-add
+        "A" #'org-roam-tag-remove
+        "d" #'org-roam-dailies-goto-today
+        "e" #'org-roam-dailies-goto-date)
   (map! :leader "of" #'org-roam-node-find
-                "oi" #'org-roam-node-insert)
+                "oi" #'org-roam-node-insert
+                "oc" #'org-roam-capture
+                "oC" #'org-roam-dailies-capture-today)
+  :config
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
             :if-new (file+head "${slug}.org" "#+title: ${title}\n")
             :unnarrowed t)))
   (add-to-list 'org-roam-capture-templates
-               '("p" "Paper Note" plain "* Paper\n%?\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:paper \n\n")
+               '("p" "Paper Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:paper \n\n* Paper\n%?\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
                  :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
-               '("b" "Book Note" plain "* Book\n%?\n* Summary"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:book \n\n")
+               '("b" "Book Note" plain "* %<%H-%M> - %?"
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:book \n\n* Book\n\n* Summary")
                  :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
-               '("r" "Research Note" plain "* Problem\n%?\n* Result\n* My Idea\n"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:research\n\n")
+               '("r" "Research Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:research\n\n* Problem\n\n* Result\n* My Idea\n")
                  :unnarrowed t))
   (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry "* %?"
+        '(("d" "default" plain "* %<%H-%M> - %?"
             :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n")))))
-
-  
-
-
-;; roam
-(map! :leader
-      :desc "roam-find-file" "of" #'org-roam-find-file
-      :desc "roam-find-ref" "or" #'org-roam-find-ref
-      :desc "roam-find-ref" "oc" #'org-roam-capture
-      :desc "roam-insert-link" "oi" #'org-roam-insert)
+                              "#+title: %<%Y-%m-%d>")))))
 ;;; noter
 (use-package! org-noter
   ;; :init
