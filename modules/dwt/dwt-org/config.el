@@ -219,12 +219,6 @@
   (setq org-clock-mode-line-total 'today))
 
 (use-package! org-roam
-  :defer t
-  :commands (org-roam-node-find
-             org-roam-capture
-             org-roam-dailies-capture-today
-             org-roam-goto-today
-             org-roam-db-sync)
   :init
   (setq org-roam-directory "~/org/roam")
   (setq org-roam-v2-ack t)
@@ -250,7 +244,7 @@
                  :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:paper \n\n* Paper\n%?\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
                  :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
-               '("b" "Book Note" plain "* %<%H-%M> - %?"
+               '("b" "Book Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
                  :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:book \n\n* Book\n\n* Summary")
                  :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
