@@ -75,7 +75,8 @@
   (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes) t nil))
 
 ;;; font
-
+;; (setq doom-font (font-spec :family "SF Mono" :size 26 :weight 'Regular)
+;;       doom-unicode-font (font-spec :family "Source Han Serif CN"))
 (defun dwt/doom-font()
   ;; english font
   (if (display-graphic-p)
@@ -83,7 +84,10 @@
         (setq dwt/fontsize 16)
         (when dwt/lenovo
           (setq dwt/fontsize 26))
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono:style=Light" dwt/fontsize)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
+        ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
         ;; chinese font
         ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
         (set-fontset-font t 'unicode "Symbola" nil 'prepend)
@@ -91,7 +95,7 @@
           (set-fontset-font (frame-parameter nil 'font)
                             charset
                             (font-spec :family "Source Han Serif CN")))))) ;; 14 16 20 22 28
-
+                            ;; (font-spec :family "Sarasa Mono SC Nerd")))))) ;; 14 16 20 22 28
 (defun dwt/init-font(frame)
   (with-selected-frame frame
     (if (display-graphic-p)
