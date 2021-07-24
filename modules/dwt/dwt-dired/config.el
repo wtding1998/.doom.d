@@ -26,7 +26,7 @@
 ;; use & to open pdf
 (after! dired-x
   (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "zathura"))))
-
+(setq delete-by-moving-to-trash t)
 (after! dired
   (map! :n "-" #'dired-jump
         :map dired-mode-map
@@ -35,8 +35,8 @@
         :desc "find file" "g" #'grep-dired-dwim
         :desc "fd" "f" #'fd-dired)
   (set-popup-rules!
-    '(("^\\*Fd*" :size 15 :select t)))
-  )
+    '(("^\\*Fd*" :size 15 :select t))))
+  
 
 ;;;###autoload
 (defun dwt/goto-recent-directory ()
