@@ -55,7 +55,8 @@
     (cons 320 "#7d6465")
     (cons 340 "#7c6f64")
     (cons 360 "#7c6f64")))
- '(vc-annotate-very-old-color nil))
+ '(vc-annotate-very-old-color nil)
+ '(warning-suppress-types '((use-package) (yasnippet backquote-change))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

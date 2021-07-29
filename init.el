@@ -61,7 +61,8 @@
        ;;lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
-       ;;(parinfer +rust)          ; turn lisp into python, sort of
+       ;; (parinfer +rust)          ; turn lisp into python, sort of
+       (:if IS-LINUX (parinfer + rust))
        ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        ;; word-wrap         ; soft wrapping with language-aware indent
@@ -110,7 +111,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
-       ;; (:if IS-MAC macos)  ; improve compatibility with macOS
+       (:if IS-MAC macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang

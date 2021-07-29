@@ -512,24 +512,27 @@
   (meow-layout 'qwerty)
   :config
   (meow-leader-define-key
-    '("k" . kill-buffer)
-    '("l" . goto-line)
-    '("h" . other-window)
-    '("o" . delete-other-windows)
-    '("-" . split-window-below)
-    '("/" . swiper)
-    '("\\" . split-window-right)
-    '("m" . magit-status)
-    '("f" . find-file)
-    '("F" . find-file-literally))
+   '("k" . kill-buffer)
+   '("l" . goto-line)
+   '("h" . other-window)
+   '("o" . delete-other-windows)
+   '("-" . split-window-below)
+   '("/" . swiper)
+   '("\\" . split-window-right)
+   '("m" . magit-status)
+   '("f" . find-file)
+   '("F" . find-file-literally))
   (meow-leader-define-mode-key
-    'emacs-lisp-mode
-    '("RET" . eval-buffer)
-    '("SPC" . eval-defun)))
+   'emacs-lisp-mode
+   '("RET" . eval-buffer)
+   '("SPC" . eval-defun)))
 
-;(use-package! parinfer-rust-mode
-;   :config
-;   (setq parinfer-rust-preferred-mode "indent"))
+
+(unless IS-MAC
+  (use-package! parinfer-rust-mode
+    :config
+    (setq parinfer-rust-auto-download nil)
+    (setq parinfer-rust-preferred-mode "indent")))
 
 ;; (use-package! gcmh
 ;;   :init

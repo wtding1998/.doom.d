@@ -59,12 +59,10 @@
 (defvar dwt/light-themes '(
                            ;; doom-tomorrow-day
                            doom-homage-white
-                           ;;printed
+                           ;; printed
                            ;; doom-opera-light
                            ;; doom-tomorrow-day
                            modus-operandi))
-                           ;; doom-one-light
-                           ;; doom-flatwhite))
 (defun dwt/random-load-light-theme ()
   "Load light theme."
   (interactive)
@@ -113,9 +111,10 @@
 ;; (add-to-list 'default-frame-alist '(internal-border-width . 5))
 
 ;;; frame init
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(map! :leader :desc "Max Frame" "tm" #'toggle-frame-maximized)
 
 ;;; theme
 ;; (if (display-graphic-p)
