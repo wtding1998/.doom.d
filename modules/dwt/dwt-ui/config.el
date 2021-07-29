@@ -59,8 +59,9 @@
 (defvar dwt/light-themes '(
                            ;; doom-tomorrow-day
                            doom-homage-white
-                           doom-opera-light
-                           doom-tomorrow-day
+                           ;;printed
+                           ;; doom-opera-light
+                           ;; doom-tomorrow-day
                            modus-operandi))
                            ;; doom-one-light
                            ;; doom-flatwhite))
@@ -75,7 +76,6 @@
   (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes) t nil))
 
 ;;; font
-;; (setq doom-font (font-spec :family "SF Mono" :size 26 :weight 'Regular)
 ;;       doom-unicode-font (font-spec :family "Source Han Serif CN"))
 (defun dwt/doom-font()
   ;; english font
@@ -101,23 +101,28 @@
     (if (display-graphic-p)
         (dwt/doom-font))))
 
-(if (and (fboundp 'daemonp) (daemonp))
-    (add-hook 'after-make-frame-functions #'dwt/init-font)
-  (dwt/doom-font))
+(if IS-MAC
+    (setq doom-font (font-spec :family "SF Mono" :size 14 :weight 'Regular))
+    (if (and (fboundp 'daemonp) (daemonp))
+      (add-hook 'after-make-frame-functions #'dwt/init-font)
+    (dwt/doom-font)))
 
-
+;; 隐藏 title bar
+;; (setq default-frame-alist '((undecorated . t)))
+;; (add-to-list 'default-frame-alist '(drag-internal-border . 1))
+;; (add-to-list 'default-frame-alist '(internal-border-width . 5))
 
 ;;; frame init
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
-;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 ;;; theme
 ;; (if (display-graphic-p)
 ;;     (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
 ;;     (setq doom-theme 'kaolin-mono-dark))
 ;; (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-(dwt/random-load-dark-theme)
+(dwt/random-load-light-theme)
 
 (use-package! diff-hl
   :config
@@ -131,14 +136,14 @@
 (use-package! kaolin-themes
  :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes")
 
-; (use-package! printed-theme
-;   :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
+(use-package! printed-theme
+  :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
 
-; (use-package! joker-theme
-;   :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
+(use-package! joker-theme
+  :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
 
-; (use-package! storybook-theme
-;   :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
+(use-package! storybook-theme
+  :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
 
 (use-package! awesome-tab
   :config
@@ -165,10 +170,14 @@
 
   (define-key global-map (kbd "M-o") #'other-window)
   ;; height
-  (setq awesome-tab-height 100
-        awesome-tab-active-bar-height 20)
-  (when dwt/lenovo
-    (setq awesome-tab-height 180))
+  (if (not IS-MAC)
+      (progn
+        (setq awesome-tab-height 100
+              awesome-tab-active-bar-height 20)
+        (when dwt/lenovo
+          (setq awesome-tab-height 180)))
+      (setq awesome-tab-height 120
+            awesome-tab-active-bar-height 20))
 
   ;; define tab-hide-rule
   (defun awesome-tab-hide-tab (x)
@@ -205,3 +214,17 @@
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
 
+;; @purcell
+(defun sanityinc/adjust-opacity (frame incr)
+  "Adjust the background opacity of FRAME by increment INCR."
+  (unless (display-graphic-p frame)
+    (error "Cannot adjust opacity of this frame"))
+  (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
+         (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
+         (newalpha (+ incr oldalpha)))
+    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
+      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
+
+(global-set-key (kbd "M-C-8") (lambda () (interactive) (sanityinc/adjust-opacity nil -2)))
+(global-set-key (kbd "M-C-9") (lambda () (interactive) (sanityinc/adjust-opacity nil 2)))
+(global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))

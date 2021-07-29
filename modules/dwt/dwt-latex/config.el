@@ -38,23 +38,28 @@
   ;; (setq TeX-command-default "XeLaTeX"
   ;;       TeX-save-query nil
   ;;       TeX-show-compilation t)
-  (add-to-list
-   'TeX-command-list
-   '("DVI2PDF"
-     "dvipdf %d"
-     TeX-run-command
-     nil                              ; ask for confirmation
-     t                                ; active in all modes
-     :help "Convert DVI->PDF"))
-  (add-to-list 'TeX-view-program-selection
-               '(output-pdf "zathura"))
-  (setq TeX-source-correlate-start-server t)
-  (add-to-list 'TeX-view-program-list
+ (add-to-list
+  'TeX-command-list
+  '("DVI2PDF"
+    "dvipdf %d"
+    TeX-run-command
+    nil                              ; ask for confirmation
+    t                                ; active in all modes
+    :help "Convert DVI->PDF"))
+ (setq TeX-source-correlate-start-server t)
+ (if IS-MAC
+   (add-to-list 'TeX-view-program-list
+               '("skim"
+                 ("skim "
+                   (mode-io-correlate " ")
+                   "%o")
+                 "skim"))
+   (add-to-list 'TeX-view-program-list
                '("zathura"
                  ("zathura "
-                  (mode-io-correlate " ")
-                  "%o")
-                 "zathura"))
+                   (mode-io-correlate " ")
+                   "%o")
+                 "zathura")))
 
   (defun dwt/view-pdf-by-pdf-tools ()
     (interactive)

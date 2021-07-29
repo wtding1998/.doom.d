@@ -220,7 +220,9 @@
 
 (use-package! org-roam
   :init
-  (setq org-roam-directory "~/org/roam")
+  (if IS-MAC
+      (setq org-roam-directory "~/OneDrive/Documents/roam")
+      (setq org-roam-directory "~/org/roam"))
   (setq org-roam-v2-ack t)
   (map! :leader :prefix ("nr" . "roam")
         "f" #'org-roam-node-find

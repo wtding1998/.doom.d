@@ -3,6 +3,10 @@
 ;;; evil
 (use-package! evil
   :init
+  (when IS-MAC
+    (setq mac-command-modifier 'meta)
+    (setq mac-right-command-modifier 'meta)
+    (setq mac-option-modifier 'none))
   ;;; disable evil message
   (setq evil-insert-state-message nil)
   (setq evil-normal-state-message nil)
@@ -523,9 +527,9 @@
     '("RET" . eval-buffer)
     '("SPC" . eval-defun)))
 
-(use-package! parinfer-rust-mode
-   :config
-   (setq parinfer-rust-preferred-mode "indent"))
+;(use-package! parinfer-rust-mode
+;   :config
+;   (setq parinfer-rust-preferred-mode "indent"))
 
 ;; (use-package! gcmh
 ;;   :init
