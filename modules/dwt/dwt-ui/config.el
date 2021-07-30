@@ -59,8 +59,10 @@
 (defvar dwt/light-themes '(
                            ;; doom-tomorrow-day
                            doom-homage-white
-                           doom-opera-light
-                           doom-tomorrow-day
+                           ;;printed
+                           doom-plain
+                           ;; doom-opera-light
+                           ;; doom-tomorrow-day
                            modus-operandi))
                            ;; doom-one-light
                            ;; doom-flatwhite))
@@ -106,18 +108,18 @@
   (dwt/doom-font))
 
 
-
 ;;; frame init
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 ;;; theme
+(dwt/random-load-light-theme)
 ;; (if (display-graphic-p)
 ;;     (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
 ;;     (setq doom-theme 'kaolin-mono-dark))
 ;; (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-(dwt/random-load-dark-theme)
+;; (dwt/random-load-dark-theme)
 
 (use-package! diff-hl
   :config
@@ -131,14 +133,14 @@
 (use-package! kaolin-themes
  :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes")
 
-; (use-package! printed-theme
-;   :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
+(use-package! printed-theme
+  :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
 
-; (use-package! joker-theme
-;   :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
+(use-package! joker-theme
+  :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
 
-; (use-package! storybook-theme
-;   :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
+(use-package! storybook-theme
+  :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
 
 (use-package! awesome-tab
   :config
