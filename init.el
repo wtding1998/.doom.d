@@ -154,7 +154,7 @@
        ;; (org +ipython)               ; organize your plain life in plain text
        ;; (org +pretty +jupyter +roam)              ; organize your plain life in plain text
        ;; (org +pretty)              ; organize your plain life in plain text
-       (org +noter)
+       (org +noter +roam2)
        ;; (org )
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more

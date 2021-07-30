@@ -53,13 +53,13 @@
                           doom-horizon
                           doom-monokai-pro
                           doom-monokai-octagon
-                          doom-tomorrow-night
-                          doom-one))
+                          doom-tomorrow-nigh))
 
 (defvar dwt/light-themes '(
                            ;; doom-tomorrow-day
                            doom-homage-white
-                           ;; printed
+                           ;;printed
+                           doom-plain
                            ;; doom-opera-light
                            ;; doom-tomorrow-day
                            modus-operandi))
@@ -102,8 +102,8 @@
 (if IS-MAC
     (setq doom-font (font-spec :family "SF Mono" :size 14 :weight 'Regular))
     (if (and (fboundp 'daemonp) (daemonp))
-      (add-hook 'after-make-frame-functions #'dwt/init-font)
-    (dwt/doom-font)))
+      (add-hook 'after-make-frame-functions #'dwt/init-font))
+    (dwt/doom-font))
 
 ;; 隐藏 title bar
 ;; (setq default-frame-alist '((undecorated . t)))
@@ -117,6 +117,7 @@
 (map! :leader :desc "Max Frame" "tm" #'toggle-frame-maximized)
 
 ;;; theme
+(dwt/random-load-light-theme)
 ;; (if (display-graphic-p)
 ;;     (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
 ;;     (setq doom-theme 'kaolin-mono-dark))
@@ -207,6 +208,10 @@
 (display-time-mode 1)
 ;; display battery in modeline
 (display-battery-mode 1)
+
+(unless (display-graphic-p)
+  (evil-terminal-cursor-changer-activate))
+y-mode 1
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))

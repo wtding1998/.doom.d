@@ -20,6 +20,7 @@
   (setq org-use-fast-todo-selection t)
   (setq org-todo-keywords '((sequence "TODO(t)" "Wait(w)" "|" "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
   (setq org-log-done t)
+  (setq org-export-with-toc nil)
   (setq org-log-into-drawer t)
   (setq org-enforce-todo-dependencies t)
   (setq org-enforce-todo-checkbox-dependencies t)
@@ -70,7 +71,7 @@
   (add-to-list 'org-capture-templates
                '("d" "Diary"
                  entry (file+datetree "/mnt/d/OneDrive/Documents/diary/org/diary.org")
-                 "* %<%H-%M> - %^{heading} \n %?\n"))
+                 "* %<%H-%M> - %?\n"))
 
   (add-to-list 'org-capture-templates '("e" "English"))
   (add-to-list 'org-capture-templates
@@ -235,7 +236,7 @@
   (map! :leader "of" #'org-roam-node-find
                 "oi" #'org-roam-node-insert
                 "oc" #'org-roam-capture
-                "oC" #'org-roam-dailies-capture-today)
+                "oC" #'org-roam-dailies-goto-today)
   :config
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
@@ -243,7 +244,7 @@
             :unnarrowed t)))
   (add-to-list 'org-roam-capture-templates
                '("p" "Paper Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:paper \n\n* Paper\n%?\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:paper \n\n* Paper\n\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
                  :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
                '("b" "Book Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
@@ -254,7 +255,7 @@
                  :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:research\n\n* Problem\n\n* Result\n* My Idea\n")
                  :unnarrowed t))
   (setq org-roam-dailies-capture-templates
-        '(("d" "default" plain "* %<%H-%M> - %?"
+        '(("d" "default" plain ""
             :if-new (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>")))))
 ;;; noter
@@ -296,6 +297,7 @@
         :desc "zotero" "zt" #'dwt/open-zotero
         "zi" #'org-zotxt-insert-reference-link)
   :config
+  (add-to-list 'org-link-parameters '("zotero" :follow org-zotxt-open-attachment))
   (defun org-zotxt-noter (arg)
     "Like `org-noter', but use Zotero.
 
@@ -348,3 +350,4 @@ See `org-noter' for details and ARG usage."
 ;;   :init
 ;;   ;; (setq org-clock-x11idle-program-name "xprintidle")
 ;;   (setq org-clock-watch-work-plan-file-path "~/D/OneDrive/Documents/diary/org/agenda.org"))
+
