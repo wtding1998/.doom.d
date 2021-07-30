@@ -211,7 +211,3 @@
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
-y-mode 1
-
-(unless (display-graphic-p)
-  (evil-terminal-cursor-changer-activate))
