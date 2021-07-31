@@ -59,7 +59,7 @@
                  ("zathura "
                    (mode-io-correlate " ")
                    "%o")
-                 "zathura")))
+                 "zathura"))
 
   (defun dwt/view-pdf-by-pdf-tools ()
     (interactive)
@@ -85,7 +85,7 @@
 
   (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
   ;; TODO add // in outer-name
-  (define-and-bind-text-object "-" "&" "&"))
+  (define-and-bind-text-object "-" "&" "&")))
 
 
 
@@ -246,30 +246,15 @@
       (make-directory (concat project-path dir-name))
       (find-file (concat project-path dir-name "/" dir-name ".tex")))))
 
-(defun dwt/insert-bar ()
-  "Insert `-' in text environment, while `_{}' in math environment."
+
+;;;###autoload
+(defun dwt/latex-double-quote ()
   (interactive)
-  (if (texmathp)
-      (progn (insert "_{}")
-             (backward-char))
-    (progn (insert "-"))))
+  (let ((input-key (edmacro-format-keys (vector (read-key "input:")))))
+    (if (string-equal input-key "\"")
+        (call-interactively #'cdlatex-math-modify)
+      (insert input-key))))
 
-
-(defun dwt/insert-semicolon ()
-  "Insert `;' in text environment, while `^{}' in math environment."
-  (interactive)
-  (if (texmathp)
-      (progn (insert "^{}")
-             (backward-char))
-    (progn (insert ";"))))
-
-
-(defun dwt/insert-colon ()
-  "Insert `:' in text environment, while `^{T}' in math environment."
-  (interactive)
-  (if (texmathp)
-      (progn (insert "^{T}"))
-    (progn (insert ":"))))
 
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-TeX-dir)
@@ -290,15 +275,16 @@
   (set-company-backend! 'latex-mode +latex--company-backends))
 
 (map! :map cdlatex-mode-map
-      :i ";" #'dwt/insert-subscript
-      :i "\";" #'(lambda () (interactive) (insert ";"))
-      :i "\"_" #'(lambda () (interactive) (insert "_"))
-      :i "\"$" #'(lambda () (interactive) (insert "$"))
-      :i ":" #'dwt/insert-superscript
-      :i "\":" #'(lambda () (interactive) (insert ":"))
+      ;; :i "\";" #'(lambda () (interactive) (insert ";"))
+      ;; :i "\"_" #'(lambda () (interactive) (insert "_"))
+      ;; :i "\"$" #'(lambda () (interactive) (insert "$"))
+      ;; :i "\":" #'(lambda () (interactive) (insert ":"))
       ;; :i "\"" #'dwt/insert-inline-math-env)
+      ;; :i "\"'" #'(lambda () (interactive) (insert "'"))
+      :i "\"" #'dwt/latex-double-quote
+      :i ";" #'dwt/insert-subscript
       :i "'" #'dwt/insert-inline-math-env
-      :i "\"'" #'(lambda () (interactive) (insert "'"))
+      :i ":" #'dwt/insert-superscript
       :i "M-n" #'cdlatex-tab
       :nv "}" #'dwt/find-math-next
       :nv "{" #'dwt/find-math-prev)
@@ -308,11 +294,7 @@
 ;;   (interactive)
 ;;   (find-file "~/OneDrive/Documents/study note/latex/scratch"))
 
-(setq cdlatex-math-modify-prefix (read-kbd-macro "\"\""))
-;; TODO
-;; add ;,:,' to cdlatex math symbol or modify list
-;; to insert : in latex
-;; (insert-char ?:) or (insert ":")
+;; (setq cdlatex-math-modify-prefix (read-kbd-macro "\"\""))
 
 ;;;###autoload
 (defun dwt/insert (input-string)
