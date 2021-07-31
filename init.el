@@ -210,7 +210,7 @@
        ;; dwt-vterm
        dwt-lsp
        ;; dwt-nox
-       dwt-wsl2
+       dwt-system
        dwt-pdf
        dwt-python
        dwt-useful-func

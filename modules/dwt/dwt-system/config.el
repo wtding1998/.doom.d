@@ -1,10 +1,15 @@
 ;;; dwt/dwt-wsl2/config.el -*- lexical-binding: t; -*-
 
+(defvar dwt/system-default "explorer.exe")
+(if IS-MAC
+    (setq dwt/system-default "open"))
+
 ;; open url by windows explorer
-(defun wsl-browse-url-xdg-open (url &optional ignored)
+(defun system-browse-url-xdg-open (url &optional ignored)
   (interactive (browse-url-interactive-arg "URL: "))
-  (shell-command-to-string (concat "explorer.exe " url)))
-(advice-add #'browse-url-xdg-open :override #'wsl-browse-url-xdg-open)
+  (message (concat dwt/system-default url))
+  (shell-command-to-string (concat dwt/system-default " " url)))
+(advice-add #'browse-url-xdg-open :override #'system-browse-url-xdg-open)
 
 ;; ;;;###autoload
 ;; (defmacro wsl--open-with (id &optional app dir)
@@ -29,23 +34,22 @@
 
 ;; (wsl--open-with open-in-default-program "explorer.exe" buffer-file-name)
 ;; (wsl--open-with reveal-in-explorer "explorer.exe" default-directory)
-
 ;;;###autoload
 (defun dwt/reveal-in-explorer ()
   (interactive)
-  (shell-command "explorer.exe ."))
+  (shell-command (format "%s ." dwt/system-default)))
 
 ;;;###autoload
-(defun dwt/open-in-windows ()
+(defun dwt/open-in-system ()
   (interactive)
   (let* ((file-path (if (derived-mode-p 'dired-mode)
                       (dired-get-filename)
                       (buffer-file-name)))
          (file-name (file-name-nondirectory file-path))
-         (command (format "explorer.exe %s" file-name)))
+         (command (format "%s %s" dwt/system-default file-name)))
     (shell-command-to-string command)))
 
 (map! :leader
       ;; :desc "reveal in windows" "oe" #'wsl/reveal-in-explorer
       :desc "reveal in windows" "oe" #'dwt/reveal-in-explorer
-      :desc "open by windows program" "ow" #'dwt/open-in-windows)
+      :desc "open by windows program" "ow" #'dwt/open-in-system)
