@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (defvar dwt/lenovo nil)
-(setq dwt/lenovo (string-equal "1" (getenv "lenovo")))
+(setq dwt/lenovo (not (string-equal "1" (getenv "lenovo"))))
 (doom! :input
        ;;chinese
        ;;japanese
