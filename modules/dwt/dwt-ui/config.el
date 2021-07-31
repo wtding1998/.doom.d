@@ -118,12 +118,13 @@
 (map! :leader :desc "Max Frame" "tm" #'toggle-frame-maximized)
 
 ;;; theme
-(dwt/random-load-light-theme)
 ;; (if (display-graphic-p)
 ;;     (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
 ;;     (setq doom-theme 'kaolin-mono-dark))
 ;; (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-(dwt/random-load-light-theme)
+(if (display-graphic-p)
+  (dwt/random-load-light-theme)
+  (setq doom-theme 'modus-operandi))
 
 (use-package! diff-hl
   :config
