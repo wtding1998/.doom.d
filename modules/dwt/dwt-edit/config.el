@@ -7,6 +7,8 @@
     (setq mac-command-modifier 'meta)
     (setq mac-right-command-modifier 'meta)
     (setq mac-option-modifier 'none))
+  ;; fix C-` problem in windows terminal
+  (map! :ni "C-@" #'+popup/toggle)
   ;;; disable evil message
   (setq evil-insert-state-message nil)
   (setq evil-normal-state-message nil)
