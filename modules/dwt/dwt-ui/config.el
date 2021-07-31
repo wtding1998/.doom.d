@@ -59,7 +59,7 @@
                            ;; doom-tomorrow-day
                            doom-homage-white
                            tao-yang
-                           printed
+                           ;;printed
                            minimal-light
                            ;; doom-opera-light
                            ;; doom-tomorrow-day
