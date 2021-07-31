@@ -215,6 +215,11 @@
       (remove-hook 'post-command-hook '+org-post-command-hook t)))
   (map! :leader "ta" #'org-latex-auto-toggle))
 
+(after! org-agenda
+  (setq org-agenda-files '("~/OneDrive/Documents/diary/org/agenda.org"
+                           "~/OneDrive/Documents/study note/org/cuhksz.org"
+                           "~/OneDrive/Documents/roam/20210114-tensor_diagonalization.org")))
+
 (use-package! org-clock
   :config
   (setq org-clock-mode-line-total 'today))
@@ -225,14 +230,14 @@
       (setq org-roam-directory "~/OneDrive/Documents/roam")
       (setq org-roam-directory "~/org/roam"))
   (setq org-roam-v2-ack t)
-  (map! :leader :prefix ("nr" . "roam")
-        "f" #'org-roam-node-find
-        "i" #'org-roam-node-insert
-        "t" #'org-roam-buffer-toggle
-        "a" #'org-roam-tag-add
-        "A" #'org-roam-tag-remove
-        "d" #'org-roam-dailies-goto-today
-        "e" #'org-roam-dailies-goto-date)
+  ;; (map! :leader :prefix ("nr" . "roam")
+  ;;       "f" #'org-roam-node-find
+  ;;       "i" #'org-roam-node-insert
+  ;;       "t" #'org-roam-buffer-toggle
+  ;;       "a" #'org-roam-tag-add
+  ;;       "A" #'org-roam-tag-remove
+  ;;       "d" #'org-roam-dailies-goto-today
+  ;;       "e" #'org-roam-dailies-goto-date)
   (map! :leader "of" #'org-roam-node-find
                 "oi" #'org-roam-node-insert
                 "oc" #'org-roam-capture

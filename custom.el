@@ -29,7 +29,7 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#0d1011" "#5b5b5b"))
  '(objed-cursor-color "#e68183")
  '(org-agenda-files
-   '("~/OneDrive/Documents/study note/org/other_note.org" "/Users/dingwentao/OneDrive/Documents/study note/org/emacs_note.org" "/Users/dingwentao/OneDrive/Documents/study note/org/cuhksz.org" "/Users/dingwentao/OneDrive/Documents/diary/org/agenda.org"))
+   '("/mnt/d/OneDrive/Documents/diary/org/agenda.org" "/home/wtding/OneDrive/Documents/study note/org/other_note.org"))
  '(pdf-view-midnight-colors (cons "#e6d6ac" "#2a2426"))
  '(rustic-ansi-faces
    ["#2a2426" "#e68183" "#87af87" "#d9bb80" "#89beba" "#e68183" "#87c095" "#e6d6ac"])
