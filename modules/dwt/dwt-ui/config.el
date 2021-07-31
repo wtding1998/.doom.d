@@ -58,8 +58,9 @@
 (defvar dwt/light-themes '(
                            ;; doom-tomorrow-day
                            doom-homage-white
-                           ;;printed
-                           doom-plain
+                           tao-yang
+                           printed
+                           minimal-light
                            ;; doom-opera-light
                            ;; doom-tomorrow-day
                            modus-operandi))
