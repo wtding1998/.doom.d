@@ -75,36 +75,42 @@
   (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes) t nil))
 
 ;;; font
-;;       doom-unicode-font (font-spec :family "Source Han Serif CN"))
 (defun dwt/doom-font()
-  ;; english font
-  (if (display-graphic-p)
-      (progn
-        (setq dwt/fontsize 16)
-        (when dwt/lenovo
-          (setq dwt/fontsize 26))
-        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono:style=Light" dwt/fontsize)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
-        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
-        ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
-        ;; chinese font
-        ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
-        (set-fontset-font t 'unicode "Symbola" nil 'prepend)
-        (dolist (charset '(kana han symbol cjk-misc bopomofo))
-          (set-fontset-font (frame-parameter nil 'font)
-                            charset
-                            (font-spec :family "Source Han Serif CN")))))) ;; 14 16 20 22 28
-                            ;; (font-spec :family "Sarasa Mono SC Nerd")))))) ;; 14 16 20 22 28
-(defun dwt/init-font(frame)
+  (if IS-MAC
+      (setq doom-font (font-spec :family "SF Mono" :size 14 :weight 'Regular))
+      (setq dwt/fontsize 16)
+      (when dwt/lenovo
+        (setq dwt/fontsize 26))
+      ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono:style=Light" dwt/fontsize)) ;; 11 13 17 19 23
+      (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
+      ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
+      ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
+      ;; chinese font
+      ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
+      (set-fontset-font t 'unicode "Symbola" nil 'prepend)
+      (dolist (charset '(kana han symbol cjk-misc bopomofo))
+        (set-fontset-font (frame-parameter nil 'font)
+                          charset
+                          (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
+                          ;; (font-spec :family "Sarasa Mono SC Nerd")))))) ;; 14 16 20 22 28
+(defun dwt/init-frame(frame)
   (with-selected-frame frame
+    ;; font and theme for GUI
     (if (display-graphic-p)
-        (dwt/doom-font))))
+        (progn
+          (dwt/doom-font)
+          (dwt/random-load-light-theme))
+        (load-theme 'doom-tomorrow-night t nil))))
 
-(if IS-MAC
-    (setq doom-font (font-spec :family "SF Mono" :size 14 :weight 'Regular))
-    (if (and (fboundp 'daemonp) (daemonp))
-      (add-hook 'after-make-frame-functions #'dwt/init-font))
-    (dwt/doom-font))
+(if (and (fboundp 'daemonp) (daemonp))
+  (add-hook 'after-make-frame-functions #'dwt/init-frame)
+  (if (display-graphic-p)
+      ;; font and theme for GUI
+      (progn
+        (dwt/random-load-light-theme)
+        (dwt/doom-font))
+    ;; theme for emacs TUI
+    (load-theme 'doom-tomorrow-night t nil)))
 
 ;; 隐藏 title bar
 ;; (setq default-frame-alist '((undecorated . t)))
@@ -119,12 +125,8 @@
 
 ;;; theme
 ;; (if (display-graphic-p)
-;;     (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-;;     (setq doom-theme 'kaolin-mono-dark))
-;; (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes))
-(if (display-graphic-p)
-  (dwt/random-load-light-theme)
-  (setq doom-theme 'modus-operandi))
+;;   (dwt/random-load-light-theme)
+;;   (setq doom-theme 'modus-operandi))
 
 (use-package! diff-hl
   :config
