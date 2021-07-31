@@ -66,8 +66,3 @@
 
 ;;; system
 (setq system-time-locale "C")
-
-;;; different number in different resolution
-;; 1: lenovo
-;; 2: philips
-(setq dwt/lenovo (string-equal "1" (getenv "lenovo")))

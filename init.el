@@ -14,6 +14,10 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+
+;;; different number in different resolution
+;; 0: lenovo
+;; 1: philips
 (defvar dwt/lenovo nil)
 (setq dwt/lenovo (not (string-equal "1" (getenv "lenovo"))))
 (doom! :input
