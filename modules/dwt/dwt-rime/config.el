@@ -10,6 +10,7 @@
   ;; (rime-show-candidate 'minibuffer)
   :config
   (setq dwt/rime-modeline '(:eval current-input-method-title " "))
+  (setq-default +modeline-format-right (push "  " +modeline-format-right))
   (setq-default +modeline-format-right (push dwt/rime-modeline +modeline-format-right))
   ;; set rime configuration dir
   (setq rime-user-data-dir "~/.config/fcitx/rime")
