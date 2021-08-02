@@ -243,6 +243,7 @@
                 "oc" #'org-roam-capture
                 "oC" #'org-roam-dailies-goto-today)
   :config
+  (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
             :if-new (file+head "${slug}.org" "#+title: ${title}\n")

@@ -190,6 +190,7 @@
        (string-prefix-p "*epc" name)
        ;; (string-prefix-p "*" name)
        (string-prefix-p "*helm" name)
+       (string-prefix-p "_region_.tex" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)
        (string-prefix-p "*org-latex" name)
@@ -222,3 +223,4 @@
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
+
