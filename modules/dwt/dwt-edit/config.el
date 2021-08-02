@@ -6,7 +6,8 @@
   (when IS-MAC
     (setq mac-command-modifier 'meta)
     (setq mac-right-command-modifier 'meta)
-    (setq mac-option-modifier 'none))
+    (setq mac-option-modifier 'super)
+    (setq mac-right-option-modifier 'super))
   ;; fix C-` problem in windows terminal
   (map! :ni "C-@" #'+popup/toggle)
   ;;; disable evil message

@@ -11,7 +11,8 @@
               TeX-PDF-mode t)
 ;;; auctex preview scale
 (after! preview
-  (setq-default preview-scale 2.5))
+  (unless IS-MAC
+    (setq-default preview-scale 2.5)))
 
 (use-package! cdlatex
   :defer t
@@ -352,7 +353,8 @@
   (setq org-latex-impatient-border-width 0)
   ;; (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
   ;; (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
-  (setq org-latex-impatient-scale 1.5))
+  (unless IS-MAC
+    (setq org-latex-impatient-scale 1.5)))
 ;;
 (after! cdlatex
   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
