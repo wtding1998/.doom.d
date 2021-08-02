@@ -199,6 +199,13 @@
 
   (awesome-tab-mode t))
 
+(use-package! transwin
+  :init
+  (setq transwin--record-toggle-frame-transparency 95)
+  :config
+  (map! :leader "tT" #'transwin-toggle-transparent-frame)
+  (transwin-toggle-transparent-frame))
+
 ;;; title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
 ;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
