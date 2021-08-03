@@ -43,6 +43,19 @@
 ;; disable global-hl-line
 ;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
+;; load theme in advance
+(use-package! kaolin-themes
+ :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes")
+
+(use-package! printed-theme
+  :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
+
+(use-package! joker-theme
+  :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
+
+(use-package! storybook-theme
+  :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
+
 (defvar dwt/dark-themes '(doom-material
                           doom-oceanic-next
                           doom-nova
@@ -59,7 +72,8 @@
                            ;; doom-tomorrow-day
                            doom-homage-white
                            tao-yang
-                           ;;printed
+                           notink
+                           printed
                            minimal-light
                            ;; doom-opera-light
                            ;; doom-tomorrow-day
@@ -81,9 +95,9 @@
       (setq dwt/fontsize 16)
       (when dwt/lenovo
         (setq dwt/fontsize 26))
-      ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono:style=Light" dwt/fontsize)) ;; 11 13 17 19 23
-      (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
-      ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
+      ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
+      ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
+      (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
       ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
       ;; chinese font
       ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
@@ -91,8 +105,8 @@
       (dolist (charset '(kana han symbol cjk-misc bopomofo))
         (set-fontset-font (frame-parameter nil 'font)
                           charset
-                          (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
-                          ;; (font-spec :family "Sarasa Mono SC Nerd")))))) ;; 14 16 20 22 28
+                          ;; (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
+                          (font-spec :family "Sarasa Mono SC Nerd"))))) ;; 14 16 20 22 28
 (defun dwt/init-frame(frame)
   (with-selected-frame frame
     ;; font and theme for GUI
@@ -137,17 +151,6 @@
   (prog-mode . diff-hl-mode)
   (prog-mode . diff-hl-flydiff-mode))
 
-(use-package! kaolin-themes
- :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes")
-
-(use-package! printed-theme
-  :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
-
-(use-package! joker-theme
-  :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
-
-(use-package! storybook-theme
-  :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
 
 (use-package! awesome-tab
   :config
