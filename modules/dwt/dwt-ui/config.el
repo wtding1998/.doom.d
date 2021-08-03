@@ -44,8 +44,6 @@
 ;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
 ;; load theme in advance
-(use-package! kaolin-themes
- :load-path "~/.emacs.d/.local/straight/repos/emacs-kaolin-themes")
 
 (use-package! printed-theme
   :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
