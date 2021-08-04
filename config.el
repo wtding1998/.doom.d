@@ -35,7 +35,9 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+;; (setq display-line-numbers-type t)
+;; disable for the performance on mac
+(setq display-line-numbers-type nil)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -58,10 +60,10 @@
 ;; auto-save by visited-mode
 (auto-save-visited-mode +1)
 (setq auto-save-visited-interval 10)
-(add-hook 'evil-insert-state-exit-hook
-          (lambda ()
-            (unless (or (string-prefix-p "*" (buffer-name)) (string-prefix-p "+" (buffer-name)))
-              (call-interactively #'basic-save-buffer))))
+;; (add-hook 'evil-insert-state-exit-hook
+;;           (lambda ()
+;;             (unless (or (string-prefix-p "*" (buffer-name)) (string-prefix-p "+" (buffer-name)))
+;;               (call-interactively #'basic-save-buffer))))
 ;; (setq auto-save-default t)
 
 ;;; system

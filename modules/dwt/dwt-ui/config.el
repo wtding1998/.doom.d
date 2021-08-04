@@ -41,7 +41,7 @@
 (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
 ;; disable global-hl-line
-;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
 ;; load theme in advance
 
@@ -218,11 +218,12 @@
 ;;; +modeline, light line in doom
 (setq +modeline-height 15)
 ;; display time modeline
-(setq display-time-day-and-date t)
-(setq display-time-24hr-format t)
-(display-time-mode 1)
-;; display battery in modeline
-(display-battery-mode 1)
+(unless IS-MAC
+  (setq display-time-day-and-date t)
+  (setq display-time-24hr-format t)
+  (display-time-mode 1)
+  ;; display battery in modeline
+  (display-battery-mode 1))
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
