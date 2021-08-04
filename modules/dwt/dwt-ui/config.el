@@ -146,6 +146,8 @@
   (map! :n "]g" #'diff-hl-next-hunk)
   (diff-hl-margin-mode -1)
   :hook
+  (tex-mode . diff-hl-mode)
+  (tex-mode . diff-hl-flydiff-mode)
   (prog-mode . diff-hl-mode)
   (prog-mode . diff-hl-flydiff-mode))
 

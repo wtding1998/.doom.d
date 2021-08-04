@@ -37,20 +37,19 @@
         ;; to make them available in company-mode, disable them firstly
         :i "C-n" nil
         :i "C-p" nil
+        ;; since I do not use repeat
+        :n "." #'basic-save-buffer
         ;; show doc
         :n "gh" #'+lookup/documentation
         ;; ace jump
         :n "ge" #'awesome-tab-ace-jump
         :n "gj" #'evil-avy-goto-char-2
-        ;; :n "gb" #'avy-goto-char-2
         :n "go" #'avy-goto-line
         :v "gC" #'capitalize-region
 
         :g "M-`" #'+vterm/toggle
-        :g "C-s" #'+default/search-buffer
         :n "U" 'undo-fu-only-redo
         :n "D" 'evil-avy-goto-char-2
-        :n "zs" 'basic-save-buffer
 
         ;;; inden t and fold
         :map prog-mode-map
