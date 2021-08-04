@@ -20,6 +20,8 @@
 ;; 1: philips
 (defvar dwt/lenovo nil)
 (setq dwt/lenovo (not (string-equal "1" (getenv "lenovo"))))
+(when IS-MAC
+  (setq dwt/lenovo nil))
 (doom! :input
        ;;chinese
        ;;japanese

@@ -88,23 +88,24 @@
 
 ;;; font
 (defun dwt/doom-font()
-  (if IS-MAC
-      (setq doom-font (font-spec :family "SF Mono" :size 14 :weight 'Regular))
-      (setq dwt/fontsize 16)
-      (when dwt/lenovo
-        (setq dwt/fontsize 26))
-      ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
-      ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
-      (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
-      ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
-      ;; chinese font
-      ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
-      (set-fontset-font t 'unicode "Symbola" nil 'prepend)
-      (dolist (charset '(kana han symbol cjk-misc bopomofo))
-        (set-fontset-font (frame-parameter nil 'font)
-                          charset
-                          ;; (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
-                          (font-spec :family "Sarasa Mono SC Nerd"))))) ;; 14 16 20 22 28
+    ;; (setq doom-font (font-spec :family "SF Mono" :size 14 :weight 'Regular))
+    (setq dwt/fontsize 16)
+    (when dwt/lenovo
+      (setq dwt/fontsize 26))
+    (when IS-MAC
+      (setq dwt/fontsize 15))
+    ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
+    ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
+    (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
+    ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
+    ;; chinese font
+    ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
+    (set-fontset-font t 'unicode "Symbola" nil 'prepend)
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        ;; (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
+                        (font-spec :family "Sarasa Mono SC Nerd")))) ;; 14 16 20 22 28
 (defun dwt/init-frame(frame)
   (with-selected-frame frame
     ;; font and theme for GUI
