@@ -60,66 +60,66 @@
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
                '("a" "Agenda"
-                 entry (file+olp "/mnt/d/OneDrive/Documents/diary/org/agenda.org" "Agenda")
+                 entry (file+olp "~/OneDrive/Documents/diary/org/agenda.org" "Agenda")
                  "* %t - %^{title} %^g\n%?\n"))
 
   ;; (add-to-list 'org-capture-templates
   ;;              '("p" "Entertainment"
-  ;;                entry (file+olp "/mnt/d/OneDrive/Documents/diary/org/agenda.org" "Entertainment")
+  ;;                entry (file+olp "~/OneDrive/Documents/diary/org/agenda.org" "Entertainment")
   ;;                "* %t - %^{title} %^g\n %?"
   ;;                ))
   (add-to-list 'org-capture-templates
                '("d" "Diary"
-                 entry (file+datetree "/mnt/d/OneDrive/Documents/diary/org/diary.org")
+                 entry (file+datetree "~/OneDrive/Documents/diary/org/diary.org")
                  "* %<%H-%M> - %?\n"))
 
   (add-to-list 'org-capture-templates '("e" "English"))
   (add-to-list 'org-capture-templates
                '("ew" "Words"
-                 entry (file+olp "/mnt/d/OneDrive/Documents/study note/org/English_note.org" "Words")
+                 entry (file+olp "~/OneDrive/Documents/study note/org/English_note.org" "Words")
                  "* %^{title} \n %?"))
 
   ;; interesting
   (add-to-list 'org-capture-templates '("i" "Interesting"))
   (add-to-list 'org-capture-templates
                '("it" "Interesting Things"
-                 entry (file+datetree "/mnt/d/OneDrive/Documents/study note/org/interesting_things.org")
+                 entry (file+datetree "~/OneDrive/Documents/study note/org/interesting_things.org")
                  "* %<%H-%M> - %^{heading} \n %?\n"))
 
   (add-to-list 'org-capture-templates
                '("is" "Interesting Sentences"
-                 entry (file "/mnt/d/OneDrive/Documents/study note/org/interesting_sentencse.org")
+                 entry (file "~/OneDrive/Documents/study note/org/interesting_sentencse.org")
                  "* %^{Sentence} \n"))
 
   ;; notes
   (add-to-list 'org-capture-templates '("n" "Notes"))
   (add-to-list 'org-capture-templates
                '("nm" "Math"
-                 entry (file+datetree "/mnt/d/OneDrive/Documents/study note/org/math_note.org")
+                 entry (file+datetree "~/OneDrive/Documents/study note/org/math_note.org")
                  "* %^{heading} \n %?\n"))
 
   (add-to-list 'org-capture-templates
                '("no" "Other Notes"
-                 entry (file "/mnt/d/OneDrive/Documents/study note/org/other_note.org")
+                 entry (file "~/OneDrive/Documents/study note/org/other_note.org")
                  "* %^{heading} \n %?\n"))
 
   ;; readings
   (add-to-list 'org-capture-templates '("r" "Reading"))
   (add-to-list 'org-capture-templates
                '("rm" "Mathematical Books " entry
-                 (file+olp "/mnt/d/OneDrive/Documents/study note/org/reading.org" "Mathematical Books")
+                 (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Mathematical Books")
                  "* TODO %t %^{title}\n"))
   (add-to-list 'org-capture-templates
                '("rl" "Machine Learning" entry
-                 (file+olp "/mnt/d/OneDrive/Documents/study note/org/reading.org" "Machine Learning")
+                 (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Machine Learning")
                  "* TODO %t %^{title}\n"))
   (add-to-list 'org-capture-templates
                '("ro" "Other Books" entry
-                 (file+olp "/mnt/d/OneDrive/Documents/study note/org/reading.org" "Other Books")
+                 (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Other Books")
                  "* TODO %t %^{title}\n"))
   (add-to-list 'org-capture-templates
                '("re" "Emacs" entry
-                 (file+olp "/mnt/d/OneDrive/Documents/study note/org/reading.org" "Emacs Materials")
+                 (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Emacs Materials")
                  "* TODO %t %^{title}\n"))
   ;; === cancel bold font in header ===
   (dolist (face '(org-level-1
@@ -129,8 +129,9 @@
                   org-level-8))
     (set-face-attribute face nil :weight 'normal))
   ;; set scale for latex-preview
-  (when dwt/lenovo
-    (plist-put org-format-latex-options :scale 2.3))
+  (when IS-MAC
+    (when dwt/lenovo
+      (plist-put org-format-latex-options :scale 2.3)))
   ;; set app
   (setq org-file-apps
         '((auto-mode . emacs)
@@ -176,8 +177,6 @@
       (call-interactively 'cdlatex-tab)))
 
   (set-company-backend! 'org-mode +latex--company-backends)
-  ;; (add-hook 'org-mode-hook #'(lambda () (plist-put org-format-latex-options :scale 2.3)))
-  ;; (add-hook 'org-roam-mode-hook 'dwt/preview-all-latex)
   (defun dwt/preview-all-latex ()
     (interactive)
     (let ((current-prefix-arg '(16)))
