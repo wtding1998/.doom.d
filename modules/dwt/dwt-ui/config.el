@@ -67,24 +67,23 @@
                           doom-tomorrow-nigh))
 
 (defvar dwt/light-themes '(
-                           ;; doom-tomorrow-day
                            doom-homage-white
+                           nil
                            tao-yang
                            notink
-                           printed
                            minimal-light
-                           ;; doom-opera-light
-                           ;; doom-tomorrow-day
                            modus-operandi))
 (defun dwt/random-load-light-theme ()
   "Load light theme."
   (interactive)
-  (load-theme (nth (random (length dwt/light-themes)) dwt/light-themes) t nil))
+  (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes)))
+
 
 (defun dwt/random-load-dark-theme ()
   "Load theme randomly from dwt/dark-themes."
   (interactive)
-  (load-theme (nth (random (length dwt/dark-themes)) dwt/dark-themes) t nil))
+  (setq doom-theme (nth (random (length dwt/dark-themes)) dwt/light-themes)))
+
 
 ;;; font
 (defun dwt/doom-font()
