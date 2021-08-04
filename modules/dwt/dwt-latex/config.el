@@ -271,7 +271,8 @@
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
   (add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
   (add-to-list '+latex--company-backends #'company-yasnippet nil #'eq)
-  (add-to-list '+latex--company-backends #'company-ispell nil #'eq)
+  ;; disable company-ispell for performance under mac
+  ;; (add-to-list '+latex--company-backends #'company-ispell nil #'eq)
   (add-to-list '+latex--company-backends #'company-capf nil #'eq)
   (set-company-backend! 'latex-mode +latex--company-backends))
 
@@ -289,13 +290,6 @@
       :i "M-n" #'cdlatex-tab
       :nv "}" #'dwt/find-math-next
       :nv "{" #'dwt/find-math-prev)
-
-;; TODO scratch function
-;; (defun dwt/tex-scratch ()
-;;   (interactive)
-;;   (find-file "~/OneDrive/Documents/study note/latex/scratch"))
-
-;; (setq cdlatex-math-modify-prefix (read-kbd-macro "\"\""))
 
 ;;;###autoload
 (defun dwt/insert (input-string)
