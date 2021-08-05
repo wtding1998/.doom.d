@@ -17,15 +17,16 @@
   :hook (after-init . global-company-mode)
   :init
   (setq company-icon-size '(auto-scale . 25))
-  (setq company-tooltip-align-annotations t
-        company-tooltip-limit 12
+  (setq
+        ;; company-tooltip-align-annotations t
+        ;; company-tooltip-limit 12
         company-idle-delay 0
         company-echo-delay (if (display-graphic-p) nil 0)
         company-minimum-prefix-length 1
         company-require-match nil
         company-dabbrev-ignore-case nil
         ;; Number the candidates (use M-1, M-2 etc to select completions).
-        company-show-numbers t
+        company-show-quick-access t
         company-dabbrev-downcase nil
         company-global-modes '(not erc-mode message-mode help-mode
                                    gud-mode eshell-mode shell-mode))
