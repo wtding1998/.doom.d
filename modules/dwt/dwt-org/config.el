@@ -242,6 +242,11 @@
                 "oc" #'org-roam-capture
                 "oC" #'org-roam-dailies-goto-today)
   :config
+  (defun dwt/org-roam-fix-hash ()
+    "fix error: org-id-add-location: Wrong type argument: hash-table-p, nil"
+    (interactive)
+    (org-id-update-id-locations (directory-files-recursively org-roam-directory ".org$\\|.org.gpg$")))
+
   (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
