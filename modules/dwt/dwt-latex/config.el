@@ -223,7 +223,8 @@
   :desc "Master" "m" #'TeX-command-master
   :desc "Input String" "s" #'dwt/insert
   ;; :desc "Command" "c" "TeX-command-master"
-  :desc "toc" "=" #'reftex-toc))
+  :desc "toc" "=" #'reftex-toc
+  :desc "goto label" "l" #'reftex-goto-label))
 
 ;;;###autoload
 (defun dwt/TeX-save-and-run-all ()
