@@ -60,18 +60,18 @@
                  ("zathura "
                    (mode-io-correlate " ")
                    "%o")
-                 "zathura"))
+                 "zathura")))
 
+;; (add-to-list 'TeX-view-program-list
+;;             '("zathura" "zathura --page=%(outpage) %o"))
+;; (add-to-list 'TeX-view-program-selection '(output-pdf "zathura"))
+
+   ;; FIXME: if the cursor is in the usepackage, will get error
   (defun dwt/view-pdf-by-pdf-tools ()
+    "view pdf by pdf tools"
     (interactive)
-    "Open pdf tool for .tex file"
-    (let ((f-name (file-name-sans-extension (buffer-name)))
-          (f-type (file-name-extension (buffer-name))))
-      (when (string= f-type "tex")
-        (when (file-exists-p (concat f-name ".pdf"))
-          (call-interactively #'evil-window-vsplit)
-          (other-window 1)
-          (find-file (concat f-name ".pdf"))))))
+    (let ((TeX-view-program-selection '((output-pdf "PDF Tools"))))
+      (TeX-view)))
 
   (defmacro define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-name"))
@@ -86,7 +86,7 @@
 
   (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
   ;; TODO add // in outer-name
-  (define-and-bind-text-object "-" "&" "&")))
+  (define-and-bind-text-object "-" "&" "&"))
 
 
 
