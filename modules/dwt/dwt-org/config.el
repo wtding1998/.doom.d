@@ -355,6 +355,13 @@ See `org-noter' for details and ARG usage."
 (use-package! ox-hugo
   :after ox)
 
+(when IS-MAC
+  (use-package! osx-dictionary
+    :defer t
+    :commands (osx-dictionary-search-input)
+    :init
+    (map! :g "M-e" #'osx-dictionary-search-input)))
+
 ;; (use-package! org-clock-watch
 ;;   :load-path "~/.emacs.d/.local/straight/repos/org-clock-watch"
 ;;   :init
