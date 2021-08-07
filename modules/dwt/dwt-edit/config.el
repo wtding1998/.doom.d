@@ -530,11 +530,10 @@
    '("SPC" . eval-defun)))
 
 
-(unless IS-MAC
-  (use-package! parinfer-rust-mode
-    :config
-    (setq parinfer-rust-auto-download nil)
-    (setq parinfer-rust-preferred-mode "indent")))
+(use-package! parinfer-rust-mode
+  :config
+  (setq parinfer-rust-auto-download nil)
+  (setq parinfer-rust-preferred-mode "indent"))
 
 ;; (use-package! gcmh
 ;;   :init
