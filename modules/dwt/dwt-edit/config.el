@@ -533,8 +533,9 @@
 
 
 (use-package! parinfer-rust-mode
-  :config
+  :init
   (setq parinfer-rust-auto-download nil)
+  :config
   (setq parinfer-rust-preferred-mode "indent"))
 
 ;; (use-package! gcmh
