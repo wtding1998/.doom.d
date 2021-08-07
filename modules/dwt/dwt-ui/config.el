@@ -110,20 +110,19 @@
     ;; font and theme for GUI
     (if (display-graphic-p)
         (progn
-          (dwt/doom-font)
-          (dwt/random-load-light-theme))
-        (load-theme 'doom-tomorrow-night t nil))))
+          (dwt/doom-font)))))
+          
+        ;; (load-theme 'doom-tomorrow-night t nil))))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
   (if (display-graphic-p)
       ;; font and theme for GUI
       (progn
-        (dwt/random-load-light-theme)
-        (dwt/doom-font))
+        (dwt/doom-font))))
     ;; theme for emacs TUI
-    (load-theme 'doom-tomorrow-night t nil)))
-
+    ;; (load-theme 'doom-tomorrow-night t nil)))
+(dwt/random-load-light-theme)
 ;; 隐藏 title bar
 ;; (setq default-frame-alist '((undecorated . t)))
 ;; (add-to-list 'default-frame-alist '(drag-internal-border . 1))
