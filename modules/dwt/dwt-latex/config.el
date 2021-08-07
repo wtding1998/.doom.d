@@ -186,6 +186,21 @@
         (insert "$_{}$")
         (left-char 4)))))
 
+(defun dwt/insert-space ()
+  "Wrap a single char with inline math"
+  (interactive)
+  (if (texmathp)
+      (insert " ")
+    (let ((length-current-word (length (word-at-point))))
+      (if (equal length-current-word 1)
+          (progn
+            (call-interactively #'backward-word)
+            (insert "\\( ")
+            (call-interactively #'forward-word)
+            (insert " \\)")
+            (backward-char 3))
+        (insert " ")))))
+
 
 (defun dwt/insert-transpose ()
   "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
@@ -284,9 +299,10 @@
       ;; :i "\":" #'(lambda () (interactive) (insert ":"))
       ;; :i "\"" #'dwt/insert-inline-math-env)
       ;; :i "\"'" #'(lambda () (interactive) (insert "'"))
+      :i "<SPC>" #'dwt/insert-space
       :i "\"" #'dwt/latex-double-quote
       :i ";" #'dwt/insert-subscript
-      :i "'" #'dwt/insert-inline-math-env
+      ;; :i "'" #'dwt/insert-inline-math-env
       :i ":" #'dwt/insert-superscript
       :i "M-n" #'cdlatex-tab
       :nv "}" #'dwt/find-math-next
@@ -362,13 +378,14 @@
      (?H    ("\\nabla^2"    ""           ""))
      (?k    ("\\kappa"      ""           "\\ker"))
      (?m    ("\\mu"         ""           "\\lim"))
-     (?c    ("\\contr"             "\\circ"     "\\cos"))
+     (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
      (?d    ("\\delta"      "\\partial"  "\\dim"))
      (?D    ("\\Delta"      "\\nabla"    "\\deg"))
+     (?,    ("\\preceq"     ""  ""))
      ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
      (?F    ("\\Phi"))
      ;; now just conveniance
-     (?.    ("\\cdot" "\\dots"))
+     (?.    ("\\cdot" "\\dots" "\succeq"))
      (?:    ("\\vdots" "\\ddots"))
      (?_     ("_"          ""             ""))
      (?4     ("$"          ""             ""))
@@ -378,6 +395,8 @@
      (?a    "\\mathbb"        nil          t    nil  nil)
      (?q    "\\matr"        nil          t    nil  nil)
      (?t    "\\tens"        nil          t    nil  nil)
-     (?1    "\\hat"           nil          t    nil  nil)
+     (?1    "\\tilde"           nil          t    nil  nil)
+     (?2    "\\hat"           nil          t    nil  nil)
+     (?l    nil           "\\label"          t    nil  nil)
      (?s    "\\mathscr"           nil          t    nil  nil)
      (?A    "\\abs"           nil          t    nil  nil))))
