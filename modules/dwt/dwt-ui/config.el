@@ -154,6 +154,42 @@
 
 (use-package! awesome-tab
   :config
+  (defhydra awesome-fast-switch (:hint nil)
+    "
+  ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
+  -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
+    ^_k_^   prev group    | _a_^^     select first | _b_ search buffer | _C-k_   kill buffer
+  _h_   _l_  switch tab   | _e_^^     select last  | _g_ search group  | _C-S-k_ kill others in group
+    ^_j_^   next group    | _s_^^     ace jump     | ^^                | ^^
+  ^^0 ~ 9^^ select window | _H_/_L_ move current | ^^                | ^^
+  -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
+  "
+    ("h" awesome-tab-backward-tab)
+    ("j" awesome-tab-forward-group)
+    ("k" awesome-tab-backward-group)
+    ("l" awesome-tab-forward-tab)
+    ("0" my-select-window)
+    ("1" my-select-window)
+    ("2" my-select-window)
+    ("3" my-select-window)
+    ("4" my-select-window)
+    ("5" my-select-window)
+    ("6" my-select-window)
+    ("7" my-select-window)
+    ("8" my-select-window)
+    ("9" my-select-window)
+    ("a" awesome-tab-select-beg-tab)
+    ("e" awesome-tab-select-end-tab)
+    ("s" awesome-tab-ace-jump)
+    ("H" awesome-tab-move-current-tab-to-left)
+    ("L" awesome-tab-move-current-tab-to-right)
+    ("b" ivy-switch-buffer)
+    ("g" awesome-tab-counsel-switch-group)
+    ("C-k" kill-current-buffer)
+    ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
+    ("q" nil "quit"))
+  (map! :n "r" #'awesome-fast-switch/body)
+
   (evil-define-key 'normal 'global "gt" #'awesome-tab-forward-tab)
   (evil-define-key 'normal 'global "gT" #'awesome-tab-backward-tab)
   (evil-define-key 'normal 'global "]t" #'awesome-tab-forward-group)
@@ -190,15 +226,15 @@
   (defun awesome-tab-hide-tab (x)
     (let ((name (format "%s" x)))
       (or
-       (string-prefix-p "*epc" name)
-       ;; (string-prefix-p "*" name)
-       (string-prefix-p "*helm" name)
-       (string-prefix-p "_region_.tex" name)
-       (string-prefix-p "*Compile-Log*" name)
-       (string-prefix-p "*lsp" name)
-       (string-prefix-p "*org-latex" name)
-       (string-prefix-p " *rime-posframe" name)
-       (and (string-prefix-p "magit" name)
+        (string-prefix-p "*epc" name)
+        ;; (string-prefix-p "*" name)
+        (string-prefix-p "*helm" name)
+        (string-prefix-p "_region_.tex" name)
+        (string-prefix-p "*Compile-Log*" name)
+        (string-prefix-p "*lsp" name)
+        (string-prefix-p "*org-latex" name)
+        (string-prefix-p " *rime-posframe" name)
+        (and (string-prefix-p "magit" name)
             (not (file-name-extension name))))))
 
   (awesome-tab-mode t))
