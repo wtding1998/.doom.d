@@ -59,7 +59,7 @@
 
 ;; auto-save by visited-mode
 (auto-save-visited-mode +1)
-(setq auto-save-visited-interval 5)
+(setq auto-save-visited-interval 20)
 ;; (add-hook 'evil-insert-state-exit-hook
 ;;           (lambda ()
 ;;             (unless (or (string-prefix-p "*" (buffer-name)) (string-prefix-p "+" (buffer-name)))
