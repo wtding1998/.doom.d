@@ -67,26 +67,26 @@
 ;; (add-to-list 'TeX-view-program-selection '(output-pdf "zathura"))
 
    ;; FIXME: if the cursor is in the usepackage, will get error
-  (defun dwt/view-pdf-by-pdf-tools ()
-    "view pdf by pdf tools"
-    (interactive)
-    (let ((TeX-view-program-selection '((output-pdf "PDF Tools"))))
-      (TeX-view)))
+ (defun dwt/view-pdf-by-pdf-tools ()
+   "view pdf by pdf tools"
+   (interactive)
+   (let ((TeX-view-program-selection '((output-pdf "PDF Tools"))))
+     (TeX-view)))
 
-  (defmacro define-and-bind-text-object (key start-regex end-regex)
-    (let ((inner-name (make-symbol "inner-name"))
-          (outer-name (make-symbol "outer-name")))
-      `(progn
-         (evil-define-text-object ,inner-name (count &optional beg end type)
-           (evil-select-paren ,start-regex ,end-regex beg end type count nil))
-         (evil-define-text-object ,outer-name (count &optional beg end type)
-           (evil-select-paren ,start-regex ,end-regex beg end type count t))
-         (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-         (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+ (defmacro define-and-bind-text-object (key start-regex end-regex)
+   (let ((inner-name (make-symbol "inner-name"))
+         (outer-name (make-symbol "outer-name")))
+     `(progn
+        (evil-define-text-object ,inner-name (count &optional beg end type)
+          (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+        (evil-define-text-object ,outer-name (count &optional beg end type)
+          (evil-select-paren ,start-regex ,end-regex beg end type count t))
+        (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+        (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
-  (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
+ (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
   ;; TODO add // in outer-name
-  (define-and-bind-text-object "-" "&" "&"))
+ (define-and-bind-text-object "-" "&" "&"))
 
 
 
@@ -397,6 +397,6 @@
      (?t    "\\tens"        nil          t    nil  nil)
      (?1    "\\tilde"           nil          t    nil  nil)
      (?2    "\\hat"           nil          t    nil  nil)
-     (?l    nil           "\\label"          t    nil  nil)
+     (?l    "\\label"           "\\label"          t    nil  nil)
      (?s    "\\mathscr"           nil          t    nil  nil)
      (?A    "\\abs"           nil          t    nil  nil))))

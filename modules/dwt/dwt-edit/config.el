@@ -43,13 +43,13 @@
         :n "gh" #'+lookup/documentation
         ;; ace jump
         :n "ge" #'awesome-tab-ace-jump
-        :n "gj" #'evil-avy-goto-char-timer
-        :n "go" #'avy-goto-line
+        :nv "gj" #'evil-avy-goto-char-timer
+        :nv "go" #'avy-goto-line
         :v "gC" #'capitalize-region
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
         :n "U" 'undo-fu-only-redo
-        :n "D" 'evil-avy-goto-char-2
+        :nv "D" 'evil-avy-goto-char-2
 
         ;;; buffer
         :n "[b" #'persp-prev
