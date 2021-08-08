@@ -51,6 +51,12 @@
         :n "U" 'undo-fu-only-redo
         :n "D" 'evil-avy-goto-char-2
 
+        ;;; buffer
+        :n "[b" #'persp-prev
+        :n "]b" #'persp-next
+        :n "[B" #'previous-buffer
+        :n "]B" #'next-buffer
+
         ;;; add new command with this prefix
         ;; :n "r" nil
         ;;; inden t and fold
@@ -67,7 +73,7 @@
         :desc "winner undo""]" #'winner-redo
         :desc "shell command" "'" #'shell-command
         :desc "eval expression" ":" #'eval-expression
-        :desc "buffer" "," #'counsel-ibuffer
+        :desc "buffer" "," #'persp-switch-to-buffer
         :desc "M-x" "<SPC>" #'counsel-M-x
         :desc "snippet" "it" #'company-yasnippet
         ;; :desc "jump item" "ii" #'evilmi-jump-items
