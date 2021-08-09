@@ -95,7 +95,7 @@
         ;; :desc "previous buffer" "[" #'previous-buffer
         ;; :desc "next buffer" "]" #'next-buffer
         :desc "popup term" "`" #'ivy-resume
-        :desc "popup term" ";" #'counsel-recentf
+        :desc "popup term" ";" #'counsel-buffer-or-recentf
         :desc "vterm-yank" "vv" #'vterm-repl-yank
         ;; winner
         :desc "winner-undo" "w[" #'winner-undo

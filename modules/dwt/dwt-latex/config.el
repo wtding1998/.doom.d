@@ -192,7 +192,7 @@
   (if (texmathp)
       (insert " ")
     (let ((length-current-word (length (word-at-point))))
-      (if (equal length-current-word 1)
+      (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")))
           (progn
             (call-interactively #'backward-word)
             (insert "\\( ")

@@ -157,7 +157,7 @@
     "
   ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
   -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
-    ^_k_^   prev group    | _a_^^     select first | _b_ search buffer | _C-k_   kill buffer
+    ^_k_^   prev group    | _a_^^     select first | _b_ search buffer | _C-j_   next buffer
   _h_   _l_  switch tab   | _e_^^     select last  | _g_ search group  | _C-S-k_ kill others in group
     ^_j_^   next group    | _s_^^     ace jump     | ^^                | ^^
   ^^0 ~ 9^^ select window | _H_/_L_ move current | ^^                | ^^
@@ -184,7 +184,9 @@
     ("L" awesome-tab-move-current-tab-to-right)
     ("b" ivy-switch-buffer)
     ("g" awesome-tab-counsel-switch-group)
-    ("C-k" kill-current-buffer)
+    ;; ("C-k" kill-current-buffer)
+    ("C-j" next-buffer)
+    ("C-k" previous-buffer)
     ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
     ("q" nil "quit"))
   (map! :n "r" #'awesome-fast-switch/body)
