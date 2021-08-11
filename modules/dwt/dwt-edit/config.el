@@ -51,12 +51,6 @@
         :n "U" 'undo-fu-only-redo
         :nv "D" 'evil-avy-goto-char-2
 
-        ;;; buffer
-        :n "[b" #'persp-prev
-        :n "]b" #'persp-next
-        :n "[B" #'previous-buffer
-        :n "]B" #'next-buffer
-
         ;;; add new command with this prefix
         ;; :n "r" nil
         ;;; inden t and fold

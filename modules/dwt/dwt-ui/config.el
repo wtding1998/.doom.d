@@ -110,7 +110,10 @@
     ;; font and theme for GUI
     (if (display-graphic-p)
         (progn
-          (dwt/doom-font)))))
+          (dwt/doom-font)
+          (when IS-MAC
+            (setq transwin--record-toggle-frame-transparency 95)
+            (transwin-toggle-transparent-frame))))))
           
         ;; (load-theme 'doom-tomorrow-night t nil))))
 
@@ -119,10 +122,15 @@
   (if (display-graphic-p)
       ;; font and theme for GUI
       (progn
-        (dwt/doom-font))))
+        (dwt/doom-font)
+        (when IS-MAC
+          (setq transwin--record-toggle-frame-transparency 95)
+          (transwin-toggle-transparent-frame)))))
     ;; theme for emacs TUI
     ;; (load-theme 'doom-tomorrow-night t nil)))
 (dwt/random-load-light-theme)
+;; (when IS-MAC
+;;   (transwin-toggle-transparent-frame))
 ;; 隐藏 title bar
 ;; (setq default-frame-alist '((undecorated . t)))
 ;; (add-to-list 'default-frame-alist '(drag-internal-border . 1))
@@ -245,8 +253,7 @@
     :init
     (setq transwin--record-toggle-frame-transparency 95)
     :config
-    (map! :leader "tT" #'transwin-toggle-transparent-frame)
-    (transwin-toggle-transparent-frame)))
+    (map! :leader "tT" #'transwin-toggle-transparent-frame)))
 
 ;;; title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))

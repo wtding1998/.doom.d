@@ -54,7 +54,11 @@
         ;; :map vterm-mode-map :i "C-v" #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
         :map vterm-mode-map :i "C-v" #'vterm-yank
         :map vterm-mode-map :n "p"   #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
-        :map vterm-mode-map :i "C-a" #'vterm-send-C-a))
+        :map vterm-mode-map :i "C-a" #'vterm-send-C-a)'
+  (when IS-MAC
+    (map! :leader "oT" #'+macos/open-in-iterm))
+  (map! :leader "ot" #'+vterm/here))
+
 
 ;; (after! vterm
 ;;   (define-key vterm-mode-map (kbd "C-c C-l") 'vterm-send-C-l)

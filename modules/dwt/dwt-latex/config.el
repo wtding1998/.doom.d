@@ -48,23 +48,17 @@
     t                                ; active in all modes
     :help "Convert DVI->PDF"))
  (setq TeX-source-correlate-start-server t)
- (if IS-MAC
-   (add-to-list 'TeX-view-program-list
-               '("skim"
-                 ("skim "
-                   (mode-io-correlate " ")
-                   "%o")
-                 "skim"))
-   (add-to-list 'TeX-view-program-list
-               '("zathura"
-                 ("zathura "
-                   (mode-io-correlate " ")
-                   "%o")
-                 "zathura")))
+ ;; (if IS-MAC
+ ;;   (add-to-list 'TeX-view-program-list
+ ;;               '("zathura"
+ ;;                 ("zathura "
+ ;;                   (mode-io-correlate " ")
+ ;;                   "%o")
+ ;;                 "zathura")))
 
 ;; (add-to-list 'TeX-view-program-list
 ;;             '("zathura" "zathura --page=%(outpage) %o"))
-;; (add-to-list 'TeX-view-program-selection '(output-pdf "zathura"))
+ ;; (add-to-list 'TeX-view-program-selection '(output-pdf "zathura"))
 
    ;; FIXME: if the cursor is in the usepackage, will get error
  (defun dwt/view-pdf-by-pdf-tools ()
@@ -189,8 +183,7 @@
 (defun dwt/insert-space ()
   "Wrap a single char with inline math"
   (interactive)
-  (if (texmathp)
-      (insert " ")
+  (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
     (let ((length-current-word (length (word-at-point))))
       (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")))
           (progn
@@ -199,8 +192,8 @@
             (call-interactively #'forward-word)
             (insert " \\)")
             (backward-char 3))
-        (insert " ")))))
-
+        (insert " ")))
+    (insert " ")))
 
 (defun dwt/insert-transpose ()
   "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
