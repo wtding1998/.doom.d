@@ -16,6 +16,7 @@
         ;; ("C-n" . company-select-next))
   :hook (after-init . global-company-mode)
   :init
+  (add-hook 'sh-mode-hook (lambda () (interactive) (company-mode -1)))
   (setq company-icon-size '(auto-scale . 25))
   (setq
         ;; company-tooltip-align-annotations t
