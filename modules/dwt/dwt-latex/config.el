@@ -185,7 +185,7 @@
   (interactive)
   (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
     (let ((length-current-word (length (word-at-point))))
-      (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")))
+      (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
           (progn
             (call-interactively #'backward-word)
             (insert "\\( ")
