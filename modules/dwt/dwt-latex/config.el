@@ -401,3 +401,18 @@
      (?l    "\\label"           "\\label"          t    nil  nil)
      (?s    "\\mathscr"           nil          t    nil  nil)
      (?A    "\\abs"           nil          t    nil  nil))))
+
+(use-package! evil-tex
+  :config
+  (cl-destructuring-bind (inner-map . outer-map)
+      (if (and (boundp  'evil-surround-local-inner-text-object-map-list)
+              (boundp  'evil-surround-local-outer-text-object-map-list))
+          ;; deifine everything on local keymaps if evil-surround is up-to-date
+          ;; i.e before https://github.com/emacs-evil/evil-surround/pull/165
+          (cons evil-tex-inner-text-objects-map evil-tex-outer-text-objects-map)
+        ;; pollute the global namespace if evil-surround is too old
+        (cons evil-inner-text-objects-map evil-outer-text-objects-map))
+    (define-key outer-map ":" 'evil-tex-a-superscript)
+    (define-key outer-map ";" 'evil-tex-a-subscript)
+    (define-key inner-map ":" 'evil-tex-inner-superscript)
+    (define-key inner-map ";" 'evil-tex-inner-subscript)))
