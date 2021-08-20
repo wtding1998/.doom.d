@@ -308,6 +308,7 @@
         "zi" #'org-zotxt-insert-reference-link)
   :config
   (add-to-list 'org-link-parameters '("zotero" :follow org-zotxt-open-attachment))
+  ;;TODO bibtex-completion-find-pdf-in-field
   (defun org-zotxt-noter (arg)
     "Like `org-noter', but use Zotero.
 
@@ -362,9 +363,85 @@ See `org-noter' for details and ARG usage."
     :init
     (map! :g "M-e" #'osx-dictionary-search-input)))
 
+(use-package! ivy-bibtex
+  :init
+  (setq bibtex-completion-notes-template-multiple-files "Notes on: ${author-or-editor} (${year}): ${title}\n\n* Paper\n")
+  (setq bibtex-completion-bibliography '("~/org/tensor.bib"))
+  (setq bibtex-completion-notes-path "~/org/roam")
+  :config
+  (ivy-set-actions
+    'ivy-bibtex
+    '(("p" ivy-bibtex-open-any "Open PDF, URL, or DOI")
+      ("e" ivy-bibtex-edit-notes "Edit notes")
+      ("d" dwt/new-note "Edit notes")))
+  (setq bibtex-completion-edit-notes-function 'dwt/bibtex-completion-edit-notes)
+  (defun dwt/new-note (CANDIDATE)
+    (ivy-bibtex-edit-notes CANDIDATE)
+    (call-interactively #'dwt/insert-org-noter-heading))
+  (defun dwt/insert-org-noter-heading ()
+    (interactive)
+    (let* ((cite-key (file-name-base (buffer-name))))
+          (path (car (bibtex-completion-find-pdf-in-field cite-key)))
+      (org-entry-put nil org-noter-property-doc-file path))))
+
 ;; (use-package! org-clock-watch
 ;;   :load-path "~/.emacs.d/.local/straight/repos/org-clock-watch"
 ;;   :init
 ;;   ;; (setq org-clock-x11idle-program-name "xprintidle")
 ;;   (setq org-clock-watch-work-plan-file-path "~/D/OneDrive/Documents/diary/org/agenda.org"))
-
+;;;###autoload
+(defun dwt/bibtex-completion-edit-notes(keys)
+  "Open the notes associated with the entries in KEYS.
+Creates new notes where none exist yet."
+  (dolist (key keys)
+    (let* ((entry (bibtex-completion-get-entry key))
+           (year (or (bibtex-completion-get-value "year" entry)
+                     (car (split-string (bibtex-completion-get-value "date" entry "") "-"))))
+           (entry (push (cons "year" year) entry)))
+      (if (and bibtex-completion-notes-path
+               (f-directory? bibtex-completion-notes-path))
+                                        ; One notes file per publication:
+          (let* ((path (f-join bibtex-completion-notes-path
+                               (s-concat key bibtex-completion-notes-extension))))
+            (find-file path)
+            (unless (f-exists? path)
+              ;; First expand BibTeX variables, then org-capture template vars:
+              (insert (bibtex-completion-fill-template
+                       entry
+                       bibtex-completion-notes-template-multiple-files))
+              (let ((path (car (bibtex-completion-find-pdf-in-field key))))
+                  (org-entry-put nil org-noter-property-doc-file path))))
+                                        ; One file for all notes:
+        (unless (and buffer-file-name
+                     (f-same? bibtex-completion-notes-path buffer-file-name))
+          (find-file-other-window bibtex-completion-notes-path))
+        (widen)
+        (outline-show-all)
+        (goto-char (point-min))
+        (if (re-search-forward (format bibtex-completion-notes-key-pattern (regexp-quote key)) nil t)
+                                        ; Existing entry found:
+            (when (eq major-mode 'org-mode)
+              (org-narrow-to-subtree)
+              (re-search-backward "^\*+ " nil t)
+              (org-cycle-hide-drawers nil)
+              (bibtex-completion-notes-mode 1))
+                                        ; Create a new entry:
+          (goto-char (point-max))
+          (save-excursion (insert (bibtex-completion-fill-template
+                                   entry
+                                   bibtex-completion-notes-template-one-file)))
+          (re-search-forward "^*+ " nil t))
+        (when (eq major-mode 'org-mode)
+          (org-narrow-to-subtree)
+          (re-search-backward "^\*+ " nil t)
+          (org-cycle-hide-drawers nil)
+          (goto-char (point-max))
+          (bibtex-completion-notes-mode 1))
+        ;; Move point to ‘%?’ if it’s included in the pattern
+        (when (save-excursion
+                (progn (goto-char (point-min))
+                       (re-search-forward "%\\?" nil t)))
+          (let ((beginning (match-beginning 0))
+                (end (match-end 0)))
+            (delete-region beginning end)
+            (goto-char beginning)))))))
