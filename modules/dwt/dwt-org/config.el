@@ -368,6 +368,7 @@ See `org-noter' for details and ARG usage."
   (setq bibtex-completion-notes-template-multiple-files "Notes on: ${author-or-editor} (${year}): ${title}\n\n* Paper\n")
   (setq bibtex-completion-bibliography '("~/org/tensor.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
+  (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   :config
   (ivy-set-actions
     'ivy-bibtex
@@ -389,6 +390,7 @@ See `org-noter' for details and ARG usage."
 ;;   :init
 ;;   ;; (setq org-clock-x11idle-program-name "xprintidle")
 ;;   (setq org-clock-watch-work-plan-file-path "~/D/OneDrive/Documents/diary/org/agenda.org"))
+
 ;;;###autoload
 (defun dwt/bibtex-completion-edit-notes(keys)
   "Open the notes associated with the entries in KEYS.
