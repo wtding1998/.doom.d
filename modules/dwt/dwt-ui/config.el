@@ -66,23 +66,23 @@
                           doom-monokai-octagon
                           doom-tomorrow-nigh))
 
-(defvar dwt/light-themes '(
-                           doom-homage-white
+(defvar dwt/light-themes '(doom-homage-white
                            nil
                            tao-yang
                            notink
                            minimal-light
                            modus-operandi))
-(defun dwt/random-load-light-theme ()
+
+(defun dwt/load-light-themes ()
   "Load light theme."
   (interactive)
-  (setq doom-theme (nth (random (length dwt/light-themes)) dwt/light-themes)))
+  (load-theme (nth (random (length dwt/light-themes)) dwt/light-themes) t nil))
 
 
-(defun dwt/random-load-dark-theme ()
+(defun dwt/load-dark-themes ()
   "Load theme randomly from dwt/dark-themes."
   (interactive)
-  (setq doom-theme (nth (random (length dwt/dark-themes)) dwt/light-themes)))
+  (load-theme (nth (random (length dwt/dark-themes)) dwt/light-themes) t nil))
 
 
 ;;; font
@@ -105,32 +105,35 @@
                         charset
                         ;; (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
                         (font-spec :family "Sarasa Mono SC Nerd")))) ;; 14 16 20 22 28
+
 (defun dwt/init-frame(frame)
   (with-selected-frame frame
     ;; font and theme for GUI
     (if (display-graphic-p)
         (progn
           (dwt/doom-font)
+          ;; theme for GUI in daemon
+          (dwt/load-light-themes)
           (when IS-MAC
             (setq transwin--record-toggle-frame-transparency 95)
-            (transwin-toggle-transparent-frame))))))
-          
-        ;; (load-theme 'doom-tomorrow-night t nil))))
+            ;; FIXME transwin will toggle for each frame, so the second frame will fail
+            (transwin-toggle-transparent-frame)))
+      ;;; theme for TUI in daemon
+      (load-theme 'doom-tomorrow-night t nil))))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
   (if (display-graphic-p)
-      ;; font and theme for GUI
+      ;; font and theme for GUI in single emacs
       (progn
+        (dwt/load-light-themes)
         (dwt/doom-font)
         (when IS-MAC
           (setq transwin--record-toggle-frame-transparency 95)
-          (transwin-toggle-transparent-frame)))))
-    ;; theme for emacs TUI
-    ;; (load-theme 'doom-tomorrow-night t nil)))
-(dwt/random-load-light-theme)
-;; (when IS-MAC
-;;   (transwin-toggle-transparent-frame))
+          (transwin-toggle-transparent-frame)))
+    ;; theme for TUI in single emacs
+    (load-theme 'doom-tomorrow-night t nil)))
+
 ;; 隐藏 title bar
 ;; (setq default-frame-alist '((undecorated . t)))
 ;; (add-to-list 'default-frame-alist '(drag-internal-border . 1))
@@ -141,11 +144,6 @@
 ;; full screen
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (map! :leader :desc "Max Frame" "tm" #'toggle-frame-maximized)
-
-;;; theme
-;; (if (display-graphic-p)
-;;   (dwt/random-load-light-theme)
-;;   (setq doom-theme 'modus-operandi))
 
 (use-package! diff-hl
   :config
@@ -271,4 +269,3 @@
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
-
