@@ -372,18 +372,27 @@ See `org-noter' for details and ARG usage."
   :config
   (ivy-set-actions
     'ivy-bibtex
-    '(("p" ivy-bibtex-open-any "Open PDF, URL, or DOI")
+    '(("a" ivy-bibtex-open-any "Open PDF, URL, or DOI")
+      ("p" ivy-bibtex-open-pdf "Open PDF")
       ("e" ivy-bibtex-edit-notes "Edit notes")
-      ("d" dwt/new-note "Edit notes")))
+      ("u" ivy-bibtex-open-url-or-doi "Open URL, or DOI")))
   (setq bibtex-completion-edit-notes-function 'dwt/bibtex-completion-edit-notes)
-  (defun dwt/new-note (CANDIDATE)
-    (ivy-bibtex-edit-notes CANDIDATE)
-    (call-interactively #'dwt/insert-org-noter-heading))
-  (defun dwt/insert-org-noter-heading ()
+  (map! :leader :desc "open pdf" "nB" #'dwt/ivy-bibtex-open-pdf)
+
+  (defun dwt/ivy-bibtex-open-pdf ()
+    "Open pdf of the choosen bibliography"
     (interactive)
-    (let* ((cite-key (file-name-base (buffer-name))))
-          (path (car (bibtex-completion-find-pdf-in-field cite-key)))
-      (org-entry-put nil org-noter-property-doc-file path))))
+    (let ((ivy-bibtex-default-action 'ivy-bibtex-open-pdf))
+      (call-interactively #'ivy-bibtex))))
+
+  ;; (defun dwt/new-note (CANDIDATE)
+  ;;   (ivy-bibtex-edit-notes CANDIDATE)
+  ;;   (call-interactively #'dwt/insert-org-noter-heading))
+  ;; (defun dwt/insert-org-noter-heading ()
+  ;;   (interactive)
+  ;;   (let* ((cite-key (file-name-base (buffer-name))))
+  ;;         (path (car (bibtex-completion-find-pdf-in-field cite-key)))
+  ;;     (org-entry-put nil org-noter-property-doc-file path))))
 
 ;; (use-package! org-clock-watch
 ;;   :load-path "~/.emacs.d/.local/straight/repos/org-clock-watch"
@@ -447,3 +456,4 @@ Creates new notes where none exist yet."
                 (end (match-end 0)))
             (delete-region beginning end)
             (goto-char beginning)))))))
+
