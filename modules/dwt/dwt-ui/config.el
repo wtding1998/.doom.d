@@ -165,8 +165,8 @@
   -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
     ^_k_^   prev group    | _a_^^     select first | _b_ search buffer | _C-j_   next buffer
   _h_   _l_  switch tab   | _e_^^     select last  | _g_ search group  | _C-S-k_ kill others in group
-    ^_j_^   next group    | _s_^^     ace jump     | ^^                | ^^
-  ^^0 ~ 9^^ select window | _H_/_L_ move current | ^^                | ^^
+    ^_j_^   next group    | _s_^^     ace jump     | ^^                | _C-k_   previous buffer
+  ^^0 ~ 9^^ select window | _H_/_L_ move current   | ^^                | ^^
   -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
   "
     ("h" awesome-tab-backward-tab)
