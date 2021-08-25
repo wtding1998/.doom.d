@@ -129,9 +129,8 @@
                   org-level-8))
     (set-face-attribute face nil :weight 'normal))
   ;; set scale for latex-preview
-  (when IS-MAC
-    (when dwt/lenovo
-      (plist-put org-format-latex-options :scale 2.3)))
+  (when dwt/lenovo
+    (plist-put org-format-latex-options :scale 2.3))
   ;; set app
   (setq org-file-apps
         '((auto-mode . emacs)
