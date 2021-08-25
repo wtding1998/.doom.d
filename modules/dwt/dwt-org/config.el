@@ -365,7 +365,7 @@ See `org-noter' for details and ARG usage."
 
 (use-package! ivy-bibtex
   :init
-  (setq bibtex-completion-notes-template-multiple-files "Notes on: ${author-or-editor} (${year}): ${title}\n\n* Paper\n")
+  (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* Note\n")
   (setq bibtex-completion-bibliography '("~/org/tensor.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
@@ -417,43 +417,10 @@ Creates new notes where none exist yet."
             (find-file path)
             (unless (f-exists? path)
               ;; First expand BibTeX variables, then org-capture template vars:
+              (call-interactively #'org-id-get-create)
               (insert (bibtex-completion-fill-template
                        entry
                        bibtex-completion-notes-template-multiple-files))
               (let ((path (car (bibtex-completion-find-pdf-in-field key))))
-                  (org-entry-put nil org-noter-property-doc-file path))))
-                                        ; One file for all notes:
-        (unless (and buffer-file-name
-                     (f-same? bibtex-completion-notes-path buffer-file-name))
-          (find-file-other-window bibtex-completion-notes-path))
-        (widen)
-        (outline-show-all)
-        (goto-char (point-min))
-        (if (re-search-forward (format bibtex-completion-notes-key-pattern (regexp-quote key)) nil t)
-                                        ; Existing entry found:
-            (when (eq major-mode 'org-mode)
-              (org-narrow-to-subtree)
-              (re-search-backward "^\*+ " nil t)
-              (org-cycle-hide-drawers nil)
-              (bibtex-completion-notes-mode 1))
-                                        ; Create a new entry:
-          (goto-char (point-max))
-          (save-excursion (insert (bibtex-completion-fill-template
-                                   entry
-                                   bibtex-completion-notes-template-one-file)))
-          (re-search-forward "^*+ " nil t))
-        (when (eq major-mode 'org-mode)
-          (org-narrow-to-subtree)
-          (re-search-backward "^\*+ " nil t)
-          (org-cycle-hide-drawers nil)
-          (goto-char (point-max))
-          (bibtex-completion-notes-mode 1))
-        ;; Move point to ‘%?’ if it’s included in the pattern
-        (when (save-excursion
-                (progn (goto-char (point-min))
-                       (re-search-forward "%\\?" nil t)))
-          (let ((beginning (match-beginning 0))
-                (end (match-end 0)))
-            (delete-region beginning end)
-            (goto-char beginning)))))))
-
+                  (org-entry-put nil org-noter-property-doc-file path))
+              (call-interactively #'evil-force-normal-state)))))))
