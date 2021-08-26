@@ -423,3 +423,9 @@ Creates new notes where none exist yet."
               (let ((path (car (bibtex-completion-find-pdf-in-field key))))
                   (org-entry-put nil org-noter-property-doc-file path))
               (call-interactively #'evil-force-normal-state)))))))
+
+(when IS-LINUX
+  (use-package! ispell
+    :config
+    (setq ispell-dictionary "en_US"
+          ispell-program-name "hunspell")))
