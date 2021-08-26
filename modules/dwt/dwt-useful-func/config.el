@@ -29,6 +29,7 @@
   (interactive)
   (let ((configs '("~/.zshrc"
                    "~/.vim/init"
+                   "~/.config/kitty/kitty.conf"
                    "~/.doom.d/"
                    "~/.config/zathura/zathurarc"
                    "~/.config/fcitx/rime/default.custom.yaml"
