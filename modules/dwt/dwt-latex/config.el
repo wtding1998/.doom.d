@@ -241,7 +241,7 @@
   (call-interactively #'TeX-command-run-all))
 
 ;;;###autoload
-(defun dwt/new-TeX-dir ()
+(defun dwt/new-tex-dir-project ()
   "Make new dir in DIR-PATH with name DIR-NAME."
   (interactive)
   (let (project-path dir-name subdir-names)
@@ -256,6 +256,15 @@
       (make-directory (concat project-path dir-name))
       (find-file (concat project-path dir-name "/" dir-name ".tex")))))
 
+(defun dwt/new-tex-dir ()
+  "Create latex project."
+  (interactive)
+  (let* ((dir-path (counsel-read-directory-name "Path of project: "))
+         (project-name (read-from-minibuffer "Name of project: "))
+         (project-path (concat dir-path project-name)))
+    (message project-path)
+    (make-directory project-name dir-path)
+    (find-file (concat project-path "/" project-name ".tex"))))
 
 ;;;###autoload
 (defun dwt/latex-double-quote ()
@@ -267,7 +276,8 @@
 
 
 (map! :leader
-      :desc "New TeX dir" "ol" #'dwt/new-TeX-dir)
+      :desc "New TeX dir" "ol" #'dwt/new-tex-dir
+      :desc "New TeX dir in project" "oL" #'dwt/new-tex-dir-project)
 
 ;; set company-backends
 ;; default:
