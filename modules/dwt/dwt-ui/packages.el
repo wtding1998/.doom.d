@@ -12,7 +12,7 @@
 ;; (package! berrys-theme :recipe (:host github :repo "vbuzin/berrys-theme"))
 ; (package! elegant-theme :recipe (:host github :repo "oracleyue/elegant-theme"))
 ; (package! nord-emacs :recipe (:host github :repo "arcticicestudio/nord-emacs"))
-(package! notink-theme :recipe (:host github :repo "MetroWind/notink-theme"))
+(package! notink-theme :recipe (:host github :repo "wtding1998/notink-theme"))
 
 (when IS-MAC
   (package! transwin :recipe (:host github :repo "jcs-elpa/transwin")))
