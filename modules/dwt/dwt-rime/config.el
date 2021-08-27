@@ -9,7 +9,7 @@
   ;; set to minibuffer for better performance
   ;; (rime-show-candidate 'minibuffer)
   :config
-  (setq dwt/rime-modeline '(:eval current-input-method-title " "))
+  (setq dwt/rime-modeline '(:eval (rime-lighter)))
   (setq-default +modeline-format-right (push "  " +modeline-format-right))
   (setq-default +modeline-format-right (push dwt/rime-modeline +modeline-format-right))
   ;; set rime configuration dir
@@ -20,16 +20,18 @@
     (setq rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@28/28.0.50/include")
     (setq rime-user-data-dir "~/Library/Rime"))
   ;; set UI
-  (unless IS-MAC
-    (setq rime-posframe-properties
-          (list :font "Source Han Serif CN"))
-    ;; remove background https://github.com/DogLooksGood/emacs-rime/issues/149
-    (set-face-attribute 'rime-default-face       nil  :background nil)
-    (set-face-attribute 'rime-code-face          nil  :background nil)
-    (set-face-attribute 'rime-candidate-num-face nil  :background nil)
-    (set-face-attribute 'rime-comment-face       nil  :background nil)
-    (set-face-attribute 'rime-highlight-candidate-face nil  :background nil))
-
+  ;; (unless IS-MAC
+  ;;   (setq rime-posframe-properties
+  ;;         (list :font "Source Han Serif CN")))
+  ;; remove background https://github.com/DogLooksGood/emacs-rime/issues/149
+  ;; color for mode line lighter
+  (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
+  (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
+  ;; color for posframedhi
+  (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'mode-line) :background (face-background 'mode-line))
+  (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil)
+  (set-face-attribute 'rime-code-face          nil :foreground nil :background nil :inherit 'rime-default-face)
+  (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil)
   ;; use English automatically after English words
   (setq rime-disable-predicates
         '(rime-predicate-evil-mode-p
@@ -52,7 +54,7 @@
       (cl-destructuring-bind (content) args
         (let ((newresult (if (string-blank-p content)
                             content
-                          (concat content "　"))))
+                          (concat content " "))))
           (list newresult))))
 
     (if (fboundp 'rime--posframe-display-content)
