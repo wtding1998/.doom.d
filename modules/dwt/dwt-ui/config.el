@@ -67,10 +67,7 @@
                           doom-tomorrow-nigh))
 
 (defvar dwt/light-themes '(doom-homage-white
-                           ;; nil
-                           tao-yang
                            notink
-                           minimal-light
                            modus-operandi))
 
 (defun dwt/load-light-themes ()
