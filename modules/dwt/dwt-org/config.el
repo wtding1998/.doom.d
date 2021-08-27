@@ -424,6 +424,11 @@ Creates new notes where none exist yet."
                   (org-entry-put nil org-noter-property-doc-file path))
               (call-interactively #'evil-force-normal-state)))))))
 
+(use-package! flyspell
+  :init
+  (map! :leader :desc "flyspell" "ts" #'flyspell-mode
+                :desc "prog flyspell" "tS" #'flyspell-prog-mode))
+
 (when IS-LINUX
   (use-package! ispell
     :config
