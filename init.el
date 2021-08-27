@@ -200,7 +200,6 @@
        (default +bindings +smartparens)
 
        :dwt
-       ;; dwt-key-bindings       ; my own key bindings
        dwt-latex              ; my own latex settings
        dwt-complete            ; my own company settings
        dwt-rime               ; Chinese insert
@@ -208,9 +207,7 @@
        dwt-org
        dwt-yasnippet
        dwt-ui
-       ;; dwt-vterm
        dwt-lsp
-       ;; dwt-nox
        dwt-system
        dwt-pdf
        dwt-python
