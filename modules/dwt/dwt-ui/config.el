@@ -266,3 +266,13 @@
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
+
+;;;###autoload
+(defun dwt/reload-new-theme ()
+  "Evaluate the current file, and reload the theme"
+  (interactive)
+  (let* ((buffer-name (buffer-file-name))
+         (file-name (file-name-base buffer-name))
+         (theme-name (replace-regexp-in-string "-theme" "" file-name)))
+    (call-interactively #'eval-buffer)
+    (load-theme (intern-soft theme-name) t nil)))
