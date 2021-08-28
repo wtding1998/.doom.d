@@ -60,6 +60,7 @@
                           doom-spacegrey
                           doom-opera
                           doom-miramare
+                          gruvbox
                           doom-nord
                           doom-horizon
                           doom-monokai-pro
