@@ -164,7 +164,7 @@
   :config
   (setq ivy-count-format "%d/%d ")
   (map! :map ivy-minibuffer-map
-        "<tab>" #'ivy-partial))
+        "<backtab>" #'ivy-partial))
 
 (use-package! company-english-helper
   :after (org latex)
