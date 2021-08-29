@@ -365,7 +365,7 @@ See `org-noter' for details and ARG usage."
 (use-package! ivy-bibtex
   :init
   (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* Note\n")
-  (setq bibtex-completion-bibliography '("~/org/tensor.bib"))
+  (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   :config
