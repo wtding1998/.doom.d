@@ -44,7 +44,7 @@
         ;; ace jump
         :n "ge" #'awesome-tab-ace-jump
         :nv "ga" #'evil-avy-goto-char-timer
-        :nv "gz" #'avy-goto-line
+        :nv "go" #'avy-goto-line
         :v "gC" #'capitalize-region
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
