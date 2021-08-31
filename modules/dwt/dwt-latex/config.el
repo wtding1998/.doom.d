@@ -287,13 +287,7 @@
 ;;                        company-dabbrev company-yasnippet company-ispell company-capf)
 ;; new:
 (after! latex
-  (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
-  (add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
-  (add-to-list '+latex--company-backends #'company-yasnippet nil #'eq)
-  ;; disable company-ispell for performance under mac
-  ;; (add-to-list '+latex--company-backends #'company-ispell nil #'eq)
-  (add-to-list '+latex--company-backends #'company-capf nil #'eq)
-  (set-company-backend! 'latex-mode +latex--company-backends))
+  (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4)))
 
 (map! :map cdlatex-mode-map
       ;; :i "\";" #'(lambda () (interactive) (insert ";"))
