@@ -311,11 +311,11 @@
       :nv "}" #'dwt/find-math-next
       :nv "{" #'dwt/find-math-prev)
 
-(map! :map cdlatex-mode-map
-      :i ")" (lambda () (interactive) (insert "0"))
-      :i "(" (lambda () (interactive) (insert "9"))
+;; (map! :map cdlatex-mode-map
+      ;; :i ")" (lambda () (interactive) (insert "0"))
+      ;; :i "(" (lambda () (interactive) (insert "9"))
       ;; :i "0" (lambda () (interactive) (insert ")"))
-      :i "9" (lambda () (interactive) (insert "()") (backward-char 1)))
+      ;; :i "9" (lambda () (interactive) (insert "()") (backward-char 1)))
 
 
 
@@ -426,3 +426,7 @@
     (define-key outer-map ";" 'evil-tex-a-subscript)
     (define-key inner-map ":" 'evil-tex-inner-superscript)
     (define-key inner-map ";" 'evil-tex-inner-subscript)))
+
+(defun dwt/latex-file ()
+  (interactive)
+  (TeX-command "LaTeX" #'TeX-master-file))
