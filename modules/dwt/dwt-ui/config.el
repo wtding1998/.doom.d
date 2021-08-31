@@ -112,10 +112,7 @@
           (dwt/doom-font)
           ;; theme for GUI in daemon
           (dwt/load-light-themes)
-          (when IS-MAC
-            (setq transwin--record-toggle-frame-transparency 95)
-            ;; FIXME transwin will toggle for each frame, so the second frame will fail
-            (transwin-toggle-transparent-frame)))
+          (dwt/turn-on-transwin))
       ;;; theme for TUI in daemon
       (load-theme 'doom-tomorrow-night t nil))))
 
@@ -125,10 +122,7 @@
       ;; font and theme for GUI in single emacs
       (progn
         (dwt/load-light-themes)
-        (dwt/doom-font)
-        (when IS-MAC
-          (setq transwin--record-toggle-frame-transparency 95)
-          (transwin-toggle-transparent-frame)))
+        (dwt/doom-font))
     ;; theme for TUI in single emacs
     (load-theme 'doom-tomorrow-night t nil)))
 
@@ -249,7 +243,13 @@
     :init
     (setq transwin--record-toggle-frame-transparency 95)
     :config
-    (map! :leader "tT" #'transwin-toggle-transparent-frame)))
+    (map! :leader "tt" #'transwin-toggle-transparent-frame)
+    (map! :leader "tT" #'dwt/turn-on-transwin)
+    (defun dwt/turn-on-transwin ()
+      "Turn on transwin."
+      (interactive)
+      (when (= transwin--current-alpha 100)
+            (transwin--set-transparency transwin--record-toggle-frame-transparency)))))
 ;;; title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
 ;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
