@@ -40,6 +40,12 @@
     (ivy-read "Open Configs: " configs :action 'find-file)))
 (map! :leader :desc "Open configuration" "op" #'dwt/ivy-open-configuration)
 
+;;;###autoload
+(defun dwt/clean-recentf ()
+  "Clean roam files in recentf list."
+  (interactive)
+  (let ((recentf-exclude '("roam/")))
+    (recentf-cleanup)))
 
 ;;; proxy
 ;; (setq dwt/proxy "http://172.29.80.1:1081")
