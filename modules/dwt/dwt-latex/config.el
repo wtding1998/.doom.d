@@ -272,7 +272,9 @@
   (let ((input-key (edmacro-format-keys (vector (read-key "input:")))))
     (if (string-equal input-key "\"")
         (call-interactively #'cdlatex-math-modify)
-      (insert input-key))))
+      (if (string-equal input-key "SPC")
+          (input " ")
+          (insert input-key)))))
 
 
 (map! :leader
