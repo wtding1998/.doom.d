@@ -273,7 +273,7 @@
     (if (string-equal input-key "\"")
         (call-interactively #'cdlatex-math-modify)
       (if (string-equal input-key "SPC")
-          (input " ")
+          (insert " ")
           (insert input-key)))))
 
 
