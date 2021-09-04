@@ -219,8 +219,10 @@
  (
   :localleader
   :desc "View" "v" #'TeX-view
+  :desc "Output" "o" #'TeX-recenter-output-buffer
+  :desc "Error" "e" #'TeX-next-error
   :desc "View by pdf-tools" "d" #'dwt/view-pdf-by-pdf-tools
-  :desc "Run" "C" #'dwt/TeX-save-and-run-all
+  :desc "Run" "C" #'dwt/latex-file
   :desc "Run" "c" #'dwt/TeX-save-and-run-all
   :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
   :desc "Preview Environment" "e" #'preview-environment
