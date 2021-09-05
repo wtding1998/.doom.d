@@ -84,7 +84,9 @@ immediately after."
 (after! python
   ;; (setq python-shell-exec-path '("home/wtding/miniconda3/bin/python"))
   ;;; pyvenv
-  (setenv "WORKON_HOME" "/home/wtding/miniconda3/envs")
+  (if IS-LINUX
+    (setenv "WORKON_HOME" "/home/wtding/miniconda3/envs")
+    (setenv "WORKON_HOME" "/Users/dingwentao/miniforge3/envs"))
   (map! :map python-mode-map :localleader
         "v" #'pyvenv-workon
         "m" #'dwt/python-run)
@@ -106,3 +108,13 @@ immediately after."
           (define-key evil-visual-state-local-map (kbd "S-<return>") 'dwt/send-region-to-repl)
           (define-key evil-normal-state-local-map (kbd "S-<return>") 'dwt/send-current-line-to-repl)
           (define-key evil-insert-state-local-map (kbd "S-<return>") 'dwt/send-current-line-to-repl)))
+
+;; (use-package! conda
+;;   :config
+;;   (when IS-MAC
+;;     (setq conda-anaconda-home (expand-file-name "~/miniforge3/")
+;;           conda-env-home-directory (expand-file-name "~/miniforge3/"))))
+
+(use-package! anaconda-mode
+  :config
+  (set-company-backend! 'anaconda-mode '(company-anaconda company-capf company-yasnippet company-files :with company-dabbrev-code)))
