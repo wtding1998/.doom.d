@@ -36,9 +36,9 @@
                "\n"))
      'face 'doom-dashboard-banner)))
 
-(unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
-  (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
-(setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
+;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
+;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
+;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
 ;; disable global-hl-line
 (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)

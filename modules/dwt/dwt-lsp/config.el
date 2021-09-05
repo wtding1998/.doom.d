@@ -50,3 +50,7 @@
 ;; (use-package! eglot
 ;;   :config
 ;;   (setq eglot-ignored-server-capabilites '(:documentHighlightProvider)))
+(when IS-MAC
+  (use-package! lsp-pyright
+    :init
+    (setq lsp-pyright-python-executable-cmd "python3")))
