@@ -1,4 +1,4 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; dwt/dwt-python/packages.el
 
-;; (package! elpy)
+(when IS-LINUX (package! elpy))

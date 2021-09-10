@@ -118,3 +118,11 @@ immediately after."
 (use-package! anaconda-mode
   :config
   (set-company-backend! 'anaconda-mode '(company-anaconda company-capf company-yasnippet company-files :with company-dabbrev-code)))
+
+(when IS-LINUX
+  (use-package! elpy
+    :defer t
+    :commands elpy-enable
+    :init
+    (setq elpy-rpc-python-command "python3")
+    (setq elpy-rpc-virtualenv-path 'current)))
