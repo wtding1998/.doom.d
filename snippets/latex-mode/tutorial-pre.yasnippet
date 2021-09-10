@@ -36,13 +36,10 @@
 \\setbeamertemplate{itemize items}[default]
 \setbeamertemplate{enumerate items}[default]
 \setbeamertemplate{sections/subsections in toc}{\inserttocsectionnumber.~\inserttocsection}
-% \setbeamertemplate{sections/subsections in toc}[square]
-% \\setbeamertemplate{frametitle} {
-% 	\\begin{center}
-% 	  {\\large\\bf \\insertframetitle}
-% 	\\end{center}
-% }
-
+  {\color{red!70!black}\inserttocsectionnumber.~\inserttocsection}}
+\setbeamercolor{subsection in toc}{bg=white,fg=structure}
+\setbeamertemplate{subsection in toc}{
+  \hspace{1.2em}{\color{black}\rule[0.3ex]{3pt}{3pt}~\inserttocsubsection}\par}
 \\title[]{}
 \\subtitle{}
 \\institute[SDS]{School of Data Science\\\\

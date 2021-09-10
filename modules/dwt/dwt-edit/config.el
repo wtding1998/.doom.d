@@ -38,7 +38,7 @@
         :i "C-n" nil
         :i "C-p" nil
         ;; since I do not use repeat
-        :n "." #'basic-save-buffer
+        :n "'" #'basic-save-buffer
         ;; show doc
         :n "gh" #'+lookup/documentation
         ;; ace jump

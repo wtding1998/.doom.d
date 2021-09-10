@@ -175,13 +175,7 @@
     (unless (call-interactively 'yas-expand)
       (call-interactively 'cdlatex-tab)))
 
-  (defvar +org--company-backends nil)
-  (add-to-list '+org--company-backends #'company-dabbrev nil #'eq)
-  (add-to-list '+org--company-backends #'company-yasnippet nil #'eq)
-  (add-to-list '+org--company-backends #'company-auctex-environments nil #'eq)
-  (add-to-list '+org--company-backends #'company-auctex-macros nil #'eq)
-  (add-to-list '+org--company-backends #'company-math-symbols-latex nil #'eq)
-  (set-company-backend! 'org-mode +org--company-backends)
+  (set-company-backend! 'org-mode '(company-math-symbols-latex company-latex-commands company-yasnippet company-dabbrev))
 
   (defun dwt/preview-all-latex ()
     (interactive)

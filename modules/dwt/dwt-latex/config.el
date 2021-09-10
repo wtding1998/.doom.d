@@ -427,4 +427,5 @@
 
 (defun dwt/latex-file ()
   (interactive)
+  (basic-save-buffer)
   (TeX-command "LaTeX" #'TeX-master-file))
