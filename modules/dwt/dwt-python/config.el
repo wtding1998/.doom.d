@@ -1,4 +1,7 @@
 ;;; dwt/dwt-python/config.el -*- lexical-binding: t; -*-
+(defvar dwt/python-name "python")
+(when IS-MAC
+  (setq dwt/python-name "python3"))
 
 ;;;###autoload
 (defun dwt/send-region-to-repl (beg end &optional inhibit-auto-execute-p)
@@ -89,11 +92,25 @@ immediately after."
     (setenv "WORKON_HOME" "/Users/dingwentao/miniforge3/envs"))
   (map! :map python-mode-map :localleader
         "v" #'pyvenv-workon
-        "m" #'dwt/python-run)
+        "M" #'dwt/python-run
+        "m" #'dwt/python-run-in-vterm)
 
   (defun dwt/python-run ()
     (interactive)
-    (compile (format "python %s" (buffer-file-name))))
+    (basic-save-buffer)
+    (compile (format "%s %s" dwt/python-name (buffer-file-name))))
+
+  (defun dwt/python-run-in-vterm ()
+    (interactive)
+    (let ((fname (buffer-file-name))
+          (dname (file-name-directory (buffer-file-name))))
+      (unless (buffer-live-p (get-buffer "*doom:vterm-popup:main*"))
+        (vterm "*doom:vterm-popup:main*"))
+      (+popup-buffer (get-buffer "*doom:vterm-popup:main*"))
+      (+popup/other)
+      (vterm-send-string (format "%s %s" dwt/python-name fname))
+      (vterm-send-return)))
+
 
   (set-popup-rules!
     ;; '(("^\\*Python*" :side right :size 15 :select t)))
