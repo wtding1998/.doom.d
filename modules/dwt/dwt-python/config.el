@@ -102,6 +102,7 @@ immediately after."
 
   (defun dwt/python-run-in-vterm ()
     (interactive)
+    (basic-save-buffer)
     (let ((fname (buffer-file-name))
           (dname (file-name-directory (buffer-file-name))))
       (unless (buffer-live-p (get-buffer "*doom:vterm-popup:main*"))
