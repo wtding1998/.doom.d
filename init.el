@@ -191,6 +191,7 @@
        ;;(wanderlust +gmail)
 
        :app
+       (:if IS-MAC everywhere)
        ;;calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
