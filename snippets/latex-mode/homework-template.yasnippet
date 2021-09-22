@@ -1,41 +1,39 @@
 # key: homework-tem
 # name: homework-template
 # --
-\documentclass[11pt]{article}
-\usepackage{graphicx}
-% \usepackage[scheme = plain]{ctex}
-\usepackage{arxiv-rl}
-\usepackage{grffile}
-\usepackage{longtable}
-\usepackage{wrapfig}
-\usepackage{rotating}
-\usepackage[normalem]{ulem}
-\usepackage{amsmath}
-\usepackage{textcomp}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{capt-of}
-\usepackage{hyperref}
-\usepackage[]{mathtools}
-\usepackage[scheme=plain]{ctex}
+\documentclass{article}
 \usepackage[utf8]{inputenc}
-\input{/mnt/d/onedrive/documents/study note/latex/home_preamble.tex}
-
-\renewcommand{\undertitle}{DDA6010 Optimization Assignment}
-\renewcommand{\headeright}{DDA6010 Optimization Assignment}
-\renewcommand{\shorttitle}{}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\newenvironment{solution}[1]
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[\bf{Solution #1}]\mbox{}\par}
+  {\end{proof}}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,}
+% \usepackage[scheme=plain]{ctex}
 
 \author{
   Wentao Ding \\\\
   School of Data Science \\\\
   The Chinese University of Hong Kong, Shenzhen\\\\
-  \texttt{220049024@link.cuhk.edu.cn} \\\\
+  \url{220049024@link.cuhk.edu.cn}
 }
 \date{\today}
 
-\title{DDA 6010 optimization homework 6}
+\title{$1 Homework $2}
 \begin{document}
+\large
 \maketitle
-
+$0
 
 \end{document}
