@@ -282,7 +282,7 @@
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-tex-dir
       :desc "New TeX dir in project" "oL" #'dwt/new-tex-dir-project)
-
+(set-company-backend! 'latex-mode '(+latex--company-backends company-dabbrev company-yasnippet))
 ;; set company-backends
 ;; default:
 ;; Value in #<buffer optimization.tex>
@@ -385,6 +385,7 @@
      (?3    ("^3"           "\\sqrt[3]{?}"  ""))
      (?^    ("\\uparrow"    ""           "\\sup"))
      (?H    ("\\nabla^2"    ""           ""))
+     (?T    ("\\Theta"    ""           ""))
      (?k    ("\\kappa"      ""           "\\ker"))
      (?m    ("\\mu"         ""           "\\lim"))
      (?c    ("\\contr{?}"             "\\circ"     "\\cos"))

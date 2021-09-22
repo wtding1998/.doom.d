@@ -257,7 +257,7 @@
 (setq-default frame-title-format '("Emacs - %b"))
 
 ;;; +modeline, light line in doom
-(setq +modeline-height 15)
+(setq +modeline-height 13)
 ;; display time modeline
 (unless IS-MAC
   (setq display-time-day-and-date t)

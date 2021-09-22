@@ -217,5 +217,6 @@
        dwt-useful-func
        ;; dwt-eaf
        dwt-dired
+       ;; dwt-vterm
        dwt-cc
        dwt-matlab)

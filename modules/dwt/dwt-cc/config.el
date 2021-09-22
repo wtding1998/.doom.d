@@ -4,10 +4,12 @@
   ;; quick compile function
   (defun dwt/gcc-compile-and-run ()
     (interactive)
+    (basic-save-buffer)
     (compile (format "gcc %s && ./a.out" (buffer-file-name))))
 
   (defun dwt/gcc-compile-and-run-vterm ()
     (interactive)
+    (basic-save-buffer)
     (let ((fname (buffer-file-name))
           (dname (file-name-directory (buffer-file-name))))
       (unless (buffer-live-p (get-buffer "*doom:vterm-popup:main*"))
