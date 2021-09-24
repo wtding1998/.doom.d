@@ -59,7 +59,8 @@
 ;; (add-to-list 'TeX-view-program-list
 ;;             '("zathura" "zathura --page=%(outpage) %o"))
  ;; (add-to-list 'TeX-view-program-selection '(output-pdf "zathura"))
-
+ (when IS-MAC
+   (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
    ;; FIXME: if the cursor is in the usepackage, will get error
  (defun dwt/view-pdf-by-pdf-tools ()
    "view pdf by pdf tools"
