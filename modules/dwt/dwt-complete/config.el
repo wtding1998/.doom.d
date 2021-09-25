@@ -156,9 +156,9 @@
 ;;   ;; (set-company-backend! 'anaconda-mode '(company-anaconda company-yasnippet))
 ;;   (setq +lsp-company-backends nil))
 
-(use-package! company-prescient
-  :defer t
-  :init (company-prescient-mode 1))
+;; (use-package! company-prescient
+;;   :defer t
+;;   :init (company-prescient-mode 1))
 
 (use-package! ivy
   :config
