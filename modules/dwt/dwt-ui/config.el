@@ -41,7 +41,7 @@
 ;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
 ;; disable global-hl-line
-(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
 ;; load theme in advance
 
