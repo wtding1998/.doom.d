@@ -190,7 +190,7 @@
     ("q" nil "quit"))
   (map! :n "r" #'awesome-fast-switch/body)
 
-  (evil-define-key 'normal 'global "gt" #'awesome-tab-forward-tab)
+  (evil-define-key 'normal 'global "gt" #'awesome-tab-ace-jump)
   (evil-define-key 'normal 'global "gT" #'awesome-tab-backward-tab)
   (evil-define-key 'normal 'global "]t" #'awesome-tab-forward-group)
   (evil-define-key 'normal 'global "[t" #'awesome-tab-backward-group)
@@ -212,6 +212,7 @@
   (map! :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
 
   (define-key global-map (kbd "M-o") #'other-window)
+  (define-key global-map (kbd "M-p") #'+popup/other)
   ;; height
   (if (not IS-MAC)
       (progn
