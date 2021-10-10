@@ -78,10 +78,11 @@
 
 ;; https://emacs-china.org/t/topic/5507
 ;; add path
-(condition-case err
-    (let ((path (with-temp-buffer
-                  (insert-file-contents-literally "~/.path")
-                  (buffer-string))))
-      (setenv "PATH" path)
-      (setq exec-path (append (parse-colon-path path) (list exec-directory))))
-  (error (warn "%s" (error-message-string err))))
+(when IS-MAC
+  (condition-case err
+      (let ((path (with-temp-buffer
+                    (insert-file-contents-literally "~/.path")
+                    (buffer-string))))
+        (setenv "PATH" path)
+        (setq exec-path (append (parse-colon-path path) (list exec-directory))))
+    (error (warn "%s" (error-message-string err)))))
