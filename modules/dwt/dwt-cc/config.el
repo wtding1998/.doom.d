@@ -1,6 +1,6 @@
 ;;; dwt/dwt-cc/config.el -*- lexical-binding: t; -*-
 
-(add-hook 'cc-mode-hook '(lambda () (setq tab-width 4
+(add-hook 'cc-mode-hook #'(lambda () (setq tab-width 4
                                           evil-shift-width 4)))
 
 (after! cc-mode
