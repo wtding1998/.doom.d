@@ -130,7 +130,7 @@
 ;;; disabel tab in completion
 (after! company
   (set-company-backend! 'prog-mode
-    '(company-capf :with company-yasnippet) '(company-dabbrev-code company-keywords company-files) '(company-dabbrev))
+    '(company-capf company-yasnippet company-dabbrev-code) '(company-keywords company-files) '(company-dabbrev))
   (setq +lsp-company-backends '(company-capf :with company-yasnippet))
   ;; (defun dwt/set-company ()
   ;;   (setq company-backends'(company-capf :with company-yasnippet) '(company-dabbrev-code company-keywords company-files) '(company-dabbrev)))
