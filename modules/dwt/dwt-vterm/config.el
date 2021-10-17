@@ -15,13 +15,14 @@
         
   (map! :map vterm-mode-map
         :n "q" #'dwt/vterm-toggle-current-dir)
-  ;; (map! :map vterm-mode-map :i "C-w" #'vterm-send-C-w
-  ;;       :map vterm-mode-map :i "C-u" #'vterm-send-C-u
-  ;;       :map vterm-mode-map :i "C-e" #'vterm-send-C-e
-  ;;       ;; :map vterm-mode-map :i "C-v" #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
-  ;;       :map vterm-mode-map :i "C-v" #'vterm-yank
-  ;;       :map vterm-mode-map :n "p"   #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
-  ;;       :map vterm-mode-map :i "C-a" #'vterm-send-C-a)
+  (map! :map vterm-mode-map :i "C-w" #'vterm-send-C-w
+        :map vterm-mode-map :i "C-u" #'vterm-send-C-u
+        :map vterm-mode-map :i "C-e" #'vterm-send-C-e
+        :map vterm-mode-map :i "C-d" #'vterm-send-C-d
+        ;; :map vterm-mode-map :i "C-v" #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
+        :map vterm-mode-map :i "C-v" #'vterm-yank
+        :map vterm-mode-map :n "p"   #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
+        :map vterm-mode-map :i "C-a" #'vterm-send-C-a)
   ;; (set-popup-rules!
   ;;   '(("^\\*doom:vterm" :size 15 :select t)))
   (when IS-MAC
