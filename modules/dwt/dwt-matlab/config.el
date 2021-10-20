@@ -2,8 +2,7 @@
 (use-package! matlab
   :load-path "~/mycode/matlab-emacs"
   :defer t
-  :hook ((matlab-mode . display-line-numbers-mode)
-         (matlab-mode . hl-todo-mode))
+  :hook ((matlab-mode . hl-todo-mode))
   :init
   (add-to-list 'auto-mode-alist '("\\.m\\'" . matlab-mode))
   :commands (matlab-mode)
@@ -11,6 +10,8 @@
   (load-library "matlab-load")
   (map! :map matlab-mode-map "C-<return>" nil)
   (map! :map matlab-mode-map :localleader "l" :desc "mlint" #'mlint-minor-mode
+                                          "c" :desc "run cell" #'matlab-shell-run-cell
+                                          "r" :desc "run cell" #'matlab-shell-run-region
                                           "s" :desc "shell" #'matlab-shell))
 
 (use-package! mlint

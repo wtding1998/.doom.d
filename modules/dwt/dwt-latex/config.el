@@ -36,6 +36,7 @@
                                    nil
                                    t
                                    :help "For Minted"))
+;; (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t)
   ;; (setq TeX-command-default "XeLaTeX"
   ;;       TeX-save-query nil
   ;;       TeX-show-compilation t)
