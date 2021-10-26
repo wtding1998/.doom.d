@@ -8,7 +8,7 @@
   ;; remove the hack of doom
   ;; (map! :map yas-keymap "<backspace>" nil)
   (map! :leader
-        :desc "yas-visit" "w[" #'
+        :desc "yas-visit" "w[" #'yas-visit-snippet-file
         :desc "yas-new" "w]" #'yas-new-snippet)
   ;;; auto-expand
   (defun my-yas-try-expanding-auto-snippets ()
