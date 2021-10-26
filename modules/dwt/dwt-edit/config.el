@@ -88,12 +88,8 @@
 
         ;; :desc "previous buffer" "[" #'previous-buffer
         ;; :desc "next buffer" "]" #'next-buffer
-        :desc "popup term" "`" #'ivy-resume
-        :desc "popup term" ";" #'counsel-buffer-or-recentf
-        :desc "vterm-yank" "vv" #'vterm-repl-yank
-        ;; winner
-        :desc "winner-undo" "w[" #'winner-undo
-        :desc "winner-redi" "w]" #'winner-redo
+        :desc "ivy-resume" "`" #'ivy-resume
+        :desc "counsel-buffer-or-recentf" ";" #'counsel-buffer-or-recentf
 
         ;; tabs
         :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
