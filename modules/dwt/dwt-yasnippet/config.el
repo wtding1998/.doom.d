@@ -7,7 +7,9 @@
   :config
   ;; remove the hack of doom
   ;; (map! :map yas-keymap "<backspace>" nil)
-
+  (map! :leader
+        :desc "yas-visit" "w[" #'yas-visit-snippet-file
+        :desc "yas-new" "w]" #'yas-new-snippet)
   ;;; auto-expand
   (defun my-yas-try-expanding-auto-snippets ()
     (when yas-minor-mode
@@ -25,14 +27,15 @@
   ;;; disable the warning of yasnippet
   (after! warnings
     (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
-  )
 
-(defun dwt/math-auto-expand-yasnippet ()
-  (interactive)
-  (insert "# condition: (and (texmathp) 'auto)"))
+  (defun dwt/math-auto-expand-yasnippet ()
+    (interactive)
+    (insert "# condition: (and (texmathp) 'auto)"))
 
-(map! (:leader
-      :desc "math auto expand" "ia" #'dwt/math-auto-expand-yasnippet))
+  (map! (:leader)
+        :desc "math auto expand" "ia" #'dwt/math-auto-expand-yasnippet))
+  
+
 
 
 ;; (use-package auto-activating-snippets
