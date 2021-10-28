@@ -32,7 +32,7 @@
     (interactive)
     (insert "# condition: (and (texmathp) 'auto)"))
 
-  (map! (:leader)
+  (map! :leader
         :desc "math auto expand" "ia" #'dwt/math-auto-expand-yasnippet))
   
 
