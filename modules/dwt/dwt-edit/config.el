@@ -43,6 +43,7 @@
         :n "gh" #'+lookup/documentation
         ;; ace jump
         :n "ge" #'awesome-tab-ace-jump
+        :n "zw" #'widen
         :nv "ga" #'evil-avy-goto-char-timer
         :nv "go" #'avy-goto-line
         :v "gC" #'capitalize-region
