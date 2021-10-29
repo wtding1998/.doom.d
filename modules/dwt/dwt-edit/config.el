@@ -156,7 +156,6 @@
 ;;; evil-multiedit
 (use-package! evil-multiedit
   :after evil
-  :no-require t
   :config
   (map! :v "R" #'evil-multiedit-match-all
    :nv "M-d" #'evil-multiedit-match-and-next

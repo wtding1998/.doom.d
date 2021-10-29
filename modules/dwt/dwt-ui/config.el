@@ -112,7 +112,8 @@
           (dwt/doom-font)
           ;; theme for GUI in daemon
           ;; (dwt/load-light-themes)
-          (load-theme 'modus-operandi t nil)
+          ;; (load-theme 'modus-operandi t nil)
+          (load-theme 'notink t nil)
           (when IS-MAC
             (dwt/turn-on-transwin)))
       ;;; theme for TUI in daemon
