@@ -159,6 +159,7 @@
   :config
   (map! :v "R" #'evil-multiedit-match-all
    :nv "M-d" #'evil-multiedit-match-and-next
+   :nv "M-D" #'evil-multiedit-match-and-prev
    :i "M-d" #'evil-multiedit-toggle-marker-here
    :m "<RET>" #'evil-multiedit-toggle-or-restrict-region
    :map evil-multiedit-state-map
