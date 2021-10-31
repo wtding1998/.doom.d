@@ -18,7 +18,7 @@
   ;;; evil-key-binding
   (map! :nvm "Z" #'evil-jump-item
         :nvm "L" #'evil-end-of-line
-        :nvm "H" #'evil-digit-argument-or-evil-beginning-of-line
+        :nvm "H" #'evil-beginning-of-line
         ;; :nvm "J" #'(lambda () (interactive) (evil-next-line 5))
         ;; :nvm "K" #'(lambda () (interactive) (evil-previous-line 5))
         :nvm "J" (kbd "5j")
