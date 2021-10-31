@@ -16,7 +16,7 @@
   (setq rime-user-data-dir "~/.config/fcitx/rime")
   ;; set dir for mac especially
   (when IS-MAC
-    (setq rime-librime-root "~/.emacs.d/librime/dist")
+    (setq rime-librime-root "~/mycode/rime-1.7.2-osx/dist")
     (setq rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@28/28.0.50/include")
     (setq rime-user-data-dir "~/Library/Rime"))
   ;; set UI
