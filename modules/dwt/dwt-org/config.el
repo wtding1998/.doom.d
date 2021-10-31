@@ -54,8 +54,6 @@
   ;;                                     'default)
   ;;                                 :background nil t))))
   ;; (add-to-list 'org-latex-regexps '("\\ce" "^\\\\ce{\\(?:[^\000{}]\\|{[^\000}]+?}\\)}" 0 nil))
-  ;; (use-package! org-fragtog
-  ;;   :hook (org-roam-mode . org-fragtog-mode))
   ;; === templates ===
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
@@ -433,3 +431,7 @@ Creates new notes where none exist yet."
     :config
     (setq ispell-dictionary "en_US"
           ispell-program-name "hunspell")))
+
+(use-package! org-fragtog
+  :after org
+  :hook (org-roam-mode . org-fragtog-mode))
