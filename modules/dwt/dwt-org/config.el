@@ -120,12 +120,12 @@
                  (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Emacs Materials")
                  "* TODO %t %^{title}\n"))
   ;; === cancel bold font in header ===
-  (dolist (face '(org-level-1
-                  org-level-2 org-level-3
-                  org-level-4 org-level-5
-                  org-level-6 org-level-7
-                  org-level-8))
-    (set-face-attribute face nil :weight 'normal))
+  ;; (dolist (face '(org-level-1
+  ;;                 org-level-2 org-level-3
+  ;;                 org-level-4 org-level-5
+  ;;                 org-level-6 org-level-7
+  ;;                 org-level-8))
+  ;;   (set-face-attribute face nil :weight 'normal))
   ;; set scale for latex-preview
   (when dwt/lenovo
     (plist-put org-format-latex-options :scale 2.3))
