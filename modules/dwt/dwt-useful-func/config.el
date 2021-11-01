@@ -86,3 +86,8 @@
         (setenv "PATH" path)
         (setq exec-path (append (parse-colon-path path) (list exec-directory))))
     (error (warn "%s" (error-message-string err)))))
+
+;; speed type
+(use-package! speed-type
+  :commands (speed-type-buffer
+             speed-type-text))
