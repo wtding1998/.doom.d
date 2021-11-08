@@ -214,8 +214,9 @@
 
 (after! org-agenda
   (setq org-agenda-files '("~/OneDrive/Documents/diary/org/agenda.org"
-                           "~/OneDrive/Documents/study note/org/cuhksz.org"
-                           "~/OneDrive/Documents/roam/20210114-tensor_diagonalization.org")))
+                           "~/OneDrive/Documents/study note/org/cuhksz.org")))
+                           ;; "~/OneDrive/Documents/roam/"
+                           ;; "~/OneDrive/Documents/roam/daily/")))
 
 (use-package! org-clock
   :config
@@ -263,7 +264,69 @@
   (setq org-roam-dailies-capture-templates
         '(("d" "default" plain ""
             :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>")))))
+                              "#+title: %<%Y-%m-%d>"))))
+
+  ;; from  https://github.com/d12frosted/vulpea/blob/fd2acf7b8e11dd9c38f9adf862b76db5545a9d51/vulpea-buffer.el
+  (defun vulpea-project-update-tag ()
+      "Update PROJECT tag in the current buffer."
+      (when (and (not (active-minibuffer-window))
+                (vulpea-buffer-p))
+        (save-excursion
+          (if (vulpea-project-p)
+              (org-roam-tag-add '("project"))
+              (if (vulpea-buffer-prop-get "filetags")
+                (if (string-match "project" (vulpea-buffer-prop-get "filetags"))
+                  (org-roam-tag-remove '("project"))))))))
+
+  ;; from https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
+  (defun vulpea-buffer-prop-get (name)
+    "Get a buffer property called NAME as a string."
+    (org-with-point-at 1
+      (when (re-search-forward (concat "^#\\+" name ": \\(.*\\)")
+                              (point-max) t)
+        (let ((value (string-trim
+                      (buffer-substring-no-properties
+                        (match-beginning 1)
+                        (match-end 1)))))
+          (unless (string-empty-p value)
+            value)))))
+
+  (defun vulpea-buffer-p ()
+    "Return non-nil if the currently visited buffer is a note."
+    (and buffer-file-name
+        (string-prefix-p
+          (expand-file-name (file-name-as-directory "~/OneDrive/Documents/roam"))
+          (file-name-directory buffer-file-name))))
+
+  (defun vulpea-project-files ()
+      "Return a list of note files containing 'project' tag." ;
+      (seq-uniq
+        (seq-map
+          #'car
+          (org-roam-db-query
+            [:select [nodes:file]
+              :from tags
+              :left-join nodes
+              :on (= tags:node-id nodes:id)
+              :where (like tag (quote "%\"project\"%"))]))))
+
+  (defun vulpea-project-p ()
+    (seq-find                                 ; (3)
+      (lambda (type)
+        (eq type 'todo))
+      (org-element-map                         ; (2)
+          (org-element-parse-buffer 'headline) ; (1)
+          'headline
+        (lambda (h)
+          (org-element-property :todo-type h)))))
+
+  (defun inject-vulpea-project-files (org-agenda-files--output)
+    (append org-agenda-files--output (vulpea-project-files)))
+
+  (advice-add 'org-agenda-files :filter-return #'inject-vulpea-project-files)
+
+  (add-hook 'before-save-hook #'vulpea-project-update-tag))
+
 ;;; noter
 (use-package! org-noter
   ;; :init
@@ -362,7 +425,7 @@ See `org-noter' for details and ARG usage."
 (use-package! ivy-bibtex
   :init
   (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
-  (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib"))
+  (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   :config
