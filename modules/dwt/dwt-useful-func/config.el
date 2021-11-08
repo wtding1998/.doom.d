@@ -87,6 +87,12 @@
         (setq exec-path (append (parse-colon-path path) (list exec-directory))))
     (error (warn "%s" (error-message-string err)))))
 
+;; weather
+(defun dwt/weather ()
+  "weather based on https://github.com/chubin/wttr.in."
+  (interactive)
+  (eww "zh-cn.wttr.in/longgang?TAFm"))
+
 ;; speed type
 (use-package! speed-type
   :commands (speed-type-buffer
