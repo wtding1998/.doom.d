@@ -261,6 +261,7 @@
 
 ;;; +modeline, light line in doom
 (setq +modeline-height 13)
+(setq-default +modeline-format-right (push " Avoiding is Harder " +modeline-format-right))
 ;; display time modeline
 (unless IS-MAC
   (setq display-time-day-and-date t)
