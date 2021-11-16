@@ -4,6 +4,8 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+  ;;; restore windows after quiting agenda
+  (setq org-agenda-restore-windows-after-quit t)
   ;;; remove hl-line
   (add-hook 'org-mode-hook (lambda () (hl-line-mode -1)))
   ;;; clock
