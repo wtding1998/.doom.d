@@ -97,3 +97,11 @@
 (use-package! speed-type
   :commands (speed-type-buffer
              speed-type-text))
+
+;; (defun dwt/find-package-readme ()
+;;   (interactive)
+;;   (let* ((repos "~/.emacs.d/.local/straight/repos/")
+;;          (packages (directory-files repos))
+;;          (package-name (ivy-read "Package Name: " packages))
+;;          (package-path (concat repos package-name)))
+;;     (find-file (concat package-path "/" "readme.org"))))

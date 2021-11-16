@@ -260,6 +260,7 @@
       (make-directory (concat project-path dir-name))
       (find-file (concat project-path dir-name "/" dir-name ".tex")))))
 
+;;;###autoload
 (defun dwt/new-tex-dir ()
   "Create latex project."
   (interactive)
