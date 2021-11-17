@@ -25,7 +25,8 @@
 ;;                                   ("\\.java\\'" "idea"))
 ;; use & to open pdf
 (after! dired-x
-  (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "zathura"))))
+  (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "zathura")))
+  (setq dired-omit-extensions (delete ".aux" dired-omit-extensions)))
 (setq delete-by-moving-to-trash t)
 (after! dired
   (map! :n "-" #'dired-jump
