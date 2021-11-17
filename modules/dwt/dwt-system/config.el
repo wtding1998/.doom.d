@@ -1,7 +1,9 @@
 ;;; dwt/dwt-wsl2/config.el -*- lexical-binding: t; -*-
 
 (defvar dwt/system-default "explorer.exe")
-(if IS-MAC
+(when IS-MAC
+    (+macos--open-with open-in-terminal "Terminal" default-directory)
+    (map! :leader :desc "open in terminal" "ot" #'+macos/open-in-terminal)
     (setq dwt/system-default "open"))
 
 ;; open url by windows explorer
