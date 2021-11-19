@@ -11,6 +11,10 @@
         :map pdf-view-mode-map :n "C-j" #'pdf-history-forward
         :map pdf-view-mode-map :n "C-k" #'pdf-history-backward))
 
+(use-package! pdf-view
+  :hook (pdf-tools-enabled . pdf-view-themed-minor-mode)
+  :hook (pdf-tools-enabled . pdf-view-auto-slice-minor-mode))
+
 ;;;###autoload
 (defun dwt/open-by-zathura ()
   (interactive)
