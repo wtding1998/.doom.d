@@ -337,17 +337,14 @@
   :config
   (setq org-noter-auto-save-last-location t)
   (map! :map org-noter-doc-mode-map
-        :localleader
-        "q" #'org-noter-kill-session
-        "i" #'org-noter-insert-note
-        "I" #'org-noter-insert-precise-note)
-  (map! :map org-noter-doc-mode-map
         :nvi "ni" #'org-noter-insert-note
         :nvi "nI" #'org-noter-insert-precise-note
         :nvi "i" #'org-noter-insert-note
         :nvi "I" #'org-noter-insert-precise-note
         :nvi "nq" #'org-noter-kill-session)
   (map! :map org-noter-notes-mode-map
+        :nv "I" #'org-noter-sync-current-note
+        :nv "J" #'other-window
         :nv "ni" #'org-noter-sync-current-note
         :nv "nq" #'org-noter-kill-session))
 

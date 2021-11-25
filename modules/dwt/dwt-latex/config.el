@@ -19,7 +19,8 @@
   :hook (cdlatex-mode . (lambda()
                           (define-key cdlatex-mode-map (kbd "(") nil)))
   :config
-  (define-key cdlatex-mode-map (kbd "<C-return>") nil)
+  (setq cdlatex-insert-auto-labels-in-env-templates nil)
+  ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
   (defun dwt/latex-indent-align ()
     (interactive)
     (call-interactively #'evil-indent)
