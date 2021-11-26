@@ -124,7 +124,7 @@
   (if (display-graphic-p)
       ;; font and theme for GUI in single emacs
       (progn
-        (dwt/load-light-themes)
+        (load-theme 'notink t nil)
         (dwt/doom-font))
     ;; theme for TUI in single emacs
     (load-theme 'doom-tomorrow-night t nil)))
