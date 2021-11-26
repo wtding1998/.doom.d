@@ -302,8 +302,10 @@
 ;;                        (+latex-symbols-company-backend company-auctex-macros company-auctex-environments)
 ;;                        company-dabbrev company-yasnippet company-ispell company-capf)
 (add-to-list '+latex--company-backends #'company-yasnippet nil #'eq)
+(add-to-list '+latex--company-backends #'company-auctex-macros nil #'eq)
 (add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
-(add-to-list '+latex--company-backends #'company-capf nil #'eq)
+(add-to-list '+latex--company-backends #'company-math-symbols-latex nil #'eq)
+
 ;; new:
 (after! latex
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4)))
