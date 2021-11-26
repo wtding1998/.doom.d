@@ -10,6 +10,7 @@
   (map! :leader
         :desc "yas-visit" "w[" #'yas-visit-snippet-file
         :desc "yas-new" "w]" #'yas-new-snippet)
+  (setq yas-also-indent-empty-lines t)
   ;;; auto-expand
   (defun my-yas-try-expanding-auto-snippets ()
     (when yas-minor-mode

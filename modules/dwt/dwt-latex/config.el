@@ -28,6 +28,14 @@
   (map! :map cdlatex-mode-map :n "=" #'dwt/latex-indent-align))
 
 (after! tex
+
+  ;; (use-package! popweb
+  ;;   :load-path ("~/.emacs.d/.local/straight/repos/popweb/extension/latex"
+  ;;               "~/.emacs.d/.local/straight/repos/popweb")
+  ;;   :config
+  ;;   (require 'popweb-latex)
+  ;;   (add-hook 'latex-mode-hook #'popweb-latex-mode))
+
   (set-popup-rules!
     ;; '(("^\\*Python*" :side right :size 15 :select t)))
     '(("^\\*TeX Help*" :size 15)))
