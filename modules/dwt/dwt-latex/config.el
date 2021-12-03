@@ -284,11 +284,12 @@
 (defun dwt/latex-double-quote ()
   (interactive)
   (let ((input-key (edmacro-format-keys (vector (read-key "input:")))))
-    (if (string-equal input-key "\"")
-        (call-interactively #'cdlatex-math-modify)
-      (if (string-equal input-key "SPC")
-          (insert " ")
-          (insert input-key)))))
+    (when (string-equal input-key "\"")
+        (insert "\"\"")
+        (backward-char))
+    (when (string-equal input-key "SPC")
+        (insert " ")
+        (insert input-key))))
 
 
 (map! :leader
