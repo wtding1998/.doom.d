@@ -194,7 +194,6 @@
 
 (use-package! org-roam
   :init
-  (setq org-roam-directory "~/org/roam")
   (setq org-roam-v2-ack t)
   (map! :leader "of" #'org-roam-node-find
                 "oi" #'org-roam-node-insert
