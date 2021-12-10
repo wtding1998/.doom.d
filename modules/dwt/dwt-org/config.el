@@ -180,39 +180,7 @@
   (defun dwt/preview-all-latex ()
     (interactive)
     (let ((current-prefix-arg '(16)))
-      (call-interactively #'org-latex-preview)))
-  ;; (require 'dash)
-
-  (defvar-local +org-last-in-latex nil)
-
-  (defun +org-post-command-hook ()
-    (ignore-errors
-      (let ((in-latex (and (derived-mode-p  'org-mode)
-                           (or (org-inside-LaTeX-fragment-p)
-                               (org-inside-latex-macro-p)))))
-        (if (and +org-last-in-latex (not in-latex))
-            (progn (org-latex-preview)
-                   (setq +org-last-in-latex nil)))
-
-        (when-let ((ovs (overlays-at (point))))
-          (when (->> ovs
-                  (--map (overlay-get it 'org-overlay-type))
-                  (--filter (equal it 'org-latex-overlay)))
-            (org-latex-preview)
-            (setq +org-last-in-latex t)))
-
-        (when in-latex
-          (setq +org-last-in-latex t)))))
-
-  (define-minor-mode org-latex-auto-toggle
-    "Auto toggle latex overlay when cursor enter/leave."
-    nil
-    nil
-    nil
-    (if org-latex-auto-toggle
-        (add-hook 'post-command-hook '+org-post-command-hook nil t)
-      (remove-hook 'post-command-hook '+org-post-command-hook t)))
-  (map! :leader "ta" #'org-latex-auto-toggle))
+      (call-interactively #'org-latex-preview))))
 
 (after! org-agenda
   (setq org-agenda-files '("~/OneDrive/Documents/diary/org/agenda.org"
@@ -228,14 +196,6 @@
   :init
   (setq org-roam-directory "~/org/roam")
   (setq org-roam-v2-ack t)
-  ;; (map! :leader :prefix ("nr" . "roam")
-  ;;       "f" #'org-roam-node-find
-  ;;       "i" #'org-roam-node-insert
-  ;;       "t" #'org-roam-buffer-toggle
-  ;;       "a" #'org-roam-tag-add
-  ;;       "A" #'org-roam-tag-remove
-  ;;       "d" #'org-roam-dailies-goto-today
-  ;;       "e" #'org-roam-dailies-goto-date)
   (map! :leader "of" #'org-roam-node-find
                 "oi" #'org-roam-node-insert
                 "oc" #'org-roam-capture
@@ -407,10 +367,6 @@ See `org-noter' for details and ARG usage."
             (deferred:error it #'zotxt--deferred-handle-error)))))))
 
 
-;; (let ((org-id-files (org-roam--list-files org-roam-directory))
-;;       org-agenda-files)
-;;   (org-id-update-id-locations))
-
 (use-package! ox-hugo
   :after ox)
 
@@ -442,21 +398,6 @@ See `org-noter' for details and ARG usage."
     (interactive)
     (let ((ivy-bibtex-default-action 'ivy-bibtex-open-pdf))
       (call-interactively #'ivy-bibtex))))
-
-  ;; (defun dwt/new-note (CANDIDATE)
-  ;;   (ivy-bibtex-edit-notes CANDIDATE)
-  ;;   (call-interactively #'dwt/insert-org-noter-heading))
-  ;; (defun dwt/insert-org-noter-heading ()
-  ;;   (interactive)
-  ;;   (let* ((cite-key (file-name-base (buffer-name))))
-  ;;         (path (car (bibtex-completion-find-pdf-in-field cite-key)))
-  ;;     (org-entry-put nil org-noter-property-doc-file path))))
-
-;; (use-package! org-clock-watch
-;;   :load-path "~/.emacs.d/.local/straight/repos/org-clock-watch"
-;;   :init
-;;   ;; (setq org-clock-x11idle-program-name "xprintidle")
-;;   (setq org-clock-watch-work-plan-file-path "~/D/OneDrive/Documents/diary/org/agenda.org"))
 
 ;;;###autoload
 (defun dwt/bibtex-completion-edit-notes(keys)
