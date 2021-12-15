@@ -1,18 +1,9 @@
 ;; ;;; dwt/latex/config.el -*- lexical-binding: t; -*-
 
 
-;; === latex ===
+;; === latex init ===
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 (add-hook 'LaTeX-mode-hook 'hl-todo-mode)
-;; (add-hook! LaTeX-mode
-
-;;; use xetex ass default engine
-(setq-default TeX-engine 'xetex
-              TeX-PDF-mode t)
-;;; auctex preview scale
-(after! preview
-  (unless IS-MAC
-    (setq-default preview-scale 2.5)))
 
 (use-package! cdlatex
   :defer t
@@ -28,14 +19,19 @@
   (map! :map cdlatex-mode-map :n "=" #'dwt/latex-indent-align))
 
 (after! tex
-
   ;; (use-package! popweb
   ;;   :load-path ("~/.emacs.d/.local/straight/repos/popweb/extension/latex"
   ;;               "~/.emacs.d/.local/straight/repos/popweb")
   ;;   :config
   ;;   (require 'popweb-latex)
   ;;   (add-hook 'latex-mode-hook #'popweb-latex-mode))
-
+  ;;; use xetex ass default engin
+  (setq-default TeX-engine 'xetex
+                TeX-PDF-mode t)
+  ;;; auctex preview scale
+  (after! preview
+    (unless IS-MAC
+      (setq-default preview-scale 2.5)))
   (set-popup-rules!
     ;; '(("^\\*Python*" :side right :size 15 :select t)))
     '(("^\\*TeX Help*" :size 15)))
@@ -49,26 +45,13 @@
   ;; (setq TeX-command-default "XeLaTeX"
   ;;       TeX-save-query nil
   ;;       TeX-show-compilation t)
- (add-to-list
-  'TeX-command-list
-  '("DVI2PDF"
-    "dvipdf %d"
-    TeX-run-command
-    nil                              ; ask for confirmation
-    t                                ; active in all modes
-    :help "Convert DVI->PDF"))
+ (add-to-list 'TeX-command-list '("DVI2PDF"
+                                  "dvipdf %d"
+                                  TeX-run-command
+                                  nil                              ; ask for confirmation
+                                  t                                ; active in all modes
+                                  :help "Convert DVI->PDF"))
  (setq TeX-source-correlate-start-server t)
- ;; (if IS-MAC
- ;;   (add-to-list 'TeX-view-program-list
- ;;               '("zathura"
- ;;                 ("zathura "
- ;;                   (mode-io-correlate " ")
- ;;                   "%o")
- ;;                 "zathura")))
-
-;; (add-to-list 'TeX-view-program-list
-;;             '("zathura" "zathura --page=%(outpage) %o"))
- ;; (add-to-list 'TeX-view-program-selection '(output-pdf "zathura"))
  (when IS-MAC
    (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
    ;; FIXME: if the cursor is in the usepackage, will get error
@@ -91,167 +74,169 @@
 
  (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
   ;; TODO add // in outer-name
- (define-and-bind-text-object "-" "&" "&"))
+ (define-and-bind-text-object "-" "&" "&"
 
+  (defun dwt/find-math-next()
+    "Goto the next math environment in tex buffer."
+    (interactive)
+    (while (texmathp)
+      (evil-forward-word-begin))
+    (while (not (texmathp))
+      (evil-forward-word-begin)))
 
+  (defun dwt/find-math-prev()
+    "Goto the last math environment in tex buffer."
+    (interactive)
+    (while (texmathp)
+      (evil-backward-word-begin))
+    (while (not (texmathp))
+      (evil-backward-word-begin)))
 
-  ;;;###autoload
-(defun dwt/find-math-next()
-  "Goto the next math environment in tex buffer."
-  (interactive)
-  (while (texmathp)
-    (evil-forward-word-begin))
-  (while (not (texmathp))
-    (evil-forward-word-begin)))
+  (defun dwt/insert-inline-math-env ()
+    "Insert a pair of dollar when texmathp returns false. If there is a word at point, also wrap it."
+    (interactive)
+    (when (derived-mode-p 'tex-mode)
+      (if (not (texmathp))
+          (progn
+            (if (thing-at-point 'word)
+                (progn
+                  (call-interactively #'backward-word)
+                  (insert "$")
+                  (call-interactively #'forward-word)
+                  (insert "$")
+                  (left-char 1))
 
-  ;;;###autoload
-(defun dwt/find-math-prev()
-  "Goto the last math environment in tex buffer."
-  (interactive)
-  (while (texmathp)
-    (evil-backward-word-begin))
-  (while (not (texmathp))
-    (evil-backward-word-begin)))
-
-;; (defun dwt/insert-dollar ()
-;;   (interactive)
-;;   (unless (texmathp)
-;;     (insert "$$")
-;;     (left-char)))
-;; TODO set \( \) to be dollar in org-mode
-(defun dwt/insert-inline-math-env ()
-  "Insert a pair of dollar when texmathp returns false. If there is a word at point, also wrap it."
-  (interactive)
-  (when (derived-mode-p 'tex-mode)
-    (if (not (texmathp))
+              (insert "$$")
+              (left-char 1)))
         (progn
-          (if (thing-at-point 'word)
-              (progn
-                (call-interactively #'backward-word)
-                (insert "$")
-                (call-interactively #'forward-word)
-                (insert "$")
-                (left-char 1))
-                
-            (insert "$$")
-            (left-char 1)))
-      (progn
-        (call-interactively #'cdlatex-math-modify))))
-  (when (derived-mode-p 'org-mode)
-    (if (not (texmathp))
+          (call-interactively #'cdlatex-math-modify))))
+    (when (derived-mode-p 'org-mode)
+      (if (not (texmathp))
+          (progn
+            (if (thing-at-point 'word)
+                (progn
+                  (call-interactively #'backward-word)
+                  (insert "\\(")
+                  (call-interactively #'forward-word)
+                  (insert " \\)")
+                  (left-char 3))
+
+              (insert "\\( \\)")
+              (left-char 3)))
         (progn
-          (if (thing-at-point 'word)
-              (progn
-                (call-interactively #'backward-word)
-                (insert "\\(")
-                (call-interactively #'forward-word)
-                (insert " \\)")
-                (left-char 3))
-                
-            (insert "\\( \\)")
-            (left-char 3)))
+          (call-interactively #'cdlatex-math-modify)))))
+
+  (defun dwt/insert-superscript ()
+    "If it's in math environment, insert a superscript, otherwise insert dollar and also wrap the word at point"
+    (interactive)
+    (if (texmathp)
+        (progn
+          (insert "^{}")
+          (left-char))
       (progn
-        (call-interactively #'cdlatex-math-modify)))))
+        (if (thing-at-point 'word)
+            (progn
+              (call-interactively #'backward-word)
+              (insert "$")
+              (call-interactively #'forward-word)
+              (insert "^{}$")
+              (left-char 2))
 
-(defun dwt/insert-superscript ()
-  "If it's in math environment, insert a superscript, otherwise insert dollar and also wrap the word at point"
-  (interactive)
-  (if (texmathp)
+          (insert "$^{}$")
+          (left-char 4)))))
+
+  (defun dwt/insert-subscript ()
+    "If it's in math environment, insert a subscript, otherwise insert dollar and also wrap the word at point"
+    (interactive)
+    (if (texmathp)
+        (progn
+          (insert "_{}")
+          (left-char))
       (progn
-        (insert "^{}")
-        (left-char))
-    (progn
-      (if (thing-at-point 'word)
-          (progn
-            (call-interactively #'backward-word)
-            (insert "$")
-            (call-interactively #'forward-word)
-            (insert "^{}$")
-            (left-char 2))
-            
-        (insert "$^{}$")
-        (left-char 4)))))
+        (if (thing-at-point 'word)
+            (progn
+              (call-interactively #'backward-word)
+              (insert "$")
+              (call-interactively #'forward-word)
+              (insert "_{}$")
+              (left-char 2))
 
-(defun dwt/insert-subscript ()
-  "If it's in math environment, insert a subscript, otherwise insert dollar and also wrap the word at point"
-  (interactive)
-  (if (texmathp)
+          (insert "$_{}$")
+          (left-char 4)))))
+
+  (defun dwt/insert-space ()
+    "Wrap a single char with inline math"
+    (interactive)
+    (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
+      (let ((length-current-word (length (word-at-point))))
+        (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
+            (progn
+              (call-interactively #'backward-word)
+              (insert "\\( ")
+              (call-interactively #'forward-word)
+              (insert " \\)")
+              (backward-char 3))
+          (insert " ")))
+      (insert " ")))
+
+  (defun dwt/insert-transpose ()
+    "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
+    (interactive)
+    (if (texmathp)
+        (progn
+          (insert "^{t}"))
       (progn
-        (insert "_{}")
-        (left-char))
-    (progn
-      (if (thing-at-point 'word)
-          (progn
-            (call-interactively #'backward-word)
-            (insert "$")
-            (call-interactively #'forward-word)
-            (insert "_{}$")
-            (left-char 2))
-            
-        (insert "$_{}$")
-        (left-char 4)))))
+        (if (thing-at-point 'word)
+            (progn
+              (call-interactively #'backward-word)
+              (insert "$")
+              (call-interactively #'forward-word)
+              (insert "^{T}$"))
+          (insert "$^{T}$"))
+        (left-char))))
 
-(defun dwt/insert-space ()
-  "Wrap a single char with inline math"
-  (interactive)
-  (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
-    (let ((length-current-word (length (word-at-point))))
-      (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
-          (progn
-            (call-interactively #'backward-word)
-            (insert "\\( ")
-            (call-interactively #'forward-word)
-            (insert " \\)")
-            (backward-char 3))
-        (insert " ")))
-    (insert " ")))
+  (map! :map LaTeX-mode-map
+        :n "<RET>" #'(lambda () (interactive) (when (texmathp))
+                                              (call-interactively #'preview-at-point))
+        :localleader
+        :desc "View" "v" #'TeX-view
+        :desc "Output" "o" #'TeX-recenter-output-buffer
+        :desc "Error" "e" #'TeX-next-error
+        :desc "View by pdf-tools" "d" #'dwt/view-pdf-by-pdf-tools
+        :desc "Run" "C" #'dwt/latex-file
+        :desc "Run" "c" #'dwt/TeX-save-and-run-all
+        :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
+        :desc "Preview Environment" "e" #'preview-environment
+        :desc "Preview Buffer" "b" #'preview-buffer
+        :desc "Preview at Point" "p" #'preview-at-point
+        :desc "Clean preview" "R" #'preview-clearout-buffer
+        :desc "Clean preview" "r" #'preview-clearout-at-point
+        :desc "Master" "m" #'TeX-command-master
+        :desc "Input String" "s" #'dwt/insert
+        ;; :desc "Command" "c" "TeX-command-master"
+        :desc "toc" "=" #'reftex-toc
+        :desc "goto label" "l" #'reftex-goto-label)
 
-(defun dwt/insert-transpose ()
-  "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
-  (interactive)
-  (if (texmathp)
-      (progn
-        (insert "^{t}"))
-    (progn
-      (if (thing-at-point 'word)
-          (progn
-            (call-interactively #'backward-word)
-            (insert "$")
-            (call-interactively #'forward-word)
-            (insert "^{T}$"))
-        (insert "$^{T}$"))
-      (left-char))))
+  (defun dwt/TeX-save-and-run-all ()
+    (interactive)
+    (save-buffer)
+    (call-interactively #'TeX-command-run-all))
 
-(map! :map LaTeX-mode-map
-      :n "<RET>" #'(lambda () (interactive) (when (texmathp)
-                                             (call-interactively #'preview-at-point))))
-(map!
- :map LaTeX-mode-map
- (
-  :localleader
-  :desc "View" "v" #'TeX-view
-  :desc "Output" "o" #'TeX-recenter-output-buffer
-  :desc "Error" "e" #'TeX-next-error
-  :desc "View by pdf-tools" "d" #'dwt/view-pdf-by-pdf-tools
-  :desc "Run" "C" #'dwt/latex-file
-  :desc "Run" "c" #'dwt/TeX-save-and-run-all
-  :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
-  :desc "Preview Environment" "e" #'preview-environment
-  :desc "Preview Buffer" "b" #'preview-buffer
-  :desc "Preview at Point" "p" #'preview-at-point
-  :desc "Clean preview" "R" #'preview-clearout-buffer
-  :desc "Clean preview" "r" #'preview-clearout-at-point
-  :desc "Master" "m" #'TeX-command-master
-  :desc "Input String" "s" #'dwt/insert
-  ;; :desc "Command" "c" "TeX-command-master"
-  :desc "toc" "=" #'reftex-toc
-  :desc "goto label" "l" #'reftex-goto-label))
 
-;;;###autoload
-(defun dwt/TeX-save-and-run-all ()
-  (interactive)
-  (save-buffer)
-  (call-interactively #'TeX-command-run-all))
+  (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
+
+  (defun dwt/latex-double-quote ()
+    (interactive)
+    (let ((input-key (edmacro-format-keys (vector (read-key "input:")))))
+      (if (string-equal input-key "\"")
+        (progn (insert "\"\"")
+              (backward-char))
+        (if (string-equal input-key ":")
+            (insert ":")
+            (if (string-equal input-key "SPC")
+                (insert " ")
+                (insert input-key))))))))
+
 
 ;;;###autoload
 (defun dwt/new-tex-dir-project ()
@@ -273,30 +258,17 @@
 (defun dwt/new-tex-dir ()
   "Create latex project."
   (interactive)
-  (let* ((dir-path (counsel-read-directory-name "Path of project: "))
-         (project-name (read-from-minibuffer "Name of project: "))
-         (project-path (concat dir-path project-name)))
+  (let* ((dir-path (counsel-read-directory-name "Path of project: ")))
+        (project-name (read-from-minibuffer "Name of project: "))
+        (project-path (concat dir-path project-name))
     (message project-path)
     (make-directory project-name dir-path)
     (find-file (concat project-path "/" project-name ".tex"))))
 
-;;;###autoload
-(defun dwt/latex-double-quote ()
-  (interactive)
-  (let ((input-key (edmacro-format-keys (vector (read-key "input:")))))
-    (if (string-equal input-key "\"")
-      (progn (insert "\"\"")
-             (backward-char))
-      (if (string-equal input-key ":")
-          (insert ":")
-          (if (string-equal input-key "SPC")
-              (insert " ")
-              (insert input-key))))))
-
-
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-tex-dir
       :desc "New TeX dir in project" "oL" #'dwt/new-tex-dir-project)
+
 (set-company-backend! 'latex-mode '(+latex--company-backends company-dabbrev company-yasnippet))
 ;; set company-backends
 ;; default:
@@ -309,53 +281,20 @@
 (add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
 (add-to-list '+latex--company-backends #'company-math-symbols-latex nil #'eq)
 
-;; new:
-(after! latex
-  (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4)))
+(after! cdlatex
+  (map! :map cdlatex-mode-map
+        :i "<SPC>" #'dwt/insert-space
+        :i "\"" #'dwt/latex-double-quote
+        :i ";" #'dwt/insert-subscript
+        :i ":" #'dwt/insert-superscript
+        :i "M-n" #'cdlatex-tab
+        :nv "}" #'dwt/find-math-next
+        :nv "{" #'dwt/find-math-prev)
 
-(map! :map cdlatex-mode-map
-      ;; :i "\";" #'(lambda () (interactive) (insert ";"))
-      ;; :i "\"_" #'(lambda () (interactive) (insert "_"))
-      ;; :i "\"$" #'(lambda () (interactive) (insert "$"))
-      ;; :i "\":" #'(lambda () (interactive) (insert ":"))
-      ;; :i "\"" #'dwt/insert-inline-math-env)
-      ;; :i "\"'" #'(lambda () (interactive) (insert "'"))
-      :i "<SPC>" #'dwt/insert-space
-      :i "\"" #'dwt/latex-double-quote
-      :i ";" #'dwt/insert-subscript
-      ;; :i "'" #'dwt/insert-inline-math-env
-      :i ":" #'dwt/insert-superscript
-      :i "M-n" #'cdlatex-tab
-      :nv "}" #'dwt/find-math-next
-      :nv "{" #'dwt/find-math-prev)
-
-;; (map! :map cdlatex-mode-map
-      ;; :i ")" (lambda () (interactive) (insert "0"))
-      ;; :i "(" (lambda () (interactive) (insert "9"))
-      ;; :i "0" (lambda () (interactive) (insert ")"))
-      ;; :i "9" (lambda () (interactive) (insert "()") (backward-char 1)))
-
-
-
-;;;###autoload
-(defun dwt/insert (input-string)
-  "Input string"
-  (interactive "sEnter String: ")
-  (insert input-string))
-
-
-;; this setting failed
-;; TODO: add synctex forward and backward
-;; (after! tex
-;; (add-to-list 'TeX-view-program-list
-;;              '("Zathura"
-;;                ("zathura "
-;;                 (mode-io-correlate " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\" ")
-;;                 " %o")
-;;                "zathura"))
-;; (add-to-list 'TeX-view-program-selection
-;;              '(output-pdf "Zathura")))
-
+  (defun dwt/insert (input-string)
+    "Input string"
+    (interactive "sEnter String: ")
+    (insert input-string)))
 
 ;;; reftex
 (use-package! reftex-toc
@@ -377,24 +316,21 @@
   (setq! reftex-toc-follow-mode t
          reftex-toc-split-windows-horizontally t
          reftex-toc-split-windows-fraction 0.25))
-   
 
-;;; find next or previous math environment
-
-(use-package! org-latex-impatient
-  ;; :defer t
-  ;; :hook (org-mode . org-latex-impatient-mode)
-  :init
-  (setq org-latex-impatient-tex2svg-bin
-        ;; location of tex2svg executable
-        "~/node_modules/mathjax-node-cli/bin/tex2svg")
-;; ("\\newcommand{\\ensuremath}[1]{#1}" "\\renewcommand{\\usepackage}[2][]{}")
-  (setq org-latex-impatient-user-latex-definitions '("\\newcommand{\\contr}[1]{\\mathop{\\bullet_{#1}}}" "\\newcommand{\\tens}[1]{\\boldsymbol{\\mathcal{#1}}}" "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
-  (setq org-latex-impatient-border-width 0)
-  ;; (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
-  ;; (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
-  (unless IS-MAC
-    (setq org-latex-impatient-scale 1.5)))
+;; (use-package! org-latex-impatient
+;;   ;; :defer t
+;;   ;; :hook (org-mode . org-latex-impatient-mode)
+;;   :init
+;;   (setq org-latex-impatient-tex2svg-bin
+;;         ;; location of tex2svg executable
+;;         "~/node_modules/mathjax-node-cli/bin/tex2svg")
+;; ;; ("\\newcommand{\\ensuremath}[1]{#1}" "\\renewcommand{\\usepackage}[2][]{}")
+;;   (setq org-latex-impatient-user-latex-definitions '("\\newcommand{\\contr}[1]{\\mathop{\\bullet_{#1}}}" "\\newcommand{\\tens}[1]{\\boldsymbol{\\mathcal{#1}}}" "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
+;;   (setq org-latex-impatient-border-width 0)
+;;   ;; (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
+;;   ;; (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
+;;   (unless IS-MAC
+;;     (setq org-latex-impatient-scale 1.5)))
 ;;
 (after! cdlatex
   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
@@ -432,6 +368,7 @@
      (?A    "\\abs"           nil          t    nil  nil))))
 
 (use-package! evil-tex
+  :after tex
   :config
   (cl-destructuring-bind (inner-map . outer-map)
       (if (and (boundp  'evil-surround-local-inner-text-object-map-list)
