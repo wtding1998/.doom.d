@@ -130,76 +130,32 @@
   ;;   (set-face-attribute face nil :weight 'normal))
   ;; set scale for latex-preview
   (when dwt/lenovo
-    (plist-put org-format-latex-options :scale 2.3))
-  ;; set app
-  (setq org-file-apps
-        '((auto-mode . emacs)
-          ("\\.pdf::\\([0-9]+\\)?\\'" . "zathura %s -P %1")
-          ("\\.pdf\\'" . "zathura %s")
-          (directory . emacs)))
-
-
-  (defun dwt/toggle-all-fragments ()
-    (interactive)
-    (call-interactively 'or))
-
-  (defun dwt/insert-inline-math ()
-    "insert inline math when texmathp returns false. if there is a word at point, also wrap it."
-    (interactive)
-    (if (not (texmathp))
-        (progn
-          (if (thing-at-point 'word)
-              (progn
-                (call-interactively #'backward-word)
-                (insert "\\(")
-                (call-interactively #'forward-word)
-                (insert "\\)")
-                (left-char 2))
-
-            (insert "\\(\\)")
-            (left-char 2)))
-      (progn
-        (call-interactively #'cdlatex-math-modify))))
-
-  ;; (defun dwt/latex-quote ()
-  ;;   (interactive)
-  ;;   (let ((enter-char
-  ;;          (read-string "Enter Char: ")))
-  ;;     (if (string-equal enter-char "\"")
-  ;;         (call-interactively 'cdlatex-math-modify-prefix)
-  ;;       (insert enter-char))))
-
-  (defun dwt/tab-in-org ()
-    "If cannot expand snippet, then use cdlatex-tab."
-    (interactive)
-    (unless (call-interactively 'yas-expand)
-      (call-interactively 'cdlatex-tab)))
+    (plist-put org-format-latex-options :scale 2.3)
+    ;; set app
+    (setq org-file-apps
+          '((auto-mode . emacs)
+            ("\\.pdf::\\([0-9]+\\)?\\'" . "zathura %s -P %1")
+            ("\\.pdf\\'" . "zathura %s")
+            (directory . emacs))))
 
   (set-company-backend! 'org-mode '(company-math-symbols-latex company-latex-commands company-yasnippet company-dabbrev))
 
   (defun dwt/preview-all-latex ()
     (interactive)
     (let ((current-prefix-arg '(16)))
-      (call-interactively #'org-latex-preview))))
-
-(after! org-agenda
+      (call-interactively #'org-latex-preview)))
+  ;; org-agenda
   (setq org-agenda-files '("~/OneDrive/Documents/diary/org/agenda.org"
-                           "~/OneDrive/Documents/study note/org/cuhksz.org")))
-                           ;; "~/OneDrive/Documents/roam/"
-                           ;; "~/OneDrive/Documents/roam/daily/")))
-
-(use-package! org-clock
-  :config
+                           "~/OneDrive/Documents/study note/org/cuhksz.org"))
+  ;; org-clock
   (setq org-clock-mode-line-total 'today))
 
-(use-package! org-roam
-  :init
-  (setq org-roam-v2-ack t)
-  (map! :leader "of" #'org-roam-node-find
-                "oi" #'org-roam-node-insert
-                "oc" #'org-roam-capture
-                "oC" #'org-roam-dailies-goto-today)
-  :config
+;; roam
+(map! :leader "of" #'org-roam-node-find
+              "oi" #'org-roam-node-insert
+              "oc" #'org-roam-capture
+              "oC" #'org-roam-dailies-goto-today)
+(after! org-roam
   (defun dwt/org-roam-fix-hash ()
     "fix error: org-id-add-location: Wrong type argument: hash-table-p, nil"
     (interactive)
@@ -289,11 +245,7 @@
   (add-hook 'before-save-hook #'vulpea-project-update-tag))
 
 ;;; noter
-(use-package! org-noter
-  ;; :init
-  ;; (add-hook 'org-noter-notes-mode-hook #'cdlatex-mode)
-  ;; (add-hook 'org-noter-notes-mode-hook #'org-latex-impatient-mode)
-  :config
+(after! org-noter
   (setq org-noter-auto-save-last-location t)
   (map! :map org-noter-doc-mode-map
         :nvi "ni" #'org-noter-insert-note
@@ -307,63 +259,63 @@
         :nv "ni" #'org-noter-sync-current-note
         :nv "nq" #'org-noter-kill-session))
 
-(use-package! org-zotxt
-  :after org
-  :init
-  (defun dwt/open-zotero ()
-    (interactive)
-    (shell-command "zotero &"))
+;; (use-package! org-zotxt
+;;   :after org
+;;   :init
+;;   (defun dwt/open-zotero ()
+;;     (interactive)
+;;     (shell-command "zotero &"))
 
-  (map! :map org-mode-map
-        :n "zE" #'org-zotxt-mode
-        :n "ze" #'org-zotxt-noter
-        :localleader
-        "zE" #'org-zotxt-mode
-        "ze" #'org-zotxt-noter
-        "za" #'org-zotxt-open-attachment
-        :desc "zotero" "zt" #'dwt/open-zotero
-        "zi" #'org-zotxt-insert-reference-link)
-  :config
-  (add-to-list 'org-link-parameters '("zotero" :follow org-zotxt-open-attachment))
-  ;;TODO bibtex-completion-find-pdf-in-field
-  (defun org-zotxt-noter (arg)
-    "Like `org-noter', but use Zotero.
+;;   (map! :map org-mode-map
+;;         :n "zE" #'org-zotxt-mode
+;;         :n "ze" #'org-zotxt-noter
+;;         :localleader
+;;         "zE" #'org-zotxt-mode
+;;         "ze" #'org-zotxt-noter
+;;         "za" #'org-zotxt-open-attachment
+;;         :desc "zotero" "zt" #'dwt/open-zotero
+;;         "zi" #'org-zotxt-insert-reference-link)
+;;   :config
+;;   (add-to-list 'org-link-parameters '("zotero" :follow org-zotxt-open-attachment))
+;;   ;;TODO bibtex-completion-find-pdf-in-field
+;;   (defun org-zotxt-noter (arg)
+;;     "Like `org-noter', but use Zotero.
 
-If no document path propery is found, will prompt for a Zotero
-search to choose an attachment to annotate, then calls `org-noter'.
+;; If no document path propery is found, will prompt for a Zotero
+;; search to choose an attachment to annotate, then calls `org-noter'.
 
-If a document path property is found, simply call `org-noter'.
+;; If a document path property is found, simply call `org-noter'.
 
-See `org-noter' for details and ARG usage."
-    (interactive "P")
-    (require 'org-noter nil t)
-    (unless (eq major-mode 'org-mode)
-      (error "Org mode not running"))
-    (unless (fboundp 'org-noter)
-      (error "`org-noter' not installed"))
-    (if (org-before-first-heading-p)
-        (error "`org-zotxt-noter' must be issued inside a heading"))
-    (let* ((document-property (org-entry-get nil org-noter-property-doc-file (not (equal arg '(4)))))
-           (document-path (when (stringp document-property) (expand-file-name document-property))))
-      (if (and document-path (not (file-directory-p document-path)) (file-readable-p document-path))
-          (call-interactively #'org-noter)
-        (let ((arg arg))
-          (deferred:$
-            (zotxt-choose-deferred)
-            (deferred:nextc it
-              (lambda (item-ids)
-                (zotxt-get-item-deferred (car item-ids) :paths)))
-            (deferred:nextc it
-              (lambda (item)
-                (org-zotxt-get-item-link-text-deferred item)))
-            (deferred:nextc it
-              (lambda (resp)
-                (let ((path (org-zotxt-choose-path (cdr (assq 'paths (plist-get resp :paths))))))
-                  ;; (org-entry-put nil org-zotxt-noter-zotero-link (org-zotxt-make-item-link resp))
-                  (insert (org-zotxt-make-item-link resp))
-                  (org-entry-put nil org-noter-property-doc-file path))
-                (call-interactively #'org-noter)))
-            (deferred:error it #'zotxt--deferred-handle-error)))))))
+;; See `org-noter' for details and ARG usage."
+;;     (interactive "P")
+;;     (require 'org-noter nil t)
+;;     (unless (eq major-mode 'org-mode)
+;;       (error "Org mode not running"))
+;;     (unless (fboundp 'org-noter)
+;;       (error "`org-noter' not installed"))
+;;     (if (org-before-first-heading-p)
+;;         (error "`org-zotxt-noter' must be issued inside a heading"))
+;;     (let* ((document-property (org-entry-get nil org-noter-property-doc-file (not (equal arg '(4)))))
+;;            (document-path (when (stringp document-property) (expand-file-name document-property))))
+;;       (if (and document-path (not (file-directory-p document-path)) (file-readable-p document-path))
+;;           (call-interactively #'org-noter)
+;;         (let ((arg arg))
+;;           (deferred:$
+;;             (zotxt-choose-deferred)
+;;             (deferred:nextc it
+;;               (lambda (item-ids)
+;;                 (zotxt-get-item-deferred (car item-ids) :paths)))
+;;             (deferred:nextc it
+;;               (lambda (item)
+;;                 (org-zotxt-get-item-link-text-deferred item)))
+;;             (deferred:nextc it
+;;               (lambda (resp)
+;;                 (let ((path (org-zotxt-choose-path (cdr (assq 'paths (plist-get resp :paths))))))
+;;                   ;; (org-entry-put nil org-zotxt-noter-zotero-link (org-zotxt-make-item-link resp))
+;;                   (insert (org-zotxt-make-item-link resp))
+;;                   (org-entry-put nil org-noter-property-doc-file path))
+;;                 (call-interactively #'org-noter)))
+;;             (deferred:error it #'zotxt--deferred-handle-error)))))))
 
 
 (use-package! ox-hugo
@@ -376,13 +328,11 @@ See `org-noter' for details and ARG usage."
     :init
     (map! :g "M-e" #'osx-dictionary-search-input)))
 
-(use-package! ivy-bibtex
-  :init
+(after! ivy-bibtex
   (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
   (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
-  :config
   (ivy-set-actions
     'ivy-bibtex
     '(("a" ivy-bibtex-open-any "Open PDF, URL, or DOI")
@@ -424,8 +374,7 @@ Creates new notes where none exist yet."
                   (org-entry-put nil org-noter-property-doc-file path))
               (call-interactively #'evil-force-normal-state)))))))
 
-(use-package! flyspell
-  :init
+(after! flyspell
   (map! :leader :desc "flyspell" "ts" #'flyspell-mode
                 :desc "prog flyspell" "tS" #'flyspell-prog-mode))
 
