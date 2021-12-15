@@ -45,36 +45,36 @@
   ;; (setq TeX-command-default "XeLaTeX"
   ;;       TeX-save-query nil
   ;;       TeX-show-compilation t)
- (add-to-list 'TeX-command-list '("DVI2PDF"
-                                  "dvipdf %d"
-                                  TeX-run-command
-                                  nil                              ; ask for confirmation
-                                  t                                ; active in all modes
-                                  :help "Convert DVI->PDF"))
- (setq TeX-source-correlate-start-server t)
- (when IS-MAC
-   (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
-   ;; FIXME: if the cursor is in the usepackage, will get error
- (defun dwt/view-pdf-by-pdf-tools ()
-   "view pdf by pdf tools"
-   (interactive)
-   (let ((TeX-view-program-selection '((output-pdf "PDF Tools"))))
-     (TeX-view)))
+  (add-to-list 'TeX-command-list '("DVI2PDF"
+                                   "dvipdf %d"
+                                   TeX-run-command
+                                   nil                              ; ask for confirmation
+                                   t                                ; active in all modes
+                                   :help "Convert DVI->PDF"))
+  (setq TeX-source-correlate-start-server t)
+  (when IS-MAC
+    (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
+    ;; FIXME: if the cursor is in the usepackage, will get error
+  (defun dwt/view-pdf-by-pdf-tools ()
+    "view pdf by pdf tools"
+    (interactive)
+    (let ((TeX-view-program-selection '((output-pdf "PDF Tools"))))
+      (TeX-view)))
 
- (defmacro define-and-bind-text-object (key start-regex end-regex)
-   (let ((inner-name (make-symbol "inner-name"))
-         (outer-name (make-symbol "outer-name")))
-     `(progn
-        (evil-define-text-object ,inner-name (count &optional beg end type)
-          (evil-select-paren ,start-regex ,end-regex beg end type count nil))
-        (evil-define-text-object ,outer-name (count &optional beg end type)
-          (evil-select-paren ,start-regex ,end-regex beg end type count t))
-        (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-        (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+  (defmacro define-and-bind-text-object (key start-regex end-regex)
+    (let ((inner-name (make-symbol "inner-name"))
+          (outer-name (make-symbol "outer-name")))
+      `(progn
+         (evil-define-text-object ,inner-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+         (evil-define-text-object ,outer-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count t))
+         (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+         (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
- (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
-  ;; TODO add // in outer-name
- (define-and-bind-text-object "-" "&" "&"
+  (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
+   ;; TODO add // in outer-name
+  (define-and-bind-text-object "-" "&" "&")
 
   (defun dwt/find-math-next()
     "Goto the next math environment in tex buffer."
@@ -223,7 +223,6 @@
     (call-interactively #'TeX-command-run-all))
 
 
-  (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
 
   (defun dwt/latex-double-quote ()
     (interactive)
@@ -235,7 +234,7 @@
             (insert ":")
             (if (string-equal input-key "SPC")
                 (insert " ")
-                (insert input-key))))))))
+                (insert input-key)))))))
 
 
 ;;;###autoload
@@ -295,7 +294,8 @@
     "Input string"
     (interactive "sEnter String: ")
     (insert input-string)))
-
+(after! latex
+  (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4)))
 ;;; reftex
 (use-package! reftex-toc
   :defer t
