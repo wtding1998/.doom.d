@@ -335,8 +335,8 @@
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   (ivy-set-actions
     'ivy-bibtex
-    '(("a" ivy-bibtex-open-any "Open PDF, URL, or DOI")
-      ("p" ivy-bibtex-open-pdf "Open PDF")
+    '(("p" ivy-bibtex-open-pdf "Open PDF")
+      ;; ("a" ivy-bibtex-open-any "Open PDF, URL, or DOI")
       ("i" ivy-bibtex-insert-bibtex "Insert Bibtex")
       ("e" ivy-bibtex-edit-notes "Edit notes")
       ("u" ivy-bibtex-open-url-or-doi "Open URL, or DOI")))
