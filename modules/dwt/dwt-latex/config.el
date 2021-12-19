@@ -51,6 +51,13 @@
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
                                    :help "Convert DVI->PDF"))
+
+  (add-to-list 'TeX-command-list '("Remove .auctex"
+                                   "rm -rf ./.auctex-auto"
+                                   TeX-run-command
+                                   nil                              ; ask for confirmation
+                                   t                                ; active in all modes
+                                   :help "Remove .auctex dir"))
   (setq TeX-source-correlate-start-server t)
   (when IS-MAC
     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
@@ -205,7 +212,7 @@
         :desc "View by pdf-tools" "d" #'dwt/view-pdf-by-pdf-tools
         :desc "Run" "C" #'dwt/latex-file
         :desc "Run" "c" #'dwt/TeX-save-and-run-all
-        :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
+        ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
         :desc "Preview Environment" "e" #'preview-environment
         :desc "Preview Buffer" "b" #'preview-buffer
         :desc "Preview at Point" "p" #'preview-at-point
@@ -213,8 +220,9 @@
         :desc "Clean preview" "r" #'preview-clearout-at-point
         :desc "Master" "m" #'TeX-command-master
         :desc "Input String" "s" #'dwt/insert
-        ;; :desc "Command" "c" "TeX-command-master"
         :desc "toc" "=" #'reftex-toc
+        :desc "format" "f" #'dwt/format-latex-file
+        :desc "clean" "F" #'dwt/clean-emacs-latex-file
         :desc "goto label" "l" #'reftex-goto-label)
 
   (defun dwt/TeX-save-and-run-all ()
@@ -222,7 +230,29 @@
     (save-buffer)
     (call-interactively #'TeX-command-run-all))
 
+  (defun dwt/latex-file ()
+    (interactive)
+    (basic-save-buffer)
+    (TeX-command "LaTeX" #'TeX-master-file))
 
+  (defun dwt/clean-emacs-latex-file ()
+    (interactive)
+    (TeX-command "Clean" #'TeX-master-file)
+    (TeX-command "Remove .auctex" #'TeX-master-file))
+
+  (defun dwt/replace-math-deli ()
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (while (search-forward "\\(" nil t)
+        (replace-match "$"))
+      (while (search-forward "\\)" nil t)
+        (replace-match "$"))))
+
+  (defun dwt/format-latex-file ()
+    (interactive)
+    (call-interactively #'dwt/replace-math-deli)
+    (call-interactively #'+format/buffer))
 
   (defun dwt/latex-double-quote ()
     (interactive)
@@ -383,7 +413,3 @@
     (define-key inner-map ":" 'evil-tex-inner-superscript)
     (define-key inner-map ";" 'evil-tex-inner-subscript)))
 
-(defun dwt/latex-file ()
-  (interactive)
-  (basic-save-buffer)
-  (TeX-command "LaTeX" #'TeX-master-file))
