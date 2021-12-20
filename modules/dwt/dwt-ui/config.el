@@ -237,6 +237,7 @@
         (string-prefix-p "*lsp" name)
         (string-prefix-p "*org-latex" name)
         (string-suffix-p ".synctex.gz" name)
+        (string-suffix-p ".log" name)
         (string-prefix-p " *rime-posframe" name)
         (and (string-prefix-p "magit" name)
             (not (file-name-extension name))))))

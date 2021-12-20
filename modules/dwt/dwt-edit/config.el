@@ -209,6 +209,10 @@
   :config
   (setq parinfer-rust-preferred-mode "indent"))
 
+;; avy
+(after! avy
+  (setq avy-single-candidate-jump t))
+
 ;; (use-package! gcmh
 ;;   :init
 ;;   (setq garbage-collection-messages t))

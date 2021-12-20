@@ -5,16 +5,19 @@
          (pdf-tools-enabled . pdf-view-auto-slice-minor-mode)
          (pdf-tools-enabled . hide-mode-line-mode))
   :config
-  (map! :map pdf-view-mode-map :n "w" #'wsl/open-in-default-program
-        :map pdf-view-mode-map :n "zu" #'dwt/open-by-zathura
-        :map pdf-view-mode-map :n "J" #'pdf-view-next-page
-        :map pdf-view-mode-map :n "K" #'pdf-view-previous-page
-        :map pdf-view-mode-map :n "d" #'pdf-view-scroll-up-or-next-page
-        :map pdf-view-mode-map :n "e" #'pdf-view-scroll-down-or-previous-page
-        :map pdf-view-mode-map :n "S" #'pdf-history-backward
-        :map pdf-view-mode-map :n "D" #'pdf-history-forward
-        :map pdf-view-mode-map :n "C-j" #'pdf-history-forward
-        :map pdf-view-mode-map :n "C-k" #'pdf-history-backward))
+  (map! :map pdf-view-mode-map
+        :n "t" #'pdf-view-themed-minor-mode
+        :n "M" #'hide-mode-line-mode
+        :n "w" #'wsl/open-in-default-program
+        :n "zu" #'dwt/open-by-zathura
+        :n "J" #'pdf-view-next-page
+        :n "K" #'pdf-view-previous-page
+        :n "d" #'pdf-view-scroll-up-or-next-page
+        :n "e" #'pdf-view-scroll-down-or-previous-page
+        :n "S" #'pdf-history-backward
+        :n "D" #'pdf-history-forward
+        :n "C-j" #'pdf-history-forward
+        :n "C-k" #'pdf-history-backward))
 
 ;;;###autoload
 (defun dwt/open-by-zathura ()

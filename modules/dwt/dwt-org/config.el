@@ -80,16 +80,16 @@
                  "* %^{title} \n %?"))
 
   ;; interesting
-  (add-to-list 'org-capture-templates '("i" "Interesting"))
+  ;; (add-to-list 'org-capture-templates '("i" "Interesting"))
   (add-to-list 'org-capture-templates
-               '("it" "Interesting Things"
+               '("i" "Interesting Things"
                  entry (file+datetree "~/OneDrive/Documents/study note/org/interesting_things.org")
-                 "* %<%H-%M> - %^{heading} \n %?\n"))
+                 "* %<%H-%M> - %^{heading} \n %?"))
 
-  (add-to-list 'org-capture-templates
-               '("is" "Interesting Sentences"
-                 entry (file "~/OneDrive/Documents/study note/org/interesting_sentencse.org")
-                 "* %^{Sentence} \n"))
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("is" "Interesting Sentences"
+  ;;                entry (file "~/OneDrive/Documents/study note/org/interesting_sentencse.org")
+  ;;                "* %^{Sentence} \n"))
 
   ;; notes
   (add-to-list 'org-capture-templates '("n" "Notes"))
