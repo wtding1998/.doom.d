@@ -53,7 +53,7 @@
                                    :help "Convert DVI->PDF"))
 
   (add-to-list 'TeX-command-list '("Remove .auctex"
-                                   "rm -rf ./.auctex-auto"
+                                   "rm -rf ./.auctex-auto && rm -rf _region_.prv"
                                    TeX-run-command
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
