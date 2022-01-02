@@ -323,7 +323,42 @@
   (defun dwt/insert (input-string)
     "Input string"
     (interactive "sEnter String: ")
-    (insert input-string)))
+    (insert input-string))
+
+  (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
+   cdlatex-math-symbol-alist
+   '( ;; adding missing functions to 3rd level symbols
+     (?_    ("\\downarrow"  ""           "\\inf"))
+     (?2    ("^2"           "\\sqrt{?}"     ""))
+     (?3    ("^3"           "\\sqrt[3]{?}"  ""))
+     (?^    ("\\uparrow"    ""           "\\sup"))
+     (?H    ("\\nabla^2"    ""           ""))
+     (?T    ("\\Theta"    ""           ""))
+     (?k    ("\\kappa"      ""           "\\ker"))
+     (?m    ("\\mu"         ""           "\\lim"))
+     (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
+     (?d    ("\\delta"      "\\partial"  "\\dim"))
+     (?D    ("\\Delta"      "\\nabla"    "\\deg"))
+     (?,    ("\\preceq"     ""  ""))
+     ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
+     (?F    ("\\Phi"))
+     ;; now just conveniance
+     (?.    ("\\cdot" "\\dots" "\succeq"))
+     (?:    ("\\vdots" "\\ddots"))
+     (?_     ("_"          ""             ""))
+     (?4     ("$"          ""             ""))
+     (?*    ("\\times" "\\star" "\\ast")))
+   cdlatex-math-modify-alist
+   '( ;; my own stuff
+     (?a    "\\mathbb"        nil          t    nil  nil)
+     (?q    "\\matr"        nil          t    nil  nil)
+     (?t    "\\tens"        nil          t    nil  nil)
+     (?1    "\\tilde"           nil          t    nil  nil)
+     (?2    "\\hat"           nil          t    nil  nil)
+     (?l    "\\label"           "\\label"          t    nil  nil)
+     (?s    "\\mathscr"           nil          t    nil  nil)
+     (?A    "\\abs"           nil          t    nil  nil))))
+
 (after! latex
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4)))
 ;;; reftex
@@ -362,40 +397,6 @@
 ;;   (unless IS-MAC
 ;;     (setq org-latex-impatient-scale 1.5)))
 ;;
-(after! cdlatex
-  (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
-   cdlatex-math-symbol-alist
-   '( ;; adding missing functions to 3rd level symbols
-     (?_    ("\\downarrow"  ""           "\\inf"))
-     (?2    ("^2"           "\\sqrt{?}"     ""))
-     (?3    ("^3"           "\\sqrt[3]{?}"  ""))
-     (?^    ("\\uparrow"    ""           "\\sup"))
-     (?H    ("\\nabla^2"    ""           ""))
-     (?T    ("\\Theta"    ""           ""))
-     (?k    ("\\kappa"      ""           "\\ker"))
-     (?m    ("\\mu"         ""           "\\lim"))
-     (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
-     (?d    ("\\delta"      "\\partial"  "\\dim"))
-     (?D    ("\\Delta"      "\\nabla"    "\\deg"))
-     (?,    ("\\preceq"     ""  ""))
-     ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
-     (?F    ("\\Phi"))
-     ;; now just conveniance
-     (?.    ("\\cdot" "\\dots" "\succeq"))
-     (?:    ("\\vdots" "\\ddots"))
-     (?_     ("_"          ""             ""))
-     (?4     ("$"          ""             ""))
-     (?*    ("\\times" "\\star" "\\ast")))
-   cdlatex-math-modify-alist
-   '( ;; my own stuff
-     (?a    "\\mathbb"        nil          t    nil  nil)
-     (?q    "\\matr"        nil          t    nil  nil)
-     (?t    "\\tens"        nil          t    nil  nil)
-     (?1    "\\tilde"           nil          t    nil  nil)
-     (?2    "\\hat"           nil          t    nil  nil)
-     (?l    "\\label"           "\\label"          t    nil  nil)
-     (?s    "\\mathscr"           nil          t    nil  nil)
-     (?A    "\\abs"           nil          t    nil  nil))))
 
 (use-package! evil-tex
   :after tex
