@@ -265,12 +265,12 @@
 (setq +modeline-height 13)
 (setq-default +modeline-format-right (push " Avoiding is Harder " +modeline-format-right))
 ;; display time modeline
-(unless IS-MAC
-  (setq display-time-day-and-date t)
-  (setq display-time-24hr-format t)
-  (display-time-mode 1)
-  ;; display battery in modeline
-  (display-battery-mode 1))
+;; (unless IS-MAC
+;; (setq display-time-day-and-date t)
+(setq display-time-24hr-format t)
+(display-time-mode 1)
+;; display battery in modeline
+(display-battery-mode 1)
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
