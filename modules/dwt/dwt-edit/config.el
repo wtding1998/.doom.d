@@ -161,14 +161,9 @@
    :nv "M-d" #'evil-multiedit-match-and-next
    :nv "M-D" #'evil-multiedit-match-and-prev
    :i "M-d" #'evil-multiedit-toggle-marker-here
-   :m "<RET>" #'evil-multiedit-toggle-or-restrict-region
-   :map evil-multiedit-state-map
-   "C-n" #'evil-multiedit-next
-   "C-p" #'evil-multiedit-prev
-   "<RET>" #'evil-multiedit-toggle-or-restrict-region
-   :map evil-multiedit-insert-state-map
-   "C-n" #'evil-multiedit-next
-   "C-p" #'evil-multiedit-prev))
+   :map evil-multiedit-mode-map
+   "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate
+   "<RET>" #'evil-multiedit-toggle-or-restrict-region))
 
 ;;; evil-escape
 (use-package! evil-escape
