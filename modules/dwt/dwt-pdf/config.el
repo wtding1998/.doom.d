@@ -10,8 +10,8 @@
         :n "M" #'hide-mode-line-mode
         :n "w" #'wsl/open-in-default-program
         :n "zu" #'dwt/open-by-zathura
-        :n "J" #'pdf-view-next-page
-        :n "K" #'pdf-view-previous-page
+        :n "J" #'pdf-history-forward
+        :n "K" #'pdf-history-backward
         :n "d" #'pdf-view-scroll-up-or-next-page
         :n "e" #'pdf-view-scroll-down-or-previous-page
         :n "S" #'pdf-history-backward
