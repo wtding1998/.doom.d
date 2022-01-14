@@ -85,7 +85,16 @@
                     (buffer-string))))
         (setenv "PATH" path)
         (setq exec-path (append (parse-colon-path path) (list exec-directory))))
-    (error (warn "%s" (error-message-string err)))))
+    (error (warn "%s" (error-message-string err))))
+
+  (use-package! netease-cloud-music
+    :defer t
+    :commands (netease-cloud-music)
+    :init
+    (map! :leader
+          :desc "music" "tm" #'netease-cloud-music)
+    :config
+    (evil-set-initial-state 'netease-cloud-music-mode 'emacs)))
 
 ;; weather
 (defun dwt/weather ()
