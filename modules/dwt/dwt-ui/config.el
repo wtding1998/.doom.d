@@ -135,10 +135,10 @@
 ;; (add-to-list 'default-frame-alist '(internal-border-width . 5))
 
 ;;; frame init
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
-;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
-(map! :leader :desc "Max Frame" "tm" #'toggle-frame-maximized)
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 
 (use-package! diff-hl
   :config
