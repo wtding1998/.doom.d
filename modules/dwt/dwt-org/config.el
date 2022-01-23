@@ -330,7 +330,8 @@
 
 (after! ivy-bibtex
   (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
-  (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
+  ;; (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
+  (setq bibtex-completion-bibliography '("~/OneDrive/Documents/Zotero/library.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   (ivy-set-actions

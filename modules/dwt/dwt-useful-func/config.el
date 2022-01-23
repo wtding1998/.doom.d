@@ -117,3 +117,16 @@
     (find-file (concat package-path))))
 
 (map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir)
+
+(defun dwt/replace-path ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (search-forward "\\\\" nil t)
+      (replace-match "$"))
+    (while (search-forward "\\)" nil t)
+      (replace-match "$"))))
+
+
+;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
+;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
