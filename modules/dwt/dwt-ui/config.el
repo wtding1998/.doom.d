@@ -59,7 +59,7 @@
                           doom-nova
                           doom-spacegrey
                           doom-opera
-                          doom-miramare
+                          doom-spacegrey
                           gruvbox
                           doom-nord
                           doom-horizon
@@ -117,7 +117,7 @@
           (when IS-MAC
             (dwt/turn-on-transwin)))
       ;;; theme for TUI in daemon
-      (load-theme 'doom-tomorrow-night t nil))))
+      (load-theme 'doom-spacegrey t nil))))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
@@ -127,7 +127,7 @@
         (load-theme 'notink t nil)
         (dwt/doom-font))
     ;; theme for TUI in single emacs
-    (load-theme 'doom-tomorrow-night t nil)))
+    (load-theme 'doom-spacegrey t nil)))
 
 ;; hide title bar
 ;; (setq default-frame-alist '((undecorated . t)))
@@ -160,7 +160,7 @@
   -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
     ^_k_^   prev group    | _a_^^     select first | _b_ search buffer | _C-j_   next buffer
   _h_   _l_  switch tab   | _e_^^     select last  | _g_ search group  | _C-S-k_ kill others in group
-    ^_j_^   next group    | _s_^^     ace jump     | ^^                | _C-k_   previous buffer
+    ^_j_^   next group    | _r_^^     ace jump     | ^^                | _C-k_   previous buffer
   ^^0 ~ 9^^ select window | _H_/_L_ move current   | ^^                | ^^
   -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
   "
@@ -180,7 +180,7 @@
     ("9" awesom-tab-select-visible-tab)
     ("a" awesome-tab-select-beg-tab)
     ("e" awesome-tab-select-end-tab)
-    ("s" awesome-tab-ace-jump)
+    ("r" awesome-tab-ace-jump)
     ("H" awesome-tab-move-current-tab-to-left)
     ("L" awesome-tab-move-current-tab-to-right)
     ("b" ivy-switch-buffer)
@@ -192,15 +192,15 @@
     ("q" nil "quit"))
   (map! :n "r" #'awesome-fast-switch/body)
 
-  (evil-define-key 'normal 'global "gt" #'awesome-tab-ace-jump)
+  (evil-define-key 'normal 'global "gt" #'awesome-tab-forward-tab)
   (evil-define-key 'normal 'global "gT" #'awesome-tab-backward-tab)
   (evil-define-key 'normal 'global "]t" #'awesome-tab-forward-group)
   (evil-define-key 'normal 'global "[t" #'awesome-tab-backward-group)
   (evil-define-key 'normal 'global (kbd"<leader>tt") #'awesome-tab-counsel-switch-group)
   (evil-define-key 'normal 'global (kbd"<leader>t1") #'awesome-tab-kill-other-buffers-in-current-group)
   (evil-define-key 'normal 'global (kbd"<leader>t0") #'awesome-tab-kill-all-buffers-in-current-group)
-  (evil-define-key 'normal 'global (kbd"<leader>tn") #'awesome-tab-forward-tab)
-  (evil-define-key 'normal 'global (kbd"<leader>tp") #'awesome-tab-backward-tab)
+  ;; (evil-define-key 'normal 'global (kbd"<leader>tn") #'awesome-tab-forward-tab)
+  ;; (evil-define-key 'normal 'global (kbd"<leader>tp") #'awesome-tab-backward-tab)
   (map! :ni "C-1" #'awesome-tab-select-visible-tab)
   (map! :ni "C-2" #'awesome-tab-select-visible-tab)
   (map! :ni "C-3" #'awesome-tab-select-visible-tab)

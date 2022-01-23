@@ -17,3 +17,5 @@
 
 (when IS-MAC
   (package! transwin :recipe (:host github :repo "jcs-elpa/transwin")))
+
+;; (package! sort-tab :recipe (:host github :repo "manateelazycat/sort-tab"))
