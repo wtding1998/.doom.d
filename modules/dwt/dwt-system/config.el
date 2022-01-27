@@ -7,11 +7,12 @@
     (setq dwt/system-default "open"))
 
 ;; open url by windows explorer
-(defun system-browse-url-xdg-open (url &optional ignored)
-  (interactive (browse-url-interactive-arg "URL: "))
-  (message (concat dwt/system-default url))
-  (shell-command-to-string (concat dwt/system-default " " url)))
-(advice-add #'browse-url-xdg-open :override #'system-browse-url-xdg-open)
+(when IS-LINUX
+  (defun system-browse-url-xdg-open (url &optional ignored)
+    (interactive (browse-url-interactive-arg "URL: "))
+    (message (concat dwt/system-default " " url))
+    (shell-command-to-string (concat dwt/system-default " " url)))
+  (advice-add #'browse-url-xdg-open :override #'system-browse-url-xdg-open))
 
 ;; ;;;###autoload
 ;; (defmacro wsl--open-with (id &optional app dir)
