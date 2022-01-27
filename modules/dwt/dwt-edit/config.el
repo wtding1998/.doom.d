@@ -64,8 +64,8 @@
         ;; :desc "test" :prefix "a"
         :desc "winner undo""[" #'winner-undo
         :desc "winner undo""]" #'winner-redo
-        :desc "shell command" "'" #'shell-command
-        :desc "eval expression" ":" #'eval-expression
+        :desc "shell command" ":" #'shell-command
+        :desc "eval expression" "'" #'eval-expression
         :desc "buffer" "," #'persp-switch-to-buffer
         :desc "M-x" "<SPC>" #'counsel-M-x
         :desc "snippet" "it" #'company-yasnippet
