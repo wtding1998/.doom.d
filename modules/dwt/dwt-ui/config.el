@@ -57,15 +57,13 @@
 (defvar dwt/dark-themes '(doom-material
                           doom-oceanic-next
                           doom-nova
-                          doom-spacegrey
                           doom-opera
-                          doom-spacegrey
+                          doom-monokai-pro
                           gruvbox
                           doom-nord
                           doom-horizon
                           doom-monokai-pro
-                          doom-monokai-octagon
-                          doom-tomorrow-nigh))
+                          doom-monokai-octagon))
 
 (defvar dwt/light-themes '(doom-homage-white
                            notink
@@ -117,7 +115,7 @@
           (when IS-MAC
             (dwt/turn-on-transwin)))
       ;;; theme for TUI in daemon
-      (load-theme 'doom-spacegrey t nil))))
+      (load-theme 'doom-monokai-pro t nil))))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
@@ -127,7 +125,7 @@
         (load-theme 'notink t nil)
         (dwt/doom-font))
     ;; theme for TUI in single emacs
-    (load-theme 'doom-spacegrey t nil)))
+    (load-theme 'doom-monokai-pro t nil)))
 
 ;; hide title bar
 ;; (setq default-frame-alist '((undecorated . t)))
