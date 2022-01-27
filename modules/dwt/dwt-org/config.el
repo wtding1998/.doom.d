@@ -213,10 +213,15 @@
 
   (defun vulpea-buffer-p ()
     "Return non-nil if the currently visited buffer is a note."
-    (and buffer-file-name
-        (string-prefix-p
-          (expand-file-name (file-name-as-directory "~/OneDrive/Documents/roam"))
-          (file-name-directory buffer-file-name))))
+    (if IS-LINUX
+      (and buffer-file-name
+          (string-prefix-p
+            (expand-file-name (file-name-as-directory "/mnt/d/OneDrive/Documents/roam"))
+            (file-name-directory buffer-file-name)))
+      (and buffer-file-name
+          (string-prefix-p
+            (expand-file-name (file-name-as-directory "~/OneDrive/Documents/roam"))
+            (file-name-directory buffer-file-name)))))
 
   (defun vulpea-project-files ()
       "Return a list of note files containing 'project' tag." ;
