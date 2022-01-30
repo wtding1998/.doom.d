@@ -66,45 +66,38 @@
                  entry (file+olp "~/OneDrive/Documents/diary/org/agenda.org" "Agenda")
                  "* %t - %^{title} %^g\n%?\n"))
 
-  ;; (add-to-list 'org-capture-templates
-  ;;              '("p" "Entertainment"
-  ;;                entry (file+olp "~/OneDrive/Documents/diary/org/agenda.org" "Entertainment")
-  ;;                "* %t - %^{title} %^g\n %?"
-  ;;                ))
+  (add-to-list 'org-capture-templates
+               '("b" "Inbox"
+                 entry (file+olp "~/OneDrive/Documents/roam/inbox.org" "Inbox")
+                 "* TODO %t - %^{Input: }\n %?"))
+
   (add-to-list 'org-capture-templates
                '("d" "Diary"
                  entry (file+datetree "~/OneDrive/Documents/diary/org/diary.org")
                  "* %<%H-%M> - %?\n"))
 
-  (add-to-list 'org-capture-templates '("e" "English"))
   (add-to-list 'org-capture-templates
-               '("ew" "Words"
+               '("e" "English"
                  entry (file+olp "~/OneDrive/Documents/study note/org/English_note.org" "Words")
                  "* %^{title} \n %?"))
 
   ;; interesting
-  ;; (add-to-list 'org-capture-templates '("i" "Interesting"))
   (add-to-list 'org-capture-templates
                '("i" "Interesting Things"
                  entry (file+datetree "~/OneDrive/Documents/study note/org/interesting_things.org")
                  "* %<%H-%M> - %^{heading} \n %?"))
 
-  ;; (add-to-list 'org-capture-templates
-  ;;              '("is" "Interesting Sentences"
-  ;;                entry (file "~/OneDrive/Documents/study note/org/interesting_sentencse.org")
-  ;;                "* %^{Sentence} \n"))
-
   ;; notes
-  (add-to-list 'org-capture-templates '("n" "Notes"))
-  (add-to-list 'org-capture-templates
-               '("nm" "Math"
-                 entry (file+datetree "~/OneDrive/Documents/study note/org/math_note.org")
-                 "* %^{heading} \n %?\n"))
+  ;; (add-to-list 'org-capture-templates '("n" "Notes"))
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("nm" "Math"
+  ;;                entry (file+datetree "~/OneDrive/Documents/study note/org/math_note.org")
+  ;;                "* %^{heading} \n %?\n"))
 
-  (add-to-list 'org-capture-templates
-               '("no" "Other Notes"
-                 entry (file "~/OneDrive/Documents/study note/org/other_note.org")
-                 "* %^{heading} \n %?\n"))
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("no" "Other Notes"
+  ;;                entry (file "~/OneDrive/Documents/study note/org/other_note.org")
+  ;;                "* %^{heading} \n %?\n"))
 
   ;; readings
   (add-to-list 'org-capture-templates '("r" "Reading"))
