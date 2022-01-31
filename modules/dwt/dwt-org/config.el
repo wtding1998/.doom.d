@@ -243,8 +243,16 @@
 
   (advice-add 'org-agenda-files :filter-return #'inject-vulpea-project-files)
 
-  (add-hook 'before-save-hook #'vulpea-project-update-tag))
+  (add-hook 'before-save-hook #'vulpea-project-update-tag)
 
+  (defun dwt/org-id-export (path desc backend as)
+    (when (eq 'latex backend)
+      (format "\\textcolor{red}{%s}" (or desc path))))
+
+  (org-link-set-parameters "id"
+                           :follow 'org-id-open
+                           :export 'dwt/org-id-export))
+                           ;; :export 'orgit-log-export))
 ;;; noter
 (after! org-noter
   (setq org-noter-auto-save-last-location t)
