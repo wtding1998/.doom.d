@@ -133,9 +133,10 @@
 ;; (add-to-list 'default-frame-alist '(internal-border-width . 5))
 
 ;;; frame init
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; full screen
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(if IS-MAC
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  ;; full screen
+  (add-to-list 'default-frame-alist '(fullscreen . fullboth)))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 
 (use-package! diff-hl
@@ -265,10 +266,11 @@
 ;; display time modeline
 ;; (unless IS-MAC
 ;; (setq display-time-day-and-date t)
-(setq display-time-24hr-format t)
-(display-time-mode 1)
-;; display battery in modeline
-(display-battery-mode 1)
+(when IS-LINUX
+  (setq display-time-24hr-format t)
+  (display-time-mode 1)
+  ;; display battery in modeline
+  (display-battery-mode 1))
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
