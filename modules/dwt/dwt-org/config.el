@@ -11,16 +11,16 @@
   ;;; clock
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
-  (map! :map org-mode-map "<tab>" nil)
+  (setq org-clock-idle-time 5
+        org-clock-continuously t)
+  ;; (map! :map org-mode-map "<tab>" nil)
   ;; (add-hook 'org-mode-hook #'cdlatex-mode)
   (add-hook 'org-mode-hook #'evil-tex-mode)
-  (add-hook 'org-mode-hook (lambda () (setq word-wrap nil)))
+  ;; (add-hook 'org-mode-hook (lambda () (setq word-wrap nil)))
   (map! :map org-mode-map
         :localleader
         "C" #'cdlatex-mode)
   (setq org-use-fast-todo-selection t)
-  (map! :map org-agenda-mode-map
-        :n "ci" #'org-agenda-clock-in)
   (map! :map org-agenda-mode-map
         :m "go" #'evil-avy-goto-line)
   (setq org-todo-keywords '((sequence "TODO(t)" "Wait(w)" "|" "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
