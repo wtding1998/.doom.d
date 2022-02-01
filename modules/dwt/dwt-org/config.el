@@ -395,5 +395,21 @@ Creates new notes where none exist yet."
           ispell-program-name "hunspell")))
 
 (use-package! org-fragtog
+  :after org)
+
+(use-package! org-pomodoro
   :after org
-  :hook (org-roam-mode . org-fragtog-mode))
+  :commands (org-pomodoro)
+  :init (map! :leader
+              :desc "pomodoro" "np" #'org-pomodoro)
+  :config
+  (setq org-pomodoro-format "%s")
+  (setq org-pomodoro-long-break-format "%s")
+  (setq org-pomodoro-short-break-format "%s")
+  (setq org-pomodoro-time-format "%.2m")
+  (setq org-pomodoro-length 30)
+  (setq org-pomodoro-short-break-length 5)
+  (setq org-pomodoro-short-break-sound-p nil)
+  (setq org-pomodoro-long-break-sound-p nil)
+  (add-hook 'org-pomodoro-break-finished-hook
+            (lambda () (when (yes-or-no-p "continue? ") (org-pomodoro)))))
