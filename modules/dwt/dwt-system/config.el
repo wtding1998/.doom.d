@@ -2,9 +2,10 @@
 
 (defvar dwt/system-default "explorer.exe")
 (when IS-MAC
-    (+macos--open-with open-in-terminal "Terminal" default-directory)
-    (map! :leader :desc "open in terminal" "ot" #'+macos/open-in-terminal)
-    (setq dwt/system-default "open"))
+  (setq ns-right-command-modifier 'control)
+  (+macos--open-with open-in-terminal "Terminal" default-directory)
+  (map! :leader :desc "open in terminal" "ot" #'+macos/open-in-terminal)
+  (setq dwt/system-default "open"))
 
 ;; open url by windows explorer
 (when IS-LINUX
