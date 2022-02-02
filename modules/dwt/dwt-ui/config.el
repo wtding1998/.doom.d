@@ -112,8 +112,13 @@
           ;; (dwt/load-light-themes)
           ;; (load-theme 'modus-operandi t nil)
           (load-theme 'notink t nil)
-          (when IS-MAC
-            (dwt/turn-on-transwin)))
+          ;;; frame init
+          (if IS-MAC
+            (progn
+              (dwt/turn-on-transwin)
+              (add-to-list 'default-frame-alist '(fullscreen . maximized)))
+            ;; full screen
+            (add-to-list 'default-frame-alist '(fullscreen . fullboth))))
       ;;; theme for TUI in daemon
       (load-theme 'doom-monokai-pro t nil))))
 
@@ -132,11 +137,6 @@
 ;; (add-to-list 'default-frame-alist '(drag-internal-border . 1))
 ;; (add-to-list 'default-frame-alist '(internal-border-width . 5))
 
-;;; frame init
-(if IS-MAC
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  ;; full screen
-  (add-to-list 'default-frame-alist '(fullscreen . fullboth)))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 
 (use-package! diff-hl
