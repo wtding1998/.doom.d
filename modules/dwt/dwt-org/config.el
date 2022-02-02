@@ -11,7 +11,7 @@
   ;;; clock
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
-  (setq org-clock-idle-time 5
+  (setq org-clock-idle-time 20
         org-clock-continuously t)
   ;; (map! :map org-mode-map "<tab>" nil)
   ;; (add-hook 'org-mode-hook #'cdlatex-mode)
@@ -20,6 +20,9 @@
   (map! :map org-mode-map
         :localleader
         "C" #'cdlatex-mode)
+  (add-hook 'cdlatex-mode-hook (lambda ()
+                                (map! :map org-mode-map
+                                      "<tab>" nil)))
   (setq org-use-fast-todo-selection t)
   (map! :map org-agenda-mode-map
         :m "go" #'evil-avy-goto-line)
