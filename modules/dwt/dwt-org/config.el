@@ -19,7 +19,8 @@
   ;; (add-hook 'org-mode-hook (lambda () (setq word-wrap nil)))
   (map! :map org-mode-map
         :localleader
-        "C" #'cdlatex-mode)
+        "C" #'cdlatex-mode
+        "ce" #'org-set-effort)
   (add-hook 'cdlatex-mode-hook (lambda ()
                                 (map! :map org-mode-map
                                       "<tab>" nil)))
@@ -183,70 +184,70 @@
                               "#+title: %<%Y-%m-%d>"))))
 
   ;; from  https://github.com/d12frosted/vulpea/blob/fd2acf7b8e11dd9c38f9adf862b76db5545a9d51/vulpea-buffer.el
-  (defun vulpea-project-update-tag ()
-      "Update PROJECT tag in the current buffer."
-      (when (and (not (active-minibuffer-window))
-                (vulpea-buffer-p))
-        (save-excursion
-          (if (vulpea-project-p)
-              (org-roam-tag-add '("project"))
-              (if (vulpea-buffer-prop-get "filetags")
-                (if (string-match "project" (vulpea-buffer-prop-get "filetags"))
-                  (org-roam-tag-remove '("project"))))))))
+  ;; (defun vulpea-project-update-tag ()
+  ;;     "Update PROJECT tag in the current buffer."
+  ;;     (when (and (not (active-minibuffer-window))
+  ;;               (vulpea-buffer-p))
+  ;;       (save-excursion
+  ;;         (if (vulpea-project-p)
+  ;;             (org-roam-tag-add '("project"))
+  ;;             (if (vulpea-buffer-prop-get "filetags")
+  ;;               (if (string-match "project" (vulpea-buffer-prop-get "filetags"))
+  ;;                 (org-roam-tag-remove '("project"))))))))
 
   ;; from https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
-  (defun vulpea-buffer-prop-get (name)
-    "Get a buffer property called NAME as a string."
-    (org-with-point-at 1
-      (when (re-search-forward (concat "^#\\+" name ": \\(.*\\)")
-                              (point-max) t)
-        (let ((value (string-trim
-                      (buffer-substring-no-properties
-                        (match-beginning 1)
-                        (match-end 1)))))
-          (unless (string-empty-p value)
-            value)))))
+  ;; (defun vulpea-buffer-prop-get (name)
+  ;;   "Get a buffer property called NAME as a string."
+  ;;   (org-with-point-at 1
+  ;;     (when (re-search-forward (concat "^#\\+" name ": \\(.*\\)")
+  ;;                             (point-max) t)
+  ;;       (let ((value (string-trim
+  ;;                     (buffer-substring-no-properties
+  ;;                       (match-beginning 1)
+  ;;                       (match-end 1)))))
+  ;;         (unless (string-empty-p value)
+  ;;           value)))))
 
-  (defun vulpea-buffer-p ()
-    "Return non-nil if the currently visited buffer is a note."
-    (if IS-LINUX
-      (and buffer-file-name
-          (string-prefix-p
-            (expand-file-name (file-name-as-directory "/mnt/d/OneDrive/Documents/roam"))
-            (file-name-directory buffer-file-name)))
-      (and buffer-file-name
-          (string-prefix-p
-            (expand-file-name (file-name-as-directory "~/OneDrive/Documents/roam"))
-            (file-name-directory buffer-file-name)))))
+  ;; (defun vulpea-buffer-p ()
+  ;;   "Return non-nil if the currently visited buffer is a note."
+  ;;   (if IS-LINUX
+  ;;     (and buffer-file-name
+  ;;         (string-prefix-p
+  ;;           (expand-file-name (file-name-as-directory "/mnt/d/OneDrive/Documents/roam"))
+  ;;           (file-name-directory buffer-file-name)))
+  ;;     (and buffer-file-name
+  ;;         (string-prefix-p
+  ;;           (expand-file-name (file-name-as-directory "~/OneDrive/Documents/roam"))
+  ;;           (file-name-directory buffer-file-name)))))
 
-  (defun vulpea-project-files ()
-      "Return a list of note files containing 'project' tag." ;
-      (seq-uniq
-        (seq-map
-          #'car
-          (org-roam-db-query
-            [:select [nodes:file]
-              :from tags
-              :left-join nodes
-              :on (= tags:node-id nodes:id)
-              :where (like tag (quote "%\"project\"%"))]))))
+  ;; (defun vulpea-project-files ()
+  ;;     "Return a list of note files containing 'project' tag." ;
+  ;;     (seq-uniq
+  ;;       (seq-map
+  ;;         #'car
+  ;;         (org-roam-db-query
+  ;;           [:select [nodes:file]
+  ;;             :from tags
+  ;;             :left-join nodes
+  ;;             :on (= tags:node-id nodes:id)
+  ;;             :where (like tag (quote "%\"project\"%"))]))))
 
-  (defun vulpea-project-p ()
-    (seq-find                                 ; (3)
-      (lambda (type)
-        (eq type 'todo))
-      (org-element-map                         ; (2)
-          (org-element-parse-buffer 'headline) ; (1)
-          'headline
-        (lambda (h)
-          (org-element-property :todo-type h)))))
+  ;; (defun vulpea-project-p ()
+  ;;   (seq-find                                 ; (3)
+  ;;     (lambda (type)
+  ;;       (eq type 'todo))
+  ;;     (org-element-map                         ; (2)
+  ;;         (org-element-parse-buffer 'headline) ; (1)
+  ;;         'headline
+  ;;       (lambda (h)
+  ;;         (org-element-property :todo-type h)))))
 
-  (defun inject-vulpea-project-files (org-agenda-files--output)
-    (append org-agenda-files--output (vulpea-project-files)))
+  ;; (defun inject-vulpea-project-files (org-agenda-files--output)
+  ;;   (append org-agenda-files--output (vulpea-project-files)))
 
-  (advice-add 'org-agenda-files :filter-return #'inject-vulpea-project-files)
+  ;; (advice-add 'org-agenda-files :filter-return #'inject-vulpea-project-files)
 
-  (add-hook 'before-save-hook #'vulpea-project-update-tag)
+  ;; (add-hook 'before-save-hook #'vulpea-project-update-tag)
 
   (defun dwt/org-id-export (path desc backend as)
     (when (eq 'latex backend)
