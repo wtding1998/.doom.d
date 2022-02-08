@@ -266,11 +266,10 @@
 ;; display time modeline
 ;; (unless IS-MAC
 ;; (setq display-time-day-and-date t)
-(when IS-LINUX
-  (setq display-time-24hr-format t)
-  (display-time-mode 1)
-  ;; display battery in modeline
-  (display-battery-mode 1))
+(setq display-time-24hr-format t)
+(display-time-mode 1)
+;; display battery in modeline
+(display-battery-mode 1)
 
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
