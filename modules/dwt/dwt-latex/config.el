@@ -310,7 +310,7 @@
 (add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
 (add-to-list '+latex--company-backends #'company-math-symbols-latex nil #'eq)
 
-(after! cdlatex
+(after! (:or cdlatex org)
   (map! :map cdlatex-mode-map
         :i "<SPC>" #'dwt/insert-space
         :i "\"" #'dwt/latex-double-quote
