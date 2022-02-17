@@ -30,6 +30,9 @@
 (setq delete-by-moving-to-trash t)
 (after! dired
   (map! :n "-" #'dired-jump
+        :n "_" (lambda ()
+                 (interactive)
+                 (dired-jump t))
         :map dired-mode-map
         :n "J" nil
         :localleader
