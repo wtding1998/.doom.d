@@ -39,7 +39,7 @@
                    "~/.emacs.d/"
                    "~/.config")))
     (ivy-read "Open Configs: " configs :action 'find-file)))
-(map! :leader :desc "Open configuration" "op" #'dwt/ivy-open-configuration)
+(map! :leader :desc "Open configuration" "oP" #'dwt/ivy-open-configuration)
 
 ;;;###autoload
 (defun dwt/clean-recentf ()
