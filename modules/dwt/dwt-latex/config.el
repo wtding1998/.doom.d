@@ -174,17 +174,20 @@
   (defun dwt/insert-space ()
     "Wrap a single char with inline math"
     (interactive)
-    (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
-      (let ((length-current-word (length (word-at-point))))
-        (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
-            (progn
-              (call-interactively #'backward-word)
-              (insert "\\( ")
-              (call-interactively #'forward-word)
-              (insert " \\)")
-              (backward-char 3))
-          (insert " ")))
-      (insert " ")))
+    (if (string-equal "-" (string (char-before (- (point) 1))))
+        (insert " ")
+        (progn
+          (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
+            (let ((length-current-word (length (word-at-point))))
+              (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
+                  (progn
+                    (call-interactively #'backward-word)
+                    (insert "\\( ")
+                    (call-interactively #'forward-word)
+                    (insert " \\)")
+                    (backward-char 3))
+                (insert " ")))
+            (insert " ")))))
 
   (defun dwt/insert-transpose ()
     "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
