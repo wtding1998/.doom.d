@@ -171,8 +171,8 @@
         "<backtab>" #'ivy-partial
         "C-<return>" #'ivy-immediate-done))
 
-(after! ivy-posframe
-  (setq ivy-posframe-min-width (round (* (frame-width) 0.8))))
+;; (after! ivy-posframe
+;;   (setq ivy-posframe-min-width (round (* (frame-width) 0.8))))
 
 (use-package! company-english-helper
   :after (org latex)
