@@ -171,8 +171,35 @@
         "<backtab>" #'ivy-partial
         "C-<return>" #'ivy-immediate-done))
 
-;; (after! ivy-posframe
-;;   (setq ivy-posframe-min-width (round (* (frame-width) 0.8))))
+(use-package! ivy-posframe
+  :hook (ivy-mode . ivy-posframe-mode)
+  :config
+  ;; Prettify the buffer
+  (defun my-ivy-posframe--prettify-buffer (&rest _)
+    "Add top and bottom margin to the prompt."
+    (with-current-buffer ivy-posframe-buffer
+      (goto-char (point-min))
+      (insert (propertize "\n" 'face '(:height 0.3)))
+      (goto-char (point-max))
+      (insert (propertize "\n" 'face '(:height 0.3)))))
+  (advice-add #'ivy-posframe--display :after #'my-ivy-posframe--prettify-buffer)
+
+  (defun posframe-poshandler-frame-center-near-bottom (info)
+    (cons (/ (- (plist-get info :parent-frame-width)
+                (plist-get info :posframe-width))
+            2)
+          (/ (plist-get info :parent-frame-height)
+            2)))
+  ;; Adjust the postion
+  (defun ivy-posframe-display-at-frame-center-near-bottom (str)
+    (ivy-posframe--display str #'posframe-poshandler-frame-center-near-bottom))
+  (setf (alist-get t ivy-posframe-display-functions-alist)
+        #'ivy-posframe-display-at-frame-center-near-bottom)
+
+  (setq ivy-posframe-width 150
+        ivy-posframe-border-width 3
+        ivy-posframe-parameters '((left-fringe . 8)
+                                  (right-fringe . 8))))
 
 (use-package! company-english-helper
   :after (org latex)
