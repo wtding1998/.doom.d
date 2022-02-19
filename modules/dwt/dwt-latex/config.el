@@ -10,7 +10,8 @@
   :hook (cdlatex-mode . (lambda()
                           (define-key cdlatex-mode-map (kbd "(") nil)))
   :config
-  (setq cdlatex-insert-auto-labels-in-env-templates nil)
+  (setq cdlatex-insert-auto-labels-in-env-templates nil
+        cdlatex-use-dollar-to-ensure-math nil)
   ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
   (defun dwt/latex-indent-align ()
     (interactive)
@@ -108,13 +109,13 @@
             (if (thing-at-point 'word)
                 (progn
                   (call-interactively #'backward-word)
-                  (insert "$")
+                  (insert "\\(")
                   (call-interactively #'forward-word)
-                  (insert "$")
-                  (left-char 1))
+                  (insert "\\)")
+                  (left-char 3))
 
-              (insert "$$")
-              (left-char 1)))
+              (insert "\\(\\)")
+              (left-char 3)))
         (progn
           (call-interactively #'cdlatex-math-modify))))
     (when (derived-mode-p 'org-mode)
@@ -144,13 +145,13 @@
         (if (thing-at-point 'word)
             (progn
               (call-interactively #'backward-word)
-              (insert "$")
+              (insert "\\(")
               (call-interactively #'forward-word)
-              (insert "^{}$")
-              (left-char 2))
+              (insert "^{}\\)")
+              (left-char 3))
 
-          (insert "$^{}$")
-          (left-char 4)))))
+          (insert "\\(^{}\\)")
+          (left-char 6)))))
 
   (defun dwt/insert-subscript ()
     "If it's in math environment, insert a subscript, otherwise insert dollar and also wrap the word at point"
@@ -163,13 +164,13 @@
         (if (thing-at-point 'word)
             (progn
               (call-interactively #'backward-word)
-              (insert "$")
+              (insert "\\(")
               (call-interactively #'forward-word)
-              (insert "_{}$")
-              (left-char 2))
+              (insert "_{}\\)")
+              (left-char 3))
 
-          (insert "$_{}$")
-          (left-char 4)))))
+          (insert "\\(_{}\\)")
+          (left-char 6)))))
 
   (defun dwt/insert-space ()
     "Wrap a single char with inline math"
