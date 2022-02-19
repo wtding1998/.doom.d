@@ -12,6 +12,7 @@
   :config
   (setq cdlatex-insert-auto-labels-in-env-templates nil
         cdlatex-use-dollar-to-ensure-math nil)
+  (push (list "lstlisting" "\\begin{lstlisting}\n?\n\\end{lstlisting}" ) cdlatex-env-alist-default)
   ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
   (defun dwt/latex-indent-align ()
     (interactive)
@@ -328,8 +329,6 @@
     "Input string"
     (interactive "sEnter String: ")
     (insert input-string))
-
-  (push (list "lstlisting" "\\begin{lstlisting}\n?\n\\end{lstlisting}" ) cdlatex-env-alist-default)
 
   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
    cdlatex-math-symbol-alist
