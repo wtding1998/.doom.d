@@ -329,6 +329,8 @@
     (interactive "sEnter String: ")
     (insert input-string))
 
+  (push (list "lstlisting" "\\begin{lstlisting}\n?\n\\end{lstlisting}" ) cdlatex-env-alist-default)
+
   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
    cdlatex-math-symbol-alist
    '( ;; adding missing functions to 3rd level symbols
