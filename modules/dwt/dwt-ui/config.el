@@ -266,7 +266,8 @@
 ;; display time modeline
 ;; (unless IS-MAC
 ;; (setq display-time-day-and-date t)
-(setq display-time-24hr-format t)
+(setq display-time-24hr-format t
+      display-time-default-load-average nil)
 (display-time-mode 1)
 ;; display battery in modeline
 (display-battery-mode 1)
