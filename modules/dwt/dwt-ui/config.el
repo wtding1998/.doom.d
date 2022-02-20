@@ -274,6 +274,18 @@
 (unless (display-graphic-p)
   (evil-terminal-cursor-changer-activate))
 
+(map! :leader
+      :desc "toggle date" "td" #'dwt/toggle-date-display)
+
+;;;###autoload
+(defun dwt/toggle-date-display ()
+  (interactive)
+  (if display-time-day-and-date
+      (setq display-time-day-and-date nil)
+    (setq display-time-day-and-date t))
+  (display-time-mode)
+  (display-time-mode))
+
 ;;;###autoload
 (defun dwt/reload-new-theme ()
   "Evaluate the current file, and reload the theme"
