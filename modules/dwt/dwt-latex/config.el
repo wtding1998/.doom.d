@@ -414,6 +414,9 @@
 (use-package! org-latex-impatient
   :defer t
   :commands (org-latex-impatient-mode)
+  :init
+  (map! :leader
+        :desc "org-impatient" "to" #'dwt/toggle-org-latex-impatient-mode)
   :config
   (setq org-latex-impatient-tex2svg-bin
         ;; location of tex2svg executable
@@ -431,7 +434,8 @@
   (interactive)
   (if (bound-and-true-p org-latex-impatient-mode)
       (progn
-        (hl-line-mode 1)
+        (unless (derived-mode-p 'org-mode)
+          (hl-line-mode 1))
         (org-latex-impatient-mode -1))
       (progn
         (hl-line-mode -1)
