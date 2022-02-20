@@ -411,20 +411,31 @@
          reftex-toc-split-windows-horizontally t
          reftex-toc-split-windows-fraction 0.25))
 
-;; (use-package! org-latex-impatient
-;;   ;; :defer t
-;;   ;; :hook (org-mode . org-latex-impatient-mode)
-;;   :init
-;;   (setq org-latex-impatient-tex2svg-bin
-;;         ;; location of tex2svg executable
-;;         "~/node_modules/mathjax-node-cli/bin/tex2svg")
-;; ;; ("\\newcommand{\\ensuremath}[1]{#1}" "\\renewcommand{\\usepackage}[2][]{}")
-;;   (setq org-latex-impatient-user-latex-definitions '("\\newcommand{\\contr}[1]{\\mathop{\\bullet_{#1}}}" "\\newcommand{\\tens}[1]{\\boldsymbol{\\mathcal{#1}}}" "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
-;;   (setq org-latex-impatient-border-width 0)
-;;   ;; (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
-;;   ;; (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
-;;   (unless IS-MAC
-;;     (setq org-latex-impatient-scale 1.5)))
+(use-package! org-latex-impatient
+  :defer t
+  :commands (org-latex-impatient-mode)
+  :config
+  (setq org-latex-impatient-tex2svg-bin
+        ;; location of tex2svg executable
+        "~/node_modules/mathjax-node-cli/bin/tex2svg")
+;; ("\\newcommand{\\ensuremath}[1]{#1}" "\\renewcommand{\\usepackage}[2][]{}")
+  (setq org-latex-impatient-user-latex-definitions '("\\newcommand{\\contr}[1]{\\mathop{\\bullet_{#1}}}" "\\newcommand{\\tens}[1]{\\boldsymbol{\\mathcal{#1}}}" "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
+  ;; (setq org-latex-impatient-border-width 0)
+  ;; (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
+  ;; (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
+  (when IS-LINUX
+    (setq org-latex-impatient-scale 1.2)))
+
+;;;###autoload
+(defun dwt/toggle-org-latex-impatient-mode ()
+  (interactive)
+  (if (bound-and-true-p org-latex-impatient-mode)
+      (progn
+        (hl-line-mode 1)
+        (org-latex-impatient-mode -1))
+      (progn
+        (hl-line-mode -1)
+        (org-latex-impatient-mode 1))))
 ;;
 
 (use-package! evil-tex
