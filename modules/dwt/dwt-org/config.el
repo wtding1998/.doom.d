@@ -4,6 +4,8 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+  ;;; deal with org-show-notification
+  (setq org-show-notification-handler 'message)
   ;;; restore windows after quiting agenda
   (setq org-agenda-restore-windows-after-quit t)
   ;;; remove hl-line
@@ -415,5 +417,5 @@ Creates new notes where none exist yet."
   (setq org-pomodoro-short-break-length 5)
   (setq org-pomodoro-short-break-sound-p nil)
   (setq org-pomodoro-long-break-sound-p nil)
-  (add-hook 'org-pomodoro-break-finished-hook
-            (lambda () (when (yes-or-no-p "continue? ") (org-pomodoro)))))
+  (setq org-pomodoro-play-sounds nil)
+  (setq org-pomodoro-keep-killed-pomodoro-time t))
