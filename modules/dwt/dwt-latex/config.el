@@ -336,6 +336,8 @@
      (?_    ("\\downarrow"  ""           "\\inf"))
      (?2    ("^2"           "\\sqrt{?}"     ""))
      (?3    ("^3"           "\\sqrt[3]{?}"  ""))
+     (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
+     (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
      (?^    ("\\uparrow"    ""           "\\sup"))
      (?H    ("\\nabla^2"    ""           ""))
      (?T    ("\\Theta"    ""           ""))
