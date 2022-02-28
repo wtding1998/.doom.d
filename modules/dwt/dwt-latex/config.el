@@ -342,6 +342,7 @@
      (?H    ("\\nabla^2"    ""           ""))
      (?T    ("\\Theta"    ""           ""))
      (?k    ("\\kappa"      ""           "\\ker"))
+     (?E    ("\\exists"      "\\varnothing"           ""))
      (?m    ("\\mu"         ""           "\\lim"))
      (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
      (?d    ("\\delta"      "\\partial"  "\\dim"))
