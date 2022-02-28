@@ -4,8 +4,6 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
-  ;;; don't use last clock-time as clock-in time next time
-  (setq org-clock-continuously nil)
   ;;; deal with org-show-notification
   (setq org-show-notification-handler 'message)
   ;;; restore windows after quiting agenda
@@ -15,8 +13,7 @@
   ;;; clock
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
-  (setq org-clock-idle-time 20
-        org-clock-continuously t)
+  (setq org-clock-idle-time 20)
   ;; (map! :map org-mode-map "<tab>" nil)
   ;; (add-hook 'org-mode-hook #'cdlatex-mode)
   (add-hook 'org-mode-hook #'evil-tex-mode)
