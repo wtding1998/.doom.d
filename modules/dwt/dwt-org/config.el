@@ -4,6 +4,8 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+  ;;; don't use last clock-time as clock-in time next time
+  (setq org-clock-continuously nil)
   ;;; deal with org-show-notification
   (setq org-show-notification-handler 'message)
   ;;; restore windows after quiting agenda
@@ -148,7 +150,8 @@
       (call-interactively #'org-latex-preview)))
   ;; org-agenda
   (setq org-agenda-files '("~/OneDrive/Documents/diary/org/agenda.org"
-                           "~/OneDrive/Documents/study note/org/cuhksz.org"))
+                           "~/OneDrive/Documents/study note/org/cuhksz.org"
+                           "~/OneDrive/Documents/roam/research.org"))
   ;; org-clock
   (setq org-clock-mode-line-total 'today))
 
