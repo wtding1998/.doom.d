@@ -173,23 +173,42 @@
           (insert "\\(_{}\\)")
           (left-char 6)))))
 
+  ;; (defun dwt/insert-space ()
+  ;;   "Wrap a single char with inline math"
+  ;;   (interactive)
+  ;;   (if (string-equal "-" (string (char-before (- (point) 1))))
+  ;;       (insert " ")
+  ;;       (progn
+  ;;         (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
+  ;;           (let ((length-current-word (length (word-at-point))))
+  ;;             (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
+  ;;                 (progn
+  ;;                   (call-interactively #'backward-word)
+  ;;                   (insert "\\( ")
+  ;;                   (call-interactively #'forward-word)
+  ;;                   (insert " \\)")
+  ;;                   (backward-char 3))
+  ;;               (insert " ")))
+  ;;           (insert " ")))))
+
   (defun dwt/insert-space ()
     "Wrap a single char with inline math"
     (interactive)
-    (if (string-equal "-" (string (char-before (- (point) 1))))
-        (insert " ")
-        (progn
-          (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
-            (let ((length-current-word (length (word-at-point))))
-              (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
-                  (progn
-                    (call-interactively #'backward-word)
-                    (insert "\\( ")
-                    (call-interactively #'forward-word)
-                    (insert " \\)")
-                    (backward-char 3))
-                (insert " ")))
-            (insert " ")))))
+    (unless (texmathp)
+      (let ((current-point-word (thing-at-point 'word)))
+        (cond ((> (length current-point-word) 1) (insert " "))
+              ((not (string-match "\\([A-Za-z]\\)" current-point-word)) (insert " "))
+              ((string-match "\\([aIA]\\)" current-point-word) (insert " "))
+              ;; ((string-equal "-" (string (char-before (- (point) 1)))) (insert " "))
+              (t (dwt/wrap-inline-math))))))
+
+  (defun dwt/wrap-inline-math ()
+    (call-interactively #'backward-word)
+    (insert "\\( ")
+    (call-interactively #'forward-word)
+    (insert " \\)")
+    (backward-char 3))
+
 
   (defun dwt/insert-transpose ()
     "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
