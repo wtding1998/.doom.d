@@ -174,6 +174,13 @@
 (use-package! ivy-posframe
   :hook (ivy-mode . ivy-posframe-mode)
   :config
+  ;; posframe doesn't work well with async sources (the posframe will
+  ;; occasionally stop responding/redrawing), and causes violent resizing of the
+  ;; posframe.
+  (dolist (fn '(org-roam-node-insert  org-roam-node-find
+                counsel-rg counsel-grep counsel-git-grep))
+    (setf (alist-get fn ivy-posframe-display-functions-alist)
+          #'ivy-display-function-fallback))
   ;; Prettify the buffer
   (defun my-ivy-posframe--prettify-buffer (&rest _)
     "Add top and bottom margin to the prompt."
