@@ -334,8 +334,9 @@
    cdlatex-math-symbol-alist
    '( ;; adding missing functions to 3rd level symbols
      (?_    ("\\downarrow"  ""           "\\inf"))
-     (?2    ("^2"           "\\sqrt{?}"     ""))
-     (?3    ("^3"           "\\sqrt[3]{?}"  ""))
+     (?1    ("\\cup"           "\\sqrt{?}"     ""))
+     (?2    ("\\cup"           "\\sqrt{?}"     ""))
+     (?3    ("\\cap"           "\\sqrt[3]{?}"  ""))
      (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
      (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
      (?^    ("\\uparrow"    ""           "\\sup"))
