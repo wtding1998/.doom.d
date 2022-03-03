@@ -13,7 +13,7 @@
   ;;; clock
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update)
-  (setq org-clock-idle-time 20)
+  (setq org-clock-idle-time 30)
   ;; (map! :map org-mode-map "<tab>" nil)
   ;; (add-hook 'org-mode-hook #'cdlatex-mode)
   (add-hook 'org-mode-hook #'evil-tex-mode)
