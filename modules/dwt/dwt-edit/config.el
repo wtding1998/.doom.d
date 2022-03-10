@@ -35,6 +35,7 @@
         ;; to make them available in company-mode, disable them firstly
         :i "C-n" nil
         :i "C-p" nil
+        :i "C-d" #'backward-delete-char-untabify
         ;; since I do not use repeat
         :n "'" #'basic-save-buffer
         ;; show doc
