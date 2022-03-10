@@ -26,13 +26,17 @@
   ;;         (list :font "Source Han Serif CN")))
   ;; remove background https://github.com/DogLooksGood/emacs-rime/issues/149
   ;; color for mode line lighter
-  (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
-  (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
-  ;; color for posframedhi
-  (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'mode-line) :background (face-background 'mode-line))
-  (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil)
-  (set-face-attribute 'rime-code-face          nil :foreground nil :background nil :inherit 'rime-default-face)
-  (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil)
+  (defun dwt/set-rime-face ()
+    "Set the face of rime according to current theme."
+    (interactive)
+    (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
+    (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
+    ;; color for posframedhi
+    (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'mode-line) :background (face-background 'mode-line))
+    (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil)
+    (set-face-attribute 'rime-code-face          nil :foreground nil :background nil :inherit 'rime-default-face)
+    (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil))
+  (dwt/set-rime-face)
   ;; use English automatically after English words
   (setq rime-disable-predicates
         '(rime-predicate-evil-mode-p
