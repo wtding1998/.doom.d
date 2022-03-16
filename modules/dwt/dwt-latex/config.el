@@ -330,9 +330,9 @@
 (defun dwt/new-tex-dir ()
   "Create latex project."
   (interactive)
-  (let* ((dir-path (counsel-read-directory-name "Path of project: ")))
-        (project-name (read-from-minibuffer "Name of project: "))
-        (project-path (concat dir-path project-name))
+  (let* ((dir-path (counsel-read-directory-name "Path of project: "))
+         (project-name (read-from-minibuffer "Name of project: "))
+         (project-path (concat dir-path project-name)))
     (message project-path)
     (make-directory project-name dir-path)
     (find-file (concat project-path "/" project-name ".tex"))))
