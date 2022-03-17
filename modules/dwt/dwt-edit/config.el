@@ -212,3 +212,11 @@
 ;; (use-package! gcmh
 ;;   :init
 ;;   (setq garbage-collection-messages t))
+
+;;;###autoload
+(defun dwt/test ()
+  "An command for test."
+  (interactive)
+  (message "test"))
+
+(map! :n "<f5>" #'dwt/test)
