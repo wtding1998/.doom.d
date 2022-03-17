@@ -119,15 +119,32 @@
 
 (map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir)
 
-(defun dwt/replace-path ()
-  (interactive)
-  (save-excursion
+;; ;;;###autoload
+;; (defun dwt/replace-path ()
+;;   (interactive)
+;;   (save-excursion
+;;     (goto-char (point-min))
+;;     (while (search-forward "\\\\" nil t)
+;;       (replace-match "$"))
+;;     (while (search-forward "\\)" nil t)
+;;       (replace-match "$"))))
+
+;;;###autoload
+(defun dwt/replace-newline-by-space-point (p1 p2)
+    (narrow-to-region p1 p2)
     (goto-char (point-min))
-    (while (search-forward "\\\\" nil t)
-      (replace-match "$"))
-    (while (search-forward "\\)" nil t)
-      (replace-match "$"))))
+    (save-excursion
+      (while (search-forward "\n" nil t)
+        (replace-match " ")))
+    (widen))
 
+;;;###autoload
+(defun dwt/replace-newline-by-space ()
+  (interactive)
+  (if (use-region-p)
+      (dwt/replace-newline-by-space-point (region-beginning) (region-end))
+      (dwt/replace-newline-by-space-point (point) (point-max))))
 
+(map! :leader "omr" #'dwt/replace-newline-by-space)
 ;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
 ;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
