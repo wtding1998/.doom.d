@@ -21,8 +21,6 @@
         :nvm "H" #'evil-beginning-of-line
         ;; :nvm "J" #'(lambda () (interactive) (evil-next-line 5))
         ;; :nvm "K" #'(lambda () (interactive) (evil-previous-line 5))
-        :nvm "J" (kbd "5j")
-        :nvm "K" (kbd "5k")
         :nv "[q" (kbd "C-c C-c")
         :nv "[Q" (kbd "C-c C-k")
         :nv "[p" #'goto-last-change
