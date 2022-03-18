@@ -4,6 +4,8 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+  ;; enable org-habit
+  (push 'org-habit org-modules)
   ;;; deal with org-show-notification
   (setq org-show-notification-handler 'message)
   ;;; restore windows after quiting agenda
