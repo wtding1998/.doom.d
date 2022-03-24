@@ -231,13 +231,15 @@
   (define-key global-map (kbd "M-p") #'+popup/other)
   ;; height
   (if (not IS-MAC)
+      ;; arch
       (progn
-        (setq awesome-tab-height 100
-              awesome-tab-active-bar-height 20)
-        (when dwt/lenovo
-          (setq awesome-tab-height 180)))
-      (setq awesome-tab-height 120
-            awesome-tab-active-bar-height 20))
+        (setq awesome-tab-height 180
+              awesome-tab-active-bar-height 20))
+      ;; mac
+      (progn
+        (setq awesome-tab-height 120
+              awesome-tab-icon-height 0.8
+              awesome-tab-active-bar-height 15)))
 
   ;; define tab-hide-rule
   (defun awesome-tab-hide-tab (x)
