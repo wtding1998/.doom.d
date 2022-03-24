@@ -2,7 +2,11 @@
 
 (defvar dwt/system-default "explorer.exe")
 (when IS-MAC
-  (setq ns-right-command-modifier 'control)
+  ;; (setq ns-right-command-modifier 'control)
+  (setq mac-command-modifier 'meta)
+  (setq mac-right-command-modifier 'meta)
+  (setq mac-option-modifier 'super)
+  (setq mac-right-option-modifier 'super)
   (+macos--open-with open-in-terminal "Terminal" default-directory)
   (map! :leader :desc "open in terminal" "ot" #'+macos/open-in-terminal)
   (setq dwt/system-default "open"))

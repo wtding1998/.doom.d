@@ -103,7 +103,7 @@
     (when dwt/lenovo
       (setq dwt/fontsize 26))
     (when IS-MAC
-      (setq dwt/fontsize 15))
+      (setq dwt/fontsize 14))
     ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 1))) ;; 11 13 17 19 23
@@ -238,7 +238,7 @@
       ;; mac
       (progn
         (setq awesome-tab-height 120
-              awesome-tab-icon-height 0.8
+              awesome-tab-icon-height 0.7
               awesome-tab-active-bar-height 15)))
 
   ;; define tab-hide-rule
@@ -278,7 +278,7 @@
 (setq-default frame-title-format '("Emacs - %b"))
 
 ;;; +modeline, light line in doom
-(setq +modeline-height 13)
+(setq +modeline-height 3)
 ;; display time modeline
 ;; (unless IS-MAC
 ;; (setq display-time-day-and-date t)
