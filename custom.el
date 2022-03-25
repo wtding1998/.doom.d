@@ -29,7 +29,7 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#0d1011" "#5b5b5b"))
  '(objed-cursor-color "#e68183")
  '(org-agenda-files
-   '("~/OneDrive/Documents/diary/org/agenda.org" "~/OneDrive/Documents/study note/org/other_note.org" "~/OneDrive/Documents/study note/org/cuhksz.org"))
+   '("~/OneDrive/Documents/roam/research.org" "~/OneDrive/Documents/diary/org/agenda.org" "~/OneDrive/Documents/study note/org/cuhksz.org"))
  '(pdf-view-midnight-colors (cons "#e6d6ac" "#2a2426"))
  '(rustic-ansi-faces
    ["#2a2426" "#e68183" "#87af87" "#d9bb80" "#89beba" "#e68183" "#87c095" "#e6d6ac"])
