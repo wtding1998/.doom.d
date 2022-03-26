@@ -103,7 +103,7 @@
     (when dwt/lenovo
       (setq dwt/fontsize 26))
     (when IS-MAC
-      (setq dwt/fontsize 14))
+      (setq dwt/fontsize 15))
     ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 1))) ;; 11 13 17 19 23
@@ -263,7 +263,7 @@
 (when IS-MAC
   (use-package! transwin
     :init
-    (setq transwin--record-toggle-frame-transparency 90)
+    (setq transwin--record-toggle-frame-transparency 95)
     :config
     (map! :leader "tt" #'transwin-toggle-transparent-frame)
     (map! :leader "tT" #'dwt/turn-on-transwin)

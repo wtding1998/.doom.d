@@ -95,6 +95,7 @@
     (map! :leader
           :desc "music" "tm" #'netease-cloud-music)
     :config
+    (require 'netease-cloud-music-ui)
     (evil-set-initial-state 'netease-cloud-music-mode 'emacs)))
 
 ;; weather
