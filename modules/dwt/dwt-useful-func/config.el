@@ -35,6 +35,7 @@
                    "~/.config/fcitx/rime/default.custom.yaml"
                    "~/.config/ranger/rifle.conf"
                    "~/.emacs.d.vanilia/init.el"
+                   "~/Library/Preferences/DOSBox-X 0.83.23 Preferences"
                    "/mnt/c/Users/56901/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
                    "~/.emacs.d/"
                    "~/.config")))

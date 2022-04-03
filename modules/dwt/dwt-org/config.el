@@ -84,6 +84,11 @@
                  "* %<%H-%M> - %?\n"))
 
   (add-to-list 'org-capture-templates
+               '("t" "thoughts"
+                 entry (file+datetree "~/OneDrive/Documents/roam/thoughts.org")
+                 "* %<%H-%M> - %?\n"))
+
+  (add-to-list 'org-capture-templates
                '("e" "English"
                  entry (file+olp "~/OneDrive/Documents/study note/org/English_note.org" "Words")
                  "* %^{title} \n %?"))

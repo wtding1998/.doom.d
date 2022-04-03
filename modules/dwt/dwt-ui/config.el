@@ -263,7 +263,7 @@
 (when IS-MAC
   (use-package! transwin
     :init
-    (setq transwin--record-toggle-frame-transparency 95)
+    (setq transwin--record-toggle-frame-transparency 92)
     :config
     (map! :leader "tt" #'transwin-toggle-transparent-frame)
     (map! :leader "tT" #'dwt/turn-on-transwin)
