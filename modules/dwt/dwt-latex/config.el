@@ -27,6 +27,9 @@
   ;;   :config
   ;;   (require 'popweb-latex)
   ;;   (add-hook 'latex-mode-hook #'popweb-latex-mode))
+  ;;; this mode show dismatch parens
+  ;;; but it doesn't work will for (1,0]
+  (remove-hook 'TeX-update-style-hook #'rainbow-delimiters-mode)
   ;;; use xetex ass default engin
   (setq-default TeX-engine 'xetex
                 TeX-PDF-mode t)
