@@ -126,7 +126,7 @@
           ;; theme for GUI in daemon
           ;; (dwt/load-light-themes)
           ;; (load-theme 'modus-operandi t nil)
-          (load-theme 'notink t nil)
+          (load-theme 'modus-operandi t nil)
           ;;; frame init
           (when IS-MAC
               (dwt/turn-on-transwin)))
@@ -138,7 +138,7 @@
   (if (display-graphic-p)
       ;; font and theme for GUI in single emacs
       (progn
-        (load-theme 'notink t nil)
+        (load-theme 'modus-operandi t nil)
         (dwt/doom-font))
     ;; theme for TUI in single emacs
     (load-theme 'doom-monokai-pro t nil)))

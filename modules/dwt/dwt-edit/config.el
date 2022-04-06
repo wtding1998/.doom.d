@@ -214,4 +214,4 @@
   (interactive)
   (message "test"))
 
-(map! :n "<f5>" #'dwt/test)
+(map! :ni "<f5>" #'dwt/test)

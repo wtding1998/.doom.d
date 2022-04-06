@@ -35,8 +35,9 @@
                 TeX-PDF-mode t)
   ;;; auctex preview scale
   (after! preview
-    (unless IS-MAC
-      (setq-default preview-scale 2.5)))
+    (if IS-LINUX
+      (setq-default preview-scale 2.5)
+      (setq-default preview-scale 1.4)))
   (set-popup-rules!
     ;; '(("^\\*Python*" :side right :size 15 :select t)))
     '(("^\\*TeX Help*" :size 15)))
