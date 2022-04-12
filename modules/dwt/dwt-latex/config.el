@@ -460,6 +460,8 @@
 (use-package! org-latex-impatient
   :defer t
   :commands (org-latex-impatient-mode)
+  :hook ((org-mode . org-latex-impatient-mode)
+         (latex-mode . org-latex-impatient))
   :init
   (map! :leader
         :desc "org-impatient" "to" #'dwt/toggle-org-latex-impatient-mode)
