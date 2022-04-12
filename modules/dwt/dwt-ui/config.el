@@ -126,10 +126,10 @@
           ;; theme for GUI in daemon
           ;; (dwt/load-light-themes)
           ;; (load-theme 'modus-operandi t nil)
-          (load-theme 'modus-operandi t nil)
+          (load-theme 'modus-operandi t nil))
           ;;; frame init
-          (when IS-MAC
-              (dwt/turn-on-transwin)))
+          ;; (when IS-MAC
+          ;;     (dwt/turn-on-transwin)))
       ;;; theme for TUI in daemon
       (load-theme 'doom-monokai-pro t nil))))
 
@@ -151,7 +151,7 @@
 ;; frame
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 
 (use-package! diff-hl
