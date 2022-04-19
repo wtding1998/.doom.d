@@ -96,8 +96,21 @@
     (map! :leader
           :desc "music" "tm" #'netease-cloud-music)
     :config
-    (require 'netease-cloud-music-ui)
-    (evil-set-initial-state 'netease-cloud-music-mode 'emacs)))
+    (map! :map netease-cloud-music-mode-map
+          :n "<RET>" #'netease-cloud-music-play-song-at-point
+          :n "n" #'netease-cloud-music-play-next-song
+          :n "p" #'netease-cloud-music-play-previous-song
+          :n "N" #'netease-cloud-music-random-play
+          :n "f" #'netease-cloud-music-search-song
+          :n "F" #'netease-cloud-music-search-playlist
+          :n "x" #'netease-cloud-music-kill-current-song
+          :n "q" #'netease-cloud-music-back
+          :n "Q" #'netease-cloud-music-close
+          :n "/" #'netease-cloud-music-ask-play
+          :n "c" #'netease-cloud-music-change-lyric-type
+          :n "r" #'netease-cloud-music-change-repeat-mode
+          :n "<tab>" #'netease-cloud-music-toggle-playlist-songs)))
+
 
 ;; weather
 (defun dwt/weather ()
