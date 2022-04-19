@@ -421,6 +421,7 @@ Creates new notes where none exist yet."
   (setq org-pomodoro-short-break-format "%s")
   (setq org-pomodoro-time-format "%.2m")
   (setq org-pomodoro-length 30)
+  (setq org-pomodoro-long-break-frequency 3)
   (setq org-pomodoro-short-break-length 5)
   (setq org-pomodoro-short-break-sound-p nil)
   (setq org-pomodoro-long-break-sound-p nil)

@@ -1,8 +1,8 @@
 ;;; dwt/dwt-pdf/config.el -*- lexical-binding: t; -*-
 
 (use-package! pdf-view
-  :hook ((pdf-tools-enabled . pdf-view-themed-minor-mode)
-         (pdf-tools-enabled . pdf-view-auto-slice-minor-mode)
+  :hook ((pdf-tools-enabled . pdf-view-auto-slice-minor-mode)
+         ;; (pdf-tools-enabled . pdf-view-themed-minor-mode)
          (pdf-tools-enabled . hide-mode-line-mode))
   :config
   (map! :map pdf-view-mode-map

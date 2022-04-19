@@ -29,10 +29,10 @@
   (setq dired-omit-extensions (delete ".aux" dired-omit-extensions)))
 (setq delete-by-moving-to-trash t)
 (after! dired
-  (map! :n "-" #'dired-jump
-        :n "_" (lambda ()
-                 (interactive)
-                 (dired-jump t))
+  (map! :n "_" #'dired-jump
+        ;; :n "_" (lambda ()
+        ;;          (interactive)
+        ;;          (dired-jump t))
         :map dired-mode-map
         :n "J" nil
         :localleader
