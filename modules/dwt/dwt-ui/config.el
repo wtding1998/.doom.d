@@ -312,3 +312,23 @@
          (theme-name (replace-regexp-in-string "-theme" "" file-name)))
     (call-interactively #'eval-buffer)
     (load-theme (intern-soft theme-name) t nil)))
+
+;;; change the height of icon for mac
+(when IS-MAC
+  (after! evil
+    (defun +modeline-format-icon (icon-set icon label &optional face help-echo voffset)
+      "Build from ICON-SET the ICON with LABEL.
+    Using optionals attributes FACE, HELP-ECHO and VOFFSET."
+      (let ((icon-set-fn (pcase icon-set
+                          ('octicon #'all-the-icons-octicon)
+                          ('faicon #'all-the-icons-faicon)
+                          ('material #'all-the-icons-material)
+                          ('alltheicon #'all-the-icons-alltheicon)
+                          ('fileicon #'all-the-icons-fileicon))))
+        (propertize (concat (funcall icon-set-fn
+                                    icon
+                                    :face face
+                                    :height 0.8
+                                    :v-adjust (or voffset 0.05))
+                            (propertize label 'face face))
+                    'help-echo help-echo)))))
