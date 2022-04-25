@@ -5,3 +5,5 @@
 (package! speed-type)
 (when IS-MAC
   (package! netease-cloud-music.el :recipe (:host github :repo "SpringHan/netease-cloud-music.el")))
+(when IS-LINUX
+  (package! fanyi.el :recipe (:host github :repo "condy0919/fanyi.el")))

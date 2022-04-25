@@ -103,7 +103,8 @@
           :n "N" #'netease-cloud-music-random-play
           :n "f" #'netease-cloud-music-search-song
           :n "F" #'netease-cloud-music-search-playlist
-          :n "x" #'netease-cloud-music-kill-current-song
+          :n "x" #'netease-cloud-music-pause-or-continue
+          :n "X" #'netease-cloud-music-kill-current-song
           :n "q" #'netease-cloud-music-back
           :n "Q" #'netease-cloud-music-close
           :n "/" #'netease-cloud-music-ask-play
@@ -163,3 +164,8 @@
 (map! :leader "omr" #'dwt/replace-newline-by-space)
 ;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
 ;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
+
+(when IS-LINUX
+  (use-package! fanyi
+    :defer t
+    :commands (fanyi-dwim)))
