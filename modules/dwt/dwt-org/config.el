@@ -427,6 +427,8 @@ Creates new notes where none exist yet."
   (setq org-pomodoro-long-break-sound-p nil)
   (setq org-pomodoro-play-sounds nil)
   (setq org-pomodoro-keep-killed-pomodoro-time t)
+  (add-hook 'org-pomodoro-finished-hook (lambda ()
+                                          (y-or-n-p "Finish! ")))
   (add-hook 'org-pomodoro-break-finished-hook (lambda ()
                                                 (when (y-or-n-p "Continue? ")
                                                   (let ((arg '(16)))
