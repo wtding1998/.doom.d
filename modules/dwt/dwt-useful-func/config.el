@@ -165,7 +165,6 @@
 ;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
 ;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
 
-(when IS-LINUX
-  (use-package! fanyi
-    :defer t
-    :commands (fanyi-dwim)))
+(use-package! fanyi
+  :defer t
+  :commands (fanyi-dwim))
