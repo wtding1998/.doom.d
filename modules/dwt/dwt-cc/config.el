@@ -3,6 +3,9 @@
 (add-hook 'c-mode-hook #'(lambda () (setq tab-width 4
                                           evil-shift-width 4)))
 
+;;set file template for c
+(set-file-template! "\\.c$" :trigger "__dwtc")
+
 (after! cc-mode
   ;; quick compile function
   (defun dwt/gcc-compile-and-run ()
