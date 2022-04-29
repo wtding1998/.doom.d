@@ -1,7 +1,9 @@
 ;;; dwt/dwt-cc/config.el -*- lexical-binding: t; -*-
 
 (add-hook 'c-mode-hook #'(lambda () (setq tab-width 4
-                                          evil-shift-width 4)))
+                                          evil-shift-width 4
+                                          c-basic-offset 4
+                                          c-default-style "linux")))
 
 ;;set file template for c
 (set-file-template! "\\.c$" :trigger "__dwtc")
