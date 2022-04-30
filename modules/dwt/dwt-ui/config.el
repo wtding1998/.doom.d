@@ -335,8 +335,8 @@
 
 (+modeline-global-mode -1)
 (awesome-tray-mode 1)
-(setq awesome-tray-active-modules '("evil" "org-pomodoro" "pdf-view" "location" "belong" "file-path" "mode-name" "battery" "date"))
-
+(setq awesome-tray-active-modules '("evil" "org-pomodoro" "input-method" "pdf-view" "location" "belong" "file-path" "mode-name" "battery" "date"))
+(setq awesome-tray-input-method-zh-style "ㄓ")
 ;; Visualize TAB, (HARD) SPACE, NEWLINE
 ;; Pulse current line
 ;; copied from centaur-emacs
