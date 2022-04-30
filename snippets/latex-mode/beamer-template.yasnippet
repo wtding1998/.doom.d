@@ -5,35 +5,66 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{amsmath}
-\usepackage{amsfonts}       % blackboard math symbols
 \usepackage{amsthm}
+\usepackage{amsfonts}
+% blackboard math symbols
+\usepackage{mathrsfs}
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{mathdots}
+\newtheorem{proposition}{Proposition}
+\usepackage[ruled]{algorithm2e}
+% \usepackage{algcompatible}
+% \usepackage{algorithm}
 
-\usetheme{Madrid}
-% \usetheme{CambridgeUS}
-% \usecolortheme{whale}
-\usecolortheme{default}
+\usetheme{CambridgeUS}
 
-\setbeamertemplate{theorems}[ams style]
-\setbeamertemplate{definitions}[ams style]
-\setbeamertemplate{examples}[ams style]
+\usepackage[backend=bibtex, citestyle=authoryear]{biblatex}
+\addbibresource{matrix-SD.bib}
 % Removes icon in bibliography
 \setbeamertemplate{bibliography item}[text]
 
-\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{itemize subitem}[default]
 \setbeamertemplate{itemize items}[default]
 \setbeamertemplate{enumerate items}[default]
-\setbeamertemplate{sections/subsections in toc}{\inserttocsectionnumber.~\inserttocsection}
-% \setbeamertemplate{sections/subsections in toc}[square]
 
-\title[Preparations]{Preparations}
-\subtitle{}
-\institute[SDS]{School of Data Science\\\\
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamercolor{block title}{fg=structure,bg=white}
+\setbeamertemplate{section in toc}{
+{\color{red!70!black}\inserttocsectionnumber.~\inserttocsection}}
+\setbeamercolor{subsection in toc}{bg=white,fg=structure}
+\setbeamertemplate{subsection in toc}{
+\hspace{1.2em}{\color{black}\rule[0.3ex]{3pt}{3pt}~\inserttocsubsection}\par}
+\newcommand{\sign}{\operatorname{sign}}
+% \AtBeginSection[]
+% {
+%     \begin{frame}
+%         \frametitle{Contents}
+%         \tableofcontents[currentsection]
+%     \end{frame}
+% }
+
+\AtBeginSubsection[]
+{
+\begin{frame}
+\frametitle{Contents}
+{\small
+\tableofcontents[currentsubsection]
+}
+\end{frame}
+}
+
+\title[]{}
+% \subtitle{}
+\institute[SDS]{School of Data Science \\
 The Chinese University of Hong Kong, Shenzhen}
-\author[Wentao Ding]{Wentao Ding \\\\
-\texttt{220049024@link.cuhk.edu.cn}}
-\date{\today}
+\author[Wentao Ding]{Wentao Ding}
+\date[\today]{\today}
 
 \begin{document}
 \frame{\titlepage}

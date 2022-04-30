@@ -167,4 +167,8 @@
 
 (use-package! fanyi
   :defer t
-  :commands (fanyi-dwim))
+  :commands (fanyi-dwim)
+  :init
+  (map! :leader
+        :desc "fanyi" "te" #'fanyi-dwim
+        :desc "osx-dict" "tE" #'osx-dictionary-search-input))

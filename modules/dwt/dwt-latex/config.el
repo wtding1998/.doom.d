@@ -452,6 +452,8 @@
                                  ("addsec" . -2)))
   (map! :map reftex-toc-map
         :n "i" #'reftex-toc-toggle-index
+        :n "rl" nil
+        :n "r" #'reftex-toc-rescan
         :n "c" #'reftex-toc-toggle-context)
   (setq! reftex-toc-follow-mode t
          reftex-toc-split-windows-horizontally t
