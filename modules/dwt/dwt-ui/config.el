@@ -332,3 +332,49 @@
                                     :v-adjust (or voffset 0.05))
                             (propertize label 'face face))
                     'help-echo help-echo)))))
+
+(+modeline-global-mode -1)
+(awesome-tray-mode 1)
+(setq awesome-tray-active-modules '("evil" "location" "belong" "file-path" "mode-name" "battery" "date"))
+
+;; Visualize TAB, (HARD) SPACE, NEWLINE
+;; Pulse current line
+;; copied from centaur-emacs
+;; seagle0128/.emacs.d/blob/66afa5d433b18948b994cb386a3d2a1ce6788456/lisp/init-highlight.el#L211
+(use-package! pulse
+  :ensure nil
+  :preface
+  (defun my-pulse-momentary-line (&rest _)
+    "Pulse the current line."
+    (pulse-momentary-highlight-one-line (point) 'next-error))
+
+  (defun my-pulse-momentary (&rest _)
+    "Pulse the current line."
+    (if (fboundp 'xref-pulse-momentarily)
+        (xref-pulse-momentarily)
+      (my-pulse-momentary-line)))
+
+  (defun my-recenter-and-pulse(&rest _)
+    "Recenter and pulse the current line."
+    (recenter)
+    (my-pulse-momentary))
+
+  (defun my-recenter-and-pulse-line (&rest _)
+    "Recenter and pulse the current line."
+    (recenter)
+    (my-pulse-momentary-line))
+  :hook (((dumb-jump-after-jump
+           imenu-after-jump) . my-recenter-and-pulse)
+         ((bookmark-after-jump
+           magit-diff-visit-file
+           next-error) . my-recenter-and-pulse-line))
+  :init
+  (dolist (cmd '(recenter-top-bottom
+                 other-window ace-window windmove-do-window-select
+                 pager-page-down pager-page-up
+                 symbol-overlay-basic-jump))
+    (advice-add cmd :after #'my-pulse-momentary-line))
+  (dolist (cmd '(pop-to-mark-command
+                 pop-global-mark
+                 goto-last-change))
+    (advice-add cmd :after #'my-recenter-and-pulse)))
