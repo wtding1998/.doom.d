@@ -335,7 +335,7 @@
 
 (+modeline-global-mode -1)
 (awesome-tray-mode 1)
-(setq awesome-tray-active-modules '("evil" "location" "belong" "file-path" "mode-name" "battery" "date"))
+(setq awesome-tray-active-modules '("evil" "org-pomodoro" "pdf-view" "location" "belong" "file-path" "mode-name" "battery" "date"))
 
 ;; Visualize TAB, (HARD) SPACE, NEWLINE
 ;; Pulse current line
