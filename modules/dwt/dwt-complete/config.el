@@ -75,6 +75,8 @@
   :config
   (setq ivy-count-format "%d/%d ")
   (map! :map ivy-minibuffer-map
+        "C-d" #'ivy-scroll-up-command
+        "C-u" #'ivy-scroll-down-command
         "<backtab>" #'ivy-partial
         "C-<return>" #'ivy-immediate-done))
 

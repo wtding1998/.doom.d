@@ -25,7 +25,7 @@
         :nv "[z" #'goto-last-change
         :nv "]z" #'goto-last-change-reverse
         :n "Q" #'kill-current-buffer
-        :i "C-v" #'evil-paste-before
+        ;; :i "C-v" #'evil-paste-before
         ;; C-n, C-p is binded to evil by default
         ;; to make them available in company-mode, disable them firstly
         :i "C-n" nil
@@ -37,6 +37,10 @@
         :n "gh" #'+lookup/documentation
         ;; ace jump
         :n "ge" #'awesome-tab-ace-jump
+        :nv "g1" #'evil-avy-goto-char
+        :nv "g2" #'evil-avy-goto-char-2
+        :nv "g3" #'evil-avy-goto-word-1
+        :nv "g4" #'evil-avy-goto-word-0
         :n "zw" #'widen
         :nv "ga" #'evil-avy-goto-char-timer
         :nv "go" #'avy-goto-line
@@ -44,7 +48,6 @@
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
         :n "U" 'undo-fu-only-redo
-        :nv "D" 'evil-avy-goto-char-2
 
         ;;; add new command with this prefix
         ;; :n "r" nil
