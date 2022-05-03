@@ -337,6 +337,7 @@
 (awesome-tray-mode 1)
 ;; (setq awesome-tray-active-modules '("evil" "org-pomodoro" "input-method" "pdf-view" "location" "file-path" "mode-name" "battery" "date"))
 (setq awesome-tray-active-modules '("evil" "org-pomodoro" "input-method" "pdf-view" "location" "file-path" "battery" "date"))
+(setq awesome-tray-essential-modules awesome-tray-active-modules)
 (setq awesome-tray-input-method-zh-style "ㄓ"
       awesome-tray-file-path-full-dirname-levels 0
       awesome-tray-file-path-truncate-dirname-levels 1
@@ -375,6 +376,7 @@
   :init
   (dolist (cmd '(recenter-top-bottom
                  other-window ace-window windmove-do-window-select
+                 evil-scroll-down evil-scroll-up
                  pager-page-down pager-page-up
                  symbol-overlay-basic-jump))
     (advice-add cmd :after #'my-pulse-momentary-line))
