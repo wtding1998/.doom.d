@@ -333,16 +333,19 @@
                             (propertize label 'face face))
                     'help-echo help-echo)))))
 
-(+modeline-global-mode -1)
-(awesome-tray-mode 1)
-;; (setq awesome-tray-active-modules '("evil" "org-pomodoro" "input-method" "pdf-view" "location" "file-path" "mode-name" "battery" "date"))
-(setq awesome-tray-active-modules '("buffer-modified" "evil" "org-pomodoro" "input-method" "pdf-view" "location" "file-path" "battery" "date"))
-(setq awesome-tray-essential-modules awesome-tray-active-modules)
-(setq awesome-tray-input-method-zh-style "ㄓ"
-      awesome-tray-input-method-en-style ""
-      awesome-tray-file-path-full-dirname-levels 0
-      awesome-tray-file-path-truncate-dirname-levels 1
-      awesome-tray-file-path-truncated-name-length 6)
+(use-package! awesome-tray
+  :init
+  (global-hide-mode-line-mode 1)
+  :config
+  (awesome-tray-mode 1)
+  (setq awesome-tray-active-modules '("buffer-modified" "evil" "org-pomodoro" "input-method" "pdf-view" "location" "file-path" "battery" "date"))
+  (setq awesome-tray-essential-modules awesome-tray-active-modules)
+  (setq awesome-tray-input-method-zh-style "ㄓ"
+        awesome-tray-input-method-en-style ""
+        awesome-tray-file-path-full-dirname-levels 0
+        awesome-tray-file-path-truncate-dirname-levels 1
+        awesome-tray-file-path-truncated-name-length 6))
+
 ;; Visualize TAB, (HARD) SPACE, NEWLINE
 ;; Pulse current line
 ;; copied from centaur-emacs
