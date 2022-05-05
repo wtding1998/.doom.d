@@ -167,6 +167,8 @@
 
 
 (use-package! awesome-tab
+  :defer t
+  :commands (awesome-tab-mode)
   :config
   (defhydra awesome-fast-switch (:hint nil)
     "
@@ -346,6 +348,23 @@
         awesome-tray-file-path-full-dirname-levels 0
         awesome-tray-file-path-truncate-dirname-levels 1
         awesome-tray-file-path-truncated-name-length 6))
+
+(use-package! sort-tab
+  :config
+  (sort-tab-mode)
+  (map! :ni "C-<tab>" #'sort-tab-select-next-tab
+        :ni "C-<iso-lefttab>" #'sort-tab-select-prev-tab
+        :n "gt" #'sort-tab-select-next-tab
+        :n "gT" #'sort-tab-select-prev-tab
+        :ni "C-1" #'sort-tab-select-visible-tab
+        :ni "C-2" #'sort-tab-select-visible-tab
+        :ni "C-3" #'sort-tab-select-visible-tab
+        :ni "C-4" #'sort-tab-select-visible-tab
+        :ni "C-5" #'sort-tab-select-visible-tab
+        :ni "C-6" #'sort-tab-select-visible-tab
+        :ni "C-7" #'sort-tab-select-visible-tab
+        :ni "C-8" #'sort-tab-select-visible-tab
+        :ni "C-9" #'sort-tab-select-visible-tab))
 
 ;; Visualize TAB, (HARD) SPACE, NEWLINE
 ;; Pulse current line
