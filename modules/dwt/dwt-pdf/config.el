@@ -1,9 +1,8 @@
 ;;; dwt/dwt-pdf/config.el -*- lexical-binding: t; -*-
 
-(use-package! pdf-view
-  :hook ((pdf-tools-enabled . pdf-view-auto-slice-minor-mode)
+(use-package! pdf-tools
+  :hook ((pdf-tools-enabled . pdf-view-auto-slice-minor-mode))
          ;; (pdf-tools-enabled . pdf-view-themed-minor-mode)
-         (pdf-tools-enabled . hide-mode-line-mode))
   :config
   (map! :map pdf-view-mode-map
         :n "t" #'pdf-view-themed-minor-mode
@@ -20,6 +19,10 @@
         :n "D" #'pdf-history-forward
         :n "C-j" #'pdf-history-forward
         :n "C-k" #'pdf-history-backward))
+
+(after! saveplace-pdf-view
+  (map! :map pdf-view-mode-map
+        :n "q" #'previous-buffer))
 
 ;;;###autoload
 (defun dwt/open-by-zathura ()
