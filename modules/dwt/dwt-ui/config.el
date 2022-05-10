@@ -40,19 +40,6 @@
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
 ;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
-(defvar dwt/show-sentence-in-modeline nil)
-(defvar dwt/my-sentence " I am a diligent man ")
-;;;###autoload
-(defun dwt/toggle-sentence ()
-  (interactive)
-  (basic-save-buffer)
-  (revert-buffer)
-  (if dwt/show-sentence-in-modeline
-      (progn
-        (setq-default +modeline-format-right (remove dwt/my-sentence +modeline-format-right))
-        (setq dwt/show-sentence-in-modeline nil))
-      (setq-default +modeline-format-right (push dwt/my-sentence +modeline-format-right))
-      (setq dwt/show-sentence-in-modeline t)))
 (map! :leader :desc "toggle sentence" "ta" #'dwt/toggle-sentence)
 
 ;; disable global-hl-line
