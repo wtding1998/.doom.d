@@ -229,8 +229,6 @@
   (map! :ni "C-<tab>" #'awesome-tab-forward-tab)
   (map! :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
 
-  (define-key global-map (kbd "M-o") #'other-window)
-  (define-key global-map (kbd "M-p") #'+popup/other)
   ;; height
   (if (not IS-MAC)
       ;; arch
@@ -278,7 +276,8 @@
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
 ;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
 (setq-default frame-title-format '("Emacs - %b"))
-
+(define-key global-map (kbd "M-o") #'other-window)
+(define-key global-map (kbd "M-p") #'+popup/other)
 ;;; +modeline, light line in doom
 (setq +modeline-height 3)
 ;; display time modeline
@@ -352,10 +351,12 @@
 (use-package! sort-tab
   :config
   (sort-tab-mode)
-  (map! :ni "C-<tab>" #'sort-tab-select-next-tab
+  (map! :map sort-tab-mode-map
+        :ni "C-<tab>" #'sort-tab-select-next-tab
         :ni "C-<iso-lefttab>" #'sort-tab-select-prev-tab
         :n "gt" #'sort-tab-select-next-tab
         :n "gT" #'sort-tab-select-prev-tab
+        :n "Q" #'sort-tab-close-current-tab
         :ni "C-1" #'sort-tab-select-visible-tab
         :ni "C-2" #'sort-tab-select-visible-tab
         :ni "C-3" #'sort-tab-select-visible-tab
