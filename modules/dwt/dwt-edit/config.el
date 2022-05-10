@@ -218,3 +218,8 @@
   (message "test"))
 
 (map! :ni "<f5>" #'dwt/test)
+
+(use-package! evil-motion-trainer
+  :config
+  (global-evil-motion-trainer-mode 1)
+  (setq evil-motion-trainer-threshold 3))
