@@ -97,6 +97,11 @@
           :desc "music" "tm" #'netease-cloud-music)
     :config
     (setq netease-cloud-music-repeat-mode "playlist")
+    (map! :leader
+          "tN" #'netease-cloud-music-play-next-song
+          "tP" #'netease-cloud-music-play-previous-song
+          "tx" #'netease-cloud-music-pause-or-continue
+          "t/" #'netease-cloud-music-ask-play)
     (map! :map netease-cloud-music-mode-map
           :n "<RET>" #'netease-cloud-music-play-song-at-point
           :n "n" #'netease-cloud-music-play-next-song

@@ -18,5 +18,5 @@
 (when IS-MAC
   (package! transwin :recipe (:host github :repo "jcs-elpa/transwin")))
 
-(package! awesome-tray :recipe (:host github :repo "wtding1998/awesome-tray"))
+(package! awesome-tray :recipe (:host github :repo "manateelazycat/awesome-tray"))
 (package! sort-tab :recipe (:host github :repo "manateelazycat/sort-tab"))
