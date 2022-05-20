@@ -193,7 +193,15 @@
     ("C-k" previous-buffer)
     ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
     ("q" nil "quit"))
-  (map! :n "r" #'awesome-fast-switch/body)
+
+  (map! :n "r" #'awesome-fast-switch/body
+        :n "ge" #'awesome-tab-ace-jump)
+  (map! :map awesome-tab-mode-map
+        :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
+        :desc "switch tabs group" "tt" #'awesome-tab-counsel-switch-group
+        :desc "next-group" "tn" #'awesome-tab-forward-group
+        :desc "last-group" "tp" #'awesome-tab-backward-group
+        :desc "kill-group" "tk" #'awesome-tab-kill-all-buffers-in-current-group)
 
   (evil-define-key 'normal 'global "gt" #'awesome-tab-forward-tab)
   (evil-define-key 'normal 'global "gT" #'awesome-tab-backward-tab)
@@ -262,7 +270,9 @@
 ;;; title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
 ;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
-(setq-default frame-title-format '("Emacs - %b"))
+(setq frame-title-format
+      '(buffer-file-name (:eval (abbreviate-file-name buffer-file-name))
+         (dired-directory dired-directory "%b")))
 (define-key global-map (kbd "M-o") #'other-window)
 (define-key global-map (kbd "M-p") #'+popup/other)
 ;;; +modeline, light line in doom

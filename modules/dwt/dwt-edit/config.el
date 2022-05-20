@@ -36,7 +36,6 @@
         ;; show doc
         :n "gh" #'+lookup/documentation
         ;; ace jump
-        :n "ge" #'awesome-tab-ace-jump
         :nv "g1" #'evil-avy-goto-char
         :nv "g2" #'evil-avy-goto-char-2
         :nv "g3" #'evil-avy-goto-word-1
@@ -89,12 +88,6 @@
         :desc "ivy-resume" "`" #'ivy-resume
         :desc "counsel-buffer-or-recentf" ";" #'counsel-buffer-or-recentf
 
-        ;; tabs
-        :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
-        :desc "switch tabs group" "tt" #'awesome-tab-counsel-switch-group
-        :desc "next-group" "tn" #'awesome-tab-forward-group
-        :desc "last-group" "tp" #'awesome-tab-backward-group
-        :desc "kill-group" "tk" #'awesome-tab-kill-all-buffers-in-current-group
         ;; switch themes
         :desc "switch theme" "tT" #'dwt/random-load-theme
 
