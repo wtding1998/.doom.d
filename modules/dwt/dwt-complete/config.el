@@ -21,7 +21,10 @@
         company-show-quick-access t
         company-dabbrev-downcase nil
         company-global-modes '(not erc-mode message-mode help-mode
-                                   gud-mode eshell-mode shell-mode)))
+                                   gud-mode eshell-mode shell-mode))
+  :config
+  (setq company-idle-delay 0.2
+        company-minimum-prefix-length 3))
   ;; (defun my-company-yasnippet ()
   ;;   "Hide the current completeions and show snippets."
   ;;   (interactive)

@@ -218,3 +218,7 @@
          (org-mode . evil-motion-trainer-mode))
   :config
   (setq evil-motion-trainer-threshold 5))
+
+(after! magit
+  (map! :map magit-mode-map
+        "go" #'evil-avy-goto-line))
