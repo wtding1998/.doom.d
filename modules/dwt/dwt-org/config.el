@@ -28,9 +28,11 @@
                                 (map! :map org-mode-map
                                       "<tab>" nil)))
   (setq org-use-fast-todo-selection t)
+  (setq org-agenda-start-day "-1d")
+  (setq org-agenda-span 8)
   (map! :map org-agenda-mode-map
         :m "go" #'evil-avy-goto-line)
-  (setq org-todo-keywords '((sequence "TODO(t)" "Wait(w)" "|" "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "WAIT(w)"  "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
   (setq org-log-done t)
   (setq org-export-with-toc nil)
   (setq org-log-into-drawer t)
@@ -74,9 +76,9 @@
                  "* %t - %^{title} %^g\n%?\n"))
 
   (add-to-list 'org-capture-templates
-               '("b" "Inbox"
+               '("i" "Inbox"
                  entry (file+olp "~/OneDrive/Documents/roam/inbox.org" "Inbox")
-                 "* TODO %t - %^{Input: }\n %?"))
+                 "* TODO %t - %?"))
 
   (add-to-list 'org-capture-templates
                '("d" "Diary"
@@ -84,51 +86,33 @@
                  "* %<%H-%M> - %?\n"))
 
   (add-to-list 'org-capture-templates
+      '("m" "Meeting" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
+        "* TODO %? :meeting:\n"))
+
+  (add-to-list 'org-capture-templates
+      '("e" "Event" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
+        "* TODO %? :event:\n"))
+
+  (add-to-list 'org-capture-templates
                '("t" "thoughts"
                  entry (file+datetree "~/OneDrive/Documents/roam/thoughts.org")
                  "* %<%H-%M> - %?\n"))
 
-  (add-to-list 'org-capture-templates
-               '("e" "English"
-                 entry (file+olp "~/OneDrive/Documents/study note/org/English_note.org" "Words")
-                 "* %^{title} \n %?"))
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("e" "English"
+  ;;                entry (file+olp "~/OneDrive/Documents/study note/org/English_note.org" "Words")
+  ;;                "* %^{title} \n %?"))
 
   ;; interesting
   (add-to-list 'org-capture-templates
-               '("i" "Interesting Things"
+               '("s" "Interesting Things"
                  entry (file+datetree "~/OneDrive/Documents/study note/org/interesting_things.org")
                  "* %<%H-%M> - %^{heading} \n %?"))
-
-  ;; notes
-  ;; (add-to-list 'org-capture-templates '("n" "Notes"))
-  ;; (add-to-list 'org-capture-templates
-  ;;              '("nm" "Math"
-  ;;                entry (file+datetree "~/OneDrive/Documents/study note/org/math_note.org")
-  ;;                "* %^{heading} \n %?\n"))
-
-  ;; (add-to-list 'org-capture-templates
-  ;;              '("no" "Other Notes"
-  ;;                entry (file "~/OneDrive/Documents/study note/org/other_note.org")
-  ;;                "* %^{heading} \n %?\n"))
-
   ;; readings
-  (add-to-list 'org-capture-templates '("r" "Reading"))
   (add-to-list 'org-capture-templates
-               '("rm" "Mathematical Books " entry
-                 (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Mathematical Books")
-                 "* TODO %t %^{title}\n"))
-  (add-to-list 'org-capture-templates
-               '("rl" "Machine Learning" entry
-                 (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Machine Learning")
-                 "* TODO %t %^{title}\n"))
-  (add-to-list 'org-capture-templates
-               '("ro" "Other Books" entry
+               '("r" "readings" entry
                  (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Other Books")
-                 "* TODO %t %^{title}\n"))
-  (add-to-list 'org-capture-templates
-               '("re" "Emacs" entry
-                 (file+olp "~/OneDrive/Documents/study note/org/reading.org" "Emacs Materials")
-                 "* TODO %t %^{title}\n"))
+                 "* TODO %?\n"))
   ;; === cancel bold font in header ===
   ;; (dolist (face '(org-level-1
   ;;                 org-level-2 org-level-3
@@ -154,8 +138,49 @@
       (call-interactively #'org-latex-preview)))
   ;; org-agenda
   (setq org-agenda-files '("~/OneDrive/Documents/diary/org/agenda.org"
+                           "~/OneDrive/Documents/diary/org/others.org"
                            "~/OneDrive/Documents/study note/org/cuhksz.org"
-                           "~/OneDrive/Documents/roam/research.org"))
+                           "~/OneDrive/Documents/roam/research.org"
+                           "~/OneDrive/Documents/study note/org/emacs_note.org"
+                           "~/OneDrive/Documents/study note/org/reading.org"
+                           "~/OneDrive/Documents/study note/org/other_note.org"
+                           "~/OneDrive/Documents/roam/inbox.org"))
+
+  (setq org-agenda-custom-commands
+        '(("g" "Get Things Done (GTD)"
+           ((agenda ""
+                    ((org-agenda-skip-function
+                      '(org-agenda-skip-entry-if 'deadline))
+                     (org-agenda-span 1)
+                     (org-agenda-prefix-format "  %?-12t% s")
+                     (org-agenda-start-day "-0d")
+                     (org-deadline-warning-days 0)))
+            (todo "NEXT"
+                  ((org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'deadline))
+                   (org-agenda-prefix-format "  %i %-12:c [%e] ")
+                   (org-agenda-overriding-header "\nTasks\n")))
+            (agenda nil
+                    ((org-agenda-entry-types '(:deadline))
+                     (org-agenda-format-date "")
+                     (org-agenda-span 1)
+                     (org-agenda-start-day "-0d")
+                     (org-deadline-warning-days 7)
+                     (org-agenda-skip-function
+                       '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
+                     (org-agenda-overriding-header "\nDeadlines")))
+            (tags-todo "inbox"
+                      ((org-agenda-prefix-format "  %?-12t% s")
+                       (org-agenda-overriding-header "\nInbox\n")))
+            (tags "CLOSED>=\"<today>\""
+                  ((org-agenda-overriding-header "\nCompleted today\n")
+                   (org-agenda-prefix-format "  %?-12t% s")))))))
+  ;; format of each entry in org-agenda
+  (setq org-agenda-prefix-format
+        '((agenda . " %i %-12:c%?-12t% s")
+          (todo   . " %i %-12:c")
+          (tags   . " %i %-12:c")
+          (search . " %i %-12:c")))
   ;; org-clock
   (setq org-clock-mode-line-total 'today))
 
@@ -352,8 +377,9 @@
 
 (after! ivy-bibtex
   (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
+  (setq bibtex-completion-no-export-fields (list "language" "file" "urldate" "abstract" "keywords" "url" "note" "doi" "issn" "month"))
   ;; (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
-  (setq bibtex-completion-bibliography '("~/Zotero/library.bib"))
+  (setq bibtex-completion-bibliography '("~/Zotero/My Library.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   (ivy-set-actions
