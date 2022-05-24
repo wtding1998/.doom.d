@@ -77,13 +77,13 @@
 
   (add-to-list 'org-capture-templates
                '("i" "Inbox"
-                 entry (file+olp "~/OneDrive/Documents/roam/inbox.org" "Inbox")
-                 "* TODO %t - %?"))
+                 entry (file "~/OneDrive/Documents/roam/inbox.org")
+                 "* TODO %u - %?"))
 
   (add-to-list 'org-capture-templates
                '("d" "Diary"
                  entry (file+datetree "~/OneDrive/Documents/diary/org/diary.org")
-                 "* %<%H-%M> - %?\n"))
+                 "* %[%H-%M] - %?\n"))
 
   (add-to-list 'org-capture-templates
       '("m" "Meeting" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
@@ -96,7 +96,7 @@
   (add-to-list 'org-capture-templates
                '("t" "thoughts"
                  entry (file+datetree "~/OneDrive/Documents/roam/thoughts.org")
-                 "* %<%H-%M> - %?\n"))
+                 "* %[%H-%M] - %?\n"))
 
   ;; (add-to-list 'org-capture-templates
   ;;              '("e" "English"
