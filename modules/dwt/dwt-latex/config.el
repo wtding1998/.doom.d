@@ -507,4 +507,3 @@
     (define-key outer-map ";" 'evil-tex-a-subscript)
     (define-key inner-map ":" 'evil-tex-inner-superscript)
     (define-key inner-map ";" 'evil-tex-inner-subscript)))
-

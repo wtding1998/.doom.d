@@ -332,8 +332,6 @@
                     'help-echo help-echo)))))
 
 (use-package! awesome-tray
-  :init
-  (global-hide-mode-line-mode 1)
   :config
   (awesome-tray-mode 1)
   (setq awesome-tray-active-modules '("buffer-name" "evil" "org-pomodoro" "input-method" "pdf-view-page" "location" "file-path" "battery" "date"))
@@ -346,8 +344,9 @@
         awesome-tray-file-path-truncated-name-length 6))
 
 (use-package! sort-tab
+  :commands (sort-tab-mode)
+  :defer t
   :config
-  (sort-tab-mode)
   (map! :map sort-tab-mode-map
         :ni "C-<tab>" #'sort-tab-select-next-tab
         :ni "C-<iso-lefttab>" #'sort-tab-select-prev-tab
