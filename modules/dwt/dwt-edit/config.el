@@ -213,9 +213,10 @@
 (map! :ni "<f5>" #'dwt/test)
 
 (use-package! evil-motion-trainer
-  :hook ((prog-mode . evil-motion-trainer-mode)
-         (latex-mode . evil-motion-trainer-mode)
-         (org-mode . evil-motion-trainer-mode))
+  :defer t
+  ;; :hook ((prog-mode . evil-motion-trainer-mode)
+  ;;        (latex-mode . evil-motion-trainer-mode)
+  ;;        (org-mode . evil-motion-trainer-mode))
   :config
   (setq evil-motion-trainer-threshold 5))
 
