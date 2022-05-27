@@ -8,11 +8,19 @@
   (setq mac-option-modifier 'super)
   (setq mac-right-option-modifier 'super)
   (+macos--open-with open-in-terminal "Terminal" default-directory)
-  (map! :leader :desc "open in terminal" "ot" #'+macos/open-in-terminal)
+  (map! :leader
+        :desc "open in terminal" "ot" #'+macos/open-in-terminal
+        :desc "open externally" "ow" #'+macos/open-in-default-program
+        :desc "open in finder" "oe" #'+macos/reveal-in-finder)
+
   (setq dwt/system-default "open"))
 
 ;; open url by windows explorer
 (when IS-LINUX
+  (map! :leader
+        ;; :desc "reveal in windows" "oe" #'wsl/reveal-in-explorer
+        :desc "reveal in windows" "oe" #'dwt/reveal-in-explorer
+        :desc "open by windows program" "ow" #'dwt/open-in-system)
   (defun system-browse-url-xdg-open (url &optional ignored)
     (interactive (browse-url-interactive-arg "URL: "))
     (message (concat dwt/system-default " " url))
@@ -57,7 +65,3 @@
          (command (format "%s %s" dwt/system-default file-name)))
     (shell-command-to-string command)))
 
-(map! :leader
-      ;; :desc "reveal in windows" "oe" #'wsl/reveal-in-explorer
-      :desc "reveal in windows" "oe" #'dwt/reveal-in-explorer
-      :desc "open by windows program" "ow" #'dwt/open-in-system)

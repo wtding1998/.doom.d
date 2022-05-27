@@ -32,6 +32,9 @@
   (setq org-agenda-span 8)
   (map! :map org-agenda-mode-map
         :m "go" #'evil-avy-goto-line)
+  (map! :map evil-org-mode-map
+        :ni "M-L" #'org-shiftright
+        :ni "M-H" #'org-shiftleft)
   (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "WAIT(w)"  "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
   (setq org-log-done t)
   (setq org-export-with-toc nil)
@@ -151,7 +154,7 @@
            ((agenda ""
                     ((org-agenda-skip-function
                       '(org-agenda-skip-entry-if 'deadline))
-                     (org-agenda-span 1)
+                     (org-agenda-span 2)
                      (org-agenda-prefix-format "  %?-12t% s")
                      (org-agenda-start-day "-0d")
                      (org-deadline-warning-days 0)))
@@ -387,7 +390,9 @@
     '(("p" ivy-bibtex-open-pdf "Open PDF")
       ;; ("a" ivy-bibtex-open-any "Open PDF, URL, or DOI")
       ("i" ivy-bibtex-insert-bibtex "Insert Bibtex")
-      ("e" ivy-bibtex-edit-notes "Edit notes")
+      ("k" ivy-bibtex-insert-key "Insert Key")
+      ("c" ivy-bibtex-insert-citation "Insert Citation")
+      ("e" ivy-bibtex-edit-notes "Edit Notes")
       ("u" ivy-bibtex-open-url-or-doi "Open URL, or DOI")))
   (setq bibtex-completion-edit-notes-function 'dwt/bibtex-completion-edit-notes)
   (map! :leader :desc "open pdf" "nB" #'dwt/ivy-bibtex-open-pdf)
