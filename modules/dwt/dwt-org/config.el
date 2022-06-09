@@ -35,7 +35,7 @@
   (map! :map evil-org-mode-map
         :ni "M-L" #'org-shiftright
         :ni "M-H" #'org-shiftleft)
-  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "WAIT(w)"  "DONE(d)" "DONELOG(l@/!)" "ABORT(a@/!)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "DONE(d)" "WAIT(w)"  "DONELOG(l@/!)" "ABORT(a@/!)")))
   (setq org-log-done t)
   (setq org-export-with-toc nil)
   (setq org-log-into-drawer t)
