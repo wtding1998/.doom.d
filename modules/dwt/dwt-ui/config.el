@@ -118,7 +118,7 @@
           ;; (when IS-MAC
           ;;     (dwt/turn-on-transwin)))
       ;;; theme for TUI in daemon
-      (load-theme 'doom-monokai-pro t nil))))
+      (load-theme 'doom-zenburn t nil))))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
@@ -333,8 +333,9 @@
 
 (use-package! awesome-tray
   :config
-  (awesome-tray-mode 1)
-  (setq awesome-tray-active-modules '("buffer-name" "evil" "org-pomodoro" "input-method" "pdf-view-page" "location" "file-path" "battery" "date"))
+  (when (display-graphic-p)
+    (awesome-tray-mode 1))
+  (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
   (setq awesome-tray-essential-modules awesome-tray-active-modules)
   (setq awesome-tray-input-method-zh-style "ㄓ"
         awesome-tray-input-method-en-style ""

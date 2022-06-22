@@ -14,7 +14,15 @@
   (add-hook 'org-mode-hook (lambda () (hl-line-mode -1)))
   ;;; clock
   (map! :map org-mode-map :localleader
-        "cu" #'org-dblock-update)
+        "cu" #'org-dblock-update
+        "c." #'dwt/current-org-time-stamp-inactive)
+
+  (defun dwt/current-org-time-stamp-inactive ()
+    (interactive)
+    (insert " ")
+    (let ((current-prefix-arg 4))
+      (call-interactively 'org-time-stamp-inactive))
+    (call-interactively 'exit-minibuffer))
   (setq org-clock-idle-time 30)
   ;; (map! :map org-mode-map "<tab>" nil)
   ;; (add-hook 'org-mode-hook #'cdlatex-mode)
@@ -81,6 +89,11 @@
   (add-to-list 'org-capture-templates
                '("i" "Inbox"
                  entry (file "~/OneDrive/Documents/roam/inbox.org")
+                 "* TODO %u - %?"))
+
+  (add-to-list 'org-capture-templates
+               '("w" "Work"
+                 entry (file "/mnt/d/Other-Documents/shanshu/nanwang/work.org")
                  "* TODO %u - %?"))
 
   (add-to-list 'org-capture-templates
@@ -168,9 +181,9 @@
                      (org-agenda-format-date "")
                      (org-agenda-span 1)
                      (org-agenda-start-day "-0d")
-                     (org-deadline-warning-days 7)
-                     (org-agenda-skip-function
-                       '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
+                     (org-deadline-warning-days 60)
+                     ;; (org-agenda-skip-function
+                     ;;   '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
                      (org-agenda-overriding-header "\nDeadlines")))
             (tags-todo "inbox"
                       ((org-agenda-prefix-format "  %?-12t% s")
