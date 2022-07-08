@@ -25,7 +25,38 @@
     (interactive (browse-url-interactive-arg "URL: "))
     (message (concat dwt/system-default " " url))
     (shell-command-to-string (concat dwt/system-default " " url)))
-  (advice-add #'browse-url-xdg-open :override #'system-browse-url-xdg-open))
+  (advice-add #'browse-url-xdg-open :override #'system-browse-url-xdg-open)
+
+  ;; pasted from  emacs china
+  (defun dwt/yank-image-from-win-clipboard-through-powershell()
+    "to simplify the logic, use c:/Users/Public as temporary directoy, then move it into current directoy
+
+  Anyway, if need to modify the file name, please DONT delete or modify file extension \".png\",
+  otherwise this function don't work and don't know the reason
+  "
+    (interactive)
+    (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"))
+          (file-name (format "%s" (read-from-minibuffer "Img Name:" (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))))
+          ;; (file-path-powershell (concat "c:/Users/\$env:USERNAME/" file-name))
+          (file-path-wsl (concat "./images/" file-name))
+      (if (file-exists-p "./images")
+          (ignore)
+        (make-directory "./images"))
+      (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"D:/wsl-images/" file-name "\\\")\""))
+      (rename-file (concat "/mnt/D/wsl-images/" file-name) file-path-wsl)
+      (format "%s" file-path-wsl)))
+
+
+  (defun dwt/yank-image-link-into-org-from-wsl ()
+    "call `my-yank-image-from-win-clipboard-through-powershell' and insert image file link with org-mode format"
+    (interactive)
+    (let* ((file-path (my-yank-image-from-win-clipboard-through-powershell)))
+          (file-link (format "[[file:%s][%s]]" file-path (file-name-sans-extension (file-name-nondirectory file-path))))
+
+      (insert file-link)))
+
+  (map! :leader
+        "yank img" #'dwt/yank-image-link-into-org-from-wsl "ti"))
 
 ;; ;;;###autoload
 ;; (defmacro wsl--open-with (id &optional app dir)

@@ -64,3 +64,5 @@
 (map! :leader
       :desc "recent dir" "od" #'dwt/goto-recent-directory
       :desc "project dir" "pd" #'dwt/dired-projectile)
+
+(setq bookmark-file "~/.doom.d/bookmarks")
