@@ -35,28 +35,28 @@
   otherwise this function don't work and don't know the reason
   "
     (interactive)
-    (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"))
-          (file-name (format "%s" (read-from-minibuffer "Img Name:" (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))))
+    (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe")
+           (file-name (format "%s" (read-from-minibuffer "Img Name:" (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))))
           ;; (file-path-powershell (concat "c:/Users/\$env:USERNAME/" file-name))
-          (file-path-wsl (concat "./images/" file-name))
+           (file-path-wsl (concat "./images/" file-name)))
       (if (file-exists-p "./images")
           (ignore)
         (make-directory "./images"))
       (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"D:/wsl-images/" file-name "\\\")\""))
-      (rename-file (concat "/mnt/D/wsl-images/" file-name) file-path-wsl)
+      (rename-file (concat "/mnt/d/wsl-images/" file-name) file-path-wsl)
       (format "%s" file-path-wsl)))
 
 
   (defun dwt/yank-image-link-into-org-from-wsl ()
     "call `my-yank-image-from-win-clipboard-through-powershell' and insert image file link with org-mode format"
     (interactive)
-    (let* ((file-path (my-yank-image-from-win-clipboard-through-powershell)))
-          (file-link (format "[[file:%s][%s]]" file-path (file-name-sans-extension (file-name-nondirectory file-path))))
+    (let* ((file-path (dwt/yank-image-from-win-clipboard-through-powershell))
+           (file-link (format "#+CAPTION: %s\n[[%s]]" (file-name-sans-extension (file-name-nondirectory file-path)) file-path)))
 
       (insert file-link)))
 
   (map! :leader
-        "yank img" #'dwt/yank-image-link-into-org-from-wsl "ti"))
+        :desc "yank img" "tI" #'dwt/yank-image-link-into-org-from-wsl))
 
 ;; ;;;###autoload
 ;; (defmacro wsl--open-with (id &optional app dir)

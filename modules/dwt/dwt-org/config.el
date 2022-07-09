@@ -16,6 +16,16 @@
   (map! :map org-mode-map :localleader
         "cu" #'org-dblock-update
         "c." #'dwt/current-org-time-stamp-inactive)
+  (map! :leader
+        :desc "insert org image" "ti" #'dwt/insert-org-image)
+  (defun dwt/insert-org-image ()
+    "Insert an image from ./images or desktop"
+    (interactive)
+    (let* ((list1 (directory-files "./images/" 1))
+           (list2 (directory-files "/mnt/c/Users/56901/Desktop/" 1))
+           (full-list (append list1 list2))
+           (file-path (ivy-read "Image files:" full-list)))
+      (insert (format "#+CAPTION: %s\n[[%s]]" (file-name-base file-path) file-path))))
 
   (defun dwt/current-org-time-stamp-inactive ()
     (interactive)
