@@ -413,6 +413,7 @@
     '(("p" ivy-bibtex-open-pdf "Open PDF")
       ;; ("a" ivy-bibtex-open-any "Open PDF, URL, or DOI")
       ("i" ivy-bibtex-insert-bibtex "Insert Bibtex")
+      ("n" dwt/ivy-bibtex-noter-attach-pdf-path "Insert Noter Pdf Path")
       ("k" ivy-bibtex-insert-key "Insert Key")
       ("c" ivy-bibtex-insert-citation "Insert Citation")
       ("e" ivy-bibtex-edit-notes "Edit Notes")
@@ -447,9 +448,49 @@ Creates new notes where none exist yet."
               (insert (bibtex-completion-fill-template
                        entry
                        bibtex-completion-notes-template-multiple-files))
-              (let ((path (car (bibtex-completion-find-pdf-in-field key))))
-                  (org-entry-put nil org-noter-property-doc-file path))
+              (let ((pdf (bibtex-completion-find-pdf key bibtex-completion-find-additional-pdfs)))
+                (cond
+                  ((> (length pdf) 1)
+                   (let* ((pdf (f-uniquify-alist pdf))
+                          (choice (completing-read "File to attach: " (mapcar 'cdr pdf) nil t))
+                          (file (car (rassoc choice pdf))))
+                      (org-entry-put nil org-noter-property-doc-file file)))
+                  (pdf
+                    (org-entry-put nil org-noter-property-doc-file (car pdf)))
+                  (t
+                    (message "No PDF(s) found for this entry: %s"
+                            key))))
               (call-interactively #'evil-force-normal-state)))))))
+
+(defun dwt/bibtex-completion-noter-attach-pdf-path (keys &optional fallback-action)
+  "Open the PDFs associated with the marked entries using the function specified in `bibtex-completion-pdf-open-function'.
+If multiple PDFs are found for an entry, ask for the one to open
+using `completion-read'.  If FALLBACK-ACTION is non-nil, it is
+called in case no PDF is found."
+  (dolist (key keys)
+    (let ((pdf (bibtex-completion-find-pdf key bibtex-completion-find-additional-pdfs)))
+      (cond
+       ((> (length pdf) 1)
+        (let* ((pdf (f-uniquify-alist pdf))
+               (choice (completing-read "File to open: " (mapcar 'cdr pdf) nil t))
+               (file (car (rassoc choice pdf))))
+          (org-entry-put nil org-noter-property-doc-file file)))
+       (pdf
+        (org-entry-put nil org-noter-property-doc-file (car pdf)))
+       (t
+        (message "No PDF(s) found for this entry: %s"
+                 key))))))
+
+(ivy-bibtex-ivify-action dwt/bibtex-completion-noter-attach-pdf-path dwt/ivy-bibtex-noter-attach-pdf-path)
+
+;; (defun dwt/perserve-pdf (files-list)
+;;   (let ((pdf-list (list)))
+;;     (dolist (f files-list)
+;;       (when (string-equal (file-name-extension f) "pdf")
+;;         (setq pdf-list (append pdf-list f))))
+;;     (setq pdf-list pdf-list)))
+
+    
 
 (after! flyspell
   (map! :leader :desc "flyspell" "ts" #'flyspell-mode

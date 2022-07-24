@@ -91,6 +91,8 @@
       (setq dwt/fontsize 26))
     (when IS-MAC
       (setq dwt/fontsize 15))
+    (when (string-equal (getenv "GDK_SCALE") "2")
+      (setq dwt/fontsize (- dwt/fontsize 2)))
     ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 1))) ;; 11 13 17 19 23
@@ -336,7 +338,7 @@
   (when (display-graphic-p)
     (awesome-tray-mode 1))
   (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
-  (setq awesome-tray-essential-modules awesome-tray-active-modules)
+  (setq awesome-tray-essential-modules '("pdf-view-page"))
   (setq awesome-tray-input-method-zh-style "ㄓ"
         awesome-tray-input-method-en-style ""
         awesome-tray-buffer-name-buffer-changed t
