@@ -337,7 +337,7 @@
   :config
   (when (display-graphic-p)
     (awesome-tray-mode 1))
-  (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
+  (setq awesome-tray-active-modules '("- -> 0" "input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
   (setq awesome-tray-essential-modules '("pdf-view-page"))
   (setq awesome-tray-input-method-zh-style "ㄓ"
         awesome-tray-input-method-en-style ""
@@ -400,6 +400,8 @@
   :init
   (dolist (cmd '(recenter-top-bottom
                  other-window ace-window windmove-do-window-select
+                 better-jumper-jump-backward
+                 better-jumper-jump-forward
                  evil-scroll-down evil-scroll-up
                  pager-page-down pager-page-up
                  symbol-overlay-basic-jump))

@@ -408,6 +408,7 @@
   (setq bibtex-completion-bibliography '("~/Zotero/My Library.bib"))
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
+  (ivy-bibtex-ivify-action dwt/bibtex-completion-noter-attach-pdf-path dwt/ivy-bibtex-noter-attach-pdf-path)
   (ivy-set-actions
     'ivy-bibtex
     '(("p" ivy-bibtex-open-pdf "Open PDF")
@@ -481,7 +482,6 @@ called in case no PDF is found."
         (message "No PDF(s) found for this entry: %s"
                  key))))))
 
-(ivy-bibtex-ivify-action dwt/bibtex-completion-noter-attach-pdf-path dwt/ivy-bibtex-noter-attach-pdf-path)
 
 ;; (defun dwt/perserve-pdf (files-list)
 ;;   (let ((pdf-list (list)))
