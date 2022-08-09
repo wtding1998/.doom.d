@@ -29,12 +29,14 @@
   (setq dired-omit-extensions (delete ".aux" dired-omit-extensions)))
 (setq delete-by-moving-to-trash t)
 (after! dired
-  (map! :n "_" #'dired-jump
+  (map! :n "-" #'dirvish
         ;; :n "_" (lambda ()
         ;;          (interactive)
         ;;          (dired-jump t))
         :map dired-mode-map
         :n "J" nil
+        :n "h" #'dired-up-directory
+        :n "l" #'dired-find-file
         :localleader
         :desc "find file" "g" #'grep-dired-dwim
         :desc "fd" "f" #'fd-dired)
@@ -65,4 +67,30 @@
       :desc "recent dir" "od" #'dwt/goto-recent-directory
       :desc "project dir" "pd" #'dwt/dired-projectile)
 
-(setq bookmark-file "~/.doom.d/bookmarks")
+(use-package! dirvish
+  :init (after! dired (dirvish-override-dired-mode))
+  :config
+  ;; (setq dirvish-attributes '(vc-state subtree-state all-the-icons collapse git-msg file-size))
+  (setq dirvish-attributes '(vc-state all-the-icons collapse file-size))
+  (setq dirvish-use-header-line nil)
+  (map! :map dirvish-mode-map
+        :n "q" #'dirvish-quit
+        :n "a" #'dirvish-quick-access
+        :n "f" #'dirvish-file-info-menu
+        :n "y" #'dirvish-yank-menu
+        :n "N" #'dirvish-narrow
+        :n "s" #'dirvish-quicksort
+        :n "i" #'wdired-change-to-wdired-mode
+        :n "." #'dired-omit-mode
+        :n "t" #'dirvish-layout-toggle
+        :n "v" #'dirvish-vc-menu
+        :n "M-l" #'dirvish-ls-switches-menu
+        :n "M-m" #'dirvish-mark-menu
+        :n "M-s" #'dirvish-setup-menu
+        :n "M-e" #'dirvish-emerge-menu
+        :n "M-j" #'dirvish-fd-jump
+        :n "H" #'dirvish-history-go-backward
+        :n "L" #'dirvish-history-go-forward
+        :n "TAB" #'dirvish-subtree-toggle))
+
+(setq bookmark-default-file "~/.doom.d/bookmarks")
