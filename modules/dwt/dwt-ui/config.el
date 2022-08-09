@@ -96,6 +96,7 @@
     ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 1))) ;; 11 13 17 19 23
+    (set-face-attribute 'variable-pitch nil :font (format "%s:pixelsize=%d" "sans" (+ dwt/fontsize 4))) ;; 11 13 17 19 23
     ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
     ;; chinese font
     ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
@@ -337,7 +338,8 @@
   :config
   (when (display-graphic-p)
     (awesome-tray-mode 1))
-  (setq awesome-tray-active-modules '("- -> 0" "input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
+  ;; (setq awesome-tray-active-modules '("- -> 0" "input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
+  (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
   (setq awesome-tray-essential-modules '("pdf-view-page"))
   (setq awesome-tray-input-method-zh-style "ㄓ"
         awesome-tray-input-method-en-style ""

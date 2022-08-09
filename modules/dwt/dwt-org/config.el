@@ -528,3 +528,6 @@ called in case no PDF is found."
                                                 (when (y-or-n-p "Continue? ")
                                                   (let ((arg '(16)))
                                                     (org-pomodoro arg))))))
+(use-package! org-modern
+  :config
+  (global-org-modern-mode 1))
