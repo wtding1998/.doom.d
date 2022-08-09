@@ -14,8 +14,8 @@
 ; (package! nord-emacs :recipe (:host github :repo "arcticicestudio/nord-emacs"))
 (package! notink-theme :recipe (:host github :repo "wtding1998/notink-theme"))
 (package! gruvbox-theme :recipe (:host github :repo "wtding1998/emacs-gruvbox-material"))
-(package! everforest
-  :recipe (:repo "https://git.sr.ht/~theorytoe/everforest-theme"))
+; (package! everforest
+;   :recipe (:repo "https://git.sr.ht/~theorytoe/everforest-theme"))
 
 (when IS-MAC
   (package! transwin :recipe (:host github :repo "jcs-elpa/transwin")))

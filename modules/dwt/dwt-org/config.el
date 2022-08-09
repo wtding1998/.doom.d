@@ -530,4 +530,8 @@ called in case no PDF is found."
                                                     (org-pomodoro arg))))))
 (use-package! org-modern
   :config
-  (global-org-modern-mode 1))
+  (global-org-modern-mode 1)
+  (setq-default org-modern-checkbox
+                                    '((?X . "")
+                                      (?- . #("□–" 0 2 (composition ((2)))))
+                                      (?\s . "□"))))
