@@ -171,10 +171,10 @@
 ;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
 ;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
 
-;; (use-package! fanyi
-;;   :defer t
-;;   :commands (fanyi-dwim)
-;;   :init
-;;   (map! :leader
-;;         :desc "fanyi" "te" #'fanyi-dwim
-;;         :desc "osx-dict" "tE" #'osx-dictionary-search-input))
+(use-package! fanyi
+  :defer t
+  :commands (fanyi-dwim)
+  :init
+  (map! :leader
+        :desc "fanyi" "te" #'fanyi-dwim
+        :desc "osx-dict" "tE" #'osx-dictionary-search-input))
