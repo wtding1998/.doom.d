@@ -1,2 +1,4 @@
 /emacs-application-framework/
 bookmarks
+.DS_Store
+flycheck_config.el
