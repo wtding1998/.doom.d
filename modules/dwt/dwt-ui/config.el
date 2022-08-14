@@ -287,9 +287,6 @@
 ;; display battery in modeline
 (display-battery-mode 1)
 
-(unless (display-graphic-p)
-  (evil-terminal-cursor-changer-activate))
-
 (map! :leader
       :desc "toggle date" "td" #'dwt/toggle-date-display)
 
