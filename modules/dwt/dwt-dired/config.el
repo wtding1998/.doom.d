@@ -69,9 +69,10 @@
 
 (use-package! dirvish
   :init (after! dired (dirvish-override-dired-mode))
+  :hook (dirvish-mode . variable-pitch-mode)
   :config
   ;; (setq dirvish-attributes '(vc-state subtree-state all-the-icons collapse git-msg file-size))
-  (setq dirvish-attributes '(vc-state all-the-icons collapse file-size))
+  (setq dirvish-attributes '(all-the-icons collapse file-size))
   (setq dirvish-use-header-line nil)
   (map! :map dirvish-mode-map
         :n "q" #'dirvish-quit

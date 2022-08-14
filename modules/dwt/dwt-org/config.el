@@ -533,5 +533,5 @@ called in case no PDF is found."
   (global-org-modern-mode 1)
   (setq-default org-modern-checkbox
                                     '((?X . "")
-                                      (?- . #("□–" 0 2 (composition ((2)))))
-                                      (?\s . "□"))))
+                                      (?- . "")
+                                      (?\s . ""))))
