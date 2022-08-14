@@ -503,7 +503,8 @@ called in case no PDF is found."
           ispell-program-name "hunspell")))
 
 (use-package! org-fragtog
-  :after org)
+  :defer t
+  :commands (org-fragtog-mode))
 
 (use-package! org-pomodoro
   :after org
@@ -529,6 +530,7 @@ called in case no PDF is found."
                                                   (let ((arg '(16)))
                                                     (org-pomodoro arg))))))
 (use-package! org-modern
+  :after org
   :config
   (global-org-modern-mode 1)
   (setq-default org-modern-checkbox

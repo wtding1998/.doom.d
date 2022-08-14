@@ -191,6 +191,8 @@
 
 
 (use-package! parinfer-rust-mode
+  :defer t
+  :hook (emacs-lisp-mode . parinfer-rust-mode)
   :init
   (setq parinfer-rust-auto-download nil)
   :config
@@ -223,3 +225,6 @@
 (after! magit
   (map! :map magit-mode-map
         "go" #'evil-avy-goto-line))
+
+(use-package! evil-matchit
+  :commands (evil-matchit-mode))

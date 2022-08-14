@@ -120,10 +120,10 @@
 
 
 ;; weather
-(defun dwt/weather ()
-  "weather based on https://github.com/chubin/wttr.in."
-  (interactive)
-  (eww "zh-cn.wttr.in/longgang?TAFm"))
+;; (defun dwt/weather ()
+;;   "weather based on https://github.com/chubin/wttr.in."
+;;   (interactive)
+;;   (eww "zh-cn.wttr.in/longgang?TAFm"))
 
 ;; speed type
 (use-package! speed-type
@@ -171,10 +171,10 @@
 ;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
 ;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
 
-(use-package! fanyi
-  :defer t
-  :commands (fanyi-dwim)
-  :init
-  (map! :leader
-        :desc "fanyi" "te" #'fanyi-dwim
-        :desc "osx-dict" "tE" #'osx-dictionary-search-input))
+;; (use-package! fanyi
+;;   :defer t
+;;   :commands (fanyi-dwim)
+;;   :init
+;;   (map! :leader
+;;         :desc "fanyi" "te" #'fanyi-dwim
+;;         :desc "osx-dict" "tE" #'osx-dictionary-search-input))

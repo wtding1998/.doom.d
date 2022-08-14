@@ -373,6 +373,7 @@
 ;; seagle0128/.emacs.d/blob/66afa5d433b18948b994cb386a3d2a1ce6788456/lisp/init-highlight.el#L211
 (use-package! pulse
   :ensure nil
+  :after evil
   :preface
   (defun my-pulse-momentary-line (&rest _)
     "Pulse the current line."

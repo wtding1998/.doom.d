@@ -128,6 +128,7 @@
   (map! :i "C-x C-d" #'company-english-helper-search))
 
 (use-package corfu
+  :commands (corfu-mode)
   ;; TAB-and-Go customizations
   :config
   (setq corfu-auto t
@@ -149,6 +150,7 @@
   ;;
 ;; Add extensions
 (use-package! cape
+  :after corfu
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
   :bind (("C-c p p" . completion-at-point) ;; capf

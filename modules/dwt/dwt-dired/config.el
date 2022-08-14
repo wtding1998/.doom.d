@@ -36,10 +36,7 @@
         :map dired-mode-map
         :n "J" nil
         :n "h" #'dired-up-directory
-        :n "l" #'dired-find-file
-        :localleader
-        :desc "find file" "g" #'grep-dired-dwim
-        :desc "fd" "f" #'fd-dired)
+        :n "l" #'dired-find-file)
   (set-popup-rules!
     '(("^\\*Fd*" :size 15 :select t))))
   
@@ -85,13 +82,16 @@
         :n "." #'dired-omit-mode
         :n "t" #'dirvish-layout-toggle
         :n "v" #'dirvish-vc-menu
-        :n "M-l" #'dirvish-ls-switches-menu
-        :n "M-m" #'dirvish-mark-menu
-        :n "M-s" #'dirvish-setup-menu
-        :n "M-e" #'dirvish-emerge-menu
-        :n "M-j" #'dirvish-fd-jump
         :n "H" #'dirvish-history-go-backward
         :n "L" #'dirvish-history-go-forward
-        :n "TAB" #'dirvish-subtree-toggle))
+        :n "TAB" #'dirvish-subtree-toggle
+        :localleader
+        "f" #'dirvish-fd
+        "F" #'dirvish-file-info-menu
+        "l" #'dirvish-ls-switches-menu
+        "m" #'dirvish-mark-menu
+        "s" #'dirvish-setup-menu
+        "e" #'dirvish-emerge-menu
+        "j" #'dirvish-fd-jump))
 
 (setq bookmark-default-file "~/.doom.d/bookmarks")
