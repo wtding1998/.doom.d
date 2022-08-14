@@ -86,7 +86,7 @@
 (use-package! ivy-posframe
   :defer t
   :commands (ivy-posframe-mode)
-  ;; :hook (ivy-mode . ivy-posframe-mode)
+  :hook (ivy-mode . ivy-posframe-mode)
   :config
   ;; posframe doesn't work well with async sources (the posframe will
   ;; occasionally stop responding/redrawing), and causes violent resizing of the

@@ -7,6 +7,7 @@
   (setq mac-right-command-modifier 'meta)
   (setq mac-option-modifier 'super)
   (setq mac-right-option-modifier 'super)
+  (load! "modules/os/macos/autoload.el" doom-emacs-dir)
   (+macos--open-with open-in-terminal "Terminal" default-directory)
   (map! :leader
         :desc "open in terminal" "ot" #'+macos/open-in-terminal

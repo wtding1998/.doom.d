@@ -83,24 +83,28 @@
   (load-theme (nth (random (length dwt/dark-themes)) dwt/light-themes) t nil))
 
 
-;;; font
+;; font
 (defun dwt/doom-font()
     ;; (setq doom-font (font-spec :family "SF Mono" :size 14 :weight 'Regular))
     (setq dwt/fontsize 16)
     (when dwt/lenovo
       (setq dwt/fontsize 26))
     (when IS-MAC
-      (setq dwt/fontsize 15))
+      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 145)
+      (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
+      (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when (string-equal (getenv "GDK_SCALE") "2")
       (setq dwt/fontsize (- dwt/fontsize 2)))
     ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
     ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
-    (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 1))) ;; 11 13 17 19 23
-    (set-face-attribute 'variable-pitch nil :font (format "%s:pixelsize=%d" "Bookerly" (+ dwt/fontsize 2))) ;; 11 13 17 19 23
+
     ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
     ;; chinese font
     ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
-    (set-fontset-font t 'unicode "Symbola" nil 'prepend)
+    (when IS-LINUX
+      (set-fontset-font t 'unicode "Symbola" nil 'prepend)
+      (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Sarasa Mono SC Nerd" (+ dwt/fontsize 0))) ;; 11 13 17 19 23
+      (set-face-attribute 'variable-pitch nil :font (format "%s:pixelsize=%d" "Bookerly" (+ dwt/fontsize 2)))) ;; 11 13 17 19 23
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
@@ -335,6 +339,7 @@
                     'help-echo help-echo)))))
 
 (use-package! awesome-tray
+  :defer t
   :config
   (when (display-graphic-p)
     (awesome-tray-mode 1))
