@@ -29,7 +29,7 @@
   (setq dired-omit-extensions (delete ".aux" dired-omit-extensions)))
 (setq delete-by-moving-to-trash t)
 (after! dired
-  (map! :n "-" #'dirvish
+  (map! :n "_" #'dirvish
         ;; :n "_" (lambda ()
         ;;          (interactive)
         ;;          (dired-jump t))
