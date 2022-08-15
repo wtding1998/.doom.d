@@ -28,8 +28,8 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (company +childframe)           ; the ultimate code completion backend
-       ;; company           ; the ultimate code completion backend
+       ;; (company +childframe)           ; the ultimate code completion backend
+       company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;; (ivy +childframe)               ; a search engine for love and life
@@ -146,7 +146,7 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;json              ; At least it ain't XML
-       (java +lsp) ; the poster child for carpal tunnel syndrome
+       ;; (java +lsp) ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;; julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
