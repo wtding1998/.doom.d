@@ -18,7 +18,7 @@
   (when IS-MAC
     (setq rime-librime-root "~/mycode/rime-1.7.2-osx/dist")
     ;; (setq rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.0.50/include")
-    (setq rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@28/28.1/include")
+    (setq rime-emacs-module-header-root "/opt/homebrew/opt/emacs-plus@29/include")
     (setq rime-user-data-dir "~/Library/Rime"))
   ;; set UI
   ;; (unless IS-MAC

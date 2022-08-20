@@ -86,7 +86,7 @@
 ;; font
 (defun dwt/doom-font()
     (when IS-MAC
-      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 145)
+      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 160)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
@@ -153,6 +153,10 @@
   (prog-mode . diff-hl-mode)
   (prog-mode . diff-hl-flydiff-mode))
 
+(after! diff-hl
+   (map! :n "[g" #'diff-hl-previous-hunk)
+   (map! :n "]g" #'diff-hl-next-hunk)
+   (diff-hl-margin-mode -1))
 
 (use-package! awesome-tab
   :defer t
