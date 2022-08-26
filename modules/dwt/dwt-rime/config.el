@@ -26,28 +26,34 @@
   ;;         (list :font "Source Han Serif CN")))
   ;; remove background https://github.com/DogLooksGood/emacs-rime/issues/149
   ;; color for mode line lighter
-  ;; (defun dwt/set-rime-face ()
-  ;;   "Set the face of rime according to current theme."
-  ;;   (interactive)
-  ;;   (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
-  ;;   (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
-  ;;   ;; color for posframedhi
-  ;;   (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'mode-line) :background (face-background 'mode-line))
-  ;;   (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil)
-  ;;   (set-face-attribute 'rime-code-face          nil :foreground nil :background nil :inherit 'rime-default-face)
-  ;;   (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil))
-  (setq rime-posframe-properties
-        (list :internal-border-width 1
-              :internal-border-color "#00538b"))
-  ;; background: 背景 foreground: 除了候选项之外的其它选项
-  (set-face-attribute 'rime-default-face       nil :foreground "#505050" :background "#f2eff3")
-  ;; 数字
-  (set-face-attribute 'rime-code-face          nil :foreground "#00538b" :background nil)
-  (set-face-attribute 'rime-candidate-num-face nil :foreground "#00538b" :background nil)
+  (defun dwt/set-rime-face ()
+    "Set the face of rime according to current theme."
+    (interactive)
+    (setq rime-posframe-properties
+          (list :internal-border-width 2
+                :internal-border-color "#282a2c"))
+    (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
+    (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
+    ;; color for posframedhi
+    (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'mode-line) :background (face-background 'mode-line))
+    (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil)
+    (set-face-attribute 'rime-code-face          nil :foreground nil :background nil :inherit 'rime-default-face)
+    (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil))
 
-  (set-face-attribute 'rime-comment-face       nil :foreground "#8fbcbb" :background nil)
-  ;; 第一项
-  (set-face-attribute 'rime-highlight-candidate-face       nil :foreground "#000000" :background nil)
+  (defun dwt/set-rime-fact-light ()
+    (interactive)
+    (setq rime-posframe-properties
+          (list :internal-border-width 1
+                :internal-border-color "#00538b"))
+    ;; background: 背景 foreground: 除了候选项之外的其它选项
+    (set-face-attribute 'rime-default-face       nil :foreground "#505050" :background "#f2eff3")
+    ;; 数字
+    (set-face-attribute 'rime-code-face          nil :foreground "#00538b" :background nil)
+    (set-face-attribute 'rime-candidate-num-face nil :foreground "#00538b" :background nil)
+
+    (set-face-attribute 'rime-comment-face       nil :foreground "#8fbcbb" :background nil)
+    ;; 第一项
+    (set-face-attribute 'rime-highlight-candidate-face       nil :foreground "#000000" :background nil))
 
   ;; use English automatically after English words
   (setq rime-disable-predicates

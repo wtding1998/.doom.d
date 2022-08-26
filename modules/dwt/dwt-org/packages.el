@@ -11,3 +11,4 @@
 ;; (package! org-roam :recipe (:host github :repo "org-roam/org-roam"))
 ;; (package! org-clock-watch :recipe (:host github :repo "wztdream/org-clock-watch"))
 (package! org-modern :recipe (:host github :repo "minad/org-modern"))
+(package! org-download :recipe (:host github :repo "abo-abo/org-download"))

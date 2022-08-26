@@ -537,3 +537,12 @@ called in case no PDF is found."
                                     '((?X . "")
                                       (?- . "")
                                       (?\s . ""))))
+
+(use-package! org-download
+  :after org
+  :commands (org-download-clipboard)
+  :init
+  (map! :leader
+        "op" #'org-download-clipboard)
+  :config
+  (setq org-download-method 'directory))
