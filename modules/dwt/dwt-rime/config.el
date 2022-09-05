@@ -30,7 +30,7 @@
     "Set the face of rime according to current theme."
     (interactive)
     (setq rime-posframe-properties
-          (list :internal-border-width 2
+          (list :internal-border-width 1
                 :internal-border-color "#282a2c"))
     (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
     (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
@@ -63,6 +63,7 @@
           rime-predicate-prog-in-code-p
           rime-predicate-in-code-string-p
           rime-predicate-punctuation-after-space-cc-p
+          rime-predicate-punctuation-after-ascii-p
           rime-predicate-space-after-cc-p
           rime-predicate-current-uppercase-letter-p
           rime-predicate-after-alphabet-char-p))

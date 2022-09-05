@@ -113,8 +113,8 @@
           (dwt/doom-font)
           ;; theme for GUI in daemon
           ;; (dwt/load-light-themes)
-          ;; (load-theme 'modus-operandi t nil)
-          (load-theme 'modus-operandi t nil))
+          (load-theme 'doom-tomorrow-night t nil))
+          ;; (load-theme 'modus-operandi t nil))
           ;;; frame init
           ;; (when IS-MAC
           ;;     (dwt/turn-on-transwin)))
@@ -126,7 +126,8 @@
   (if (display-graphic-p)
       ;; font and theme for GUI in single emacs
       (progn
-        (load-theme 'modus-operandi t nil)
+        ;; (load-theme 'modus-operandi t nil)
+        (load-theme 'doom-tomorrow-night t nil)
         (dwt/doom-font))
     ;; theme for TUI in single emacs
     (load-theme 'doom-monokai-pro t nil)))
@@ -139,7 +140,7 @@
 ;; frame
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
-;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 
 (use-package! diff-hl
@@ -266,7 +267,7 @@
     :init
     (map! :leader "tt" #'transwin-toggle-transparent-frame)
     :config
-    (setq transwin--record-toggle-frame-transparency 92)
+    (setq transwin--record-toggle-frame-transparency 85)
     (map! :leader "tT" #'dwt/turn-on-transwin)
     (defun dwt/turn-on-transwin ()
       "Turn on transwin."
@@ -284,10 +285,9 @@
 ;;; +modeline, light line in doom
 (setq +modeline-height 3)
 ;; display time modeline
-;; (unless IS-MAC
-;; (setq display-time-day-and-date t)
 (setq display-time-24hr-format t
       display-time-default-load-average nil)
+(setq display-time-day-and-date t)
 (display-time-mode 1)
 ;; display battery in modeline
 (display-battery-mode 1)
@@ -406,6 +406,7 @@
                  other-window ace-window windmove-do-window-select
                  better-jumper-jump-backward
                  better-jumper-jump-forward
+                 evil-scroll-line-to-center
                  evil-scroll-down evil-scroll-up
                  pager-page-down pager-page-up
                  symbol-overlay-basic-jump))

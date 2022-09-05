@@ -178,3 +178,7 @@
   (map! :leader
         :desc "fanyi" "te" #'fanyi-dwim
         :desc "osx-dict" "tE" #'osx-dictionary-search-input))
+
+(use-package! jieba
+  :defer t
+  :commands (jieba-mode))
