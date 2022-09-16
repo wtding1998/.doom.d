@@ -71,6 +71,8 @@
   ;; (setq dirvish-attributes '(vc-state subtree-state all-the-icons collapse git-msg file-size))
   (setq dirvish-attributes '(all-the-icons collapse file-size))
   (setq dirvish-use-header-line nil)
+  (setq dirvish-mode-line-height '(1 . 1))
+
   (map! :map dirvish-mode-map
         :n "q" #'dirvish-quit
         :n "a" #'dirvish-quick-access

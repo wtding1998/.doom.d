@@ -162,15 +162,7 @@
     (interactive)
     (let ((current-prefix-arg '(16)))
       (call-interactively #'org-latex-preview)))
-  ;; org-agenda
-  (setq org-agenda-files '("~/OneDrive/Documents/diary/org/agenda.org"
-                           "~/OneDrive/Documents/diary/org/others.org"
-                           "~/OneDrive/Documents/study note/org/cuhksz.org"
-                           "~/OneDrive/Documents/roam/research.org"
-                           "~/OneDrive/Documents/study note/org/emacs_note.org"
-                           "~/OneDrive/Documents/study note/org/reading.org"
-                           "~/OneDrive/Documents/study note/org/other_note.org"
-                           "~/OneDrive/Documents/roam/inbox.org"))
+  ;; org-agenda-files is settd in custom.el
 
   (setq org-agenda-custom-commands
         '(("g" "Get Things Done (GTD)"

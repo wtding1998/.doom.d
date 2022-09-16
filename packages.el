@@ -50,6 +50,7 @@
 ;(unpin! t)
 
 (unpin! doom-themes)
+(unpin! org)
 ;; (package! tao-theme)
 ;; (package! dog-themes :recipe
 ;;   (:host github

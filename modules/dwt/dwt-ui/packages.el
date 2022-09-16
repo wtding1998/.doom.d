@@ -3,8 +3,8 @@
 
 ;;; theme
 ;; (package! spacemacs-theme :recipe (:host github :repo "nashamri/spacemacs-theme"))
-;; (package! joker-theme :recipe (:host github :repo "DogLooksGood/joker-theme"))
-;; (package! printed-theme :recipe (:host github :repo "DogLooksGood/printed-theme"))
+(package! joker-theme :recipe (:host github :repo "DogLooksGood/joker-theme"))
+(package! printed-theme :recipe (:host github :repo "DogLooksGood/printed-theme"))
 (package! storybook-theme :recipe (:host github :repo "DogLooksGood/storybook-theme"))
 (package! solaire-mode :disable t)
 ;; (package! tao-theme :recipe (:host github :repo "11111000000/tao-theme-emacs"))

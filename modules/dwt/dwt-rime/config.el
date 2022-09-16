@@ -32,13 +32,15 @@
     (setq rime-posframe-properties
           (list :internal-border-width 1
                 :internal-border-color "#282a2c"))
-    (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
-    (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
+    ;; (set-face-attribute 'rime-indicator-face nil :inherit 'doom-modeline :foreground nil)
+    ;; (set-face-attribute 'rime-indicator-dim-face nil :inherit 'error :foreground nil)
     ;; color for posframedhi
-    (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'mode-line) :background (face-background 'mode-line))
-    (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil)
+    ;; (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'widget-field) :background (face-background 'widget-field))
+    (set-face-attribute 'rime-default-face       nil :foreground (face-foreground 'default) :background (face-background 'default))
     (set-face-attribute 'rime-code-face          nil :foreground nil :background nil :inherit 'rime-default-face)
-    (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil))
+    (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil)
+    (set-face-attribute 'rime-comment-face nil :inherit 'rime-default-face :foreground nil :background nil))
+    ;; (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil))
 
   (defun dwt/set-rime-fact-light ()
     (interactive)
