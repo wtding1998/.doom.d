@@ -110,10 +110,12 @@
     ;; font and theme for GUI
     (if (display-graphic-p)
         (progn
-          (dwt/doom-font)
+          ;; only load ui setting at start
+          (when (equal doom-theme 'doom-one)
+            (dwt/doom-font)
           ;; theme for GUI in daemon
           ;; (dwt/load-light-themes)
-          (load-theme 'doom-tomorrow-night t nil))
+            (load-theme 'doom-tomorrow-night t nil)))
           ;; (load-theme 'modus-operandi t nil))
           ;;; frame init
           ;; (when IS-MAC
@@ -127,8 +129,9 @@
       ;; font and theme for GUI in single emacs
       (progn
         ;; (load-theme 'modus-operandi t nil)
-        (load-theme 'doom-tomorrow-night t nil)
-        (dwt/doom-font))
+        (when (equal doom-theme 'doom-one)
+          (load-theme 'doom-tomorrow-night t nil)
+          (dwt/doom-font)))
     ;; theme for TUI in single emacs
     (load-theme 'doom-monokai-pro t nil)))
 
