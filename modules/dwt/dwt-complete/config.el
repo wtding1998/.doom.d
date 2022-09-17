@@ -77,11 +77,20 @@
 (use-package! ivy
   :config
   (setq ivy-count-format "%d/%d ")
+  (defun dwt/ivy-backward-delete-char ()
+    (interactive)
+    (let ((dir ivy--directory)
+          (p (and ivy--directory (= (minibuffer-prompt-end) (point)))))
+      (ivy-backward-delete-char)
+      (when p (insert (file-name-nondirectory (directory-file-name dir))))))
+
+  (map! :map counsel-find-file-map "C-<backspace>" #'dwt/ivy-backward-delete-char)
   (map! :map ivy-minibuffer-map
         "C-d" #'ivy-scroll-up-command
         "C-u" #'ivy-scroll-down-command
         "<backtab>" #'ivy-partial
-        "C-<return>" #'ivy-immediate-done))
+        "C-<return>" #'ivy-immediate-done
+        "C-<backspace>" #'dwt/ivy-backward-delete-char))
 
 (use-package! ivy-posframe
   :defer t
