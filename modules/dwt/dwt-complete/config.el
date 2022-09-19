@@ -83,7 +83,10 @@
           (p (and ivy--directory (= (minibuffer-prompt-end) (point)))))
       (ivy-backward-delete-char)
       (when p (insert (file-name-nondirectory (directory-file-name dir))))))
-
+  (setq dwt/ivy-ignore-tex-aux-suffix '(".aux" ".bbl" ".fls" ".blg" ".nav" ".snm" ".fdb_latexmk" ".run.xml" "-blx.bib" ".toc" ".synctex.gz" ".out"))
+  (dolist (tex-aux-suffix dwt/ivy-ignore-tex-aux-suffix)
+    (add-to-list 'ivy-ignore-buffers (concat "\\" tex-aux-suffix))
+    (setq counsel-find-file-ignore-regexp (concat "\\(" tex-aux-suffix "$\\)\\|" counsel-find-file-ignore-regexp)))
   (map! :map counsel-find-file-map "C-<backspace>" #'dwt/ivy-backward-delete-char)
   (map! :map ivy-minibuffer-map
         "C-d" #'ivy-scroll-up-command

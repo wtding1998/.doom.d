@@ -162,6 +162,8 @@
     (interactive)
     (let ((current-prefix-arg '(16)))
       (call-interactively #'org-latex-preview)))
+
+  (setq org-cite-global-bibliography '("~/Zotero/My Library.bib"))
   ;; org-agenda-files is settd in custom.el
 
   (setq org-agenda-custom-commands
@@ -397,7 +399,7 @@
   (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
   (setq bibtex-completion-no-export-fields (list "language" "file" "urldate" "abstract" "keywords" "url" "note" "doi" "issn" "month"))
   ;; (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
-  (setq bibtex-completion-bibliography '("~/Zotero/My Library.bib"))
+  (setq bibtex-completion-bibliography org-cite-global-bibliography)
   (setq bibtex-completion-notes-path "~/org/roam")
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   (ivy-bibtex-ivify-action dwt/bibtex-completion-noter-attach-pdf-path dwt/ivy-bibtex-noter-attach-pdf-path)
