@@ -4,8 +4,8 @@
   :diminish
   :defines (company-dabbrev-ignore-case company-dabbrev-downcase)
   :commands company-cancel
-  :bind (("M-/" . dwt/company-complete)
-         ("C-M-i" . company-complete))
+  :bind (("M-/" . company-complete)
+         ("C-M-i" . dwt/company-complete))
   :hook (after-init . global-company-mode)
   :init
   (setq company-icon-size '(auto-scale . 25))

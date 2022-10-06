@@ -86,7 +86,7 @@
 ;; font
 (defun dwt/doom-font()
     (when IS-MAC
-      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 160)
+      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 140)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
@@ -143,7 +143,7 @@
 ;; frame
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 
 (use-package! diff-hl
@@ -180,16 +180,16 @@
     ("j" awesome-tab-forward-group)
     ("k" awesome-tab-backward-group)
     ("l" awesome-tab-forward-tab)
-    ("0" awesom-tab-select-visible-tab)
-    ("1" awesom-tab-select-visible-tab)
-    ("2" awesom-tab-select-visible-tab)
-    ("3" awesom-tab-select-visible-tab)
-    ("4" awesom-tab-select-visible-tab)
-    ("5" awesom-tab-select-visible-tab)
-    ("6" awesom-tab-select-visible-tab)
-    ("7" awesom-tab-select-visible-tab)
-    ("8" awesom-tab-select-visible-tab)
-    ("9" awesom-tab-select-visible-tab)
+    ("0" awesome-tab-select-visible-tab)
+    ("1" awesome-tab-select-visible-tab)
+    ("2" awesome-tab-select-visible-tab)
+    ("3" awesome-tab-select-visible-tab)
+    ("4" awesome-tab-select-visible-tab)
+    ("5" awesome-tab-select-visible-tab)
+    ("6" awesome-tab-select-visible-tab)
+    ("7" awesome-tab-select-visible-tab)
+    ("8" awesome-tab-select-visible-tab)
+    ("9" awesome-tab-select-visible-tab)
     ("a" awesome-tab-select-beg-tab)
     ("e" awesome-tab-select-end-tab)
     ("r" awesome-tab-ace-jump)

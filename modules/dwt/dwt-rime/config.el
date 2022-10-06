@@ -41,7 +41,7 @@
     (set-face-attribute 'rime-candidate-num-face nil :inherit 'rime-default-face :foreground nil :background nil)
     (set-face-attribute 'rime-comment-face nil :inherit 'rime-default-face :foreground nil :background nil))
     ;; (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil))
-
+  (dwt/set-rime-face)
   (defun dwt/set-rime-fact-light ()
     (interactive)
     (setq rime-posframe-properties
