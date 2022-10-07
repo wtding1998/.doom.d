@@ -7,9 +7,6 @@
   (setq mac-right-command-modifier 'meta)
   (setq mac-option-modifier 'super)
   (setq mac-right-option-modifier 'super)
-  ;; doom env does not add the path to exec-path...
-  ;; and emacs-everywhere call-process emacsclient fails due to it
-  (add-to-list 'exec-path "/opt/homebrew/opt/emacs-plus@29/bin/")
   (load! "modules/os/macos/autoload.el" doom-emacs-dir)
   (+macos--open-with open-in-terminal "Terminal" default-directory)
   (map! :leader

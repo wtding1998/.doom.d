@@ -81,13 +81,13 @@
 ;; https://emacs-china.org/t/topic/5507
 ;; add path
 (when IS-MAC
-  (condition-case err
-      (let ((path (with-temp-buffer
-                    (insert-file-contents-literally "~/.path")
-                    (buffer-string))))
-        (setenv "PATH" path)
-        (setq exec-path (append (parse-colon-path path) (list exec-directory))))
-    (error (warn "%s" (error-message-string err))))
+  ;; (condition-case err
+  ;;     (let ((path (with-temp-buffer
+  ;;                   (insert-file-contents-literally "~/.path")
+  ;;                   (buffer-string))))
+  ;;       (setenv "PATH" path)
+  ;;       (setq exec-path (append (parse-colon-path path) (list exec-directory))))
+  ;;   (error (warn "%s" (error-message-string err))))
 
   (use-package! netease-cloud-music
     :defer t
@@ -98,8 +98,9 @@
     :config
     (setq netease-cloud-music-repeat-mode "playlist")
     (map! :leader
-          "tN" #'netease-cloud-music-play-next-song
-          "tP" #'netease-cloud-music-play-previous-song
+          "tn" #'netease-cloud-music-play-next-song
+          "tp" #'netease-cloud-music-play-previous-song
+          "tR" #'netease-cloud-music-random-play
           "tx" #'netease-cloud-music-pause-or-continue
           "t/" #'netease-cloud-music-ask-play)
     (map! :map netease-cloud-music-mode-map
