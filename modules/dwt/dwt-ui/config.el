@@ -86,7 +86,7 @@
 ;; font
 (defun dwt/doom-font()
     (when IS-MAC
-      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 140)
+      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 150)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
@@ -142,7 +142,7 @@
 
 ;; frame
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; full screen
+;; full screen may cause error for the frame created by emacs-everywhere
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 

@@ -224,7 +224,10 @@
 
 (after! magit
   (map! :map magit-mode-map
-        "go" #'evil-avy-goto-line))
+        :n "go" #'evil-avy-goto-line))
 
 (use-package! evil-matchit
   :commands (evil-matchit-mode))
+
+(after! spell-fu
+  (setq spell-fu-idle-delay 0.5))

@@ -423,18 +423,19 @@
   (defun dwt/evil-multiedit-clean-prev-nonmath-candidate ()
     (save-excursion
       (while (call-interactively #'evil-multiedit-prev)
-          (unless (texmathp)
+          (unless (and (texmathp) (equal 1 (length (thing-at-point 'word))))
             (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
 
   (defun dwt/evil-multiedit-clean-next-nonmath-candidate ()
     (save-excursion
       (while (call-interactively #'evil-multiedit-next)
-          (unless (texmathp)
+          (unless (and (texmathp) (equal 1 (length (thing-at-point 'word))))
             (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
 
   (defun dwt/evil-multiedit-clean-nonmath-candidate ()
     (interactive)
-    (unless (texmathp)
+     ;; when not math or is in commmand
+    (unless (and (texmathp) (equal 1 (length (thing-at-point 'word))))
       (call-interactively #'evil-multiedit-toggle-or-restrict-region))
     (ignore-errors
       (dwt/evil-multiedit-clean-next-nonmath-candidate))
