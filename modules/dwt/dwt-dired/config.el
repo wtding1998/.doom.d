@@ -26,7 +26,8 @@
 ;; use & to open pdf
 (after! dired-x
   (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "zathura")))
-  (setq dired-omit-extensions (delete ".aux" dired-omit-extensions)))
+  (setq dired-omit-extensions (delete ".aux" dired-omit-extensions))
+  (setq dired-omit-extensions (delete ".toc" dired-omit-extensions)))
 (setq delete-by-moving-to-trash t)
 (after! dired
   (map! :n "_" #'dirvish

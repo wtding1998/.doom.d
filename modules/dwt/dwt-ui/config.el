@@ -153,9 +153,9 @@
   (diff-hl-margin-mode -1)
   :hook
   (tex-mode . diff-hl-mode)
-  (tex-mode . diff-hl-flydiff-mode)
-  (prog-mode . diff-hl-mode)
-  (prog-mode . diff-hl-flydiff-mode))
+  ;; (tex-mode . diff-hl-flydiff-mode)
+  (prog-mode . diff-hl-mode))
+  ;; (prog-mode . diff-hl-flydiff-mode))
 
 (after! diff-hl
    (map! :n "[g" #'diff-hl-previous-hunk)
@@ -418,3 +418,31 @@
                  pop-global-mark
                  goto-last-change))
     (advice-add cmd :after #'my-recenter-and-pulse)))
+
+
+;;;###autoload
+(defun dwt/fullscreen ()
+  (interactive)
+  (let ((undo-count 0)
+        (buffer 0)
+        (recover-window-list '())
+        (recover-buffer-list '()))
+    (dolist (window (window-list-1))
+            (setq buffer (window-buffer window))
+            (when (equal 'pdf-view-mode (buffer-local-value 'major-mode buffer))
+              (push window recover-window-list)
+              (push (buffer-name buffer) recover-buffer-list)
+              (set-window-buffer window "*scratch*")
+              (setq undo-count (+ undo-count 1))))
+    (toggle-frame-fullscreen)
+    (posframe-delete-all)))
+    ;; (when (> undo-count 0)
+    ;;   (dolist (i (number-sequence 0 (- undo-count 1)))
+    ;;     (setq window (nth i recover-window-list))
+    ;;     (setq buffer (nth i recover-buffer-list))
+    ;;     switch buffer will stack, not matter previous-buffer or set-window-buffer
+    ;;     (select-window window)
+    ;;     (call-interactively #'previous-buffer)))))
+
+        ;; (set-window-buffer window buffer)))))
+(map! :g "<f11>" #'dwt/fullscreen)

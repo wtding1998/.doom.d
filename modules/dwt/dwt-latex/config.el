@@ -291,6 +291,7 @@
 
   (defun dwt/clean-emacs-latex-file ()
     (interactive)
+    (async-shell-command "rm indent.log")
     (TeX-command "Clean" #'TeX-master-file)
     (TeX-command "Remove .auctex" #'TeX-master-file))
 
@@ -305,6 +306,7 @@
 
   (defun dwt/format-latex-file ()
     (interactive)
+    (call-interactively #'dwt/replace-math-deli)
     (call-interactively #'dwt/replace-math-deli)
     (call-interactively #'+format/buffer))
 

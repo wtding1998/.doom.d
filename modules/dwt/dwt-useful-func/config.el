@@ -42,11 +42,12 @@
     (ivy-read "Open Configs: " configs :action 'find-file)))
 (map! :leader :desc "Open configuration" "oP" #'dwt/ivy-open-configuration)
 
+(setq dwt/recentf-exculde-files '("roam/"))
 ;;;###autoload
 (defun dwt/clean-recentf ()
   "Clean roam files in recentf list."
   (interactive)
-  (let ((recentf-exclude '("roam/")))
+  (let ((recentf-exclude dwt/recentf-exculde-files))
     (recentf-cleanup)))
 
 ;;; proxy
@@ -140,7 +141,18 @@
          (package-path (concat repos package-name)))
     (find-file (concat package-path))))
 
-(map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir)
+(defun dwt/copy-file-from-screenshot()
+  (interactive)
+  (let* ((screenshot "~/Pictures/screenshot/")
+         (files (directory-files screenshot))
+         (file-name (ivy-read "Screenshot Name: " files))
+         (new-file-name (ivy-read "New File Name: " (list file-name)))
+         (file-path (concat screenshot file-name)))
+    (copy-file file-path (expand-file-name new-file-name))))
+
+
+(map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir
+              :desc "copy screenshot" "f1" #'dwt/copy-file-from-screenshot)
 
 ;; ;;;###autoload
 ;; (defun dwt/replace-path ()
