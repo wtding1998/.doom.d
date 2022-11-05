@@ -15,21 +15,24 @@
     (basic-save-buffer)
     (compile (format "gcc %s && ./a.out" (buffer-file-name))))
 
-  (defun dwt/gcc-compile-and-run-vterm ()
+  (defun dwt/cc-compile-and-run-vterm ()
     (interactive)
     (basic-save-buffer)
-    (let ((fname (buffer-file-name))
-          (dname (file-name-directory (buffer-file-name))))
-      (unless (buffer-live-p (get-buffer "*doom:vterm-popup:main*"))
-        (vterm "*doom:vterm-popup:main*"))
-      (+popup-buffer (get-buffer "*doom:vterm-popup:main*"))
-      (+popup/other)
-      (vterm-send-string (format "gcc %s && %sa.out" fname dname))
-      (vterm-send-return)))
+    (let (fname buf command)
+      (setq fname buffer-file-name
+            buf (+vterm/toggle nil))
+      (if (string-equal (file-name-extension fname) "cpp")
+          (setq command "g++")
+        (setq command "gcc"))
+      (vterm-send-string (format "%s %s -o %s" command fname (file-name-sans-extension (file-name-nondirectory fname))))
+      (vterm-send-return)
+      (vterm-send-string (file-name-sans-extension fname))
+      (vterm-send-return)
+      (evil-insert-state)))
 
   (map! :map c-mode-map
         :localleader
-        :desc "vterm compile run" "m" #'dwt/gcc-compile-and-run-vterm
+        :desc "vterm compile run" "m" #'dwt/cc-compile-and-run-vterm
         :desc "compile run" "M" #'dwt/gcc-compile-and-run)
 
   (defun dwt/cpp-compile-and-run ()
@@ -51,5 +54,5 @@
 
   (map! :map c++-mode-map
         :localleader
-        :desc "vterm compile run" "m" #'dwt/cpp-compile-and-run-vterm
+        :desc "vterm compile run" "m" #'dwt/cc-compile-and-run-vterm
         :desc "compile run" "M" #'dwt/cpp-compile-and-run))

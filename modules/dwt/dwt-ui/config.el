@@ -106,6 +106,7 @@
                         (font-spec :family "Sarasa Mono SC Nerd")))) ;; 14 16 20 22 28
 
 (defun dwt/init-frame(frame)
+  ;; setting for daemon
   (with-selected-frame frame
     ;; font and theme for GUI
     (if (display-graphic-p)
@@ -114,25 +115,22 @@
           (when (equal doom-theme 'doom-one)
             (dwt/doom-font)
           ;; theme for GUI in daemon
-          ;; (dwt/load-light-themes)
-            (load-theme 'doom-tomorrow-night t nil)))
-          ;; (load-theme 'modus-operandi t nil))
-          ;;; frame init
-          ;; (when IS-MAC
-          ;;     (dwt/turn-on-transwin)))
+            ;; (load-theme 'doom-tomorrow-night t nil)
+            (load-theme 'modus-operandi t nil)))
       ;;; theme for TUI in daemon
       (load-theme 'doom-zenburn t nil))))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
+  ;; set for GUI without daemon
   (if (display-graphic-p)
-      ;; font and theme for GUI in single emacs
       (progn
         ;; (load-theme 'modus-operandi t nil)
         (when (equal doom-theme 'doom-one)
-          (load-theme 'doom-tomorrow-night t nil)
+          ;; (load-theme 'doom-tomorrow-night t nil)
+          (load-theme 'modus-operandi t nil)
           (dwt/doom-font)))
-    ;; theme for TUI in single emacs
+    ;; theme for TUI without daemon
     (load-theme 'doom-monokai-pro t nil)))
 
 ;; hide title bar

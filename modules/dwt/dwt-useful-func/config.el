@@ -141,13 +141,15 @@
          (package-path (concat repos package-name)))
     (find-file (concat package-path))))
 
+(setq dwt/freqneutly-used-directories '("~/Downloads" "~/Pictures/screenshot/"))
 (defun dwt/copy-file-from-screenshot()
   (interactive)
-  (let* ((screenshot "~/Pictures/screenshot/")
-         (files (directory-files screenshot))
-         (file-name (ivy-read "Screenshot Name: " files))
-         (new-file-name (ivy-read "New File Name: " (list file-name)))
-         (file-path (concat screenshot file-name)))
+  (let (files-path directory-path new-files-path new-file-name file-path)
+    (dolist (directory-path dwt/freqneutly-used-directories)
+      (setq new-files-path (directory-files directory-path 'full))
+      (setq files-path (append new-files-path files-path)))
+    (setq file-path (ivy-read "File Path: " files-path))
+    (setq new-file-name (ivy-read "New Name: " (list (file-name-nondirectory file-path))))
     (copy-file file-path (expand-file-name new-file-name))))
 
 
