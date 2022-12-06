@@ -36,6 +36,7 @@
         ;;          (dired-jump t))
         :map dired-mode-map
         :n "J" nil
+        :n "go" #'evil-avy-goto-line
         :n "h" #'dired-up-directory
         :n "l" #'dired-find-file)
   (set-popup-rules!

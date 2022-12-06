@@ -449,9 +449,9 @@ Creates new notes where none exist yet."
                    (let* ((pdf (f-uniquify-alist pdf))
                           (choice (completing-read "File to attach: " (mapcar 'cdr pdf) nil t))
                           (file (car (rassoc choice pdf))))
-                      (org-entry-put nil org-noter-property-doc-file file)))
+                      (org-entry-put nil "NOTER_DOCUMENT" file)))
                   (pdf
-                    (org-entry-put nil org-noter-property-doc-file (car pdf)))
+                    (org-entry-put nil "NOTER_DOCUMENT" (car pdf)))
                   (t
                     (message "No PDF(s) found for this entry: %s"
                             key))))
@@ -469,9 +469,9 @@ called in case no PDF is found."
         (let* ((pdf (f-uniquify-alist pdf))
                (choice (completing-read "File to open: " (mapcar 'cdr pdf) nil t))
                (file (car (rassoc choice pdf))))
-          (org-entry-put nil org-noter-property-doc-file file)))
+          (org-entry-put nil "NOTER_DOCUMENT"  file)))
        (pdf
-        (org-entry-put nil org-noter-property-doc-file (car pdf)))
+        (org-entry-put nil "NOTER_DOCUMENT" (car pdf)))
        (t
         (message "No PDF(s) found for this entry: %s"
                  key))))))
@@ -517,6 +517,14 @@ called in case no PDF is found."
   (setq org-pomodoro-long-break-sound-p nil)
   (setq org-pomodoro-play-sounds nil)
   (setq org-pomodoro-keep-killed-pomodoro-time t)
+
+  (defun dwt/pop-org-pomodoro-buffer-finish ()
+    (let ((buf (get-buffer-create "org-pomodoro-message")))
+      (with-current-buffer buf
+        (erase-buffer)
+        (insert "Finish!"))
+      (+popup-buffer buf)))
+
   (add-hook 'org-pomodoro-finished-hook (lambda ()
                                           (y-or-n-p "Finish! ")))
   (add-hook 'org-pomodoro-break-finished-hook (lambda ()

@@ -407,6 +407,7 @@
      (?:    ("\\vdots" "\\ddots"))
      (?_     ("_"          ""             ""))
      (?4     ("$"          ""             ""))
+     (?7     ("\\grad "          ""             ""))
      (?*    ("\\times" "\\star" "\\ast")))
    cdlatex-math-modify-alist
    '( ;; my own stuff
@@ -482,7 +483,13 @@
         ;; location of tex2svg executable
         "~/node_modules/mathjax-node-cli/bin/tex2svg")
 ;; ("\\newcommand{\\ensuremath}[1]{#1}" "\\renewcommand{\\usepackage}[2][]{}")
-  (setq org-latex-impatient-user-latex-definitions '("\\newcommand{\\contr}[1]{\\mathop{\\bullet_{#1}}}" "\\newcommand{\\tens}[1]{\\boldsymbol{\\mathcal{#1}}}" "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
+  (setq org-latex-impatient-user-latex-definitions '("\\newcommand{\\contr}[1]{\\mathop{\\bullet_{#1}}}"
+                                                     "\\newcommand{\\tens}[1]{\\boldsymbol{\\mathcal{#1}}}"
+                                                     "\\newcommand{\\grad}{\\operatorname{grad}}"
+                                                     "\\newcommand{\\diag}[1]{\\operatorname{diag}\\{#1\\}}"
+                                                     "\\newcommand{\\St}[1]{\\text{St}}"
+                                                     "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
+
   ;; (setq org-latex-impatient-border-width 0)
   ;; (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
   ;; (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
@@ -513,6 +520,10 @@
           (cons evil-tex-inner-text-objects-map evil-tex-outer-text-objects-map)
         ;; pollute the global namespace if evil-surround is too old
         (cons evil-inner-text-objects-map evil-outer-text-objects-map))
+    (map! :map evil-tex-mode-map
+          :n "[[" nil
+          :n "]]" nil)
+
     (define-key outer-map ":" 'evil-tex-a-superscript)
     (define-key outer-map ";" 'evil-tex-a-subscript)
     (define-key inner-map ":" 'evil-tex-inner-superscript)

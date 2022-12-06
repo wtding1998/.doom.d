@@ -12,6 +12,7 @@
   (setq evil-want-fine-undo t)
   ;; allow cross line
   (setq evil-cross-lines t)
+  (map! :g "s-<backspace>" #'evil-delete-backward-word)
   ;;; evil-key-binding
   (map! :nvm "Z" #'evil-jump-item
         :nvm "L" #'evil-end-of-line
@@ -216,6 +217,7 @@
 
 (use-package! evil-motion-trainer
   :defer t
+  :commands (evil-motion-trainer-mode)
   ;; :hook ((prog-mode . evil-motion-trainer-mode)
   ;;        (latex-mode . evil-motion-trainer-mode)
   ;;        (org-mode . evil-motion-trainer-mode))
@@ -231,3 +233,14 @@
 
 (after! spell-fu
   (setq spell-fu-idle-delay 0.5))
+
+(use-package! emacs-devdocs-browser
+  :defer t
+  :commands (devdocs-browser-open))
+
+(map! :n "[f" #'+evil/previous-frame
+      :n "]f" #'+evil/next-frame
+      :n "[F" #'+evil/previous-file
+      :n "]F" #'+evil/next-file
+      :n "[[" #'previous-buffer
+      :n "]]" #'next-buffer)

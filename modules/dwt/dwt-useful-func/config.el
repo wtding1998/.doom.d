@@ -142,7 +142,7 @@
     (find-file (concat package-path))))
 
 (setq dwt/freqneutly-used-directories '("~/Downloads" "~/Pictures/screenshot/"))
-(defun dwt/copy-file-from-screenshot()
+(defun dwt/copy-file-from-screenshot-download()
   (interactive)
   (let (files-path directory-path new-files-path new-file-name file-path)
     (dolist (directory-path dwt/freqneutly-used-directories)
@@ -154,7 +154,7 @@
 
 
 (map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir
-              :desc "copy screenshot" "f1" #'dwt/copy-file-from-screenshot)
+              :desc "copy screenshot" "f1" #'dwt/copy-file-from-screenshot-download)
 
 ;; ;;;###autoload
 ;; (defun dwt/replace-path ()

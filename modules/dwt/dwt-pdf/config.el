@@ -18,6 +18,8 @@
         :n "e" #'pdf-view-scroll-down-or-previous-page
         :n "S" #'pdf-history-backward
         :n "D" #'pdf-history-forward
+        :n "[[" nil
+        :n "]]" nil
         :n "C-j" #'pdf-history-forward
         :n "C-k" #'pdf-history-backward))
 

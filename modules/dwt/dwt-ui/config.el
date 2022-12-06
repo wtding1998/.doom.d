@@ -42,6 +42,11 @@
 
 (map! :leader :desc "toggle sentence" "ta" #'dwt/toggle-sentence)
 
+(map! :n "[f" #'+evil/previous-frame
+      :n "]f" #'+evil/next-frame
+      :n "[F" #'+evil/previous-file
+      :n "]F" #'+evil/next-file)
+
 ;; disable global-hl-line
 ;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
 
