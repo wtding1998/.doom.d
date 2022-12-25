@@ -91,6 +91,7 @@
   (map! :map ivy-minibuffer-map
         "C-d" #'ivy-scroll-up-command
         "C-u" #'ivy-scroll-down-command
+        "s-<backspace>" #'evil-delete-backward-word
         "<backtab>" #'ivy-partial
         "C-<return>" #'ivy-immediate-done
         "C-<backspace>" #'dwt/ivy-backward-delete-char))

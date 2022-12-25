@@ -519,14 +519,24 @@ called in case no PDF is found."
   (setq org-pomodoro-keep-killed-pomodoro-time t)
 
   (defun dwt/pop-org-pomodoro-buffer-finish ()
+    (interactive)
     (let ((buf (get-buffer-create "org-pomodoro-message")))
       (with-current-buffer buf
         (erase-buffer)
         (insert "Finish!"))
       (+popup-buffer buf)))
 
-  (add-hook 'org-pomodoro-finished-hook (lambda ()
-                                          (y-or-n-p "Finish! ")))
+  (defun dwt/pop-org-pomodoro-buffer-start ()
+    (interactive)
+    (let ((buf (get-buffer-create "org-pomodoro-message")))
+      (with-current-buffer buf
+        (erase-buffer)
+        (insert "1. Work or Walk\n2. 5 minutes rule"))
+      (+popup-buffer buf)))
+  ;; (add-hook 'org-pomodoro-finished-hook (lambda ()
+  ;;                                         (y-or-n-p "Finish! ")))
+  (add-hook 'org-pomodoro-finished-hook #'dwt/pop-org-pomodoro-buffer-finish)
+  (add-hook 'org-pomodoro-started-hook #'dwt/pop-org-pomodoro-buffer-start)
   (add-hook 'org-pomodoro-break-finished-hook (lambda ()
                                                 (when (y-or-n-p "Continue? ")
                                                   (let ((arg '(16)))

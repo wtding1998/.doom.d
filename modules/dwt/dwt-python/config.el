@@ -92,6 +92,7 @@
     (setenv "WORKON_HOME" "/Users/dingwentao/miniforge3/envs"))
   (map! :map python-mode-map :localleader
         "v" #'pyvenv-workon
+        "S" #'dwt/python-run-in-shell
         "M" #'dwt/python-run
         "m" #'dwt/python-run-in-vterm)
 

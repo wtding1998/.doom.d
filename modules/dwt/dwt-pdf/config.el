@@ -20,6 +20,7 @@
         :n "D" #'pdf-history-forward
         :n "[[" nil
         :n "]]" nil
+        :n "-" nil
         :n "C-j" #'pdf-history-forward
         :n "C-k" #'pdf-history-backward))
 

@@ -30,15 +30,21 @@
   (setq dired-omit-extensions (delete ".toc" dired-omit-extensions)))
 (setq delete-by-moving-to-trash t)
 (after! dired
-  (map! :n "_" #'dirvish
+  ;; sort by date by default
+  ;; (add-hook 'dired-mode-hook #'dired-sort-toggle-or-edit)
+  (map! :n "-" #'dired-jump
+        :n "_" #'dirvish-side
         ;; :n "_" (lambda ()
         ;;          (interactive)
-        ;;          (dired-jump t))
         :map dired-mode-map
         :n "J" nil
+        :n "[[" nil
+        :n "]]" nil
+        :n "Q" #'kill-current-buffer
         :n "go" #'evil-avy-goto-line
         :n "h" #'dired-up-directory
         :n "l" #'dired-find-file)
+
   (set-popup-rules!
     '(("^\\*Fd*" :size 15 :select t))))
   
@@ -68,13 +74,19 @@
 
 (use-package! dirvish
   :init (after! dired (dirvish-override-dired-mode))
-  :hook (dirvish-mode . variable-pitch-mode)
+  :hook ((dirvish-mode . variable-pitch-mode))
   :config
   ;; (setq dirvish-attributes '(vc-state subtree-state all-the-icons collapse git-msg file-size))
+  ;; (defun dwt/toggle-layout-if-too-small (&rest args)
+  ;;   (when (< (window-pixel-width) 1300)
+  ;;     (call-interactively #'dirvish-layout-toggle)))
+  ;; (advice-add 'dirvish :after #'dwt/toggle-layout-if-too-small)
+
   (setq dirvish-attributes '(all-the-icons collapse file-size))
   (setq dirvish-use-header-line nil)
+  (setq dirvish-mode-line-format nil)
   (setq dirvish-mode-line-height '(1 . 1))
-
+  (setq dirvish-reuse-session t)
   (map! :map dirvish-mode-map
         :n "q" #'dirvish-quit
         :n "a" #'dirvish-quick-access
@@ -91,8 +103,13 @@
         :n "TAB" #'dirvish-subtree-toggle
         :localleader
         "f" #'dirvish-fd
+        "d" #'dirvish-dispatch
         "F" #'dirvish-file-info-menu
+        "r" #'dirvish-renaming-menu
+        "y" #'dirvish-yank-menu
+        "v" #'dirvish-vc-menu
         "l" #'dirvish-ls-switches-menu
+        "h" #'dirvish-history-menu
         "m" #'dirvish-mark-menu
         "s" #'dirvish-setup-menu
         "e" #'dirvish-emerge-menu

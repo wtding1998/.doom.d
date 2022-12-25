@@ -359,8 +359,7 @@
   :commands (sort-tab-mode)
   :defer t
   :config
-  (map! :map sort-tab-mode-map
-        :ni "C-<tab>" #'sort-tab-select-next-tab
+  (map! :ni "C-<tab>" #'sort-tab-select-next-tab
         :ni "C-<iso-lefttab>" #'sort-tab-select-prev-tab
         :n "gt" #'sort-tab-select-next-tab
         :n "gT" #'sort-tab-select-prev-tab
