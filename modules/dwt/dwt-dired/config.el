@@ -32,10 +32,9 @@
 (after! dired
   ;; sort by date by default
   ;; (add-hook 'dired-mode-hook #'dired-sort-toggle-or-edit)
-  (map! :n "-" #'dired-jump
-        :n "_" #'dirvish-side
-        ;; :n "_" (lambda ()
-        ;;          (interactive)
+  (map! :n "_" #'dirvish-side
+        ;; :n "-" #'dired-jump
+        :n "-" #'dirvish-dwim
         :map dired-mode-map
         :n "J" nil
         :n "[[" nil
@@ -74,18 +73,17 @@
 
 (use-package! dirvish
   :init (after! dired (dirvish-override-dired-mode))
-  :hook ((dirvish-mode . variable-pitch-mode))
+  ;; :hook ((dirvish-mode . variable-pitch-mode))
   :config
-  ;; (setq dirvish-attributes '(vc-state subtree-state all-the-icons collapse git-msg file-size))
-  ;; (defun dwt/toggle-layout-if-too-small (&rest args)
-  ;;   (when (< (window-pixel-width) 1300)
-  ;;     (call-interactively #'dirvish-layout-toggle)))
-  ;; (advice-add 'dirvish :after #'dwt/toggle-layout-if-too-small)
-
-  (setq dirvish-attributes '(all-the-icons collapse file-size))
-  (setq dirvish-use-header-line nil)
-  (setq dirvish-mode-line-format nil)
-  (setq dirvish-mode-line-height '(1 . 1))
+  (setq dirvish-attributes '(all-the-icons collapse file-size file-time))
+  (setq dirvish-default-layout '(1 0.11 0.52))
+  ;; (setq dirvish-use-header-line nil)
+  (setq dirvish-header-line-height 20)
+  (setq dirvish-mode-line-height 20)
+  (setq dirvish-mode-line-format
+          '(:left (symlink file-time file-size) :right (omit yank index)))
+  (setq dired-listing-switches
+        "-l --almost-all --human-readable --group-directories-first --no-group")
   (setq dirvish-reuse-session t)
   (map! :map dirvish-mode-map
         :n "q" #'dirvish-quit
