@@ -32,6 +32,7 @@
 (after! dired
   ;; sort by date by default
   ;; (add-hook 'dired-mode-hook #'dired-sort-toggle-or-edit)
+  (setq dired-recursive-deletes 'always)
   (map! :n "_" #'dirvish-side
         ;; :n "-" #'dired-jump
         :n "-" #'dirvish-dwim
@@ -77,13 +78,21 @@
   :config
   (setq dirvish-attributes '(all-the-icons collapse file-size file-time))
   (setq dirvish-default-layout '(1 0.11 0.52))
+  (setq dirvish-quick-access-entries
+        '(("h" "~/" "Home")
+          ("t" "~/.Trash/" "Trash")
+          ("d" "Downloads" "Downloads")))
   ;; (setq dirvish-use-header-line nil)
   (setq dirvish-header-line-height 20)
   (setq dirvish-mode-line-height 20)
+  (setq dirvish-header-line-format
+        '(:left (path) :right (free-space)))
   (setq dirvish-mode-line-format
-          '(:left (symlink file-time file-size) :right (omit yank index)))
+          '(:left (symlink file-time file-size) :right (vc-info omit yank sort index)))
   (setq dired-listing-switches
-        "-l --almost-all --human-readable --group-directories-first --no-group")
+        "-l --sort=time --almost-all --time-style=long-iso --human-readable --group-directories-first --no-group")
+  (setq dirvish-preview-dispatchers
+      (cl-substitute 'pdf-preface 'pdf dirvish-preview-dispatchers))
   (setq dirvish-reuse-session t)
   (map! :map dirvish-mode-map
         :n "q" #'dirvish-quit

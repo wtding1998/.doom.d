@@ -294,9 +294,9 @@
 (setq display-time-24hr-format t
       display-time-default-load-average nil)
 (setq display-time-day-and-date t)
-(display-time-mode 1)
+(display-time-mode -1)
 ;; display battery in modeline
-(display-battery-mode 1)
+(display-battery-mode -1)
 
 (map! :leader
       :desc "toggle date" "td" #'dwt/toggle-date-display)

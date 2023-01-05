@@ -4,6 +4,79 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+  ;; reminder
+  (defvar dwt/org-clock-reminder-timer nil)
+  (defvar dwt/org-clock-reminder-replied nil)
+  (defun dwt/notifications-notify-shell-command (&rest params)
+    (with-demoted-errors "Notification error: %S"
+      (let ((title (plist-get params :title))
+            (body (plist-get params :body))
+            (timeout (plist-get params :timeout))
+            (actions (plist-get params :actions))
+            (shell-command-alerter-list '("alerter" "-sender" "org.gnu.Emacs" "-activate" "org.gnu.Emacs"))
+            (alerter-return-value nil))
+        (unless timeout
+          (setq timeout dwt/notifications-default-timeout))
+        (setq shell-command-alerter-list (append shell-command-alerter-list (list "-timeout" (number-to-string timeout))))
+        (when title
+          (setq shell-command-alerter-list (append shell-command-alerter-list (list "-title" "'" title "'"))))
+        (when body
+          (setq shell-command-alerter-list (append shell-command-alerter-list (list "-message" "'" body "'"))))
+        (when actions
+          (setq shell-command-alerter-list (append shell-command-alerter-list (list "-actions" (string-join actions ",")))))
+        (setq alerter-return-value (shell-command (string-join shell-command-alerter-list " "))))))
+
+  (defun dwt/notifications-notify-start-process (&rest params)
+    (with-demoted-errors "Notification error: %S"
+      (let ((title (plist-get params :title))
+            (body (plist-get params :body))
+            (timeout (plist-get params :timeout)))
+        (unless timeout
+          (setq timeout dwt/notifications-default-timeout))
+        (start-process
+          "alerter"
+          "*alerter*"
+          (executable-find "alerter")
+          "-sender" "org.gnu.Emacs"
+          "-activate" "org.gnu.Emacs"
+          "-timeout" (number-to-string timeout)
+          "-title" title
+          "-message" body))))
+
+  (defun dwt/org-clock-reminder ()
+    (interactive)
+    (let ((clock-state nil))
+      (when (fboundp 'org-clocking-p)
+        (setq clock-state (org-clocking-p)))
+      (when (boundp 'org-pomodoro-state)
+        (unless (equal org-pomodoro-state :none)
+          (setq clock-state t)))
+      (unless clock-state
+        (dwt/notifications-notify-shell-command :title "Clock in?"
+                                                :timeout 10000))))
+
+  (defun dwt/org-clock-reminder-toggle (&optional on-off)
+    "start/stop the timer that runs org-clock-watcher
+  ON-OFF `C-u' or 'on means turn on, `C-u C-u' or 'off means turn off, `nil' means toggle
+  "
+    (interactive "P")
+    (cond
+      ((null on-off)
+       (if dwt/org-clock-reminder-timer
+           (setq dwt/org-clock-reminder-timer (cancel-timer dwt/org-clock-reminder-timer))
+         (setq dwt/org-clock-reminder-timer (run-with-timer 60 120 'dwt/org-clock-reminder))))
+      ((or (equal on-off 'on)
+           (equal on-off '(4)))
+       (unless dwt/org-clock-reminder-timer
+          (setq dwt/org-clock-reminder-timer (run-with-timer 60 120 'dwt/org-clock-reminder))))
+      ((or (equal on-off 'off)
+           (equal on-off '(16)))
+       (when dwt/org-clock-reminder-timer
+          (setq dwt/org-clock-reminder-timer (cancel-timer dwt/org-clock-reminder-timer)))))
+    (if dwt/org-clock-reminder-timer
+        (message "org-clock-reminder started")
+      (message "org-clock-reminder stopped")))
+
   ;; enable org-habit
   (push 'org-habit org-modules)
   ;;; deal with org-show-notification
@@ -202,6 +275,7 @@
           (tags   . " %i %-12:c")
           (search . " %i %-12:c")))
   ;; org-clock
+  (setq org-clock-clocked-in-display nil)
   (setq org-clock-mode-line-total 'today))
 
 ;; roam
@@ -506,6 +580,7 @@ called in case no PDF is found."
   :init (map! :leader
               :desc "pomodoro" "np" #'org-pomodoro)
   :config
+  (setq org-pomodoro-manual-break nil)
   (setq org-pomodoro-format "%s")
   (setq org-pomodoro-long-break-format "%s")
   (setq org-pomodoro-short-break-format "%s")
@@ -558,3 +633,13 @@ called in case no PDF is found."
         "op" #'org-download-clipboard)
   :config
   (setq org-download-method 'directory))
+
+;; (use-package! org-clock-watch
+;;   :config
+;;   (org-clock-watch-toggle 'off)
+;;   (setq org-clock-watch-play-sound-command-str "mpv")
+;;   (setq org-clock-watch-work-plan-file-path "/Users/dingwentao/Library/CloudStorage/OneDrive-Personal/Documents/diary/org/agenda.org"))
+
+;; (use-package! alert
+;;   :config
+;;   (setq alert-default-style 'notifier))
