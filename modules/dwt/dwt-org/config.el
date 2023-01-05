@@ -6,25 +6,27 @@
 (after! org
   ;; reminder
   (defvar dwt/org-clock-reminder-timer nil)
-  (defvar dwt/org-clock-reminder-replied nil)
+  (defvar dwt/org-clock-reminder-last-replied-time (float-time))
   (defun dwt/notifications-notify-shell-command (&rest params)
-    (with-demoted-errors "Notification error: %S"
-      (let ((title (plist-get params :title))
-            (body (plist-get params :body))
-            (timeout (plist-get params :timeout))
-            (actions (plist-get params :actions))
-            (shell-command-alerter-list '("alerter" "-sender" "org.gnu.Emacs" "-activate" "org.gnu.Emacs"))
-            (alerter-return-value nil))
-        (unless timeout
-          (setq timeout dwt/notifications-default-timeout))
-        (setq shell-command-alerter-list (append shell-command-alerter-list (list "-timeout" (number-to-string timeout))))
-        (when title
-          (setq shell-command-alerter-list (append shell-command-alerter-list (list "-title" "'" title "'"))))
-        (when body
-          (setq shell-command-alerter-list (append shell-command-alerter-list (list "-message" "'" body "'"))))
-        (when actions
-          (setq shell-command-alerter-list (append shell-command-alerter-list (list "-actions" (string-join actions ",")))))
-        (setq alerter-return-value (shell-command (string-join shell-command-alerter-list " "))))))
+    (when (> (float-time) (+ dwt/org-clock-reminder-last-replied-time 100))
+      (with-demoted-errors "Notification error: %S"
+        (let ((title (plist-get params :title))
+              (body (plist-get params :body))
+              (timeout (plist-get params :timeout))
+              (actions (plist-get params :actions))
+              (shell-command-alerter-list '("alerter" "-sender" "org.gnu.Emacs" "-activate" "org.gnu.Emacs"))
+              (alerter-return-value nil))
+          (unless timeout
+            (setq timeout dwt/notifications-default-timeout))
+          (setq shell-command-alerter-list (append shell-command-alerter-list (list "-timeout" (number-to-string timeout))))
+          (when title
+            (setq shell-command-alerter-list (append shell-command-alerter-list (list "-title" "'" title "'"))))
+          (when body
+            (setq shell-command-alerter-list (append shell-command-alerter-list (list "-message" "'" body "'"))))
+          (when actions
+            (setq shell-command-alerter-list (append shell-command-alerter-list (list "-actions" (string-join actions ",")))))
+          (setq alerter-return-value (shell-command (string-join shell-command-alerter-list " ")))
+          (setq dwt/org-clock-reminder-last-replied-time (float-time))))))
 
   (defun dwt/notifications-notify-start-process (&rest params)
     (with-demoted-errors "Notification error: %S"
@@ -76,7 +78,7 @@
     (if dwt/org-clock-reminder-timer
         (message "org-clock-reminder started")
       (message "org-clock-reminder stopped")))
-
+  (map! :leader "tO" #'dwt/org-clock-reminder-toggle)
   ;; enable org-habit
   (push 'org-habit org-modules)
   ;;; deal with org-show-notification
@@ -586,15 +588,14 @@ called in case no PDF is found."
   (setq org-pomodoro-short-break-format "%s")
   (setq org-pomodoro-time-format "%.2m")
   (setq org-pomodoro-length 30)
-  (setq org-pomodoro-long-break-frequency 3)
   (setq org-pomodoro-short-break-length 5)
+  (setq org-pomodoro-long-break-frequency 3)
   (setq org-pomodoro-short-break-sound-p nil)
   (setq org-pomodoro-long-break-sound-p nil)
   (setq org-pomodoro-play-sounds nil)
   (setq org-pomodoro-keep-killed-pomodoro-time t)
 
   (defun dwt/pop-org-pomodoro-buffer-finish ()
-    (interactive)
     (let ((buf (get-buffer-create "org-pomodoro-message")))
       (with-current-buffer buf
         (erase-buffer)
@@ -602,20 +603,30 @@ called in case no PDF is found."
       (+popup-buffer buf)))
 
   (defun dwt/pop-org-pomodoro-buffer-start ()
-    (interactive)
     (let ((buf (get-buffer-create "org-pomodoro-message")))
       (with-current-buffer buf
         (erase-buffer)
         (insert "1. Work or Walk\n2. 5 minutes rule"))
       (+popup-buffer buf)))
+
+  (defun dwt/org-pomodoro-finished-ask-postpone ()
+    (let* ((org-pomodoro-finish-answer-list '("No" "5" "10" "15" "20"))
+           (org-pomodoro-finish-answer (ivy-read "Finished! Postpone? " org-pomodoro-finish-answer-list))
+           (org-pomodoro-length (string-to-number org-pomodoro-finish-answer)))
+      (when (> org-pomodoro-length 0)
+        (org-pomodoro-kill)
+        (setq org-pomodoro-count (- org-pomodoro-count 1))
+        (org-pomodoro '(16)))))
   ;; (add-hook 'org-pomodoro-finished-hook (lambda ()
   ;;                                         (y-or-n-p "Finish! ")))
-  (add-hook 'org-pomodoro-finished-hook #'dwt/pop-org-pomodoro-buffer-finish)
-  (add-hook 'org-pomodoro-started-hook #'dwt/pop-org-pomodoro-buffer-start)
+  ;; (add-hook 'org-pomodoro-finished-hook #'dwt/pop-org-pomodoro-buffer-finish)
+  ;; (add-hook 'org-pomodoro-started-hook #'dwt/pop-org-pomodoro-buffer-start)
+  (add-hook 'org-pomodoro-started-hook (lambda () (message "1. Work or Walk; 2. 5 minutes rule")))
   (add-hook 'org-pomodoro-break-finished-hook (lambda ()
                                                 (when (y-or-n-p "Continue? ")
                                                   (let ((arg '(16)))
-                                                    (org-pomodoro arg))))))
+                                                    (org-pomodoro arg)))))
+  (add-hook 'org-pomodoro-finished-hook #'dwt/org-pomodoro-finished-ask-postpone))
 (use-package! org-modern
   :after org
   :config
