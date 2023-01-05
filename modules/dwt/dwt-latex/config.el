@@ -4,6 +4,7 @@
 ;; === latex init ===
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 (add-hook 'LaTeX-mode-hook 'hl-todo-mode)
+(add-hook 'LaTeX-mode-hook (lambda () (interactive) (setq evil-shift-width 2)))
 
 (use-package! cdlatex
   :defer t
