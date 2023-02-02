@@ -12,11 +12,11 @@
         :desc "yas-new" "w]" #'yas-new-snippet)
   (setq yas-also-indent-empty-lines t)
   ;;; auto-expand
-  (defun my-yas-try-expanding-auto-snippets ()
-    (when yas-minor-mode
-      (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
-        (yas-expand))))
-  (add-hook 'post-command-hook #'my-yas-try-expanding-auto-snippets)
+  ;; (defun my-yas-try-expanding-auto-snippets ()
+  ;;   (when yas-minor-mode
+  ;;     (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
+  ;;       (yas-expand))))
+  ;; (add-hook 'post-command-hook #'my-yas-try-expanding-auto-snippets)
 
   ;;; Activate org and LaTeX yas expansion in org-mode buffers.
   (defun my-org-latex-yas ()
@@ -39,57 +39,46 @@
 
 
 
-;; (use-package auto-activating-snippets
-;;   :hook (LaTeX-mode . auto-activating-snippets-mode)
-;;   :hook (org-mode . auto-activating-snippets-mode)
-;;   :config
-;;   (aas-set-snippets 'text-mode
-;;                     ;; expand unconditionally
-;;                     "o-" "ō"
-;;                     "i-" "ī"
-;;                     "a-" "ā"
-;;                     "u-" "ū"
-;;                     "e-" "ē")
-;;   (aas-set-snippets 'latex-mode
-;;                     ;; set condition!
-;;                     :cond #'texmathp ; expand only while in math
-;;                     "supp" "\\supp"
-;;                     "On" "O(n)"
-;;                     "O1" "O(1)"
-;;                     "Olog" "O(\\log n)"
-;;                     "Olon" "O(n \\log n)"
-;;                     ;; bind to functions!
-;;                     "//" (lambda () (interactive)
-;;                              (yas-expand-snippet "\\frac{$1}{$2}$0"))
-;;                     "Span" (lambda () (interactive)
-;;                              (yas-expand-snippet "\\Span($1)$0"))))
-
-;; (use-package! latex-auto-activating-snippets
-;;   :after latex ; auctex's LaTeX package
-;;   :config ; do whatever here
-;;   (auto-activating-snippets-mode)
-;;   (aas-set-snippets 'latex-mode
-;;                     ;; set condition!
-;;                     :cond #'texmathp ; expand only while in math
-;;                     "supp" "\\supp"
-;;                     "On" "O(n)"
-;;                     "O1" "O(1)"
-;;                     "Olog" "O(\\log n)"
-;;                     "Olon" "O(n \\log n)"
-;;                     ;; bind to functions!
-;;                     "//" (lambda () (interactive)
-;;                              (yas-expand-snippet "\\frac{$1}{$2}$0"))
-;;                     "Span" (lambda () (interactive)
-;;                              (yas-expand-snippet "\\Span($1)$0"))))
-
-;; (defun cm/calc-int (exp)
-;;   (require 'calc)
-;;   (require 'calc-lang)
-;;   (ignore-errors
-;;     (calc-create-buffer)
-;;     (calc-radians-mode)
-;;     (calc-latex-language nil)
-;;     (calc-eval
-;;      (concat "integ("
-;;              exp
-;;              ")"))))
+(use-package! aas
+  :hook (LaTeX-mode . aas-activate-for-major-mode)
+  :hook (org-mode . aas-activate-for-major-mode)
+  :hook (text-mode . aas-activate-for-major-mode))
+  ;; :config
+  ;; disable snippets by redefining them with a nil expansion
+  ;; (aas-set-snippets 'latex-mode
+  ;;   "supp" nil))
+(use-package! laas
+  :hook (LaTeX-mode . laas-mode)
+  :hook (org-mode . laas-mode)
+  :config ; do whatever here
+  (aas-set-snippets 'laas-mode
+    ",," (lambda () (interactive)
+           (unless (texmathp)
+            (yas-expand-snippet "\\\\( $0 \\\\)")))
+    ",." (lambda () (interactive)
+           (unless (texmathp)
+            (yas-expand-snippet "\\\\[\n$0\n\\\\]")))
+    ;; ",q" #'dwt/insert-subscript
+    ;; ",w" #'dwt/insert-superscript
+    ;; set condition!
+    :cond #'texmathp ; expand only while in math
+    "<<" "\\leq "
+    ">>" "\\geq "
+    ;; bind to functions!
+    ;; "//" (lambda () (interactive)
+    ;;       (yas-expand-snippet "\\frac{ $0}{}"))
+    ",n" (lambda () (interactive)
+           (yas-expand-snippet "\\\\| $0 \\\\|"))
+    ",e" (lambda () (interactive)
+           (yas-expand-snippet "\\\\{ $0 \\\\}"))
+    "''" (lambda () (interactive)
+           (yas-expand-snippet "``$0''"))
+    "xx" "\\times"
+    "==" "& ="
+    ",s" "^{\\star}"
+    ",d" "^{-1}"
+    ",a" "^{\\top}"
+    ",l" (lambda () (interactive)
+           (yas-expand-snippet "${1:,} \\ldots $1 $0"))
+    "pmx" (lambda () (interactive)
+           (yas-expand-snippet "\\begin{pmatrix}$0\\end{pmatrix}"))))

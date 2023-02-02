@@ -290,6 +290,14 @@
 (define-key global-map (kbd "M-p") #'+popup/other)
 ;;; +modeline, light line in doom
 (setq +modeline-height 3)
+(def-modeline-var! +modeline-buffer-identification ; slightly more informative buffer id
+  '((:eval
+     (propertize
+      (string-limit (or +modeline--buffer-id-cache (buffer-name)) 37 t) ; avoid too long length
+      'face (cond ((buffer-modified-p) '(error bold mode-line-buffer-id))
+                  ((+modeline-active)  'mode-line-buffer-id))
+      'help-echo (or +modeline--buffer-id-cache (buffer-name))))
+    (buffer-read-only (:propertize " RO" face warning))))
 ;; display time modeline
 (setq display-time-24hr-format t
       display-time-default-load-average nil)
@@ -424,20 +432,16 @@
 
 ;;;###autoload
 (defun dwt/fullscreen ()
+  "store the window layout and hide the buffer with major mode set to
+ 'pdf-view-mode' before toggling, and recover it again after that."
   (interactive)
-  (let ((undo-count 0)
-        (buffer 0)
-        (recover-window-list '())
-        (recover-buffer-list '()))
-    (dolist (window (window-list-1))
-            (setq buffer (window-buffer window))
-            (when (equal 'pdf-view-mode (buffer-local-value 'major-mode buffer))
-              (push window recover-window-list)
-              (push (buffer-name buffer) recover-buffer-list)
-              (set-window-buffer window "*scratch*")
-              (setq undo-count (+ undo-count 1))))
+  (let ((layout (current-window-configuration)))
+    (dolist (window (window-list))
+      (when (eq (buffer-local-value 'major-mode (window-buffer window)) 'pdf-view-mode)
+        (delete-window window)))
     (toggle-frame-fullscreen)
-    (posframe-delete-all)))
+    (posframe-delete-all)
+    (set-window-configuration layout)))
     ;; (when (> undo-count 0)
     ;;   (dolist (i (number-sequence 0 (- undo-count 1)))
     ;;     (setq window (nth i recover-window-list))
@@ -448,3 +452,5 @@
 
         ;; (set-window-buffer window buffer)))))
 (map! :g "<f11>" #'dwt/fullscreen)
+
+(use-package! shrink-path)

@@ -371,8 +371,8 @@
   (map! :map cdlatex-mode-map
         :i "<SPC>" #'dwt/insert-space
         :i "\"" #'dwt/latex-double-quote
-        :i ";" #'dwt/insert-subscript
-        :i ":" #'dwt/insert-superscript
+        :i "_" #'dwt/insert-subscript
+        :i "^" #'dwt/insert-superscript
         :i "M-n" #'cdlatex-tab
         :nv "}" #'dwt/find-math-next
         :nv "{" #'dwt/find-math-prev)

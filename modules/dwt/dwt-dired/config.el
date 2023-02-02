@@ -35,7 +35,8 @@
   (setq dired-recursive-deletes 'always)
   (map! :n "_" #'dirvish-side
         ;; :n "-" #'dired-jump
-        :n "-" #'dirvish-dwim
+        :n "\\" #'dirvish-dwim
+        :n "|" #'evil-execute-in-emacs-state
         :map dired-mode-map
         :n "J" nil
         :n "[[" nil
