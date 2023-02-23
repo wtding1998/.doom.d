@@ -58,12 +58,12 @@
     ",." (lambda () (interactive)
            (unless (texmathp)
             (yas-expand-snippet "\\\\[\n$0\n\\\\]")))
-    ;; ",q" #'dwt/insert-subscript
-    ;; ",w" #'dwt/insert-superscript
+    ",q" "_"
+    ",w" "^"
     ;; set condition!
     :cond #'texmathp ; expand only while in math
-    "<<" "\\leq "
-    ">>" "\\geq "
+    "<<" "\\leq"
+    ">>" "\\geq"
     ;; bind to functions!
     ;; "//" (lambda () (interactive)
     ;;       (yas-expand-snippet "\\frac{ $0}{}"))

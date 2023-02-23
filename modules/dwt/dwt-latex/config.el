@@ -8,8 +8,10 @@
 
 (use-package! cdlatex
   :defer t
-  :hook (cdlatex-mode . (lambda()
-                          (define-key cdlatex-mode-map (kbd "(") nil)))
+  :init
+  (setq cdlatex-takeover-dollar nil
+        cdlatex-takeover-parenthesis nil
+        cdlatex-takeover-subsuperscript nil)
   :config
   (setq cdlatex-insert-auto-labels-in-env-templates nil
         cdlatex-use-dollar-to-ensure-math nil)
@@ -19,7 +21,11 @@
     (interactive)
     (call-interactively #'evil-indent)
     (call-interactively #'align))
-  (map! :map cdlatex-mode-map :n "=" #'dwt/latex-indent-align))
+  (map! :map cdlatex-mode-map
+        :n "=" #'dwt/latex-indent-align
+        :i "_" nil
+        :i "^" nil))
+
 
 (after! tex
   ;; (use-package! popweb
@@ -370,10 +376,10 @@
 (after! cdlatex
   (map! :map cdlatex-mode-map
         :i "<SPC>" #'dwt/insert-space
-        :i "\"" #'dwt/latex-double-quote
+        ;; :i "\"" #'dwt/latex-double-quote
         :i "_" #'dwt/insert-subscript
         :i "^" #'dwt/insert-superscript
-        :i "M-n" #'cdlatex-tab
+        ;; :i "M-n" #'cdlatex-tab
         :nv "}" #'dwt/find-math-next
         :nv "{" #'dwt/find-math-prev)
 

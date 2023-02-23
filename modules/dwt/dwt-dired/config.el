@@ -84,6 +84,7 @@
           ("t" "~/.Trash/" "Trash")
           ("d" "Downloads" "Downloads")))
   ;; (setq dirvish-use-header-line nil)
+  (setq dirvish-use-mode-line t)
   (setq dirvish-header-line-height 20)
   (setq dirvish-mode-line-height 20)
   (setq dirvish-header-line-format

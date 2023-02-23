@@ -187,6 +187,11 @@
                  "* %[%H-%M] - %?\n"))
 
   (add-to-list 'org-capture-templates
+               '("S" "Score"
+                 entry (file+datetree "~/OneDrive/Documents/diary/org/score.org")
+                 "* TODO %U %?\n"))
+
+  (add-to-list 'org-capture-templates
       '("m" "Meeting" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
         "* TODO %? :meeting:\n"))
 
@@ -589,7 +594,7 @@ called in case no PDF is found."
   (setq org-pomodoro-time-format "%.2m")
   (setq org-pomodoro-length 30)
   (setq org-pomodoro-short-break-length 5)
-  (setq org-pomodoro-long-break-frequency 3)
+  (setq org-pomodoro-long-break-frequency 2)
   (setq org-pomodoro-short-break-sound-p nil)
   (setq org-pomodoro-long-break-sound-p nil)
   (setq org-pomodoro-play-sounds nil)

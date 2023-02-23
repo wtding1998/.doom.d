@@ -16,8 +16,7 @@
         :n "Q" #'kill-current-buffer
         :n "d" #'pdf-view-scroll-up-or-next-page
         :n "e" #'pdf-view-scroll-down-or-previous-page
-        :n "S" #'pdf-history-backward
-        :n "D" #'pdf-history-forward
+        :n "O" #'pdf-occur
         :n "[[" nil
         :n "]]" nil
         ;; :n "-" nil

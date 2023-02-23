@@ -289,7 +289,7 @@
 (define-key global-map (kbd "M-o") #'other-window)
 (define-key global-map (kbd "M-p") #'+popup/other)
 ;;; +modeline, light line in doom
-(setq +modeline-height 3)
+(setq +modeline-height 1)
 (def-modeline-var! +modeline-buffer-identification ; slightly more informative buffer id
   '((:eval
      (propertize
@@ -354,8 +354,11 @@
   (when (display-graphic-p)
     (awesome-tray-mode 1))
   ;; (setq awesome-tray-active-modules '("- -> 0" "input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
+  (setq awesome-tray-position 'right)
+  (setq awesome-tray-second-line nil)
+  (setq awesome-tray-info-padding-right 4)
   (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
-  (setq awesome-tray-essential-modules '("pdf-view-page"))
+  ;; (setq awesome-tray-essential-modules '("pdf-view-page"))
   (setq awesome-tray-input-method-zh-style "ㄓ"
         awesome-tray-input-method-en-style ""
         awesome-tray-buffer-name-buffer-changed t
@@ -432,16 +435,16 @@
 
 ;;;###autoload
 (defun dwt/fullscreen ()
-  "store the window layout and hide the buffer with major mode set to
- 'pdf-view-mode' before toggling, and recover it again after that."
+  "Store the current window layout, hide all windows in pdf-view-mode, and toggle full-screen.
+The window layout is restored when full-screen is toggled off."
   (interactive)
-  (let ((layout (current-window-configuration)))
-    (dolist (window (window-list))
+  (let ((layout (current-window-configuration))) ; store the current window layout
+    (dolist (window (window-list))               ; iterate over all windows
       (when (eq (buffer-local-value 'major-mode (window-buffer window)) 'pdf-view-mode)
-        (delete-window window)))
-    (toggle-frame-fullscreen)
-    (posframe-delete-all)
-    (set-window-configuration layout)))
+        (delete-window window)))                 ; delete windows in pdf-view-mode
+    (toggle-frame-fullscreen)                    ; toggle full-screen
+    (posframe-delete-all)                        ; delete all posframes
+    (set-window-configuration layout)))          ; restore the window layout
     ;; (when (> undo-count 0)
     ;;   (dolist (i (number-sequence 0 (- undo-count 1)))
     ;;     (setq window (nth i recover-window-list))

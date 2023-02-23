@@ -14,6 +14,7 @@
   (setq evil-cross-lines t)
   (map! :map global-map
         :i "s-<backspace>" #'evil-delete-backward-word)
+  (map! :g "s-<backspace>" #'evil-delete-backward-word)
   ;;; evil-key-binding
   (map! :nvm "Z" #'evil-jump-item
         :nvm "L" #'evil-end-of-line
@@ -245,3 +246,8 @@
       :n "]F" #'+evil/next-file
       :n "[[" #'previous-buffer
       :n "]]" #'next-buffer)
+
+;;; refer to https://github.com/doomemacs/doomemacs/issues/2480 about how to set new leader key
+(setq doom-localleader-alt-key "C-SPC m")
+(map! :map general-override-mode-map
+      :ein "C-SPC" #'doom/leader)
