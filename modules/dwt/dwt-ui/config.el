@@ -1,5 +1,8 @@
 ;;; dwt/dwt-ui/config.el -*- lexical-binding: t; -*-
 
+;; set the fringe of window
+;; (set-fringe-mode '(5 . 5))
+
 ;;;banner
 ;; copied from https://github.com/cnsunyour/.doom.d/blob/dfbeb081d2cc3aaafc0e591868a9a4ba1f276f77/modules/cnsunyour/ui/config.el
 ;; (when (display-graphic-p)
@@ -14,7 +17,14 @@
 ;;
 ;; see banner configurration https://tecosaur.github.io/emacs-config/config.html
 ;;   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
-;;
+
+
+;; UI
+;; set the fringe color
+;; (defun dwt/set-fringe-color()
+;;   (set-face-attribute 'fringe nil :background (face-background 'default)))
+;; (add-hook 'doom-load-theme-hook 'dwt/set-fringe-color)
+
 (defun doom-dashboard-draw-ascii-emacs-banner-fn ()
   (let* ((banner
           ;; '(",---.,-.-.,---.,---.,---."
@@ -109,6 +119,10 @@
                         charset
                         ;; (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
                         (font-spec :family "Sarasa Mono SC Nerd")))) ;; 14 16 20 22 28
+
+;; Make the fringe of modus theme invisible
+(setq modus-themes-common-palette-overrides
+      '((fringe unspecified)))
 
 (defun dwt/init-frame(frame)
   ;; setting for daemon
