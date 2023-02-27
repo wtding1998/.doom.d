@@ -57,13 +57,19 @@
             (yas-expand-snippet "\\\\( $0 \\\\)")))
     ",." (lambda () (interactive)
            (unless (texmathp)
-            (yas-expand-snippet "\\\\[\n$0\n\\\\]")))
+            (yas-expand-snippet "\\\\[ $0  \\\\]")))
     ",q" "_"
     ",w" "^"
+    ",z" ";"
+    ",x" ":"
     ;; set condition!
     :cond #'texmathp ; expand only while in math
     "<<" "\\leq"
     ">>" "\\geq"
+    "||" (lambda () (interactive)
+           (yas-expand-snippet "\\\\| $0 \\\\|"))
+    "<>" (lambda () (interactive)
+           (yas-expand-snippet "\\langle $0 \\rangle"))
     ;; bind to functions!
     ;; "//" (lambda () (interactive)
     ;;       (yas-expand-snippet "\\frac{ $0}{}"))

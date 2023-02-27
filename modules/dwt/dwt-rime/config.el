@@ -47,6 +47,7 @@
     (setq rime-posframe-properties
           (list :internal-border-width 1
                 :internal-border-color "#00538b"))
+    (add-hook 'doom-load-theme-hook 'dwt/set-rime-face)
     ;; background: 背景 foreground: 除了候选项之外的其它选项
     (set-face-attribute 'rime-default-face       nil :foreground "#505050" :background "#f2eff3")
     ;; 数字

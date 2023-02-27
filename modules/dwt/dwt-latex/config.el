@@ -209,35 +209,35 @@
   ;;               (insert " ")))
   ;;           (insert " ")))))
 
-  ;; (defun dwt/insert-space ()
-  ;;   "Wrap a single char with inline math"
-  ;;   (interactive)
-  ;;   (if (texmathp)
-  ;;       (insert " ")
-  ;;     (progn
-  ;;       (let ((current-point-word (thing-at-point 'word)))
-  ;;         (cond ((not current-point-word) (insert " "))
-  ;;               ((> (length current-point-word) 1) (insert " "))
-  ;;               ((not (string-match "\\([A-Za-z]\\)" current-point-word)) (insert " "))
-  ;;               ((string-match "\\([aIA]\\)" current-point-word) (insert " "))
-  ;;               ;; ((string-equal "-" (string (char-before (- (point) 1)))) (insert " "))
-  ;;               (t (dwt/wrap-inline-math)))))))
-
   (defun dwt/insert-space ()
     "Wrap a single char with inline math"
     (interactive)
-    (let ((current-char (char-before))
-          (last-char (char-before (- (point) 1))))
-      (cond ((not (eq ?  last-char)) (insert " "))
-            ((not (memq (get-char-code-property current-char 'general-category)
-                    ;; '(Ll Lu Lo Lt Lm Mn Mc Me Nl)))
-                    '(Ll Lu))) (insert " "))
-            ((eq ?a current-char) (insert " "))
-            ((eq ?A current-char) (insert " "))
-            ((eq ?I current-char) (insert " "))
-            ((texmathp) (insert " "))
-            ;; ((string-equal "-" (string (char-before (- (point) 1)))) (insert " "))
-            (t (dwt/wrap-inline-math)))))
+    (if (texmathp)
+        (insert " ")
+      (progn
+        (let ((current-point-word (thing-at-point 'word)))
+          (cond ((not current-point-word) (insert " "))
+                ((> (length current-point-word) 1) (insert " "))
+                ((not (string-match "\\([A-Za-z]\\)" current-point-word)) (insert " "))
+                ((string-match "\\([aIA]\\)" current-point-word) (insert " "))
+                ;; ((string-equal "-" (string (char-before (- (point) 1)))) (insert " "))
+                (t (dwt/wrap-inline-math)))))))
+
+  ;; (defun dwt/insert-space ()
+  ;;   "Wrap a single char with inline math"
+  ;;   (interactive)
+  ;;   (let ((current-char (char-before))
+  ;;         (last-char (char-before (- (point) 1))))
+  ;;     (cond ((not (eq ?  last-char)) (insert " "))
+  ;;           ((not (memq (get-char-code-property current-char 'general-category)
+  ;;                   ;; '(Ll Lu Lo Lt Lm Mn Mc Me Nl)))
+  ;;                   '(Ll Lu))) (insert " "))
+  ;;           ((eq ?a current-char) (insert " "))
+  ;;           ((eq ?A current-char) (insert " "))
+  ;;           ((eq ?I current-char) (insert " "))
+  ;;           ((texmathp) (insert " "))
+  ;;           ;; ((string-equal "-" (string (char-before (- (point) 1)))) (insert " "))
+  ;;           (t (dwt/wrap-inline-math)))))
 
   (defun dwt/wrap-inline-math ()
     (backward-char)
@@ -377,8 +377,10 @@
   (map! :map cdlatex-mode-map
         :i "<SPC>" #'dwt/insert-space
         ;; :i "\"" #'dwt/latex-double-quote
-        :i "_" #'dwt/insert-subscript
-        :i "^" #'dwt/insert-superscript
+        ;; :i "_" #'dwt/insert-subscript
+        ;; :i "^" #'dwt/insert-superscript
+        :i ";" #'dwt/insert-subscript
+        :i ":" #'dwt/insert-superscript
         ;; :i "M-n" #'cdlatex-tab
         :nv "}" #'dwt/find-math-next
         :nv "{" #'dwt/find-math-prev)
