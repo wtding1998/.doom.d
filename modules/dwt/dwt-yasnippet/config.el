@@ -66,6 +66,8 @@
     :cond #'texmathp ; expand only while in math
     "<<" "\\leq"
     ">>" "\\geq"
+    "Rn" (lambda () (interactive)
+           (yas-expand-snippet "\\mathbb{R}^{${0:n}}"))
     "||" (lambda () (interactive)
            (yas-expand-snippet "\\\\| $0 \\\\|"))
     "<>" (lambda () (interactive)

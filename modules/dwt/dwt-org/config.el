@@ -78,6 +78,7 @@
     (if dwt/org-clock-reminder-timer
         (message "org-clock-reminder started")
       (message "org-clock-reminder stopped")))
+  (dwt/org-clock-reminder-toggle 'on)
   (map! :leader "tO" #'dwt/org-clock-reminder-toggle)
   ;; enable org-habit
   (push 'org-habit org-modules)
@@ -174,17 +175,17 @@
   (add-to-list 'org-capture-templates
                '("i" "Inbox"
                  entry (file "~/OneDrive/Documents/roam/inbox.org")
-                 "* TODO %u - %?"))
+                 "* TODO %U %?\n"))
 
   (add-to-list 'org-capture-templates
                '("w" "Work"
                  entry (file "/mnt/d/Other-Documents/shanshu/nanwang/work.org")
-                 "* TODO %u - %?"))
+                 "* TODO %U - %?"))
 
-  (add-to-list 'org-capture-templates
-               '("d" "Diary"
-                 entry (file+datetree "~/OneDrive/Documents/diary/org/diary.org")
-                 "* %[%H-%M] - %?\n"))
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("d" "Diary"
+  ;;                entry (file+datetree "~/OneDrive/Documents/diary/org/diary.org")
+  ;;                "* %[%H-%M] - %?\n"))
 
   (add-to-list 'org-capture-templates
                '("S" "Score"
@@ -192,8 +193,8 @@
                  "* TODO %U %?\n"))
 
   (add-to-list 'org-capture-templates
-      '("m" "Meeting" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
-        "* TODO %? :meeting:\n"))
+      '("d" "Discussion" entry  (file+headline "~/OneDrive/Documents/roam/research.org" "meeting")
+        "* TODO %U %? :meeting:\n"))
 
   (add-to-list 'org-capture-templates
       '("e" "Event" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
@@ -213,7 +214,7 @@
   (add-to-list 'org-capture-templates
                '("s" "Interesting Things"
                  entry (file+datetree "~/OneDrive/Documents/study note/org/interesting_things.org")
-                 "* %<%H-%M> - %^{heading} \n %?"))
+                 "* %<%H-%M> - %? "))
   ;; readings
   (add-to-list 'org-capture-templates
                '("r" "readings" entry
@@ -618,19 +619,23 @@ called in case no PDF is found."
     (let* ((org-pomodoro-finish-answer-list '("No" "5" "10" "15" "20"))
            (org-pomodoro-finish-answer (ivy-read "Finished! Postpone? " org-pomodoro-finish-answer-list))
            (org-pomodoro-length (string-to-number org-pomodoro-finish-answer)))
+      (dwt/notifications-notify-start-process :title "Org" :timeout 10 :body "Finish!")
       (when (> org-pomodoro-length 0)
         (org-pomodoro-kill)
         (setq org-pomodoro-count (- org-pomodoro-count 1))
         (org-pomodoro '(16)))))
+
+  (defun dwt/org-pomodoro-start-reminder ()
+      (dwt/notifications-notify-start-process :title "Org" :timeout 10 :body "Start!")
+      (when (y-or-n-p "Continue? ")
+        (let ((arg '(16)))
+          (org-pomodoro arg))))
   ;; (add-hook 'org-pomodoro-finished-hook (lambda ()
   ;;                                         (y-or-n-p "Finish! ")))
   ;; (add-hook 'org-pomodoro-finished-hook #'dwt/pop-org-pomodoro-buffer-finish)
   ;; (add-hook 'org-pomodoro-started-hook #'dwt/pop-org-pomodoro-buffer-start)
   (add-hook 'org-pomodoro-started-hook (lambda () (message "1. Work or Walk; 2. 5 minutes rule")))
-  (add-hook 'org-pomodoro-break-finished-hook (lambda ()
-                                                (when (y-or-n-p "Continue? ")
-                                                  (let ((arg '(16)))
-                                                    (org-pomodoro arg)))))
+  (add-hook 'org-pomodoro-break-finished-hook 'dwt/org-pomodoro-start-reminder)
   (add-hook 'org-pomodoro-finished-hook #'dwt/org-pomodoro-finished-ask-postpone))
 (use-package! org-modern
   :after org
