@@ -5,7 +5,6 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 (add-hook 'LaTeX-mode-hook 'hl-todo-mode)
 (add-hook 'LaTeX-mode-hook (lambda () (interactive) (setq evil-shift-width 2)))
-
 (use-package! cdlatex
   :defer t
   :init
@@ -14,7 +13,7 @@
         cdlatex-takeover-subsuperscript nil)
   :config
   (setq cdlatex-insert-auto-labels-in-env-templates nil
-        cdlatex-use-dollar-to-ensure-math nil)
+        cdlatex-use-dollar-to-ensure-math t)
   (push (list "lstlisting" "\\begin{lstlisting}\n?\n\\end{lstlisting}" ) cdlatex-env-alist-default)
   ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
   (defun dwt/latex-indent-align ()
@@ -209,42 +208,49 @@
   ;;               (insert " ")))
   ;;           (insert " ")))))
 
+  ;; (defun dwt/insert-space ()
+  ;;   "Wrap a single char with inline math"
+  ;;   (interactive)
+  ;;   (if (texmathp)
+  ;;       (insert " ")
+  ;;     (progn
+  ;;       (let ((current-point-word (thing-at-point 'word)))
+  ;;         (cond ((not current-point-word) (insert " "))
+  ;;               ((> (length current-point-word) 1) (insert " "))
+  ;;               ((not (string-match "\\([A-Za-z]\\)" current-point-word)) (insert " "))
+  ;;               ((string-match "\\([aIA]\\)" current-point-word) (insert " "))
+  ;;               ((not (string-equal " " (string (char-before (- (point) 1))))) (insert " "))
+  ;;               (t (dwt/wrap-inline-math)))))))
+
+
   (defun dwt/insert-space ()
     "Wrap a single char with inline math"
     (interactive)
     (if (texmathp)
         (insert " ")
       (progn
-        (let ((current-point-word (thing-at-point 'word)))
-          (cond ((not current-point-word) (insert " "))
-                ((> (length current-point-word) 1) (insert " "))
-                ((not (string-match "\\([A-Za-z]\\)" current-point-word)) (insert " "))
-                ((string-match "\\([aIA]\\)" current-point-word) (insert " "))
-                ;; ((string-equal "-" (string (char-before (- (point) 1)))) (insert " "))
+        (let ((current-char (string (char-before)))
+              (last-char (string (char-before (- (point) 1)))))
+          (cond ((not (string-match "\\([A-Za-z]\\)" current-char)) (insert " "))
+                ((string-match "\\([aIA]\\)" current-char) (insert " "))
+                ((equal (line-beginning-position) (- (point) 1)) (dwt/wrap-inline-math))
+                ((not (string-equal last-char " ")) (insert " "))
                 (t (dwt/wrap-inline-math)))))))
 
-  ;; (defun dwt/insert-space ()
-  ;;   "Wrap a single char with inline math"
-  ;;   (interactive)
-  ;;   (let ((current-char (char-before))
-  ;;         (last-char (char-before (- (point) 1))))
-  ;;     (cond ((not (eq ?  last-char)) (insert " "))
-  ;;           ((not (memq (get-char-code-property current-char 'general-category)
-  ;;                   ;; '(Ll Lu Lo Lt Lm Mn Mc Me Nl)))
-  ;;                   '(Ll Lu))) (insert " "))
-  ;;           ((eq ?a current-char) (insert " "))
-  ;;           ((eq ?A current-char) (insert " "))
-  ;;           ((eq ?I current-char) (insert " "))
-  ;;           ((texmathp) (insert " "))
-  ;;           ;; ((string-equal "-" (string (char-before (- (point) 1)))) (insert " "))
-  ;;           (t (dwt/wrap-inline-math)))))
-
   (defun dwt/wrap-inline-math ()
-    (backward-char)
-    (insert "\\( ")
-    (forward-char)
-    (insert " \\)")
-    (backward-char 3))
+    (if (derived-mode-p 'org-mode)
+        (progn
+          (backward-char)
+          (insert "\\( ")
+          (forward-char)
+          (insert " \\)")
+          (backward-char 3))
+        (progn
+          (backward-char)
+          (insert "$ ")
+          (forward-char)
+          (insert " $")
+          (backward-char 2))))
 
 
   (defun dwt/insert-transpose ()
@@ -495,6 +501,8 @@
   (setq org-latex-impatient-user-latex-definitions '("\\newcommand{\\contr}[1]{\\mathop{\\bullet_{#1}}}"
                                                      "\\newcommand{\\tens}[1]{\\boldsymbol{\\mathcal{#1}}}"
                                                      "\\newcommand{\\grad}{\\operatorname{grad}}"
+                                                     "\\newcommand{\\rank}{\\operatorname{rank}}"
+                                                     "\\newcommand{\\tr}{\\operatorname{tr}}"
                                                      "\\newcommand{\\diag}[1]{\\operatorname{diag}\\{#1\\}}"
                                                      "\\newcommand{\\St}[1]{\\text{St}}"
                                                      "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))

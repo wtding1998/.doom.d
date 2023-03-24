@@ -1,9 +1,9 @@
 ;;; dwt/dwt-eaf/config.el -*- lexical-binding: t; -*-
 
-(use-package! eaf
-  :load-path "~/.emacs.d/.local/straight/repos/emacs-application-framework"
-  :config
-  (require 'eaf-pdf-viewer)); Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
+;; (use-package! eaf
+;;   :load-path "~/.emacs.d/.local/straight/repos/emacs-application-framework"
+;;   :config
+;;   (require 'eaf-pdf-viewer)); Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
   ;; :defer t
   ;; :init
   ;; (map! :leader "oE" #'eaf-open)
@@ -21,3 +21,10 @@
   ;; (eaf-setq eaf-browser-default-zoom "2")
   ;; ;; switch insert mode
   ;; (add-to-list 'evil-insert-state-modes 'eaf-mode))
+
+;; (use-package! popweb
+;;   :load-path "~/.emacs.d/.local/straight/repos/popweb"
+;;   :config
+;;   (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/popweb/extension/latex")
+;;   (require 'popweb-latex)
+;;   (add-hook 'latex-mode-hook #'popweb-latex-mode))

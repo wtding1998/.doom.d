@@ -14,6 +14,8 @@
         :n "K" #'pdf-history-backward
         :n "q" #'previous-buffer
         :n "Q" #'kill-current-buffer
+        :n "f" #'pdf-links-action-perform
+        :n "F" #'pdf-links-isearch-link
         :n "d" #'pdf-view-scroll-up-or-next-page
         :n "e" #'pdf-view-scroll-down-or-previous-page
         :n "O" #'pdf-occur

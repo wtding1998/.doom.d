@@ -54,7 +54,9 @@
   (aas-set-snippets 'laas-mode
     ",," (lambda () (interactive)
            (unless (texmathp)
-            (yas-expand-snippet "\\\\( $0 \\\\)")))
+             (if (derived-mode-p 'org-mode)
+                 (yas-expand-snippet "\\\\( $0 \\\\)")
+                (yas-expand-snippet "$ $0 $"))))
     ",." (lambda () (interactive)
            (unless (texmathp)
             (yas-expand-snippet "\\\\[ $0  \\\\]")))
@@ -62,10 +64,12 @@
     ",w" "^"
     ",z" ";"
     ",x" ":"
+    ",c" " "
     ;; set condition!
     :cond #'texmathp ; expand only while in math
     "<<" "\\leq"
     ">>" "\\geq"
+    ",<" "\\subseteq"
     "Rn" (lambda () (interactive)
            (yas-expand-snippet "\\mathbb{R}^{${0:n}}"))
     "||" (lambda () (interactive)
@@ -83,7 +87,10 @@
            (yas-expand-snippet "``$0''"))
     "xx" "\\times"
     "==" "& ="
-    ",s" "^{\\star}"
+    ",s" (lambda () (interactive)
+           (if (derived-mode-p 'org-mode)
+               (yas-expand-snippet "^{\\ast}")
+             (yas-expand-snippet "^{*}")))
     ",d" "^{-1}"
     ",a" "^{\\top}"
     ",l" (lambda () (interactive)

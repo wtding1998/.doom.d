@@ -54,8 +54,8 @@
         (unless (equal org-pomodoro-state :none)
           (setq clock-state t)))
       (unless clock-state
-        (dwt/notifications-notify-shell-command :title "Clock in?"
-                                                :timeout 10000))))
+        (dwt/notifications-notify-shell-command :title "in?"
+                                                :timeout 10))))
 
   (defun dwt/org-clock-reminder-toggle (&optional on-off)
     "start/stop the timer that runs org-clock-watcher
@@ -78,7 +78,7 @@
     (if dwt/org-clock-reminder-timer
         (message "org-clock-reminder started")
       (message "org-clock-reminder stopped")))
-  (dwt/org-clock-reminder-toggle 'on)
+  ;; (dwt/org-clock-reminder-toggle 'on)
   (map! :leader "tO" #'dwt/org-clock-reminder-toggle)
   ;; enable org-habit
   (push 'org-habit org-modules)
@@ -133,7 +133,8 @@
   (setq org-log-done t)
   (setq org-export-with-toc nil)
   (setq org-log-into-drawer t)
-  (setq org-enforce-todo-dependencies t)
+
+  (setq org-enforce-todo-dependencies nil)
   (setq org-enforce-todo-checkbox-dependencies t)
   (setq org-fontify-done-headline t)
   (add-hook (quote org-mode-hook)
@@ -193,7 +194,7 @@
                  "* TODO %U %?\n"))
 
   (add-to-list 'org-capture-templates
-      '("d" "Discussion" entry  (file+headline "~/OneDrive/Documents/roam/research.org" "meeting")
+      '("d" "Discussion" entry  (file+headline "~/OneDrive/Documents/roam/research.org" "Discussion")
         "* TODO %U %? :meeting:\n"))
 
   (add-to-list 'org-capture-templates
@@ -300,19 +301,19 @@
   (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
-            :if-new (file+head "${slug}.org" "#+title: ${title}\n")
+            :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n")
             :unnarrowed t)))
   (add-to-list 'org-roam-capture-templates
                '("p" "Paper Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:paper \n\n* Paper\n\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:paper \n\n* Paper\n\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
                  :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
                '("b" "Book Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:book \n\n* Book\n\n* Summary")
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:book \n\n* Book\n\n* Summary")
                  :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
                '("r" "Research Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+filetags:research\n\n* Problem\n\n* Result\n* My Idea\n")
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:research\n\n* Problem\n\n* Result\n* My Idea\n")
                  :unnarrowed t))
   (setq org-roam-dailies-capture-templates
         '(("d" "default" plain ""
@@ -626,7 +627,7 @@ called in case no PDF is found."
         (org-pomodoro '(16)))))
 
   (defun dwt/org-pomodoro-start-reminder ()
-      (dwt/notifications-notify-start-process :title "Org" :timeout 10 :body "Start!")
+      (dwt/notifications-notify-start-process :title "Org" :timeout 10 :body "Start?")
       (when (y-or-n-p "Continue? ")
         (let ((arg '(16)))
           (org-pomodoro arg))))
@@ -653,6 +654,8 @@ called in case no PDF is found."
   (map! :leader
         "op" #'org-download-clipboard)
   :config
+  (setq-default org-download-image-dir "~/OneDrive/Pictures/org-download-pictures")
+  (setq-default org-download-heading-lvl nil)
   (setq org-download-method 'directory))
 
 ;; (use-package! org-clock-watch
