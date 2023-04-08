@@ -667,3 +667,6 @@ called in case no PDF is found."
 ;; (use-package! alert
 ;;   :config
 ;;   (setq alert-default-style 'notifier))
+(use-package! org-noter
+  :config
+  (setq org-noter-highlight-selected-text t))

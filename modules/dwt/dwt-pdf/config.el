@@ -34,3 +34,9 @@
   (interactive)
   (when (string-equal (file-name-extension (buffer-name)) "pdf")
     (async-shell-command (concat "zathura " (buffer-name)))))
+
+(use-package! djvu
+  :defer t)
+
+(use-package! nov
+  :defer t)
