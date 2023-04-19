@@ -141,8 +141,8 @@
             (lambda ()
               (org-shifttab 2)))
   ;; highlight latex related part
-  (setq org-highlight-latex-and-related '(latex script entities))
-  ;; (setq org-highlight-latex-and-related '(native script entities))
+  ;; (setq org-highlight-latex-and-related '(latex script entities))
+  (setq org-highlight-latex-and-related '(native script entities))
 
   (defun dwt/org-clear-cache ()
     (interactive)
@@ -167,6 +167,7 @@
   ;;                                 :background nil t))))
   ;; (add-to-list 'org-latex-regexps '("\\ce" "^\\\\ce{\\(?:[^\000{}]\\|{[^\000}]+?}\\)}" 0 nil))
   ;; === templates ===
+  ;; list of expansion https://orgmode.org/manual/Template-expansion.html
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
                '("a" "Agenda"
@@ -176,7 +177,7 @@
   (add-to-list 'org-capture-templates
                '("i" "Inbox"
                  entry (file "~/OneDrive/Documents/roam/inbox.org")
-                 "* TODO %U %?\n"))
+                 "* TODO %T %?\n"))
 
   (add-to-list 'org-capture-templates
                '("w" "Work"
@@ -195,7 +196,7 @@
 
   (add-to-list 'org-capture-templates
       '("d" "Discussion" entry  (file+headline "~/OneDrive/Documents/roam/research.org" "Discussion")
-        "* TODO %U %? :meeting:\n"))
+        "* TODO %T %? :meeting:\n"))
 
   (add-to-list 'org-capture-templates
       '("e" "Event" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
@@ -277,6 +278,17 @@
             (tags "CLOSED>=\"<today>\""
                   ((org-agenda-overriding-header "\nCompleted today\n")
                    (org-agenda-prefix-format "  %?-12t% s")))))))
+
+   ;; latex export
+  (setq org-latex-classes '(("dwt-article" "\\documentclass[11pt]{article}\n\\input{~/OneDrive/Documents/roam/preamble.tex}"
+                              ("\\section*{%s}" . "\\section*{%s}")
+                              ("\\subsection*{%s}" . "\\subsection*{%s}")
+                              ("\\subsubsection*{%s}" . "\\subsubsection*{%s}")
+                              ("\\paragraph*{%s}" . "\\paragraph*{%s}")
+                              ("\\subparagraph*{%s}" . "\\subparagraph*{%s}"))))
+  (setq org-latex-default-class "dwt-article")
+  (setq org-latex-default-packages-alist nil)
+  (setq org-file-apps (remove '("\\.pdf\\'" . default) org-file-apps))
   ;; format of each entry in org-agenda
   (setq org-agenda-prefix-format
         '((agenda . " %i %-12:c%?-12t% s")
@@ -408,6 +420,7 @@
         :nv "J" #'other-window
         :nv "ni" #'org-noter-sync-current-note
         :nv "nq" #'org-noter-kill-session))
+
 
 ;; (use-package! org-zotxt
 ;;   :after org
