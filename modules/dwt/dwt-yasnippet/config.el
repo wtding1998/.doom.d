@@ -74,6 +74,8 @@
            (yas-expand-snippet "\\mathbb{R}^{${0:n}}"))
     "||" (lambda () (interactive)
            (yas-expand-snippet "\\\\| $0 \\\\|"))
+    ",|" (lambda () (interactive)
+           (yas-expand-snippet "\\lvert $0 \\rvert"))
     "<>" (lambda () (interactive)
            (yas-expand-snippet "\\langle $0 \\rangle"))
     ;; bind to functions!

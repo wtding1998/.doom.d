@@ -13,7 +13,7 @@
         cdlatex-takeover-subsuperscript nil)
   :config
   (setq cdlatex-insert-auto-labels-in-env-templates nil
-        cdlatex-use-dollar-to-ensure-math t)
+        cdlatex-use-dollar-to-ensure-math nil)
   (push (list "lstlisting" "\\begin{lstlisting}\n?\n\\end{lstlisting}" ) cdlatex-env-alist-default)
   ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
   (defun dwt/latex-indent-align ()
@@ -401,8 +401,10 @@
    '( ;; adding missing functions to 3rd level symbols
      (?_    ("\\downarrow"  ""           "\\inf"))
      (?1    ("\\cup"           "\\sqrt{?}"     ""))
-     (?2    ("\\cup"           "\\sqrt{?}"     ""))
-     (?3    ("\\cap"           "\\sqrt[3]{?}"  ""))
+     (?2    ("\\cap"           "\\sqrt{?}"     ""))
+     (?3    ("\\nabla"           "\\dim"  ""))
+     (?4    ("\\nabla^2"           ""  ""))
+     (?5    ("\\partial"           ""  ""))
      (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
      (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
      (?^    ("\\uparrow"    ""           "\\sup"))
@@ -508,8 +510,8 @@
                                                      "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
 
   ;; (setq org-latex-impatient-border-width 0)
-  ;; (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
-  ;; (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
+  (setq dwt/org-latex-inhibit-env '("theorem" "proof" "lemma"))
+  (setq org-latex-impatient-inhibit-envs (append dwt/org-latex-inhibit-env org-latex-impatient-inhibit-envs))
   (when IS-LINUX
     (setq org-latex-impatient-scale 1.2)))
 
