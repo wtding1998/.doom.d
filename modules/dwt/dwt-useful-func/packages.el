@@ -9,3 +9,4 @@
 (package! jieba.el :recipe (:host github :repo "cireu/jieba.el"))
 (package! chatgpt
   :recipe (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el")))
+(package! cliphist :recipe (:host github :repo "redguardtoo/cliphist"))

@@ -50,6 +50,10 @@
   (let ((recentf-exclude dwt/recentf-exculde-files))
     (recentf-cleanup)))
 
+(defun dwt/disable-delicated-window ()
+  (interactive)
+  (set-window-dedicated-p (frame-selected-window) nil))
+
 ;;; proxy
 ;; (setq dwt/proxy "http://172.29.80.1:1081")
 ;; (defun show-proxy ()
@@ -216,3 +220,12 @@
                                           ("my-custom-type" . "My custom prompt.\n\n%s")))
   (set-popup-rule! (regexp-quote "*ChatGPT*")
     :side 'bottom :size .5 :ttl nil :quit t :modeline nil))
+
+;; (use-package! typing
+;;   :load-path "~/mycode/emacs-tying"
+;;   :commands (typing-of-emacs))
+(use-package! cliphist
+  :config
+  (map! :leader
+        :desc "cliphist-paste" "s[" #'cliphist-paste-item
+        :desc "cliphist-select" "s]" #'cliphist-select-item))
