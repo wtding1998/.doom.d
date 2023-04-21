@@ -212,7 +212,7 @@
        dwt-org
        dwt-yasnippet
        dwt-ui
-       ;; dwt-lsp
+       dwt-lsp
        dwt-system
        dwt-pdf
        dwt-python
