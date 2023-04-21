@@ -35,7 +35,8 @@
         :i "C-p" nil
         :i "C-d" #'backward-delete-char-untabify
         ;; since I do not use repeat
-        :n "'" #'basic-save-buffer
+        ;; :n "'" #'basic-save-buffer
+        :n "\\" #'basic-save-buffer
         ;; show doc
         :n "gh" #'+lookup/documentation
         ;; ace jump
@@ -46,6 +47,9 @@
         :n "zw" #'widen
         :nv "ga" #'evil-avy-goto-char-timer
         :nv "go" #'avy-goto-line
+        :nv "g." #'evil-avy-goto-word-1
+        :nv "g/" #'evil-avy-goto-word-0
+        :nv "g'" #'evil-avy-goto-char-1
         :v "gC" #'capitalize-region
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
@@ -116,6 +120,9 @@
   ;;; use C-z to undo and C-S-z to redo
   (map! :i "C-z" #'evil-undo)
   (map! :i "C-S-z" #'undo-fu-only-redo)
+
+  ;;; basic edit setting
+  (setq word-wrap-by-category t)
 
   (map! :map emacs-lisp-mode-map :n "ze" #'eval-last-sexp)
   ;; https://www.reddit.com/r/emacs/comments/doxfya/how_to_add_a_keybinding_to_an_existing_prefix/
