@@ -177,11 +177,11 @@
   (add-to-list 'org-capture-templates
                '("i" "Inbox"
                  entry (file "~/OneDrive/Documents/roam/inbox.org")
-                 "* TODO %T %?\n"))
+                 "* TODO %U %?\n"))
 
   (add-to-list 'org-capture-templates
                '("w" "Work"
-                 entry (file "/mnt/d/Other-Documents/shanshu/nanwang/work.org")
+                 entry (file "~/tmp/test.org")
                  "* TODO %U - %?"))
 
   ;; (add-to-list 'org-capture-templates
