@@ -448,17 +448,22 @@
 
 
 ;;;###autoload
-(defun dwt/fullscreen ()
+(defun dwt/hide-pdf-window ()
   "Store the current window layout, hide all windows in pdf-view-mode, and toggle full-screen.
 The window layout is restored when full-screen is toggled off."
   (interactive)
-  (let ((layout (current-window-configuration))) ; store the current window layout
-    (dolist (window (window-list))               ; iterate over all windows
-      (when (eq (buffer-local-value 'major-mode (window-buffer window)) 'pdf-view-mode)
-        (delete-window window)))                 ; delete windows in pdf-view-mode
-    (toggle-frame-fullscreen)                    ; toggle full-screen
-    (posframe-delete-all)                        ; delete all posframes
-    (set-window-configuration layout)))          ; restore the window layout
+  (dolist (window (window-list))               ; iterate over all windows
+    (when (eq (buffer-local-value 'major-mode (window-buffer window)) 'pdf-view-mode)
+      (select-window window)
+      (switch-to-buffer "*scratch*")
+      ;; (revert-buffer)
+      ;; (set-window-buffer window (get-buffer "*scratch*"))
+      (message "delete one window"))))
+
+    ;; (toggle-frame-fullscreen)                    ; toggle full-screen
+    ;; (posframe-delete-all)                        ; delete all posframes
+    ;; (set-window-configuration layout)))          ; restore the window layout
+
     ;; (when (> undo-count 0)
     ;;   (dolist (i (number-sequence 0 (- undo-count 1)))
     ;;     (setq window (nth i recover-window-list))
@@ -466,8 +471,9 @@ The window layout is restored when full-screen is toggled off."
     ;;     switch buffer will stack, not matter previous-buffer or set-window-buffer
     ;;     (select-window window)
     ;;     (call-interactively #'previous-buffer)))))
+    ;;
+(map! :g "<f10>" #'dwt/hide-pdf-window)
+(map! :g "<f11>" #'toggle-frame-fullscreen)
 
-        ;; (set-window-buffer window buffer)))))
-(map! :g "<f11>" #'dwt/fullscreen)
 
 (use-package! shrink-path)
