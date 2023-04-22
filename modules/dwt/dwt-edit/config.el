@@ -16,15 +16,16 @@
         :i "s-<backspace>" #'evil-delete-backward-word)
   (map! :g "s-<backspace>" #'evil-delete-backward-word)
   ;;; evil-key-binding
-  (map! :nvm "Z" #'evil-jump-item
-        :nvm "L" #'evil-end-of-line
-        :nvm "H" #'evil-beginning-of-line
-        :nvm "J" (kbd "5j")
-        :nvm "K" (kbd "5k")
-        :nv "[q" (kbd "C-c C-c")
-        :nv "[Q" (kbd "C-c C-k")
-        :nv "[p" #'goto-last-change
-        :nv "]p" #'goto-last-change-reverse
+  (map!
+        ;; :nvm "Z" #'evil-jump-item
+        ;; :nvm "L" #'evil-end-of-line
+        ;; :nvm "H" #'evil-beginning-of-line
+        ;; :nvm "J" (kbd "5j")
+        ;; :nvm "K" (kbd "5k")
+        ;; :nv "[q" (kbd "C-c C-c")
+        ;; :nv "[Q" (kbd "C-c C-k")
+        ;; :nv "[p" #'goto-last-change
+        ;; :nv "]p" #'goto-last-change-reverse
         :nv "[z" #'goto-last-change
         :nv "]z" #'goto-last-change-reverse
         :n "Q" #'kill-current-buffer
@@ -49,7 +50,7 @@
         :nv "go" #'avy-goto-line
         :nv "g." #'evil-avy-goto-word-1
         :nv "g/" #'evil-avy-goto-word-0
-        :nv "g'" #'evil-avy-goto-char-1
+        :nv "g'" #'evil-avy-goto-char
         :v "gC" #'capitalize-region
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
