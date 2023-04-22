@@ -229,3 +229,13 @@
   (map! :leader
         :desc "cliphist-paste" "s[" #'cliphist-paste-item
         :desc "cliphist-select" "s]" #'cliphist-select-item))
+
+;;;###autoload
+(defun dwt/open-with-vscode ()
+  "Open current file with vscode. https://emacs-china.org/t/leader-vscode/19166/28"
+  (interactive)
+  (let ((line (number-to-string (line-number-at-pos)))
+        (column (number-to-string (current-column))))
+    (apply 'call-process "code" nil nil nil (list (concat buffer-file-name ":" line ":" column) "--goto"))))
+
+(map! :n "gV" #'dwt/open-with-vscode)
