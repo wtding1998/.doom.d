@@ -78,13 +78,14 @@
   :init (after! dired (dirvish-override-dired-mode))
   ;; :hook ((dirvish-mode . variable-pitch-mode))
   :config
-  (setq dirvish-attributes '(all-the-icons collapse file-size file-time))
+  (setq dirvish-attributes '(subtree-state all-the-icons collapse file-size file-time))
   (setq dirvish-default-layout '(1 0.11 0.52))
   (setq dirvish-quick-access-entries
         '(("h" "~/" "Home")
           ("t" "~/.Trash/" "Trash")
           ("d" "Downloads" "Downloads")))
-  ;; (setq dirvish-use-header-line nil)
+  ;; (setq dirvish-use-header-line 'global)
+  (setq dirvish-use-header-line t)
   (setq dirvish-use-mode-line t)
   (setq dirvish-header-line-height 20)
   (setq dirvish-mode-line-height 20)
