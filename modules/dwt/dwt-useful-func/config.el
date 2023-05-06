@@ -239,3 +239,14 @@
     (apply 'call-process "code" nil nil nil (list (concat buffer-file-name ":" line ":" column) "--goto"))))
 
 (map! :n "gV" #'dwt/open-with-vscode)
+
+;;; magit
+(after! magit
+  ;; control the initial state of each part
+  ;; https://emacs-china.org/t/magit-magit-status/24181
+  (setq magit-section-initial-visibility-alist
+    '((stashes . hide)
+      (untracked . hide)
+      (unstaged . show)
+      (unpushed . show)
+      (unpulled . show))))
