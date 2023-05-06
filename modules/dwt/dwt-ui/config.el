@@ -371,6 +371,8 @@
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-info-padding-right 4)
+  (setq awesome-tray-evil-show-macro t)
+  (setq awesome-tray-evil-show-cursor-count t)
   (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
   ;; (setq awesome-tray-essential-modules '("pdf-view-page"))
   (setq awesome-tray-input-method-zh-style "ㄓ"
