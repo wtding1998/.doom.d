@@ -54,7 +54,7 @@
         :v "gC" #'capitalize-region
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
-        :n "U" 'undo-fu-only-redo
+        ;; :n "U" 'undo-fu-only-redo
 
         ;;; add new command with this prefix
         ;; :n "r" nil
@@ -259,3 +259,15 @@
 (setq doom-localleader-alt-key "C-SPC m")
 (map! :map general-override-mode-map
       :ein "C-SPC" #'doom/leader)
+
+(use-package! vundo
+  :config
+  (map! :n "g7" #'vundo
+        :map vundo-mode-map
+        :n "h" #'vundo-backward
+        :n "l" #'vundo-forward
+        :n "n" #'vundo-next
+        :n "p" #'vundo-previous
+        :n "a" #'vundo-stem-root
+        :n "e" #'vundo-stem-end
+        :n "j" #'vundo-))
