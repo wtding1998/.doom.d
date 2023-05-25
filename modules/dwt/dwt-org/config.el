@@ -651,14 +651,20 @@ called in case no PDF is found."
   (add-hook 'org-pomodoro-started-hook (lambda () (message "1. Work or Walk; 2. 5 minutes rule")))
   (add-hook 'org-pomodoro-break-finished-hook 'dwt/org-pomodoro-start-reminder)
   (add-hook 'org-pomodoro-finished-hook #'dwt/org-pomodoro-finished-ask-postpone))
+
 (use-package! org-modern
   :after org
   :config
   (global-org-modern-mode 1)
-  (setq-default org-modern-checkbox
-                                    '((?X . "")
-                                      (?- . "")
-                                      (?\s . ""))))
+  ;; https://en.wikipedia.org/wiki/Miscellaneous_Symbols
+  (setq org-modern-star '("☶" "☴" "☰" "⚌" "⚊"))
+  ;; https://en.wikipedia.org/wiki/Geometric_Shapes_(Unicode_block)
+  ;; https://en.wikipedia.org/wiki/Dingbat#Unicode
+  (setq org-modern-checkbox
+                          '((?X . "")
+                          ;; '((?X . "✓")
+                            (?- . "✧")
+                            (?\s . "□"))))
 
 (use-package! org-download
   :after org

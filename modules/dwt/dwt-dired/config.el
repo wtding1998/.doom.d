@@ -80,6 +80,7 @@
   :config
   (setq dirvish-attributes '(subtree-state all-the-icons collapse file-size file-time))
   (setq dirvish-default-layout '(1 0.11 0.52))
+  (setq dirvish-hide-details t) ; if t, open dired-hide-details-mode at startup.
   (setq dirvish-quick-access-entries
         '(("h" "~/" "Home")
           ("t" "~/.Trash/" "Trash")

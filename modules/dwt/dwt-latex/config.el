@@ -270,8 +270,7 @@
         (left-char))))
 
   (map! :map LaTeX-mode-map
-        :n "<RET>" #'(lambda () (interactive) (when (texmathp))
-                                              (call-interactively #'preview-at-point))
+        :n "<RET>" #'dwt/TeX-save-and-run-all
         :localleader
         :desc "View" "v" #'TeX-view
         :desc "Output" "o" #'TeX-recenter-output-buffer

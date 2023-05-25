@@ -1,7 +1,7 @@
 ;;; dwt/dwt-ui/config.el -*- lexical-binding: t; -*-
 
 ;; set the fringe of window
-;; (set-fringe-mode '(5 . 5))
+(set-fringe-mode '(4 . 4))
 
 ;;;banner
 ;; copied from https://github.com/cnsunyour/.doom.d/blob/dfbeb081d2cc3aaafc0e591868a9a4ba1f276f77/modules/cnsunyour/ui/config.el
@@ -134,8 +134,8 @@
           (when (equal doom-theme 'doom-one)
             (dwt/doom-font)
           ;; theme for GUI in daemon
-            ;; (load-theme 'doom-tomorrow-night t nil)
-            (load-theme 'modus-operandi t nil)))
+            (load-theme 'doom-tokyo-night t nil)))
+            ;; (load-theme 'modus-operandi t nil)))
       ;;; theme for TUI in daemon
       (load-theme 'doom-zenburn t nil))))
 
@@ -146,8 +146,8 @@
       (progn
         ;; (load-theme 'modus-operandi t nil)
         (when (equal doom-theme 'doom-one)
-          ;; (load-theme 'doom-tomorrow-night t nil)
-          (load-theme 'modus-operandi t nil)
+          (load-theme 'doom-tokyo-night t nil)
+          ;; (load-theme 'modus-operandi t nil)
           (dwt/doom-font)))
     ;; theme for TUI without daemon
     (load-theme 'doom-monokai-pro t nil)))
@@ -447,6 +447,16 @@
                  pop-global-mark
                  goto-last-change))
     (advice-add cmd :after #'my-recenter-and-pulse)))
+
+(setq dwt/show-my-mode-line-info t)
+(setq dwt/my-mode-line-info " Stay L ")
+(add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info (" Stay L ")))
+
+(defun dwt/toggle-mode-line-info ()
+  (interactive)
+  (if dwt/show-my-mode-line-info
+      (setq dwt/show-my-mode-line-info nil)
+    (setq dwt/show-my-mode-line-info t)))
 
 
 ;;;###autoload

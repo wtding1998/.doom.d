@@ -42,6 +42,8 @@
     (set-face-attribute 'rime-comment-face nil :inherit 'rime-default-face :foreground nil :background nil))
     ;; (set-face-attribute 'rime-highlight-candidate-face nil :inherit 'rime-default-face :foreground (face-foreground 'error) :background nil))
   (dwt/set-rime-face)
+  ;; reset the rime fact after change of theme
+  (add-hook 'doom-load-theme-hook #'dwt/set-rime-face)
   (defun dwt/set-rime-fact-light ()
     (interactive)
     (setq rime-posframe-properties

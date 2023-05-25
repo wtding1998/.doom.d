@@ -266,8 +266,7 @@
         :map vundo-mode-map
         :n "h" #'vundo-backward
         :n "l" #'vundo-forward
-        :n "n" #'vundo-next
-        :n "p" #'vundo-previous
+        :n "j" #'vundo-next
+        :n "k" #'vundo-previous
         :n "a" #'vundo-stem-root
-        :n "e" #'vundo-stem-end
-        :n "j" #'vundo-))
+        :n "e" #'vundo-stem-end))
