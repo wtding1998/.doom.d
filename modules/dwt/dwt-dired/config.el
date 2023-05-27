@@ -83,8 +83,9 @@
   (setq dirvish-hide-details t) ; if t, open dired-hide-details-mode at startup.
   (setq dirvish-quick-access-entries
         '(("h" "~/" "Home")
+          ("r" "~/Documents/research/" "Research")
           ("t" "~/.Trash/" "Trash")
-          ("d" "Downloads" "Downloads")))
+          ("d" "~/Downloads/" "Downloads")))
   ;; (setq dirvish-use-header-line 'global)
   (setq dirvish-use-header-line t)
   (setq dirvish-use-mode-line t)

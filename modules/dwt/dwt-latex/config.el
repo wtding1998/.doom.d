@@ -439,29 +439,20 @@
 (after! latex
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
 
-  (defun dwt/evil-multiedit-clean-prev-nonmath-candidate ()
-    (save-excursion
-      (while (call-interactively #'evil-multiedit-prev)
-          (unless (and (texmathp) (equal 1 (length (thing-at-point 'word))))
-            (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
-
-  (defun dwt/evil-multiedit-clean-next-nonmath-candidate ()
-    (save-excursion
-      (while (call-interactively #'evil-multiedit-next)
-          (unless (and (texmathp) (equal 1 (length (thing-at-point 'word))))
-            (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
+  (defun dwt/string-before-word ()
+    (char-to-string (char-before (car (bounds-of-thing-at-point 'word)))))
 
   (defun dwt/evil-multiedit-clean-nonmath-candidate ()
     (interactive)
-     ;; when not math or is in commmand
-    (unless (and (texmathp) (equal 1 (length (thing-at-point 'word))))
-      (call-interactively #'evil-multiedit-toggle-or-restrict-region))
-    (ignore-errors
-      (dwt/evil-multiedit-clean-next-nonmath-candidate))
-    (dwt/evil-multiedit-clean-prev-nonmath-candidate))
+    (save-excursion
+      (goto-char (point-min))
+      (while (call-interactively #'evil-multiedit-next)
+        (unless (and (texmathp) (not (string-equal "\\" (dwt/string-before-word))))
+          (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
 
   (map! :map evil-multiedit-state-map
-        "C-n" #'dwt/evil-multiedit-clean-nonmath-candidate))
+        "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate))
+
 
 ;;; reftex
 (use-package! reftex-toc
