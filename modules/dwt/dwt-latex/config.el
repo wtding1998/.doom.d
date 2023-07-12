@@ -336,7 +336,7 @@
 
 
 ;;;###autoload
-(defun dwt/new-tex-dir-project ()
+(defun dwt/new-latex-dir-project ()
   "Make new dir in DIR-PATH with name DIR-NAME."
   (interactive)
   (let (project-path dir-name subdir-names)
@@ -352,19 +352,20 @@
       (find-file (concat project-path dir-name "/" dir-name ".tex")))))
 
 ;;;###autoload
-(defun dwt/new-tex-dir ()
+(defun dwt/new-latex-dir ()
   "Create latex project."
   (interactive)
   (let* ((dir-path (counsel-read-directory-name "Path of project: "))
-         (project-name (read-from-minibuffer "Name of project: "))
+         (current-date (format-time-string "%Y%m%d_"))
+         (project-name (concat current-date (read-from-minibuffer "Name of project: ")))
          (project-path (concat dir-path project-name)))
     (message project-path)
     (make-directory project-name dir-path)
     (find-file (concat project-path "/" project-name ".tex"))))
 
 (map! :leader
-      :desc "New TeX dir" "ol" #'dwt/new-tex-dir
-      :desc "New TeX dir in project" "oL" #'dwt/new-tex-dir-project)
+      :desc "New TeX dir" "ol" #'dwt/new-latex-dir
+      :desc "New TeX dir in project" "oL" #'dwt/new-latex-dir-project)
 
 (set-company-backend! 'latex-mode '(+latex--company-backends company-dabbrev company-yasnippet))
 ;; set company-backends
@@ -432,6 +433,7 @@
      (?t    "\\tens"        nil          t    nil  nil)
      (?1    "\\tilde"           nil          t    nil  nil)
      (?2    "\\hat"           nil          t    nil  nil)
+     (?3    "\\bar"           nil          t    nil  nil)
      (?l    "\\label"           "\\label"          t    nil  nil)
      (?s    "\\mathscr"           nil          t    nil  nil)
      (?A    "\\abs"           nil          t    nil  nil))))
@@ -495,6 +497,7 @@
                                                      "\\newcommand{\\grad}{\\operatorname{grad}}"
                                                      "\\newcommand{\\rank}{\\operatorname{rank}}"
                                                      "\\newcommand{\\tr}{\\operatorname{tr}}"
+                                                     "\\newcommand{\\D}{\\operatorname{D}}"
                                                      "\\newcommand{\\diag}[1]{\\operatorname{diag}\\{#1\\}}"
                                                      "\\newcommand{\\St}[1]{\\text{St}}"
                                                      "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))

@@ -55,7 +55,7 @@
           (setq clock-state t)))
       (unless clock-state
         (dwt/notifications-notify-shell-command :title "in?"
-                                                :timeout 10))))
+                                                :timeout 3))))
 
   (defun dwt/org-clock-reminder-toggle (&optional on-off)
     "start/stop the timer that runs org-clock-watcher
@@ -180,9 +180,9 @@
                  "* TODO %U %?\n"))
 
   (add-to-list 'org-capture-templates
-               '("w" "Work"
-                 entry (file "~/tmp/test.org")
-                 "* TODO %U - %?"))
+               '("w" "Writing"
+                 entry (file "~/OneDrive/Documents/roam/writing.org")
+                 "%?\n"))
 
   ;; (add-to-list 'org-capture-templates
   ;;              '("d" "Diary"
@@ -609,7 +609,7 @@ called in case no PDF is found."
   (setq org-pomodoro-time-format "%.2m")
   (setq org-pomodoro-length 30)
   (setq org-pomodoro-short-break-length 5)
-  (setq org-pomodoro-long-break-frequency 2)
+  (setq org-pomodoro-long-break-frequency 3)
   (setq org-pomodoro-short-break-sound-p nil)
   (setq org-pomodoro-long-break-sound-p nil)
   (setq org-pomodoro-play-sounds nil)
@@ -633,14 +633,14 @@ called in case no PDF is found."
     (let* ((org-pomodoro-finish-answer-list '("No" "5" "10" "15" "20"))
            (org-pomodoro-finish-answer (ivy-read "Finished! Postpone? " org-pomodoro-finish-answer-list))
            (org-pomodoro-length (string-to-number org-pomodoro-finish-answer)))
-      (dwt/notifications-notify-start-process :title "Org" :timeout 10 :body "Finish!")
+      (dwt/notifications-notify-start-process :title "Org" :timeout 3 :body "Finish!")
       (when (> org-pomodoro-length 0)
         (org-pomodoro-kill)
         (setq org-pomodoro-count (- org-pomodoro-count 1))
         (org-pomodoro '(16)))))
 
   (defun dwt/org-pomodoro-start-reminder ()
-      (dwt/notifications-notify-start-process :title "Org" :timeout 10 :body "Start?")
+      (dwt/notifications-notify-start-process :title "Org" :timeout 3 :body "Start?")
       (when (y-or-n-p "Continue? ")
         (let ((arg '(16)))
           (org-pomodoro arg))))

@@ -270,3 +270,5 @@
         :n "k" #'vundo-previous
         :n "a" #'vundo-stem-root
         :n "e" #'vundo-stem-end))
+
+(map! :g "M-9" #'+workspace/other)

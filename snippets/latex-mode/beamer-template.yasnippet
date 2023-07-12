@@ -2,74 +2,15 @@
 # name: beamer-template
 # --
 \documentclass{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amsfonts}
-% blackboard math symbols
-\usepackage{mathrsfs}
-\usepackage{nicefrac}       % compact symbols for 1/2, etc.
-\usepackage{microtype}      % microtypography
-\usepackage{mathtools}
-\usepackage{booktabs}
-\usepackage{mathdots}
-\newtheorem{proposition}{Proposition}
-\usepackage[ruled]{algorithm2e}
-% \usepackage{algcompatible}
-% \usepackage{algorithm}
-
-\usetheme{CambridgeUS}
-
-\usepackage[backend=bibtex, citestyle=authoryear]{biblatex}
-\addbibresource{ref.bib}
-
-% Removes icon in bibliography
-\setbeamertemplate{bibliography item}[text]
-
-\setbeamertemplate{itemize subitem}[default]
-\setbeamertemplate{itemize items}[default]
-\setbeamertemplate{enumerate items}[default]
-
-\setbeamertemplate{blocks}[rounded][shadow=false]
-\setbeamercolor{block title}{fg=structure,bg=white}
-
-\setbeamertemplate{itemize items}{\raisebox{0.2em}{\scalebox{0.5}{$\blacksquare$}}}   % Third level item
-\setbeamertemplate{itemize subitem}{\raisebox{0.2em}{\scalebox{0.5}{$\blacktriangleright$}}}   % Third level item
-
-\setbeamercolor{itemize item}{fg=black}
-\setbeamercolor{itemize subitem}{fg=black}
-
-\setbeamertemplate{section in toc}{
-	{\color{red!70!black}\inserttocsectionnumber.~\inserttocsection}}
-
-\setbeamercolor{subsection in toc}{bg=white,fg=structure}
-\setbeamertemplate{subsection in toc}{
-	\hspace{1.2em}{\color{black}\rule[0.3ex]{3pt}{3pt}~\inserttocsubsection}\par}
-% \AtBeginSection[]
-% {
-%     \begin{frame}
-%         \frametitle{Contents}
-%         \tableofcontents[currentsection]
-%     \end{frame}
-% }
-
-\AtBeginSubsection[]
-{
-\begin{frame}
-\frametitle{Contents}
-{\small
-\tableofcontents[currentsubsection]
-}
-\end{frame}
-}
 
 \title[]{}
 % \subtitle{}
-\institute[SDS]{School of Data Science \\\\
-The Chinese University of Hong Kong, Shenzhen}
-\author[Wentao Ding]{Wentao Ding}
-\date[\today]{\today}
+\date{\today}
+\author[Wentao Ding]{Wentao Ding\\ \small{\email{wentaoding@link.cuhk.edu.cn}}}
+\institute[CUHKSZ]{
+  \mbox{}\\
+  School of Data Science \\
+	The Chinese University of Hong Kong, Shenzhen}
 
 \begin{document}
 \frame{\titlepage}

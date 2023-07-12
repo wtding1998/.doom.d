@@ -60,42 +60,43 @@
     ",." (lambda () (interactive)
            (unless (texmathp)
             (yas-expand-snippet "\\\\[ $0  \\\\]")))
-    ",q" "_"
-    ",w" "^"
-    ",z" ";"
-    ",x" ":"
-    ",c" " "
+    ;; ".q" "_"
+    ;; ".w" "^"
+    ".z" ";"
+    ".x" ":"
+    ".c" " "
     ;; set condition!
     :cond #'texmathp ; expand only while in math
     "<<" "\\leq"
     ">>" "\\geq"
-    ",<" "\\subseteq"
+    ".p" "_{\\perp}"
+    ".<" "\\subseteq"
     "Rn" (lambda () (interactive)
            (yas-expand-snippet "\\mathbb{R}^{${0:n}}"))
     "||" (lambda () (interactive)
            (yas-expand-snippet "\\\\| $0 \\\\|"))
-    ",|" (lambda () (interactive)
-           (yas-expand-snippet "\\lvert $0 \\rvert"))
     "<>" (lambda () (interactive)
            (yas-expand-snippet "\\langle $0 \\rangle"))
     ;; bind to functions!
     ;; "//" (lambda () (interactive)
     ;;       (yas-expand-snippet "\\frac{ $0}{}"))
-    ",n" (lambda () (interactive)
+    ".n" (lambda () (interactive)
            (yas-expand-snippet "\\\\| $0 \\\\|"))
-    ",e" (lambda () (interactive)
+    ".e" (lambda () (interactive)
            (yas-expand-snippet "\\\\{ $0 \\\\}"))
     "''" (lambda () (interactive)
            (yas-expand-snippet "``$0''"))
     "xx" "\\times"
     "==" "& ="
-    ",s" (lambda () (interactive)
+    ".s" (lambda () (interactive)
            (if (derived-mode-p 'org-mode)
                (yas-expand-snippet "^{\\ast}")
              (yas-expand-snippet "^{*}")))
-    ",d" "^{-1}"
-    ",a" "^{\\top}"
-    ",l" (lambda () (interactive)
+    ".d" "^{-1}"
+    ".a" "^{\\top}"
+    ".l" (lambda () (interactive)
            (yas-expand-snippet "${1:,} \\ldots $1 $0"))
     "pmx" (lambda () (interactive)
-           (yas-expand-snippet "\\begin{pmatrix}$0\\end{pmatrix}"))))
+           (yas-expand-snippet "\\begin{pmatrix}$0\\end{pmatrix}"))
+    "bmx" (lambda () (interactive)
+           (yas-expand-snippet "\\begin{bmatrix}$0\\end{bmatrix}"))))

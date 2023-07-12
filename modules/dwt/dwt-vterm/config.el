@@ -15,6 +15,20 @@
         
   (map! :map vterm-mode-map
         :n "q" #'dwt/vterm-toggle-current-dir)
+
+  ;; disable the alt+num in vterm
+  (map! :map vterm-mode-map
+        "M-1" nil
+        "M-2" nil
+        "M-3" nil
+        "M-4" nil
+        "M-5" nil
+        "M-6" nil
+        "M-7" nil
+        "M-8" nil
+        "M-9" nil)
+
+
   (map! :map vterm-mode-map :i "C-w" #'vterm-send-C-w
         :map vterm-mode-map :i "C-u" #'vterm-send-C-u
         :map vterm-mode-map :i "C-e" #'vterm-send-C-e
