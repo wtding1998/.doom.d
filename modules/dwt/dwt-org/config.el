@@ -204,8 +204,8 @@
 
   (add-to-list 'org-capture-templates
                '("t" "thoughts"
-                 entry (file+datetree "~/OneDrive/Documents/roam/thoughts.org")
-                 "* %[%H-%M] - %?\n"))
+                 entry (file "~/OneDrive/Documents/roam/thoughts.org")
+                 "* %U - %?\n"))
 
   ;; (add-to-list 'org-capture-templates
   ;;              '("e" "English"
@@ -215,8 +215,8 @@
   ;; interesting
   (add-to-list 'org-capture-templates
                '("s" "Interesting Things"
-                 entry (file+datetree "~/OneDrive/Documents/study note/org/interesting_things.org")
-                 "* %<%H-%M> - %? "))
+                 entry (file "~/OneDrive/Documents/study note/org/interesting_things.org")
+                 "* %U %? "))
   ;; readings
   (add-to-list 'org-capture-templates
                '("r" "readings" entry
@@ -409,11 +409,28 @@
 ;;; noter
 (after! org-noter
   (setq org-noter-auto-save-last-location t)
+  ;; (advice-add #'org-noter-insert-note :after #'dwt/org-noter-switch-to-note-window)
+  ;; (defun dwt/org-noter-switch-to-note-window ()
+  ;;   (interactive)
+  ;;   (select-window (org-noter--get-notes-window)))
+
+  (defun dwt/org-noter-insert-note ()
+    (interactive)
+    (call-interactively #'org-noter-insert-note)
+    (select-window (org-noter--get-notes-window))
+    (evil-insert-state))
+
+  (defun dwt/org-noter-insert-precise-note ()
+    (interactive)
+    (call-interactively #'org-noter-insert-precise-note)
+    (select-window (org-noter--get-notes-window))
+    (evil-insert-state))
+
   (map! :map org-noter-doc-mode-map
-        :nvi "ni" #'org-noter-insert-note
-        :nvi "nI" #'org-noter-insert-precise-note
-        :nvi "i" #'org-noter-insert-note
-        :nvi "I" #'org-noter-insert-precise-note
+        :nvi "ni" #'dwt/org-noter-insert-note
+        :nvi "nI" #'dwt/org-noter-insert-precise-note
+        :nvi "i" #'dwt/org-noter-insert-note
+        :nvi "I" #'dwt/org-noter-insert-precise-note
         :nvi "nq" #'org-noter-kill-session)
   (map! :map org-noter-notes-mode-map
         :nv "I" #'org-noter-sync-current-note
