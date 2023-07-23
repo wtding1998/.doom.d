@@ -26,3 +26,4 @@
 (package! awesome-tab :recipe (:host github :repo "manateelazycat/awesome-tab"))
 ;; (package! evil-terminal-cursor-changer :recipe (:host github :repo "7696122/evil-terminal-cursor-changer"))
 (package! shrink-path)
+(package! poet :recipe (:host github :repo "kunalb/poet"))

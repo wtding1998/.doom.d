@@ -15,7 +15,7 @@
         
   (map! :map vterm-mode-map
         :n "q" #'dwt/vterm-toggle-current-dir)
-
+  (setq vterm-buffer-name-string "vterm %s")
   ;; disable the alt+num in vterm
   (map! :map vterm-mode-map
         "M-1" nil

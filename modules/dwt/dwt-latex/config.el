@@ -524,6 +524,12 @@
 (use-package! evil-tex
   :after tex
   :config
+  (map! :map evil-tex-mode-map
+        :n "[[" nil
+        :n "]]" nil)
+  (evil-tex-bind-to-env-map '(("q" . "quote")
+                              ("f" "\\begin{figure}[!ht]" . "\\end{figure}")))
+  (evil-tex-bind-to-delim-map '(("h" "\\huge(" . "\\huge)")))
   (cl-destructuring-bind (inner-map . outer-map)
       (if (and (boundp  'evil-surround-local-inner-text-object-map-list)
               (boundp  'evil-surround-local-outer-text-object-map-list))
@@ -532,9 +538,6 @@
           (cons evil-tex-inner-text-objects-map evil-tex-outer-text-objects-map)
         ;; pollute the global namespace if evil-surround is too old
         (cons evil-inner-text-objects-map evil-outer-text-objects-map))
-    (map! :map evil-tex-mode-map
-          :n "[[" nil
-          :n "]]" nil)
 
     (define-key outer-map ":" 'evil-tex-a-superscript)
     (define-key outer-map ";" 'evil-tex-a-subscript)

@@ -449,8 +449,8 @@
     (advice-add cmd :after #'my-recenter-and-pulse)))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info " 40: Stay L ")
-(add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info (" RP 40: Stay L ")))
+(setq dwt/my-mode-line-info "RP40:StayL ")
+(add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (defun dwt/toggle-mode-line-info ()
   (interactive)
