@@ -249,4 +249,31 @@
       (untracked . hide)
       (unstaged . show)
       (unpushed . show)
-      (unpulled . show))))
+      (unpulled . show)))
+  (setq magit-status-initial-section '(2)))
+
+;;;###autoload
+(defun dwt/buffers-in-all-windows ()
+  "Get a list of buffers displayed in all windows of the current frame."
+  (let (buffers)
+    (walk-windows
+     (lambda (window)
+       (let ((buffer (window-buffer window)))
+         (unless (minibufferp buffer) ; Exclude minibuffer from the list
+           (push buffer buffers)))))
+    buffers))
+
+;;;###autoload
+(defun dwt/switch-to-org-buffer-window ()
+  "Switches to the window displaying the first buffer with org-mode in all windows of the current frame."
+  (interactive)
+  (let ((buffers (dwt/buffers-in-all-windows)))
+    (catch 'found-org-buffer
+      (dolist (buffer buffers)
+        (when (with-current-buffer buffer (derived-mode-p 'org-mode))
+          (let ((org-window (get-buffer-window buffer)))
+            (if org-window
+                (progn
+                  (select-window org-window)
+                  (throw 'found-org-buffer t))
+              (message "No window found displaying buffer with org-mode."))))))))

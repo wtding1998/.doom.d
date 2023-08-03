@@ -17,6 +17,8 @@
 ;; (package! gruvbox-theme :recipe (:host github :repo "wtding1998/emacs-gruvbox-material"))
 ; (package! everforest
 ;   :recipe (:repo "https://git.sr.ht/~theorytoe/everforest-theme"))
+(package! poet :recipe (:host github :repo "kunalb/poet"))
+(package! hardhacker :recipe (:host github :repo "hardhackerlabs/theme-emacs"))
 
 (when IS-MAC
   (package! transwin :recipe (:host github :repo "jcs-elpa/transwin")))
@@ -26,4 +28,3 @@
 (package! awesome-tab :recipe (:host github :repo "manateelazycat/awesome-tab"))
 ;; (package! evil-terminal-cursor-changer :recipe (:host github :repo "7696122/evil-terminal-cursor-changer"))
 (package! shrink-path)
-(package! poet :recipe (:host github :repo "kunalb/poet"))

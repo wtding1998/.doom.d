@@ -430,6 +430,7 @@
    '( ;; my own stuff
      (?a    "\\mathbb"        nil          t    nil  nil)
      (?q    "\\matr"        nil          t    nil  nil)
+     (?v    "\\vect"        nil          t    nil  nil)
      (?t    "\\tens"        nil          t    nil  nil)
      (?1    "\\tilde"           nil          t    nil  nil)
      (?2    "\\hat"           nil          t    nil  nil)

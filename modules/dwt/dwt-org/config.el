@@ -204,8 +204,13 @@
 
   (add-to-list 'org-capture-templates
                '("t" "thoughts"
-                 entry (file "~/OneDrive/Documents/roam/thoughts.org")
-                 "* %U - %?\n"))
+                 entry (file+headline "~/OneDrive/Documents/roam/try_your_best.org" "My Thought")
+                 "* %? %U \n"))
+
+  (add-to-list 'org-capture-templates
+               '("p" "principle"
+                 entry (file+headline "~/OneDrive/Documents/roam/try_your_best.org" "My Principle")
+                 "* %? %U\n"))
 
   ;; (add-to-list 'org-capture-templates
   ;;              '("e" "English"

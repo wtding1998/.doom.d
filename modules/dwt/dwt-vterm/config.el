@@ -1,6 +1,9 @@
 ;;; dwt/vterm/config.el -*- lexical-binding: t; -*-
 
 
+(when IS-MAC
+  (map! :leader "oT" #'+macos/open-in-iterm))
+(map! :leader "ot" #'+vterm/here)
 (after! vterm
   (defun dwt/vterm-toggle-current-dir ()
     "Insert cd path to the current buffer besides vterm"
@@ -37,9 +40,6 @@
         :map vterm-mode-map :i "C-v" #'vterm-yank
         :map vterm-mode-map :i "M-v" #'vterm-yank
         :map vterm-mode-map :n "p"   #'(lambda () (interactive) (vterm-yank))
-        :map vterm-mode-map :i "C-a" #'vterm-send-C-a)
+        :map vterm-mode-map :i "C-a" #'vterm-send-C-a))
   ;; (set-popup-rules!
   ;;   '(("^\\*doom:vterm" :size 15 :select t)))
-  (when IS-MAC
-    (map! :leader "oT" #'+macos/open-in-iterm))
-  (map! :leader "ot" #'+vterm/here))
