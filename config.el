@@ -37,7 +37,8 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 ;; (setq display-line-numbers-type t)
 ;; disable for the performance on mac
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type nil)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:

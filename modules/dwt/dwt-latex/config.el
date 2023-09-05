@@ -252,6 +252,16 @@
           (insert " $")
           (backward-char 2))))
 
+  (defun dwt/copy-next-label ()
+    "Copy the next label."
+    (interactive)
+    (let ((pattern "\\b\\(label\\|cref\\|eqref\\)\\b")) ; Define a regular expression pattern
+        (if (search-forward-regexp pattern nil t)
+            (progn
+              (goto-char (match-beginning 0))
+              (execute-kbd-macro "f{yi{"))
+          (message "No label found."))))
+
 
   (defun dwt/insert-transpose ()
     "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
@@ -285,7 +295,8 @@
         :desc "Clean preview" "R" #'preview-clearout-buffer
         :desc "Clean preview" "r" #'preview-clearout-at-point
         :desc "Master" "m" #'TeX-command-master
-        :desc "Input String" "s" #'dwt/insert
+        ;; :desc "Input String" "s" #'dwt/insert
+        :desc "Copy next label" "s" #'dwt/copy-next-label
         :desc "toc" "=" #'reftex-toc
         :desc "format" "f" #'dwt/format-latex-file
         :desc "clean" "F" #'dwt/clean-emacs-latex-file
@@ -405,6 +416,7 @@
      (?3    ("\\nabla"           "\\dim"  ""))
      (?4    ("\\nabla^2"           ""  ""))
      (?5    ("\\partial"           ""  ""))
+     (?j    ("\\| ? \\|"           ""  ""))
      (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
      (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
      (?^    ("\\uparrow"    ""           "\\sup"))
@@ -425,13 +437,16 @@
      (?_     ("_"          ""             ""))
      (?4     ("$"          ""             ""))
      (?7     ("\\grad "          ""             ""))
+     (?i     ("\\grad "          ""             ""))
      (?*    ("\\times" "\\star" "\\ast")))
    cdlatex-math-modify-alist
    '( ;; my own stuff
      (?a    "\\mathbb"        nil          t    nil  nil)
+     (?h    "\\hat"        nil          t    nil  nil)
      (?q    "\\matr"        nil          t    nil  nil)
      (?v    "\\vect"        nil          t    nil  nil)
-     (?t    "\\tens"        nil          t    nil  nil)
+     ;; (?t    "\\tens"        nil          t    nil  nil)
+     (?T    "\\text"        nil          t    nil  nil)
      (?1    "\\tilde"           nil          t    nil  nil)
      (?2    "\\hat"           nil          t    nil  nil)
      (?3    "\\bar"           nil          t    nil  nil)
@@ -520,7 +535,7 @@
       (progn
         (hl-line-mode -1)
         (org-latex-impatient-mode 1))))
-;;
+
 
 (use-package! evil-tex
   :after tex
@@ -530,7 +545,7 @@
         :n "]]" nil)
   (evil-tex-bind-to-env-map '(("q" . "quote")
                               ("f" "\\begin{figure}[!ht]" . "\\end{figure}")))
-  (evil-tex-bind-to-delim-map '(("h" "\\huge(" . "\\huge)")))
+  (evil-tex-bind-to-delim-map '(("|" "\\|" . "\\|")))
   (cl-destructuring-bind (inner-map . outer-map)
       (if (and (boundp  'evil-surround-local-inner-text-object-map-list)
               (boundp  'evil-surround-local-outer-text-object-map-list))

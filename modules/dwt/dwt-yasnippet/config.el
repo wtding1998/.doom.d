@@ -51,6 +51,11 @@
   :hook (LaTeX-mode . laas-mode)
   :hook (org-mode . laas-mode)
   :config ; do whatever here
+  ;; disable the min and max defined in laas-basic-snippets
+  (aas-set-snippets 'laas-mode
+    "min" nil
+    "max" nil)
+
   (aas-set-snippets 'laas-mode
     ",," (lambda () (interactive)
            (unless (texmathp)
@@ -70,7 +75,7 @@
     "<<" "\\leq"
     ">>" "\\geq"
     ".p" "_{\\perp}"
-    ".<" "\\subseteq"
+    ".>" "\\subseteq"
     "Rn" (lambda () (interactive)
            (yas-expand-snippet "\\mathbb{R}^{${0:n}}"))
     "||" (lambda () (interactive)

@@ -283,9 +283,9 @@
 
 (when IS-MAC
   (use-package! transwin
-    :commands (transwin-toggle-transparent-frame)
+    :commands (transwin-toggle)
     :init
-    (map! :leader "tt" #'transwin-toggle-transparent-frame)
+    (map! :leader "tt" #'transwin-toggle)
     :config
     (setq transwin--record-toggle-frame-transparency 85)
     (map! :leader "tT" #'dwt/turn-on-transwin)
@@ -428,6 +428,7 @@
     "Recenter and pulse the current line."
     (recenter)
     (my-pulse-momentary-line))
+
   :hook (((dumb-jump-after-jump
            imenu-after-jump) . my-recenter-and-pulse)
          ((bookmark-after-jump
@@ -449,7 +450,7 @@
     (advice-add cmd :after #'my-recenter-and-pulse)))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "nouse ")
+(setq dwt/my-mode-line-info "nouse for L! ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (defun dwt/toggle-mode-line-info ()

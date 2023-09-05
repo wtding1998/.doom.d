@@ -19,7 +19,7 @@
 ;   :recipe (:repo "https://git.sr.ht/~theorytoe/everforest-theme"))
 (package! poet :recipe (:host github :repo "kunalb/poet"))
 (package! hardhacker :recipe (:host github :repo "hardhackerlabs/theme-emacs"))
-
+(package! ef-themes :recipe (:host github :repo "protesilaos/ef-themes"))
 (when IS-MAC
   (package! transwin :recipe (:host github :repo "jcs-elpa/transwin")))
 

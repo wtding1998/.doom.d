@@ -240,6 +240,18 @@
 
 (map! :n "gV" #'dwt/open-with-vscode)
 
+;;;###autoload
+(defun dwt/delete-package-dir ()
+  (interactive)
+  (let* ((repos-dir "~/.emacs.d/.local/straight/repos/")
+         (build-dir "~/.emacs.d/.local/straight/build-29.0.91/")
+         (packages (directory-files repos-dir))
+         (package-name (ivy-read "Package Name: " packages))
+         (package-path (concat repos-dir package-name))
+         (build-path (concat build-dir package-name)))
+    (delete-directory package-path t t)
+    (delete-directory build-path t t)))
+
 ;;; magit
 (after! magit
   ;; control the initial state of each part
@@ -277,3 +289,29 @@
                   (select-window org-window)
                   (throw 'found-org-buffer t))
               (message "No window found displaying buffer with org-mode."))))))))
+
+(use-package! titlecase
+  :init
+  (map! :v "gt" #'titlecase-region)
+  (map! :n "gt" #'titlecase-sentence)
+  :config
+  (setq titlecase-style 'sentence)
+  (setq titlecase-dwim-non-region-function 'titlecase-sentence))
+
+(use-package! atomic-chrome
+  :defer t
+  :config
+  (atomic-chrome-start-server)
+  (setq atomic-chrome-default-major-mode 'python-mode)
+  (setq atomic-chrome-extension-type-list '(ghost-text))
+  ;;(atomic-chrome-start-httpd)
+  (setq atomic-chrome-server-ghost-text-port 4001)
+  (setq atomic-chrome-url-major-mode-alist
+        '(("github\\.com" . gfm-mode)
+          ("overleaf.com" . latex-mode)
+          ("750words.com" . latex-mode)))
+  ; Select the style of opening the editing buffer by atomic-chrome-buffer-open-style.
+  ; full: Open in the selected window.
+  ; split: Open in the new window by splitting the selected window (default).
+  ; frame: Create a new frame and window in it. Must be using some windowing pacakge.
+  (setq atomic-chrome-buffer-open-style 'split))

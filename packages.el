@@ -53,3 +53,4 @@
 (unpin! org)
 (package! python-pytest :disable t)
 (unpin! org-noter)
+(unpin! evil-tex)
