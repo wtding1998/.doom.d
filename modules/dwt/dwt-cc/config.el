@@ -5,8 +5,9 @@
 ;;                                           c-basic-offset 4
 ;;                                           c-default-style "linux")))
 (setq-default c-basic-offset 4)
-;;set file template for c
+;;set file template for c and cpp
 (set-file-template! "\\.c$" :trigger "__dwtc")
+(set-file-template! "\\.cpp$" :trigger "__dwtcpp")
 
 (after! cc-mode
   ;; quick compile function

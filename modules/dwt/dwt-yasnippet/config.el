@@ -61,7 +61,7 @@
            (unless (texmathp)
              (if (derived-mode-p 'org-mode)
                  (yas-expand-snippet "\\\\( $0 \\\\)")
-                (yas-expand-snippet "$ $0 $"))))
+                 (yas-expand-snippet "\\\\( $0 \\\\)"))))
     ",." (lambda () (interactive)
            (unless (texmathp)
             (yas-expand-snippet "\\\\[ $0  \\\\]")))

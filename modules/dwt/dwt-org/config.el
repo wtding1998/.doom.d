@@ -182,7 +182,7 @@
   (add-to-list 'org-capture-templates
                '("w" "Writing"
                  entry (file "~/OneDrive/Documents/roam/writing.org")
-                 "%?\n"))
+                 "* %c%?\n"))
 
   ;; (add-to-list 'org-capture-templates
   ;;              '("d" "Diary"
@@ -290,9 +290,19 @@
                               ("\\subsection*{%s}" . "\\subsection*{%s}")
                               ("\\subsubsection*{%s}" . "\\subsubsection*{%s}")
                               ("\\paragraph*{%s}" . "\\paragraph*{%s}")
-                              ("\\subparagraph*{%s}" . "\\subparagraph*{%s}"))))
+                              ("\\subparagraph*{%s}" . "\\subparagraph*{%s}"))
+                            ("dwt-beamer" "\\documentclass[11pt]{beamer}\n
+                                           \\input{~/OneDrive/Documents/research/latex_preamble/basic_setting.tex}
+                                           \\input{~/OneDrive/Documents/research/latex_preamble/beamer_setting.tex}
+                                           \\input{~/OneDrive/Documents/research/latex_preamble/UI_UCB.tex}
+                                           \\input{~/OneDrive/Documents/research/latex_preamble/command.tex}"
+                              ("\\section*{%s}" . "\\section*{%s}")
+                              ("\\subsection*{%s}" . "\\subsection*{%s}")
+                              ("\\subsubsection*{%s}" . "\\subsubsection*{%s}"))))
   (setq org-latex-default-class "dwt-article")
   (setq org-latex-default-packages-alist nil)
+  (setq org-latex-hyperref-template nil)
+  (setq org-beamer-theme nil)
   (setq org-file-apps (remove '("\\.pdf\\'" . default) org-file-apps))
   ;; format of each entry in org-agenda
   (setq org-agenda-prefix-format
@@ -324,13 +334,13 @@
                '("p" "Paper Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
                  :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:paper \n\n* Paper\n\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
                  :unnarrowed t))
+  ;; (add-to-list 'org-roam-capture-templates
+  ;;              '("b" "Book Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
+  ;;                :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:book \n\n* Book\n\n* Summary")
+  ;;                :unnarrowed t))
   (add-to-list 'org-roam-capture-templates
-               '("b" "Book Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:book \n\n* Book\n\n* Summary")
-                 :unnarrowed t))
-  (add-to-list 'org-roam-capture-templates
-               '("r" "Research Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:research\n\n* Problem\n\n* Result\n* My Idea\n")
+               '("r" "Research Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
+                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:note")
                  :unnarrowed t))
   (setq org-roam-dailies-capture-templates
         '(("d" "default" plain ""
@@ -514,7 +524,8 @@
     (map! :g "M-e" #'osx-dictionary-search-input)))
 
 (after! ivy-bibtex
-  (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
+  ;; (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
+  (setq bibtex-completion-notes-template-multiple-files "#+filetags:paper\n#+title:${title}\n#+OPTIONS: H:1\n* ${title}\n")
   (setq bibtex-completion-no-export-fields (list "language" "file" "urldate" "abstract" "keywords" "url" "note" "doi" "issn" "month"))
   ;; (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
   (setq bibtex-completion-bibliography org-cite-global-bibliography)
@@ -632,9 +643,16 @@ called in case no PDF is found."
   (setq org-pomodoro-length 30)
   (setq org-pomodoro-short-break-length 5)
   (setq org-pomodoro-long-break-frequency 3)
+  (setq org-pomodoro-play-sounds nil)
   (setq org-pomodoro-short-break-sound-p nil)
   (setq org-pomodoro-long-break-sound-p nil)
-  (setq org-pomodoro-play-sounds nil)
+  (setq org-pomodoro-overtime-sound-p nil)
+  (setq org-pomodoro-finished-sound-p nil)
+  (setq org-pomodoro-ticking-sound-p t)
+  (setq org-pomodoro-ticking-sound-states '(:pomodoro))
+  (setq org-pomodoro-audio-player "mplayer")
+  (setq org-pomodoro-ticking-sound "~/Downloads/Gamma_40_Hz-.mp3")
+
   (setq org-pomodoro-keep-killed-pomodoro-time t)
 
   (defun dwt/pop-org-pomodoro-buffer-finish ()

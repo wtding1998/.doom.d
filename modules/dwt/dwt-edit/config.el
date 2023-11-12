@@ -17,19 +17,9 @@
   (map! :g "s-<backspace>" #'evil-delete-backward-word)
   ;;; evil-key-binding
   (map!
-        ;; :nvm "Z" #'evil-jump-item
-        ;; :nvm "L" #'evil-end-of-line
-        ;; :nvm "H" #'evil-beginning-of-line
-        ;; :nvm "J" (kbd "5j")
-        ;; :nvm "K" (kbd "5k")
-        ;; :nv "[q" (kbd "C-c C-c")
-        ;; :nv "[Q" (kbd "C-c C-k")
-        ;; :nv "[p" #'goto-last-change
-        ;; :nv "]p" #'goto-last-change-reverse
         :nv "[z" #'goto-last-change
         :nv "]z" #'goto-last-change-reverse
         :n "Q" #'kill-current-buffer
-        ;; :i "C-v" #'evil-paste-before
         ;; C-n, C-p is binded to evil by default
         ;; to make them available in company-mode, disable them firstly
         :i "C-n" nil
@@ -48,10 +38,11 @@
         :n "zw" #'widen
         :nv "ga" #'evil-avy-goto-char-timer
         :nv "go" #'avy-goto-line
-        :nv "g." #'evil-avy-goto-word-1
+        :nv "g[" #'evil-avy-goto-word-1
+        :nv "g]" #'evil-avy-goto-char
         :nv "g/" #'evil-avy-goto-word-0
-        :nv "g'" #'evil-avy-goto-char
         :v "gC" #'capitalize-region
+        :v "v" #'er/expand-region
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
         ;; :n "U" 'undo-fu-only-redo
@@ -272,3 +263,6 @@
         :n "e" #'vundo-stem-end))
 
 (map! :g "M-9" #'+workspace/other)
+
+(after! prettify-symbols
+  (setq prettify-symbols-unprettify-at-point t))

@@ -12,3 +12,4 @@
 (package! cliphist :recipe (:host github :repo "redguardtoo/cliphist"))
 (package! titlecase :recipe (:host github :repo "duckwork/titlecase.el"))
 (package! atomic-chrome :recipe (:host github :repo "alpha22jp/atomic-chrome"))
+;; (package! blink-search :recipe (:host github :repo "manateelazycat/blink-search"))

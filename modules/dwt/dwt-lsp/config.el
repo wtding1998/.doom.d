@@ -56,3 +56,6 @@
 ;;     (setq lsp-pyright-python-executable-cmd "python3")))
 (use-package! lsp-bridge
     :load-path "~/.emacs.d/.local/straight/repos/lsp-bridge")
+
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy))

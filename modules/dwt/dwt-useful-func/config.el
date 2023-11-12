@@ -52,7 +52,9 @@
 
 (defun dwt/disable-delicated-window ()
   (interactive)
-  (set-window-dedicated-p (frame-selected-window) nil))
+  (set-window-dedicated-p (frame-selected-window) nil)
+  (when (yes-or-no-p "Delete Workspace?")
+    (call-interactively #'+workspace/delete)))
 
 ;;; proxy
 ;; (setq dwt/proxy "http://172.29.80.1:1081")
@@ -241,7 +243,8 @@
 (map! :n "gV" #'dwt/open-with-vscode)
 
 ;;;###autoload
-(defun dwt/delete-package-dir ()
+(defun dwt/remove-package-dir ()
+  "Remove the el and elc files of a package in Doom Emacs."
   (interactive)
   (let* ((repos-dir "~/.emacs.d/.local/straight/repos/")
          (build-dir "~/.emacs.d/.local/straight/build-29.0.91/")
@@ -315,3 +318,7 @@
   ; split: Open in the new window by splitting the selected window (default).
   ; frame: Create a new frame and window in it. Must be using some windowing pacakge.
   (setq atomic-chrome-buffer-open-style 'split))
+
+;; (use-package! blink-search
+;;   :config
+;;   (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/blink-search/backend"))

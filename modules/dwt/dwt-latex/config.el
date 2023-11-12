@@ -237,20 +237,26 @@
                 ((not (string-equal last-char " ")) (insert " "))
                 (t (dwt/wrap-inline-math)))))))
 
+  ;; (defun dwt/wrap-inline-math ()
+  ;;   (if (derived-mode-p 'org-mode)
+  ;;       (progn
+  ;;         (backward-char)
+  ;;         (insert "\\( ")
+  ;;         (forward-char)
+  ;;         (insert " \\)")
+  ;;         (backward-char 3))
+  ;;       (progn
+  ;;         (backward-char)
+  ;;         (insert "$ ")
+  ;;         (forward-char)
+  ;;         (insert " $")
+  ;;         (backward-char 2))))
   (defun dwt/wrap-inline-math ()
-    (if (derived-mode-p 'org-mode)
-        (progn
-          (backward-char)
-          (insert "\\( ")
-          (forward-char)
-          (insert " \\)")
-          (backward-char 3))
-        (progn
-          (backward-char)
-          (insert "$ ")
-          (forward-char)
-          (insert " $")
-          (backward-char 2))))
+    (backward-char)
+    (insert "\\( ")
+    (forward-char)
+    (insert " \\)")
+    (backward-char 3))
 
   (defun dwt/copy-next-label ()
     "Copy the next label."
@@ -407,52 +413,58 @@
     (interactive "sEnter String: ")
     (insert input-string))
 
-  (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
-   cdlatex-math-symbol-alist
-   '( ;; adding missing functions to 3rd level symbols
-     (?_    ("\\downarrow"  ""           "\\inf"))
-     (?1    ("\\cup"           "\\sqrt{?}"     ""))
-     (?2    ("\\cap"           "\\sqrt{?}"     ""))
-     (?3    ("\\nabla"           "\\dim"  ""))
-     (?4    ("\\nabla^2"           ""  ""))
-     (?5    ("\\partial"           ""  ""))
-     (?j    ("\\| ? \\|"           ""  ""))
-     (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
-     (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
-     (?^    ("\\uparrow"    ""           "\\sup"))
-     (?H    ("\\nabla^2"    ""           ""))
-     (?T    ("\\Theta"    ""           ""))
-     (?k    ("\\kappa"      ""           "\\ker"))
-     (?E    ("\\exists"      "\\varnothing"           ""))
-     (?m    ("\\mu"         ""           "\\lim"))
-     (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
-     (?d    ("\\delta"      "\\partial"  "\\dim"))
-     (?D    ("\\Delta"      "\\nabla"    "\\deg"))
-     (?,    ("\\preceq"     ""  ""))
-     ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
-     (?F    ("\\Phi"))
-     ;; now just conveniance
-     (?.    ("\\cdot" "\\dots" "\succeq"))
-     (?:    ("\\vdots" "\\ddots"))
-     (?_     ("_"          ""             ""))
-     (?4     ("$"          ""             ""))
-     (?7     ("\\grad "          ""             ""))
-     (?i     ("\\grad "          ""             ""))
-     (?*    ("\\times" "\\star" "\\ast")))
-   cdlatex-math-modify-alist
-   '( ;; my own stuff
-     (?a    "\\mathbb"        nil          t    nil  nil)
-     (?h    "\\hat"        nil          t    nil  nil)
-     (?q    "\\matr"        nil          t    nil  nil)
-     (?v    "\\vect"        nil          t    nil  nil)
-     ;; (?t    "\\tens"        nil          t    nil  nil)
-     (?T    "\\text"        nil          t    nil  nil)
-     (?1    "\\tilde"           nil          t    nil  nil)
-     (?2    "\\hat"           nil          t    nil  nil)
-     (?3    "\\bar"           nil          t    nil  nil)
-     (?l    "\\label"           "\\label"          t    nil  nil)
-     (?s    "\\mathscr"           nil          t    nil  nil)
-     (?A    "\\abs"           nil          t    nil  nil))))
+  (defun dwt/set-cdlatex-keymap ()
+    "Set cdlatex-keymap. Do not know why sometimes the keymap fails"
+    (interactive)
+    (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
+      cdlatex-math-symbol-alist
+      '( ;; adding missing functions to 3rd level symbols
+        (?_    ("\\downarrow"  ""           "\\inf"))
+        (?1    ("\\cup"           "\\sqrt{?}"     ""))
+        (?2    ("\\cap"           "\\sqrt{?}"     ""))
+        (?3    ("\\nabla"           "\\dim"  ""))
+        (?4    ("\\nabla^2"           ""  ""))
+        (?5    ("\\partial"           ""  ""))
+        (?j    ("\\| ? \\|"           ""  ""))
+        (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
+        (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
+        (?^    ("\\uparrow"    ""           "\\sup"))
+        (?H    ("\\nabla^2"    ""           ""))
+        (?T    ("\\Theta"    ""           ""))
+        (?k    ("\\kappa"      ""           "\\ker"))
+        (?E    ("\\exists"      "\\varnothing"           ""))
+        (?m    ("\\mu"         ""           "\\lim"))
+        (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
+        (?d    ("\\delta"      "\\partial"  "\\dim"))
+        (?D    ("\\Delta"      "\\nabla"    "\\deg"))
+        (?,    ("\\preceq"     ""  ""))
+        ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
+        (?F    ("\\Phi"))
+        ;; now just conveniance
+        (?.    ("\\cdot" "\\dots" "\succeq"))
+        (?:    ("\\vdots" "\\ddots"))
+        (?_     ("_"          ""             ""))
+        (?4     ("$"          ""             ""))
+        (?7     ("\\grad "          ""             ""))
+        (?i     ("\\grad "          ""             ""))
+        (?*    ("\\times" "\\star" "\\ast")))
+      cdlatex-math-modify-alist
+      '( ;; my own stuff
+        (?a    "\\mathbb"        nil          t    nil  nil)
+        (?h    "\\hat"        nil          t    nil  nil)
+        (?q    "\\matr"        nil          t    nil  nil)
+        (?v    "\\vect"        nil          t    nil  nil)
+        ;; (?t    "\\tens"        nil          t    nil  nil)
+        (?T    "\\text"        nil          t    nil  nil)
+        (?1    "\\tilde"           nil          t    nil  nil)
+        (?2    "\\hat"           nil          t    nil  nil)
+        (?3    "\\bar"           nil          t    nil  nil)
+        (?l    "\\label"           "\\label"          t    nil  nil)
+        (?s    "\\mathscr"           nil          t    nil  nil)
+        (?A    "\\abs"           nil          t    nil  nil)))
+    (when (derived-mode-p 'latex-mode)
+      (call-interactively #'revert-buffer)))
+  (dwt/set-cdlatex-keymap))
 
 (after! latex
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
@@ -498,8 +510,8 @@
 (use-package! org-latex-impatient
   :defer t
   :commands (org-latex-impatient-mode)
-  :hook ((org-mode . org-latex-impatient-mode)
-         (latex-mode . org-latex-impatient))
+  ;; :hook ((org-mode . org-latex-impatient-mode))
+         ;; (latex-mode . org-latex-impatient-mode))
   :init
   (map! :leader
         :desc "org-impatient" "to" #'dwt/toggle-org-latex-impatient-mode)
@@ -513,7 +525,7 @@
                                                      "\\newcommand{\\grad}{\\operatorname{grad}}"
                                                      "\\newcommand{\\rank}{\\operatorname{rank}}"
                                                      "\\newcommand{\\tr}{\\operatorname{tr}}"
-                                                     "\\newcommand{\\D}{\\operatorname{D}}"
+                                                     "\\newcommand{\\DD}{\\operatorname{D}}"
                                                      "\\newcommand{\\diag}[1]{\\operatorname{diag}\\{#1\\}}"
                                                      "\\newcommand{\\St}[1]{\\text{St}}"
                                                      "\\newcommand{\\matr}[1]{\\boldsymbol{#1}}"))
@@ -559,3 +571,11 @@
     (define-key outer-map ";" 'evil-tex-a-subscript)
     (define-key inner-map ":" 'evil-tex-inner-superscript)
     (define-key inner-map ";" 'evil-tex-inner-subscript)))
+
+(use-package! bibtex
+  :config
+  (map! :map bibtex-mode-map
+        :localleader
+        :desc "search entry" "s" #'bibtex-search-entry
+        :desc "next entry" "]" #'bibtex-next-entry
+        :desc "prev entry" "[" #'bibtex-previous-entry))

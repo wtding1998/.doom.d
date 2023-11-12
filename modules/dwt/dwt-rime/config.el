@@ -75,6 +75,9 @@
 
   ;; Force to enter chinese ignoring rime-disable-predicates
   (define-key rime-mode-map (kbd "M-c") 'rime-force-enable)
+  (define-key rime-active-mode-map (kbd "M-v") 'rime-inline-ascii)
+  (define-key rime-mode-map (kbd "M-v") 'rime-inline-ascii)
+
   ;; fix the bug of posframe
   (unless IS-MAC
     (defun +rime--posframe-display-content-a (args)

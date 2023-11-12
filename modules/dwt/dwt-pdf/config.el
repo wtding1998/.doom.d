@@ -18,6 +18,7 @@
         :n "F" #'pdf-links-isearch-link
         :n "d" #'pdf-view-scroll-up-or-next-page
         :n "e" #'pdf-view-scroll-down-or-previous-page
+        :n "r" #'pdf-view-reset-slice
         :n "O" #'pdf-occur
         :n "[[" nil
         :n "]]" nil
