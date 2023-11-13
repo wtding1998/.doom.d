@@ -105,20 +105,18 @@
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
-      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 190)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 190)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
-      (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
-    ;;(set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "SF Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
-    ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Ubuntu Mono" dwt/fontsize) :weight 'Regular) ;; 11 13 17 19 23
+      (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)))
 
     ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
     ;; chinese font
     ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font)
-                        charset
+    ;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    ;;   (set-fontset-font (frame-parameter nil 'font)
+    ;;                     charset
+    ;;                     (font-spec :family "Sarasa Term SC Nerd")))) ;; 14 16 20 22 28
                         ;; (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
-                        (font-spec :family "Sarasa Mono SC Nerd")))) ;; 14 16 20 22 28
 
 ;; Make the fringe of modus theme invisible
 (setq modus-themes-common-palette-overrides
@@ -297,9 +295,12 @@
 ;;; title bar
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
 ;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
-(setq frame-title-format
-      '(buffer-file-name (:eval (abbreviate-file-name buffer-file-name))
-         (dired-directory dired-directory "%b")))
+(if IS-LINUX
+  (setq frame-title-format "Emacs")
+  (setq frame-title-format
+        '(buffer-file-name (:eval (abbreviate-file-name buffer-file-name))
+          (dired-directory dired-directory "%b"))))
+
 (define-key global-map (kbd "M-o") #'other-window)
 (define-key global-map (kbd "M-p") #'+popup/other)
 ;;; +modeline, light line in doom
@@ -361,6 +362,33 @@
                                     :v-adjust (or voffset 0.05))
                             (propertize label 'face face))
                     'help-echo help-echo)))))
+(when IS-LINUX
+  (after! evil
+    (defun +modeline-checker-update (&optional status)
+      "Update flycheck text via STATUS."
+      (setq +modeline-checker
+            (pcase status
+              (`finished
+                (if flycheck-current-errors
+                    (let-alist (flycheck-count-errors flycheck-current-errors)
+                      (let ((error (or .error 0))
+                            (warning (or .warning 0))
+                            (info (or .info 0)))
+                        (+modeline-format-icon 'material "nf-md-close"
+                                                (concat " " (number-to-string (+ error warning info)))
+                                                (cond ((> error 0)   'error)
+                                                      ((> warning 0) 'warning)
+                                                      ('success))
+                                                (format "Errors: %d, Warnings: %d, Debug: %d"
+                                                        error
+                                                        warning
+                                                        info)
+                                                0)))
+                    (+modeline-format-icon 'material "nf-md-check" " " 'success 0)))
+              (`running     (+modeline-format-icon 'material "nf-md-alarm_light" "  " 'mode-line "Running..." 0))
+              (`errored     (+modeline-format-icon 'material "nf-md-sim_alert" " !" 'error "Errored!" 0))
+              (`interrupted (+modeline-format-icon 'material "nf-md-pause" " !" 'mode-line "Interrupted" 0))
+              (`suspicious  (+modeline-format-icon 'material "nf-md-priority_high" " !" 'error "Suspicious" 0)))))))
 
 (use-package! awesome-tray
   :defer t
