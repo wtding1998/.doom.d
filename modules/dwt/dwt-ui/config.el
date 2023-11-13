@@ -105,7 +105,7 @@
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 190)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 200)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)))
 
@@ -364,6 +364,22 @@
                     'help-echo help-echo)))))
 (when IS-LINUX
   (after! evil
+    (defun +modeline-format-icon (icon-set icon label &optional face help-echo voffset)
+      "Build from ICON-SET the ICON with LABEL.
+    Using optionals attributes FACE, HELP-ECHO and VOFFSET."
+      (let ((icon-set-fn (pcase icon-set
+                          ('octicon #'nerd-icons-octicon)
+                          ('faicon #'nerd-icons-faicon)
+                          ('codicon #'nerd-icons-codicon)
+                          ('material #'nerd-icons-mdicon))))
+        (propertize (concat (funcall icon-set-fn
+                                    icon
+                                    :face face
+                                    :height 1
+                                    :v-adjust (or voffset -0.225))
+                            (propertize label 'face face))
+                    'help-echo help-echo)))
+
     (defun +modeline-checker-update (&optional status)
       "Update flycheck text via STATUS."
       (setq +modeline-checker
@@ -386,8 +402,8 @@
                                                 0)))
                     (+modeline-format-icon 'material "nf-md-check" " " 'success 0)))
               (`running     (+modeline-format-icon 'material "nf-md-alarm_light" "  " 'mode-line "Running..." 0))
-              (`errored     (+modeline-format-icon 'material "nf-md-sim_alert" " !" 'error "Errored!" 0))
-              (`interrupted (+modeline-format-icon 'material "nf-md-pause" " !" 'mode-line "Interrupted" 0))
+              (`errored     (+modeline-format-icon 'material "nf-md-sim_alert" "  " 'error "Errored!" 0))
+              (`interrupted (+modeline-format-icon 'material "nf-md-pause" " ?" 'mode-line "Interrupted" 0))
               (`suspicious  (+modeline-format-icon 'material "nf-md-priority_high" " !" 'error "Suspicious" 0)))))))
 
 (use-package! awesome-tray
