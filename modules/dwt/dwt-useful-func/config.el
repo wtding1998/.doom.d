@@ -137,12 +137,14 @@
 (use-package! speed-type
   :commands (speed-type-buffer
              speed-type-text))
-
+(if IS-LINUX
+    (setq dwt/emacs-config-dir "~/.config/emacs/")
+  (setq dwt/emacs-config-dir "~/.emacs.d"))
+(setq dwt/repos-dir (concat dwt/emacs-config-dir ".local/straight/repos"))
 ;;;###autoload
 (defun dwt/goto-package-dir ()
   (interactive)
-  (let* ((repos "~/.emacs.d/.local/straight/repos/")
-         (packages (directory-files repos))
+  (let* ((packages (directory-files dwt/repos-dir))
          (package-name (ivy-read "Package Name: " packages))
          (package-path (concat repos package-name)))
     (find-file (concat package-path))))

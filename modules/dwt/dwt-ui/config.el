@@ -400,7 +400,7 @@
                                                         warning
                                                         info)
                                                 0)))
-                    (+modeline-format-icon 'material "nf-md-check" " " 'success 0)))
+                    (+modeline-format-icon 'material "nf-md-check" " " 'success "Success" 0)))
               (`running     (+modeline-format-icon 'material "nf-md-alarm_light" "  " 'mode-line "Running..." 0))
               (`errored     (+modeline-format-icon 'material "nf-md-sim_alert" "  " 'error "Errored!" 0))
               (`interrupted (+modeline-format-icon 'material "nf-md-pause" " ?" 'mode-line "Interrupted" 0))
