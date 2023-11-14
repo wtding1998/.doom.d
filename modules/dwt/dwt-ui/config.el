@@ -101,7 +101,8 @@
 ;; font
 (defun dwt/doom-font()
     (when IS-MAC
-      (set-face-attribute 'default nil :family "Sarasa Mono SC Nerd" :height 150)
+      ;; (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 150)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 150)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
@@ -344,67 +345,49 @@
     (load-theme (intern-soft theme-name) t nil)))
 
 ;;; change the height of icon for mac
-(when IS-MAC
-  (after! evil
-    (defun +modeline-format-icon (icon-set icon label &optional face help-echo voffset)
-      "Build from ICON-SET the ICON with LABEL.
-    Using optionals attributes FACE, HELP-ECHO and VOFFSET."
-      (let ((icon-set-fn (pcase icon-set
-                          ('octicon #'all-the-icons-octicon)
-                          ('faicon #'all-the-icons-faicon)
-                          ('material #'all-the-icons-material)
-                          ('alltheicon #'all-the-icons-alltheicon)
-                          ('fileicon #'all-the-icons-fileicon))))
-        (propertize (concat (funcall icon-set-fn
-                                    icon
-                                    :face face
-                                    :height 0.8
-                                    :v-adjust (or voffset 0.05))
-                            (propertize label 'face face))
-                    'help-echo help-echo)))))
-(when IS-LINUX
-  (after! evil
-    (defun +modeline-format-icon (icon-set icon label &optional face help-echo voffset)
-      "Build from ICON-SET the ICON with LABEL.
-    Using optionals attributes FACE, HELP-ECHO and VOFFSET."
-      (let ((icon-set-fn (pcase icon-set
-                          ('octicon #'nerd-icons-octicon)
-                          ('faicon #'nerd-icons-faicon)
-                          ('codicon #'nerd-icons-codicon)
-                          ('material #'nerd-icons-mdicon))))
-        (propertize (concat (funcall icon-set-fn
-                                    icon
-                                    :face face
-                                    :height 1
-                                    :v-adjust (or voffset -0.225))
-                            (propertize label 'face face))
-                    'help-echo help-echo)))
+(after! evil
+  (defun +modeline-format-icon (icon-set icon label &optional face help-echo voffset)
+    "Build from ICON-SET the ICON with LABEL.
+  Using optionals attributes FACE, HELP-ECHO and VOFFSET."
+    (let ((icon-set-fn (pcase icon-set
+                        ('octicon #'nerd-icons-octicon)
+                        ('faicon #'nerd-icons-faicon)
+                        ('codicon #'nerd-icons-codicon)
+                        ('material #'nerd-icons-mdicon))))
+      (propertize (concat (funcall icon-set-fn
+                                  icon
+                                  :face face
+                                  :height 0.7
+                                  :v-adjust (or voffset -0.225))
+                          (propertize label 'face face))
+                  'help-echo help-echo)))
 
-    (defun +modeline-checker-update (&optional status)
-      "Update flycheck text via STATUS."
-      (setq +modeline-checker
-            (pcase status
-              (`finished
-                (if flycheck-current-errors
-                    (let-alist (flycheck-count-errors flycheck-current-errors)
-                      (let ((error (or .error 0))
-                            (warning (or .warning 0))
-                            (info (or .info 0)))
-                        (+modeline-format-icon 'material "nf-md-close"
-                                                (concat " " (number-to-string (+ error warning info)))
-                                                (cond ((> error 0)   'error)
-                                                      ((> warning 0) 'warning)
-                                                      ('success))
-                                                (format "Errors: %d, Warnings: %d, Debug: %d"
-                                                        error
-                                                        warning
-                                                        info)
-                                                0)))
-                    (+modeline-format-icon 'material "nf-md-check" " " 'success "Success" 0)))
-              (`running     (+modeline-format-icon 'material "nf-md-alarm_light" "  " 'mode-line "Running..." 0))
-              (`errored     (+modeline-format-icon 'material "nf-md-sim_alert" "  " 'error "Errored!" 0))
-              (`interrupted (+modeline-format-icon 'material "nf-md-pause" " ?" 'mode-line "Interrupted" 0))
-              (`suspicious  (+modeline-format-icon 'material "nf-md-priority_high" " !" 'error "Suspicious" 0)))))))
+  (defun +modeline-checker-update (&optional status)
+    "Update flycheck text via STATUS."
+    (setq +modeline-checker
+          (pcase status
+            (`finished
+              (if flycheck-current-errors
+                  (let-alist (flycheck-count-errors flycheck-current-errors)
+                    (let ((error (or .error 0))
+                          (warning (or .warning 0))
+                          (info (or .info 0)))
+                      (+modeline-format-icon 'material "nf-md-close"
+                                              (concat " " (number-to-string (+ error warning info)))
+                                              (cond ((> error 0)   'error)
+                                                    ((> warning 0) 'warning)
+                                                    ('success))
+                                              (format "Errors: %d, Warnings: %d, Debug: %d"
+                                                      error
+                                                      warning
+                                                      info)
+                                              0.2)))
+                  (+modeline-format-icon 'material "nf-md-check" " " 'success "Success" 0.2)))
+            (`running     (+modeline-format-icon 'material "nf-md-alarm_light" "  " 'mode-line "Running..." 0.2))
+            (`errored     (+modeline-format-icon 'material "nf-md-sim_alert" "  " 'error "Errored!" 0.2))
+            (`interrupted (+modeline-format-icon 'material "nf-md-pause" " ?" 'mode-line "Interrupted" 0.2))
+            (`suspicious  (+modeline-format-icon 'material "nf-md-priority_high" " !" 'error "Suspicious" 0.2))))))
+
 
 (use-package! awesome-tray
   :defer t
