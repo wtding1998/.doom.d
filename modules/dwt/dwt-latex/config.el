@@ -349,7 +349,17 @@
             (insert ":")
             (if (string-equal input-key "SPC")
                 (insert " ")
-                (insert input-key)))))))
+                (insert input-key))))))
+
+  ; exclude spell fu faces in latex-mode
+  (setf (alist-get 'latex-mode +spell-excluded-faces-alist)
+        ' (font-latex-math-face
+           font-latex-sedate-face
+           font-lock-constant-face
+           font-lock-comment-face
+           font-lock-function-name-face
+           font-lock-keyword-face
+           font-lock-variable-name-face)))
 
 
 ;;;###autoload

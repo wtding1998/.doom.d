@@ -29,21 +29,22 @@
           (setq dwt/org-clock-reminder-last-replied-time (float-time))))))
 
   (defun dwt/notifications-notify-start-process (&rest params)
-    (with-demoted-errors "Notification error: %S"
-      (let ((title (plist-get params :title))
-            (body (plist-get params :body))
-            (timeout (plist-get params :timeout)))
-        (unless timeout
-          (setq timeout dwt/notifications-default-timeout))
-        (start-process
-          "alerter"
-          "*alerter*"
-          (executable-find "alerter")
-          "-sender" "org.gnu.Emacs"
-          "-activate" "org.gnu.Emacs"
-          "-timeout" (number-to-string timeout)
-          "-title" title
-          "-message" body))))
+    (when IS-MAC
+      (with-demoted-errors "Notification error: %S"
+        (let ((title (plist-get params :title))
+              (body (plist-get params :body))
+              (timeout (plist-get params :timeout)))
+          (unless timeout
+            (setq timeout dwt/notifications-default-timeout))
+          (start-process
+            "alerter"
+            "*alerter*"
+            (executable-find "alerter")
+            "-sender" "org.gnu.Emacs"
+            "-activate" "org.gnu.Emacs"
+            "-timeout" (number-to-string timeout)
+            "-title" title
+            "-message" body)))))
 
   (defun dwt/org-clock-reminder ()
     (interactive)

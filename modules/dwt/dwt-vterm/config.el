@@ -32,14 +32,15 @@
         "M-9" nil)
 
 
-  (map! :map vterm-mode-map :i "C-w" #'vterm-send-C-w
-        :map vterm-mode-map :i "C-u" #'vterm-send-C-u
-        :map vterm-mode-map :i "C-e" #'vterm-send-C-e
-        :map vterm-mode-map :i "C-d" #'vterm-send-C-d
+  (map! :map vterm-mode-map :i "C-w" #'(lambda () (interactive) (vterm-send "C-w"))
+        :map vterm-mode-map :i "C-u" #'(lambda () (interactive) (vterm-send "C-u"))
+        :map vterm-mode-map :i "C-a" #'(lambda () (interactive) (vterm-send "C-a"))
+        :map vterm-mode-map :i "C-e" #'(lambda () (interactive) (vterm-send "C-e"))
+        :map vterm-mode-map :i "C-c" #'(lambda () (interactive) (vterm-send "C-c"))
+        :map vterm-mode-map :i "C-d" #'(lambda () (interactive) (vterm-send "C-d"))
         ;; :map vterm-mode-map :i "C-v" #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
         :map vterm-mode-map :i "C-v" #'vterm-yank
         :map vterm-mode-map :i "M-v" #'vterm-yank
-        :map vterm-mode-map :n "p"   #'(lambda () (interactive) (vterm-yank))
-        :map vterm-mode-map :i "C-a" #'vterm-send-C-a))
+        :map vterm-mode-map :n "p"   #'(lambda () (interactive) (vterm-yank))))
   ;; (set-popup-rules!
   ;;   '(("^\\*doom:vterm" :size 15 :select t)))

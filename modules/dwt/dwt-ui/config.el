@@ -105,7 +105,7 @@
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 200)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)))
 
@@ -491,7 +491,10 @@
   (dolist (cmd '(pop-to-mark-command
                  pop-global-mark
                  goto-last-change))
-    (advice-add cmd :after #'my-recenter-and-pulse)))
+    (advice-add cmd :after #'my-recenter-and-pulse))
+  :config
+  (setq pulse-iterations 2
+        pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
 (setq dwt/my-mode-line-info "nouse for L! ")
