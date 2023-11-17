@@ -139,15 +139,15 @@
              speed-type-text))
 (if IS-LINUX
     (setq dwt/emacs-config-dir "~/.config/emacs/")
-  (setq dwt/emacs-config-dir "~/.emacs.d"))
-(setq dwt/repos-dir (concat dwt/emacs-config-dir ".local/straight/repos"))
+  (setq dwt/emacs-config-dir "~/.emacs.d/"))
+(setq dwt/repos-dir (concat dwt/emacs-config-dir ".local/straight/repos/"))
 ;;;###autoload
 (defun dwt/goto-package-dir ()
   (interactive)
   (let* ((packages (directory-files dwt/repos-dir))
          (package-name (ivy-read "Package Name: " packages))
-         (package-path (concat repos package-name)))
-    (find-file (concat package-path))))
+         (package-path (concat dwt/repos-dir package-name)))
+    (find-file package-path)))
 
 (setq dwt/freqneutly-used-directories '("~/Downloads" "~/Pictures/screenshot/"))
 (defun dwt/copy-file-from-screenshot-download()
