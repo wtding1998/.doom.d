@@ -297,7 +297,10 @@
 ;; (setq-default frame-title-format '("DOOM-EMACS - " user-login-name "@" system-name " - %b"))
 ;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
 (if IS-LINUX
-  (setq frame-title-format "Emacs")
+    (progn
+      (setq frame-title-format "Emacs")
+      (setq doom-big-font-increment 5) ;; for doom big font mode
+      (toggle-frame-maximized))
   (setq frame-title-format
         '(buffer-file-name (:eval (abbreviate-file-name buffer-file-name))
           (dired-directory dired-directory "%b"))))
@@ -480,7 +483,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "nouse for L! ")
+(setq dwt/my-mode-line-info "Supp L ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (defun dwt/toggle-mode-line-info ()
