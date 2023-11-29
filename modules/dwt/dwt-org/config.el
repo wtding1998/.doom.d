@@ -321,6 +321,7 @@
               "oc" #'org-roam-capture
               "oC" #'org-roam-dailies-goto-today)
 (after! org-roam
+  (setq org-roam-db-location "~/.config/doom/cache/org-roam.db")
   (defun dwt/org-roam-fix-hash ()
     "fix error: org-id-add-location: Wrong type argument: hash-table-p, nil"
     (interactive)
