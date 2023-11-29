@@ -267,7 +267,9 @@
       (unstaged . show)
       (unpushed . show)
       (unpulled . show)))
-  (setq magit-status-initial-section '(2)))
+  (setq magit-status-initial-section '(2))
+  (setq-default magit-diff-refine-hunk 'all)
+  (add-hook 'magit-mode-hook #'(lambda () (interactive) (visual-line-mode 1))))
 
 ;;;###autoload
 (defun dwt/buffers-in-all-windows ()
