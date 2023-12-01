@@ -589,3 +589,35 @@
         :desc "search entry" "s" #'bibtex-search-entry
         :desc "next entry" "]" #'bibtex-next-entry
         :desc "prev entry" "[" #'bibtex-previous-entry))
+
+(use-package! ivy-bibtex
+  :commands (bibtex-completion-candidates)
+  :init
+  (run-with-idle-timer 5 nil #'bibtex-completion-candidates)
+  :config
+  ;; (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
+  (setq bibtex-completion-notes-template-multiple-files "#+filetags:paper\n#+title:${title}\n#+OPTIONS: H:1\n* ${title}\n")
+  (setq bibtex-completion-no-export-fields (list "language" "file" "urldate" "abstract" "keywords" "url" "note" "doi" "issn" "month"))
+  ;; (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
+  (setq bibtex-completion-bibliography org-cite-global-bibliography)
+  (setq bibtex-completion-notes-path "~/org/roam")
+  (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
+  (ivy-bibtex-ivify-action dwt/bibtex-completion-noter-attach-pdf-path dwt/ivy-bibtex-noter-attach-pdf-path)
+  (ivy-set-actions
+    'ivy-bibtex
+    '(("p" ivy-bibtex-open-pdf "Open PDF")
+      ;; ("a" ivy-bibtex-open-any "Open PDF, URL, or DOI")
+      ("i" ivy-bibtex-insert-bibtex "Insert Bibtex")
+      ("n" dwt/ivy-bibtex-noter-attach-pdf-path "Insert Noter Pdf Path")
+      ("k" ivy-bibtex-insert-key "Insert Key")
+      ("c" ivy-bibtex-insert-citation "Insert Citation")
+      ("e" ivy-bibtex-edit-notes "Edit Notes")
+      ("u" ivy-bibtex-open-url-or-doi "Open URL, or DOI")))
+  (setq bibtex-completion-edit-notes-function 'dwt/bibtex-completion-edit-notes)
+  (map! :leader :desc "open pdf" "nB" #'dwt/ivy-bibtex-open-pdf)
+
+  (defun dwt/ivy-bibtex-open-pdf ()
+    "Open pdf of the choosen bibliography"
+    (interactive)
+    (let ((ivy-bibtex-default-action 'ivy-bibtex-open-pdf))
+      (call-interactively #'ivy-bibtex))))
