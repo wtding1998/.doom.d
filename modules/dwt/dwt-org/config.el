@@ -316,12 +316,15 @@
   (setq org-clock-mode-line-total 'today))
 
 ;; roam
-(map! :leader "of" #'org-roam-node-find
-              "oi" #'org-roam-node-insert
-              "oc" #'org-roam-capture
-              "oC" #'org-roam-dailies-goto-today)
-(after! org-roam
+(use-package! org-roam
+  :init
   (setq org-roam-db-location "~/.config/doom/cache/org-roam.db")
+  (map! :leader "of" #'org-roam-node-find
+                "oi" #'org-roam-node-insert
+                "oc" #'org-roam-capture
+                "oC" #'org-roam-dailies-goto-today)
+  :config
+  (run-with-idle-timer 10 nil #'org-roam-db-sync)
   (defun dwt/org-roam-fix-hash ()
     "fix error: org-id-add-location: Wrong type argument: hash-table-p, nil"
     (interactive)
@@ -525,7 +528,11 @@
     :init
     (map! :g "M-e" #'osx-dictionary-search-input)))
 
-(after! ivy-bibtex
+(use-package! ivy-bibtex
+  :commands (bibtex-completion-candidates)
+  :init
+  (run-with-idle-timer 5 nil #'bibtex-completion-candidates)
+  :config
   ;; (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
   (setq bibtex-completion-notes-template-multiple-files "#+filetags:paper\n#+title:${title}\n#+OPTIONS: H:1\n* ${title}\n")
   (setq bibtex-completion-no-export-fields (list "language" "file" "urldate" "abstract" "keywords" "url" "note" "doi" "issn" "month"))
