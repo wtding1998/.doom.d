@@ -2,6 +2,12 @@
 # name: beamer-template
 # --
 \documentclass{beamer}
+% set path
+\makeatletter
+\def\input@path{{../../OneDrive/Documents/research/latex_preamble/}{./}}
+\graphicspath{{../../OneDrive/Documents/research/latex_preamble/}{./Figures}}
+\makeatother
+% input preamble
 \input{../latex_preamble/basic_setting.tex}
 \input{../latex_preamble/beamer_setting.tex}
 \input{../latex_preamble/UI_UCB.tex}

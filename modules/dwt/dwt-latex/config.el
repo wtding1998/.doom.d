@@ -98,9 +98,9 @@
          (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
          (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
-  (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
-   ;; TODO add // in outer-name
-  (define-and-bind-text-object "-" "&" "&")
+  ;; (define-and-bind-text-object "=" "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\(\\|\\\\in"  "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\$\\|\\\\)\\|\\\\in")
+  (setq dwt/tex-pair-regex "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\\\in")
+  (define-and-bind-text-object "=" dwt/tex-pair-regex dwt/tex-pair-regex)
 
   (defun dwt/find-math-next()
     "Goto the next math environment in tex buffer."
@@ -292,7 +292,7 @@
         :desc "Output" "o" #'TeX-recenter-output-buffer
         :desc "Error" "e" #'TeX-next-error
         :desc "View by pdf-tools" "d" #'dwt/view-pdf-by-pdf-tools
-        :desc "Run" "C" #'dwt/latex-file
+        :desc "Run" "a" #'dwt/latex-file
         :desc "Run" "c" #'dwt/TeX-save-and-run-all
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
         :desc "Preview Environment" "e" #'preview-environment
@@ -597,7 +597,7 @@
   :config
   ;; (setq bibtex-completion-notes-template-multiple-files "${=key=}\n#+filetags:paper \n${author-or-editor} (${year}): ${title}\n* ${author-or-editor} (${year}): ${title}\n")
   (setq bibtex-completion-notes-template-multiple-files "#+filetags:paper\n#+title:${title}\n#+OPTIONS: H:1\n* ${title}\n")
-  (setq bibtex-completion-no-export-fields (list "language" "file" "urldate" "abstract" "keywords" "url" "note" "doi" "issn" "month"))
+  (setq bibtex-completion-no-export-fields (list "language" "file" "urldate" "abstract" "keywords" "url" "note" "doi" "issn" "month" "isbn" "address"))
   ;; (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
   (setq bibtex-completion-bibliography org-cite-global-bibliography)
   (setq bibtex-completion-notes-path "~/org/roam")

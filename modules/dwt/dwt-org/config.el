@@ -200,6 +200,10 @@
         "* TODO %T %? :meeting:\n"))
 
   (add-to-list 'org-capture-templates
+      '("l" "Latex Note" entry  (file+headline "~/OneDrive/Documents/study note/org/other_note.org" "Latex")
+        "* %?\n %c\n"))
+
+  (add-to-list 'org-capture-templates
       '("e" "Event" entry  (file+headline "~/OneDrive/Documents/diary/org/agenda.org" "Future")
         "* TODO %? :event:\n"))
 

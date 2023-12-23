@@ -483,8 +483,9 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "Supp L ")
+(setq dwt/my-mode-line-info "BUE PA ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
+;; (doom-big-font-mode 1)
 
 (defun dwt/toggle-mode-line-info ()
   (interactive)
