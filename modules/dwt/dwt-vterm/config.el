@@ -37,6 +37,7 @@
         :map vterm-mode-map :i "C-a" #'(lambda () (interactive) (vterm-send "C-a"))
         :map vterm-mode-map :i "C-e" #'(lambda () (interactive) (vterm-send "C-e"))
         :map vterm-mode-map :i "C-c" #'(lambda () (interactive) (vterm-send "C-c"))
+        :map vterm-mode-map :i "C-t" #'(lambda () (interactive) (vterm-send "C-t"))
         :map vterm-mode-map :i "C-d" #'(lambda () (interactive) (vterm-send "C-d"))
         ;; :map vterm-mode-map :i "C-v" #'(lambda () (interactive) (vterm-yank) (vterm-send-backspace))
         :map vterm-mode-map :i "C-v" #'vterm-yank

@@ -601,6 +601,8 @@
   ;; (setq bibtex-completion-bibliography '("~/org/tensor.bib" "~/org/second-optim.bib" "~/org/matrix-SD.bib" "~/org/book.bib" "~/org/manifold.bib" "~/org/optimization.bib"))
   (setq bibtex-completion-bibliography org-cite-global-bibliography)
   (setq bibtex-completion-notes-path "~/org/roam")
+  ;; (setq bibtex-completion-library-path "~/OneDrive/zotfile")
+  (setq bibtex-completion-library-path nil)
   (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   (ivy-bibtex-ivify-action dwt/bibtex-completion-noter-attach-pdf-path dwt/ivy-bibtex-noter-attach-pdf-path)
   (ivy-set-actions

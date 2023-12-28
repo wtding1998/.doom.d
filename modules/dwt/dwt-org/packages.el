@@ -13,3 +13,5 @@
 ;; (package! alert :recipe (:host github :repo "jwiegley/alert"))
 (package! org-modern :recipe (:host github :repo "minad/org-modern"))
 (package! org-download :recipe (:host github :repo "abo-abo/org-download"))
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))

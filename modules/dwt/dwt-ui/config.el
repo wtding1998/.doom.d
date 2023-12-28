@@ -97,7 +97,9 @@
   (interactive)
   (load-theme (nth (random (length dwt/dark-themes)) dwt/light-themes) t nil))
 
-
+(setq dwt/gui-dark-theme 'doom-opera
+      dwt/gui-light-theme 'modus-operandi
+      dwt/tui-dark-theme 'doom-one)
 ;; font
 (defun dwt/doom-font()
     (when IS-MAC
@@ -106,7 +108,8 @@
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120)
+      ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 190)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)))
 
@@ -133,10 +136,10 @@
           (when (equal doom-theme 'doom-one)
             (dwt/doom-font)
           ;; theme for GUI in daemon
-            ;; (load-theme 'doom-tokyo-night t nil)
-            (load-theme 'modus-operandi t nil)))
+            (load-theme dwt/gui-dark-theme t nil)))
+          ;; (load-theme dwt/gui-light-theme t nil)
       ;;; theme for TUI in daemon
-      (load-theme 'doom-zenburn t nil))))
+      (load-theme dwt/tui-dark-theme t nil))))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
@@ -145,11 +148,11 @@
       (progn
         ;; (load-theme 'modus-operandi t nil)
         (when (equal doom-theme 'doom-one)
-          ;; (load-theme 'doom-tokyo-night t nil)
-          (load-theme 'modus-operandi t nil)
+          (load-theme dwt/gui-dark-theme t nil)
+          ;; (load-theme dwt/gui-light-theme t nil)
           (dwt/doom-font)))
     ;; theme for TUI without daemon
-    (load-theme 'doom-monokai-pro t nil)))
+    (load-theme dwt/tui-dark-theme t nil)))
 
 ;; hide title bar
 ;; (setq default-frame-alist '((undecorated . t)))
@@ -299,8 +302,8 @@
 (if IS-LINUX
     (progn
       (setq frame-title-format "Emacs")
-      (setq doom-big-font-increment 5) ;; for doom big font mode
-      (toggle-frame-maximized))
+      (setq doom-big-font-increment 5)) ;; for doom big font mode
+      ;; (toggle-frame-fullscreen))
   (setq frame-title-format
         '(buffer-file-name (:eval (abbreviate-file-name buffer-file-name))
           (dired-directory dired-directory "%b"))))
@@ -485,7 +488,6 @@
 (setq dwt/show-my-mode-line-info t)
 (setq dwt/my-mode-line-info "BUE PA ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
-;; (doom-big-font-mode 1)
 
 (defun dwt/toggle-mode-line-info ()
   (interactive)

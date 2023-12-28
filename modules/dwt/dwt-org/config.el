@@ -433,6 +433,7 @@
 ;;; noter
 (after! org-noter
   (setq org-noter-auto-save-last-location t)
+  (setq org-noter-notes-search-path '("~/org/roam/"))
   ;; (advice-add #'org-noter-insert-note :after #'dwt/org-noter-switch-to-note-window)
   ;; (defun dwt/org-noter-switch-to-note-window ()
   ;;   (interactive)
@@ -709,5 +710,9 @@ called in case no PDF is found."
 ;;   :config
 ;;   (setq alert-default-style 'notifier))
 (use-package! org-noter
+  :after org-roam
   :config
   (setq org-noter-highlight-selected-text t))
+
+(use-package! org-roam-bibtex
+  :after org-roam)

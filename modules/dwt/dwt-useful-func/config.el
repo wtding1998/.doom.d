@@ -191,6 +191,7 @@
       (dwt/replace-newline-by-space-point (point) (point-max))))
 
 (map! :leader "omr" #'dwt/replace-newline-by-space)
+(map! :leader "o-" #'calendar)
 ;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
 ;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
 
