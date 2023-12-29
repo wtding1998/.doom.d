@@ -7,6 +7,7 @@
 (package! emacs-devdocs-browser :recipe (:host github :repo "blahgeek/emacs-devdocs-browser"))
 (package! evil-motion-trainer :recipe (:host github :repo "martinbaillie/evil-motion-trainer"))
 (package! vundo)
+(package! evil-textobj-line :recipe (:host github :repo "emacsorphanage/evil-textobj-line"))
 ;; (package! evil-mark-replace)
 ;; (package! awesome-pair :recipe (:host github :repo "manateelazycat/awesome-pair"))
 

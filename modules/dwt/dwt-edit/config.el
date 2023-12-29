@@ -266,3 +266,6 @@
 
 (after! prettify-symbols
   (setq prettify-symbols-unprettify-at-point t))
+
+(use-package! evil-textobj-line
+  :after evil)
