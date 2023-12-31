@@ -25,11 +25,24 @@
         :n "]]" nil
         ;; :n "-" nil
         :n "C-j" #'pdf-history-forward
-        :n "C-k" #'pdf-history-backward))
+        :n "C-k" #'pdf-history-backward)
+  (map! :map pdf-sync-minor-mode-map
+        :g "C-<mouse-1>" #'dwt/pdf-sync-backward-search-mouse))
 
 (after! saveplace-pdf-view
   (map! :map pdf-view-mode-map
         :n "q" #'previous-buffer))
+
+;;;###autoload
+(defun dwt/pdf-sync-backward-search-mouse ()
+  (interactive)
+  (save-excursion
+    (call-interactively #'other-window)
+    (evil-set-marker ?A)
+    (message buffer-file-name))
+  ;; (call-interactively #'other-window)
+  (call-interactively #'pdf-sync-backward-search-mouse))
+
 
 ;;;###autoload
 (defun dwt/open-by-zathura ()
