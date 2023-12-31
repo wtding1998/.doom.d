@@ -172,7 +172,7 @@
          ("C-c p h" . cape-history)
          ("C-c p f" . cape-file)
          ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-symbol)
+         ("C-c p s" . cape-elisp-symbol)
          ("C-c p a" . cape-abbrev)
          ("C-c p i" . cape-ispell)
          ("C-c p l" . cape-line)
@@ -195,3 +195,7 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
+
+(use-package! counsel
+  :config
+  (map! :leader "im" #'counsel-evil-marks))

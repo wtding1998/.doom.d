@@ -719,7 +719,7 @@ called in case no PDF is found."
 
 (use-package! grip-mode
   :commands (grip-mode)
-  :config
+  :init
   (map! :map org-mode-map :localleader
         "GG" #'grip-mode
         "Gb" #'grip-browse-preview

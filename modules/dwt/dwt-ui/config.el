@@ -99,7 +99,8 @@
 
 (setq dwt/gui-dark-theme 'doom-opera
       dwt/gui-light-theme 'modus-operandi
-      dwt/tui-dark-theme 'doom-one)
+      ;; dwt/tui-dark-theme 'doom-zenburn)
+      dwt/tui-dark-theme dwt/gui-dark-theme)
 ;; font
 (defun dwt/doom-font()
     (when IS-MAC
@@ -109,7 +110,7 @@
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
       ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120)
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 190)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 105)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)))
 
