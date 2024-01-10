@@ -109,8 +109,9 @@
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
-      ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120)
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 105)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120)
+      ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 105)
+      ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 200)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)))
 
@@ -183,9 +184,10 @@
    (diff-hl-margin-mode -1))
 
 (use-package! awesome-tab
-  :defer t
-  :commands (awesome-tab-mode)
+  ;; :defer t
+  ;; :commands (awesome-tab-mode)
   :config
+  (awesome-tab-mode 1)
   (defhydra awesome-fast-switch (:hint nil)
     "
   ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
@@ -223,41 +225,31 @@
     ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
     ("q" nil "quit"))
 
-  (map! :n "r" #'awesome-fast-switch/body
-        :n "ge" #'awesome-tab-ace-jump)
   (map! :map awesome-tab-mode-map
+        :n "[t" #'awesome-tab-ace-jump
+        :n "]t" #'awesome-fast-switch/body
+        :n "[T" #'awesome-tab-backward-group
+        :n "]T" #'awesome-tab-forward-group)
+  (map! :map awesome-tab-mode-map :leader
         :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
-        :desc "switch tabs group" "tt" #'awesome-tab-counsel-switch-group
-        :desc "next-group" "tn" #'awesome-tab-forward-group
-        :desc "last-group" "tp" #'awesome-tab-backward-group
-        :desc "kill-group" "tk" #'awesome-tab-kill-all-buffers-in-current-group)
-
-  (evil-define-key 'normal 'global "gt" #'awesome-tab-forward-tab)
-  (evil-define-key 'normal 'global "gT" #'awesome-tab-backward-tab)
-  (evil-define-key 'normal 'global "]t" #'awesome-tab-forward-group)
-  (evil-define-key 'normal 'global "[t" #'awesome-tab-backward-group)
-  (evil-define-key 'normal 'global (kbd"<leader>tt") #'awesome-tab-counsel-switch-group)
-  (evil-define-key 'normal 'global (kbd"<leader>t1") #'awesome-tab-kill-other-buffers-in-current-group)
-  (evil-define-key 'normal 'global (kbd"<leader>t0") #'awesome-tab-kill-all-buffers-in-current-group)
-  ;; (evil-define-key 'normal 'global (kbd"<leader>tn") #'awesome-tab-forward-tab)
-  ;; (evil-define-key 'normal 'global (kbd"<leader>tp") #'awesome-tab-backward-tab)
-  (map! :ni "C-1" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-2" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-3" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-4" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-5" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-6" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-7" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-8" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-9" #'awesome-tab-select-visible-tab)
-  (map! :ni "C-<tab>" #'awesome-tab-forward-tab)
-  (map! :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
+        :desc "kill-group" "t0" #'awesome-tab-kill-all-buffers-in-current-group)
+  (map! :map awesome-tab-mode-map :ni "C-1" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-2" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-3" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-4" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-5" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-6" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-7" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-8" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-9" #'awesome-tab-select-visible-tab)
+  (map! :map awesome-tab-mode-map :ni "C-<tab>" #'awesome-tab-forward-tab)
+  (map! :map awesome-tab-mode-map :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
 
   ;; height
   (if (not IS-MAC)
       ;; arch
       (progn
-        (setq awesome-tab-height 180
+        (setq awesome-tab-height 120
               awesome-tab-active-bar-height 20))
       ;; mac
       (progn
