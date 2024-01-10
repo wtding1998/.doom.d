@@ -351,6 +351,18 @@
                '("r" "Research Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
                  :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:note")
                  :unnarrowed t))
+  (add-to-list 'org-roam-capture-templates
+          '("b" "bibliography reference" plain "%?"
+            :target
+            (file+head "${citekey}.org" "#+title: ${title}\n")
+            :unnarrowed t))
+
+  (add-to-list 'org-roam-capture-templates
+          '("y" "biyliography reference" plain ""
+            :target
+            (file+head "${citekey}.org" "#+title: ${title}\n")
+            :unnarrowed t))
+
   (setq org-roam-dailies-capture-templates
         '(("d" "default" plain ""
             :if-new (file+head "%<%Y-%m-%d>.org"
@@ -434,6 +446,12 @@
 (after! org-noter
   (setq org-noter-auto-save-last-location t)
   (setq org-noter-notes-search-path '("~/org/roam/"))
+
+  (defun dwt/kill-org-noter ()
+    (interactive)
+    (set-window-dedicated-p (frame-selected-window) nil)
+    (call-interactively #'+workspace/delete)
+    (call-interactively #'delete-frame))
   ;; (advice-add #'org-noter-insert-note :after #'dwt/org-noter-switch-to-note-window)
   ;; (defun dwt/org-noter-switch-to-note-window ()
   ;;   (interactive)
@@ -456,6 +474,7 @@
         :nvi "nI" #'dwt/org-noter-insert-precise-note
         :nvi "i" #'dwt/org-noter-insert-note
         :nvi "I" #'dwt/org-noter-insert-precise-note
+        :nvi "nk" #'dwt/kill-org-noter
         :nvi "nq" #'org-noter-kill-session)
   (map! :map org-noter-notes-mode-map
         :nv "I" #'org-noter-sync-current-note

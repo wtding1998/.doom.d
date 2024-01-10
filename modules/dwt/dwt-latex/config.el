@@ -77,6 +77,12 @@
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
                                    :help "Remove .auctex dir"))
+  (add-to-list 'TeX-command-list '("Archieve"
+                                   "mkdir -p preamble && cp ~/OneDrive/Documents/research/latex_preamble/*.tex ./preamble && zip -r ../%(s-filename-only).zip ./ -x ./git"
+                                   TeX-run-command
+                                   nil                              ; ask for confirmation
+                                   t                                ; active in all modes
+                                   :help "Remove git, copy preambles and compress"))
   (setq TeX-source-correlate-start-server t)
   (when IS-MAC
     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
@@ -306,6 +312,7 @@
         :desc "toc" "=" #'reftex-toc
         :desc "format" "f" #'dwt/format-latex-file
         :desc "clean" "F" #'dwt/clean-emacs-latex-file
+        :desc "archieve" "A" #'dwt/archieve-latex-file
         :desc "goto label" "l" #'reftex-goto-label)
 
   (defun dwt/TeX-save-and-run-all ()
@@ -323,6 +330,12 @@
     (async-shell-command "rm indent.log")
     (TeX-command "Clean" #'TeX-master-file)
     (TeX-command "Remove .auctex" #'TeX-master-file))
+
+  (defun dwt/archieve-latex-file ()
+    (interactive)
+    (dwt/clean-emacs-latex-file)
+    (call-interactively #'+format/buffer)
+    (TeX-command "Archieve" #'TeX-master-file))
 
   (defun dwt/replace-math-deli ()
     (interactive)
@@ -455,7 +468,7 @@
         (?:    ("\\vdots" "\\ddots"))
         (?_     ("_"          ""             ""))
         (?4     ("$"          ""             ""))
-        (?7     ("\\grad "          ""             ""))
+        (?7     ("\\nabla "          ""             ""))
         (?i     ("\\grad "          ""             ""))
         (?*    ("\\times" "\\star" "\\ast")))
       cdlatex-math-modify-alist
