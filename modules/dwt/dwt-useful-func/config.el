@@ -50,12 +50,6 @@
   (let ((recentf-exclude dwt/recentf-exculde-files))
     (recentf-cleanup)))
 
-(defun dwt/disable-delicated-window ()
-  (interactive)
-  (set-window-dedicated-p (frame-selected-window) nil)
-  (when (yes-or-no-p "Delete Workspace?")
-    (call-interactively #'+workspace/delete)))
-
 ;;; proxy
 ;; (setq dwt/proxy "http://172.29.80.1:1081")
 ;; (defun show-proxy ()
@@ -191,7 +185,8 @@
       (dwt/replace-newline-by-space-point (point) (point-max))))
 
 (map! :leader "omr" #'dwt/replace-newline-by-space)
-(map! :leader "o-" #'calendar)
+(map! :leader "o_" #'calendar)
+(map! :leader "o-" #'+calendar/open-calendar)
 ;; (re-search-forward "D\\\\:\\\\\\\\OneDrive\\\\\\\\Documents\\\\\\\\zotero\\\\\\\\storage\\\\\\\\")
 ;; (anzu-query-replace-regexp \\\\OneDrive\\\\Documents\\\\zotero\\\\storage\\\\\([A-Z0-9]+\)\\\\)
 
@@ -300,8 +295,8 @@
 
 (use-package! titlecase
   :init
-  (map! :v "gt" #'titlecase-region)
-  (map! :n "gt" #'titlecase-sentence)
+  (map! :v "gC" #'titlecase-region)
+  (map! :n "gC" #'titlecase-sentence)
   :config
   (setq titlecase-style 'sentence)
   (setq titlecase-dwim-non-region-function 'titlecase-sentence))
