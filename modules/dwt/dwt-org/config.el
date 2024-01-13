@@ -245,8 +245,8 @@
     ;; set app
     (setq org-file-apps
           '((auto-mode . emacs)
-            ("\\.pdf::\\([0-9]+\\)?\\'" . "zathura %s -P %1")
-            ("\\.pdf\\'" . "zathura %s")
+            ;; ("\\.pdf::\\([0-9]+\\)?\\'" . "zathura %s -P %1")
+            ;; ("\\.pdf\\'" . "zathura %s")
             (directory . emacs))))
 
   (set-company-backend! 'org-mode '(company-math-symbols-latex company-latex-commands company-yasnippet company-dabbrev))
@@ -290,7 +290,7 @@
                    (org-agenda-prefix-format "  %?-12t% s")))))))
 
    ;; latex export
-  (setq org-latex-classes '(("dwt-article" "\\documentclass[11pt]{article}\n\\input{~/OneDrive/Documents/roam/preamble.tex}"
+  (setq org-latex-classes '(("dwt-article" "\\documentclass[11pt]{article}\n\\input{~/OneDrive/Documents/research/latex_preamble/basic_setting.tex}\n\\input{~/OneDrive/Documents/research/latex_preamble/command.tex}\n\\input{~/OneDrive/Documents/research/latex_preamble/org_preamble.tex}\n"
                               ("\\section*{%s}" . "\\section*{%s}")
                               ("\\subsection*{%s}" . "\\subsection*{%s}")
                               ("\\subsubsection*{%s}" . "\\subsubsection*{%s}")
@@ -304,6 +304,7 @@
                               ("\\section*{%s}" . "\\section*{%s}")
                               ("\\subsection*{%s}" . "\\subsection*{%s}")
                               ("\\subsubsection*{%s}" . "\\subsubsection*{%s}"))))
+  (setq org-latex-src-block-backend 'listings)
   (setq org-latex-default-class "dwt-article")
   (setq org-latex-default-packages-alist nil)
   (setq org-latex-hyperref-template nil)
