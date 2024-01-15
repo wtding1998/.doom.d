@@ -106,6 +106,4 @@
         "e" #'dirvish-emerge-menu
         "j" #'dirvish-fd-jump))
 
-(if IS-MAC
-  (setq bookmark-default-file "~/.doom.d/bookmarks")
-  (setq bookmark-default-file "~/.config/doom/cache/bookmarks"))
+(setq bookmark-default-file "~/.config/doom/cache/bookmarks")

@@ -222,7 +222,12 @@
         :desc "rg" "fg" #'consult-ripgrep
         :desc "consult-dir" "fd" #'consult-dir
         :desc "fd" "od" #'+vertico/consult-fd)
-
   (map! :map minibuffer-mode-map
         "C-d" #'vertico-scroll-up
-        "C-u" #'vertico-scroll-down))
+        "C-u" #'vertico-scroll-down
+        "C-'" #'vertico-quick-jump))
+
+(use-package! embark
+  :config
+  (map! :n "g[" #'embark-dwim)
+  (map! :map embark-file-map ">" #'dwt/embark-insert-file-name))

@@ -19,3 +19,9 @@
   (let (project-path)
     (setq project-path (ivy-read "Project: " projectile-known-projects))
     (dired project-path)))
+
+;;;###autoload
+(defun dwt/embark-insert-file-name (file)
+  "Insert file name of FILE."
+  (interactive "FFile: ")
+  (insert (file-name-nondirectory (substitute-in-file-name file))))

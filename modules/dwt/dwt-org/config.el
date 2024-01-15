@@ -679,8 +679,8 @@
   :config
   (setq org-noter-highlight-selected-text t))
 
-(use-package! org-roam-bibtex
-  :after org-roam)
+;; (use-package! org-roam-bibtex
+;;   :after org-roam)
 
 (use-package! grip-mode
   :commands (grip-mode)

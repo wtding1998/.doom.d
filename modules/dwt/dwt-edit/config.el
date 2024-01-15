@@ -38,8 +38,8 @@
         :n "zw" #'widen
         :nv "ga" #'evil-avy-goto-char-timer
         :nv "go" #'avy-goto-line
-        :nv "g[" #'evil-avy-goto-word-1
-        :nv "g]" #'evil-avy-goto-char
+        ;; :nv "g[" #'evil-avy-goto-word-1
+        ;; :nv "g]" #'evil-avy-goto-char
         :nv "g/" #'evil-avy-goto-word-0
         :v "gC" #'capitalize-region
         :v "v" #'er/expand-region
