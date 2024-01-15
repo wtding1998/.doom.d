@@ -64,7 +64,6 @@
         :desc "shell command" ":" #'shell-command
         :desc "eval expression" "'" #'eval-expression
         :desc "buffer" "," #'persp-switch-to-buffer
-        :desc "M-x" "<SPC>" #'counsel-M-x
         :desc "snippet" "it" #'company-yasnippet
         ;; :desc "jump item" "ii" #'evilmi-jump-items
         :desc "delete item" "id" #'evilmi-delete-items
@@ -84,8 +83,6 @@
 
         ;; :desc "previous buffer" "[" #'previous-buffer
         ;; :desc "next buffer" "]" #'next-buffer
-        :desc "ivy-resume" "`" #'ivy-resume
-        :desc "counsel-buffer-or-recentf" ";" #'counsel-buffer-or-recentf
 
         ;; switch themes
         :desc "switch theme" "tT" #'dwt/random-load-theme
@@ -94,14 +91,10 @@
         :desc "shell command" ">" #'async-shell-command
 
         ;; file
-        :desc "fzf" "fz" #'counsel-fzf
         :desc "file log" "fh" #'magit-log-buffer-file
-        :desc "rg" "fg" #'counsel-rg
         :desc "find file other window" "fv" #'find-file-other-window
-        :desc "open by extern program" "fo" #'counsel-find-file-extern
 
         ;; kill ring
-        :desc "kill ring" "sa" #'counsel-yank-pop
 
         ;; link
         :desc "insert link" "nl" #'org-insert-link

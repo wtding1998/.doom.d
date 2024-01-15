@@ -75,6 +75,7 @@
 ;;   :init (company-prescient-mode 1))
 
 (use-package! ivy
+  :when (featurep 'ivy)
   :config
   (setq ivy-count-format "%d/%d ")
   (defun dwt/ivy-backward-delete-char ()
@@ -88,6 +89,16 @@
     (add-to-list 'ivy-ignore-buffers (concat "\\" tex-aux-suffix))
     (setq counsel-find-file-ignore-regexp (concat "\\(" tex-aux-suffix "$\\)\\|" counsel-find-file-ignore-regexp)))
   (map! :map counsel-find-file-map "C-<backspace>" #'dwt/ivy-backward-delete-char)
+  (map! :map ivy-mode-map :leader
+        :desc "M-x" "<SPC>" #'counsel-M-x
+        :desc "ivy-resume" "`" #'ivy-resume
+        :desc "counsel-buffer-or-recentf" ";" #'counsel-buffer-or-recentf
+        :desc "fzf" "fz" #'counsel-fzf
+        :desc "rg" "fg" #'counsel-rg
+        :desc "open by extern program" "fo" #'counsel-find-file-extern
+        :desc "kill ring" "sa" #'counsel-yank-pop
+      :desc "recent dir" "od" #'dwt/goto-recent-directory
+      :desc "project dir" "pd" #'dwt/dired-projectile)
   (map! :map ivy-minibuffer-map
         "C-d" #'ivy-scroll-up-command
         "C-u" #'ivy-scroll-down-command
@@ -98,6 +109,7 @@
 
 (use-package! ivy-posframe
   :defer t
+  :when (featurep 'ivy)
   :commands (ivy-posframe-mode)
   :hook (ivy-mode . ivy-posframe-mode)
   :config
@@ -162,40 +174,55 @@
 
   ;;
 ;; Add extensions
-(use-package! cape
-  :after corfu
-  ;; Bind dedicated completion commands
-  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :bind (("C-c p p" . completion-at-point) ;; capf
-         ("C-c p t" . complete-tag)        ;; etags
-         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-c p h" . cape-history)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-elisp-symbol)
-         ("C-c p a" . cape-abbrev)
-         ("C-c p i" . cape-ispell)
-         ("C-c p l" . cape-line)
-         ("C-c p w" . cape-dict)
-         ("C-c p \\" . cape-tex)
-         ("C-c p _" . cape-tex)
-         ("C-c p ^" . cape-tex)
-         ("C-c p &" . cape-sgml)
-         ("C-c p r" . cape-rfc1345))
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-ispell)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-history)
-  (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-tex))
+;; (use-package! cape
+;;   :after corfu
+;;   ;; Bind dedicated completion commands
+;;   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
+;;   :bind (("C-c p p" . completion-at-point) ;; capf
+;;          ("C-c p t" . complete-tag)        ;; etags
+;;          ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
+;;          ("C-c p h" . cape-history)
+;;          ("C-c p f" . cape-file)
+;;          ("C-c p k" . cape-keyword)
+;;          ("C-c p s" . cape-elisp-symbol)
+;;          ("C-c p a" . cape-abbrev)
+;;          ("C-c p i" . cape-ispell)
+;;          ("C-c p l" . cape-line)
+;;          ("C-c p w" . cape-dict)
+;;          ("C-c p \\" . cape-tex)
+;;          ("C-c p _" . cape-tex)
+;;          ("C-c p ^" . cape-tex)
+;;          ("C-c p &" . cape-sgml)
+;;          ("C-c p r" . cape-rfc1345))
+;;   :init
+;;   ;; Add `completion-at-point-functions', used by `completion-at-point'.
+;;   (add-to-list 'completion-at-point-functions #'cape-file)
+;;   (add-to-list 'completion-at-point-functions #'cape-ispell)
+;;   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+;;   ;;(add-to-list 'completion-at-point-functions #'cape-history)
+;;   (add-to-list 'completion-at-point-functions #'cape-keyword)
+;;   (add-to-list 'completion-at-point-functions #'cape-tex))
   ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
   ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
   ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
 
-(use-package! counsel
+;; (use-package! counsel
+;;   :config
+;;   (map! :leader "im" #'counsel-evil-marks))
+
+(use-package! vertico
   :config
-  (map! :leader "im" #'counsel-evil-marks))
+  (map! :mode vertico-mode :leader
+        :desc "M-x" "<SPC>" #'execute-extended-command
+        :desc "recentf" ";" #'recentf-open-files
+        :desc "repeat" "`" #'vertico-repeat
+        :desc "kill ring" "sa" #'consult-yank-pop
+        :desc "rg" "fg" #'consult-ripgrep
+        :desc "consult-dir" "fd" #'consult-dir
+        :desc "fd" "od" #'+vertico/consult-fd)
+
+  (map! :map minibuffer-mode-map
+        "C-d" #'vertico-scroll-up
+        "C-u" #'vertico-scroll-down))
