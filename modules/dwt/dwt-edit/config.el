@@ -141,16 +141,16 @@
              (setq evil-shift-width 2 tab-width 2))))
 
 ;;; evil-multiedit
-(use-package! evil-multiedit
-  :after evil
-  :config
-  (map! :v "R" #'evil-multiedit-match-all
-   :nv "M-d" #'evil-multiedit-match-and-next
-   :nv "M-D" #'evil-multiedit-match-and-prev
-   :i "M-d" #'evil-multiedit-toggle-marker-here
-   :map evil-multiedit-mode-map
-   "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate
-   "<RET>" #'evil-multiedit-toggle-or-restrict-region))
+;; (use-package! evil-multiedit
+;;   :after evil
+;;   :config
+;;   (map! :v "R" #'evil-multiedit-match-all
+;;    :nv "M-d" #'evil-multiedit-match-and-next
+;;    :nv "M-D" #'evil-multiedit-match-and-prev
+;;    :i "M-d" #'evil-multiedit-toggle-marker-here
+;;    :map evil-multiedit-mode-map
+;;    "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate
+;;    "<RET>" #'evil-multiedit-toggle-or-restrict-region))
 
 ;;; evil-escape
 (use-package! evil-escape
