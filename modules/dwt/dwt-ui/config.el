@@ -253,7 +253,7 @@
               awesome-tab-active-bar-height 20))
       ;; mac
       (progn
-        (setq awesome-tab-height 120
+        (setq awesome-tab-height 110
               awesome-tab-icon-height 0.7
               awesome-tab-active-bar-height 15)))
 
@@ -432,7 +432,7 @@
 ;; copied from centaur-emacs
 ;; seagle0128/.emacs.d/blob/66afa5d433b18948b994cb386a3d2a1ce6788456/lisp/init-highlight.el#L211
 (use-package! pulse
-  :ensure nil
+  ;; :ensure nil
   :after evil
   :preface
   (defun my-pulse-momentary-line (&rest _)
