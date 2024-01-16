@@ -188,7 +188,7 @@
   ;; :commands (awesome-tab-mode)
   :config
   (awesome-tab-mode 1)
-  (defhydra awesome-fast-switch (:hint nil)
+  (defhydra awesome-tab-fast-switch (:hint nil)
     "
   ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
   -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
@@ -227,12 +227,13 @@
 
   (map! :map awesome-tab-mode-map
         :n "[t" #'awesome-tab-ace-jump
-        :n "]t" #'awesome-fast-switch/body
+        :n "]t" #'awesome-tab-fast-switch/body
         :n "[T" #'awesome-tab-backward-group
         :n "]T" #'awesome-tab-forward-group)
   (map! :map awesome-tab-mode-map :leader
         :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
-        :desc "kill-group" "t0" #'awesome-tab-kill-all-buffers-in-current-group)
+        :desc "kill-group" "t0" #'awesome-tab-kill-all-buffers-in-current-group
+        :desc "kill-group" "tt" #'awesome-tab-fast-switch/body)
   (map! :map awesome-tab-mode-map :ni "C-1" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-2" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-3" #'awesome-tab-select-visible-tab)

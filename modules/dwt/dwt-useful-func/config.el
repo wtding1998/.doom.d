@@ -25,22 +25,22 @@
 ;;       (pop-to-buffer buf t))))
 
 ;;;###autoload
-(defun dwt/ivy-open-configuration ()
-  (interactive)
-  (let ((configs '("~/.zshrc"
-                   "~/.vim/init"
-                   "~/.config/kitty/kitty.conf"
-                   "~/.doom.d/"
-                   "~/.config/zathura/zathurarc"
-                   "~/.config/fcitx/rime/default.custom.yaml"
-                   "~/.config/ranger/rifle.conf"
-                   "~/.emacs.d.vanilia/init.el"
-                   "~/Library/Preferences/DOSBox-X 0.83.23 Preferences"
-                   "/mnt/c/Users/56901/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
-                   "~/.emacs.d/"
-                   "~/.config")))
-    (ivy-read "Open Configs: " configs :action 'find-file)))
-(map! :leader :desc "Open configuration" "oP" #'dwt/ivy-open-configuration)
+;; (defun dwt/ivy-open-configuration ()
+;;   (interactive)
+;;   (let ((configs '("~/.zshrc"
+;;                    "~/.vim/init"
+;;                    "~/.config/kitty/kitty.conf"
+;;                    "~/.doom.d/"
+;;                    "~/.config/zathura/zathurarc"
+;;                    "~/.config/fcitx/rime/default.custom.yaml"
+;;                    "~/.config/ranger/rifle.conf"
+;;                    "~/.emacs.d.vanilia/init.el"
+;;                    "~/Library/Preferences/DOSBox-X 0.83.23 Preferences"
+;;                    "/mnt/c/Users/56901/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
+;;                    "~/.emacs.d/"
+;;                    "~/.config")))
+;;     (ivy-read "Open Configs: " configs :action 'find-file)))
+;; (map! :leader :desc "Open configuration" "oP" #'dwt/ivy-open-configuration)
 
 (setq dwt/recentf-exculde-files '("roam/"))
 ;;;###autoload
@@ -139,7 +139,7 @@
 (defun dwt/goto-package-dir ()
   (interactive)
   (let* ((packages (directory-files dwt/repos-dir))
-         (package-name (ivy-read "Package Name: " packages))
+         (package-name (consult--read packages :prompt "Packages: "))
          (package-path (concat dwt/repos-dir package-name)))
     (find-file package-path)))
 
@@ -150,8 +150,8 @@
     (dolist (directory-path dwt/freqneutly-used-directories)
       (setq new-files-path (directory-files directory-path 'full))
       (setq files-path (append new-files-path files-path)))
-    (setq file-path (ivy-read "File Path: " files-path))
-    (setq new-file-name (ivy-read "New Name: " (list (file-name-nondirectory file-path))))
+    (setq file-path (consult--read files-path :prompt "File Path: "))
+    (setq new-file-name (consult--read (list (file-name-nondirectory file-path)) :prompt "New Name: "))
     (copy-file file-path (expand-file-name new-file-name))))
 
 
@@ -247,7 +247,7 @@
   (let* ((repos-dir "~/.emacs.d/.local/straight/repos/")
          (build-dir "~/.emacs.d/.local/straight/build-29.0.91/")
          (packages (directory-files repos-dir))
-         (package-name (ivy-read "Package Name: " packages))
+         (package-name (consult--read packages :prompt "Package Name: "))
          (package-path (concat repos-dir package-name))
          (build-path (concat build-dir package-name)))
     (delete-directory package-path t t)

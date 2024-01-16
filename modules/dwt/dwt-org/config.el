@@ -635,7 +635,7 @@
 
   (defun dwt/org-pomodoro-finished-ask-postpone ()
     (let* ((org-pomodoro-finish-answer-list '("No" "5" "10" "15" "20"))
-           (org-pomodoro-finish-answer (ivy-read "Finished! Postpone? " org-pomodoro-finish-answer-list))
+           (org-pomodoro-finish-answer (consult--read org-pomodoro-finish-answer-list :prompt "Finished! Postpone? "))
            (org-pomodoro-length (string-to-number org-pomodoro-finish-answer)))
       (dwt/notifications-notify-start-process :title "Org" :timeout 3 :body "Finish!")
       (when (> org-pomodoro-length 0)
