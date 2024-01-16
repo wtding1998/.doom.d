@@ -109,7 +109,7 @@
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
       (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
     (when IS-LINUX
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120)
+      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120 :weight 'semibold)
       ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 105)
       ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 200)
       (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)

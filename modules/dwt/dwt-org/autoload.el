@@ -13,7 +13,7 @@
                  (org-entry-get (point) p))))
           pvalue))
 
-
+;;;###autoload
 (defun dwt/get-file-from-citekey (citekey)
   (let ((string-cite-key (symbol-name citekey)))
     (message string-cite-key)
