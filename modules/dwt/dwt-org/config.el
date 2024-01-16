@@ -349,7 +349,8 @@
            :target
            (file+head
              "%(expand-file-name (or citar-org-roam-subdir \"\") org-roam-directory)/${citar-citekey}.org"
-             "#+title: ${citar-citekey} (${citar-date}). ${note-title}.\n#+created: %U\n#+last_modified: %U\n\n")
+             ;; "#+title: ${citar-citekey} (${citar-date}). ${note-title}.\n#+created: %U\n#+last_modified: %U\n:PROPERTIES:\n:NOTER_DOCUMENT: %(dwt/get-file-from-citekey '${citar-citekey})\n:END:\n")
+             "#+title: ${citar-citekey} (${citar-date}). ${note-title}.\n#+created: %U\n#+last_modified: %U\n* Note on ${citar-citekey} (${citar-date}). ${note-title}\n:PROPERTIES:\n:NOTER_DOCUMENT: %(dwt/get-file-from-citekey '${citar-citekey})\n:END:\n")
            :unnarrowed t)))
   ;; (setq org-roam-capture-templates
   ;;       '(("d" "default" plain "%?"
