@@ -337,37 +337,52 @@
 
   (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-capture-templates
-        '(("d" "default" plain "%?"
-            :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n")
-            :unnarrowed t)))
-  (add-to-list 'org-roam-capture-templates
-               '("p" "Paper Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:paper \n\n* Paper\n\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
-                 :unnarrowed t))
+        '(("d" "default" plain
+           "%?"
+           :target
+           (file+head
+             "%<%Y%m%d%H%M%S>-${slug}.org"
+             "#+title: ${note-title}\n")
+           :unnarrowed t)
+          ("n" "literature note" plain
+           "%?"
+           :target
+           (file+head
+             "%(expand-file-name (or citar-org-roam-subdir \"\") org-roam-directory)/${citar-citekey}.org"
+             "#+title: ${citar-citekey} (${citar-date}). ${note-title}.\n#+created: %U\n#+last_modified: %U\n\n")
+           :unnarrowed t)))
+  ;; (setq org-roam-capture-templates
+  ;;       '(("d" "default" plain "%?"
+  ;;           :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n")
+  ;;           :unnarrowed t)))
   ;; (add-to-list 'org-roam-capture-templates
-  ;;              '("b" "Book Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
-  ;;                :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:book \n\n* Book\n\n* Summary")
+  ;;              '("p" "Paper Note" plain "* TODO %<%Y-%m-%d-%H-%M> - %?"
+  ;;                :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:paper \n\n* Paper\n\n* Summary\n** Idea\n** Method\n** Result\n** My Idea\n")
   ;;                :unnarrowed t))
-  (add-to-list 'org-roam-capture-templates
-               '("r" "Research Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
-                 :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:note")
-                 :unnarrowed t))
-  (add-to-list 'org-roam-capture-templates
-          '("b" "bibliography reference" plain "%?"
-            :target
-            (file+head "${citekey}.org" "#+title: ${title}\n")
-            :unnarrowed t))
+  ;; ;; (add-to-list 'org-roam-capture-templates
+  ;; ;;              '("b" "Book Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
+  ;; ;;                :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:book \n\n* Book\n\n* Summary")
+  ;; ;;                :unnarrowed t))
+  ;; (add-to-list 'org-roam-capture-templates
+  ;;              '("r" "Research Note" plain "* %<%Y-%m-%d-%H-%M> - %?"
+  ;;                :if-new (file+head "${slug}.org" "#+title: ${title}\n#+EXPORT_FILE_NAME: ./pdf/${slug}.pdf\n#+filetags:note")
+  ;;                :unnarrowed t))
+  ;; (add-to-list 'org-roam-capture-templates
+  ;;         '("b" "bibliography reference" plain "%?"
+  ;;           :target
+  ;;           (file+head "${citekey}.org" "#+title: ${title}\n")
+  ;;           :unnarrowed t))
 
-  (add-to-list 'org-roam-capture-templates
-          '("y" "biyliography reference" plain ""
-            :target
-            (file+head "${citekey}.org" "#+title: ${title}\n")
-            :unnarrowed t))
+  ;; (add-to-list 'org-roam-capture-templates
+  ;;         '("y" "biyliography reference" plain ""
+  ;;           :target
+  ;;           (file+head "${citekey}.org" "#+title: ${title}\n")
+  ;;           :unnarrowed t))
 
-  (setq org-roam-dailies-capture-templates
-        '(("d" "default" plain ""
-            :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>"))))
+  ;; (setq org-roam-dailies-capture-templates
+  ;;       '(("d" "default" plain ""
+  ;;           :if-new (file+head "%<%Y-%m-%d>.org"
+  ;;                             "#+title: %<%Y-%m-%d>"))))
 
   ;; from  https://github.com/d12frosted/vulpea/blob/fd2acf7b8e11dd9c38f9adf862b76db5545a9d51/vulpea-buffer.el
   ;; (defun vulpea-project-update-tag ()
