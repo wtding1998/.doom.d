@@ -1,36 +1,15 @@
 ;;; dwt/dwt-ui/config.el -*- lexical-binding: t; -*-
 
-;; set the fringe of window
-;; (set-fringe-mode '(4 . 4))
-
-;;;banner
-;; copied from https://github.com/cnsunyour/.doom.d/blob/dfbeb081d2cc3aaafc0e591868a9a4ba1f276f77/modules/cnsunyour/ui/config.el
-;; (when (display-graphic-p)
-;;   (defun cnsunyour/set-splash-image ()
-;;     "Set random splash image."
-;;     (setq fancy-splash-image
-;;           (let ((banners (directory-files "~/.doom.d/banner"
-;;                                           'full
-;;                                           (rx ".png" eos))))
-;;             (elt banners (random (length banners))))))
-;;   ;; Set splash image when theme changed.
-;;
-;; see banner configurration https://tecosaur.github.io/emacs-config/config.html
-;;   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
-
-
-;; UI
-;; set the fringe color
-;; (defun dwt/set-fringe-color()
-;;   (set-face-attribute 'fringe nil :background (face-background 'default)))
-;; (add-hook 'doom-load-theme-hook 'dwt/set-fringe-color)
-
+;; https://discourse.doomemacs.org/t/how-to-change-your-splash-screen/57
 (defun doom-dashboard-draw-ascii-emacs-banner-fn ()
   (let* ((banner
           ;; '(",---.,-.-.,---.,---.,---."
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
-          '("所谓诚其意者：毋自欺也，如恶恶臭，如好好色，此之谓自谦，故君子必慎其独也。"))
+          ;; '(""))
+          '("所谓诚其意者，毋自欺也。"
+            "如恶恶臭，如好好色，此之谓自谦。"
+            "故君子必慎其独也。"))
           ;; '("苟日新"
           ;;   "日日新"
           ;;   "又日新"))
@@ -48,7 +27,7 @@
 
 ;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
-;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
+(setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
 
 (use-package! printed-theme)
@@ -100,27 +79,7 @@
     (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
     (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)
     (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "LXGW WenKai Mono")))) ;; set Chinese font 落霞孤鹜
-    ;; (when IS-MAC
-    ;;   ;; (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 150)
-    ;;   (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 150)
-    ;;   (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
-    ;;   (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
-    ;; (when IS-LINUX
-    ;;   (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120 :weight 'semi-bold)
-    ;;   ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 105)
-    ;;   ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 220 :weight 'semi-bold)
-    ;;   (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
-    ;;   (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)
-    ;;   (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "LXGW WenKai Mono"))))) ;; set Chinese font 落霞孤鹜
-    ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
-    ;; chinese font
-    ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
-    ;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    ;;   (set-fontset-font (frame-parameter nil 'font)
-    ;;                     charset
-    ;;                     (font-spec :family "Sarasa Term SC Nerd")))) ;; 14 16 20 22 28
-                        ;; (font-spec :family "Source Han Serif CN")))) ;; 14 16 20 22 28
-                        ;;
+
 (define-minor-mode dwt/big-font-mode
   "Toggle font size."
   :init-value nil

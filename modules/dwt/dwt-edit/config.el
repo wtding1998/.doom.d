@@ -22,6 +22,8 @@
         :n "]f" #'+evil/next-frame
         :n "[F" #'+evil/previous-file
         :n "]F" #'+evil/next-file
+        :n "[[" #'previous-buffer
+        :n "]]" #'next-buffer
         ;; C-n, C-p is binded to evil by default
         ;; to make them available in company-mode, disable them firstly
         :i "C-n" nil
@@ -128,18 +130,6 @@
   (function (lambda ()
              (setq evil-shift-width 2 tab-width 2))))
 
-;;; evil-multiedit
-;; (use-package! evil-multiedit
-;;   :after evil
-;;   :config
-;;   (map! :v "R" #'evil-multiedit-match-all
-;;    :nv "M-d" #'evil-multiedit-match-and-next
-;;    :nv "M-D" #'evil-multiedit-match-and-prev
-;;    :i "M-d" #'evil-multiedit-toggle-marker-here
-;;    :map evil-multiedit-mode-map
-;;    "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate
-;;    "<RET>" #'evil-multiedit-toggle-or-restrict-region))
-
 ;;; evil-escape
 (use-package! evil-escape
   :config
@@ -220,12 +210,6 @@
   :defer t
   :commands (devdocs-browser-open))
 
-(map! :n "[f" #'+evil/previous-frame
-      :n "]f" #'+evil/next-frame
-      :n "[F" #'+evil/previous-file
-      :n "]F" #'+evil/next-file
-      :n "[[" #'previous-buffer
-      :n "]]" #'next-buffer)
 
 ;;; refer to https://github.com/doomemacs/doomemacs/issues/2480 about how to set new leader key
 (setq doom-localleader-alt-key "C-SPC m")

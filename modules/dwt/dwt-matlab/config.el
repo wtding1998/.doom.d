@@ -40,3 +40,5 @@
   (set-popup-rules!
     ;; '(("^\\*Python*" :side right :size 15 :select t)))
     '(("^\\*MATLAB*" :size 15 :select t))))
+
+;; (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
