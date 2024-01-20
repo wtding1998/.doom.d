@@ -50,26 +50,10 @@
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
 ;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
-(map! :leader :desc "toggle sentence" "ta" #'dwt/toggle-sentence)
 
-(map! :n "[f" #'+evil/previous-frame
-      :n "]f" #'+evil/next-frame
-      :n "[F" #'+evil/previous-file
-      :n "]F" #'+evil/next-file)
-
-;; disable global-hl-line
-;; (remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
-
-;; load theme in advance
-
-(use-package! printed-theme
-  :load-path "~/.emacs.d/.local/straight/repos/printed-theme")
-
-(use-package! joker-theme
-  :load-path "~/.emacs.d/.local/straight/repos/joker-theme")
-
-(use-package! storybook-theme
-  :load-path "~/.emacs.d/.local/straight/repos/storybook-theme")
+(use-package! printed-theme)
+(use-package! joker-theme)
+(use-package! storybook-theme)
 
 (defvar dwt/dark-themes '(doom-material
                           doom-oceanic-next
@@ -147,6 +131,7 @@
       (dwt/doom-font 1)
     (dwt/doom-font)))
 
+(map! :leader :desc "toggle sentence" "ta" #'dwt/big-font-mode)
 ;; Make the fringe of modus theme invisible
 (setq modus-themes-common-palette-overrides
       '((fringe unspecified)))

@@ -17,16 +17,17 @@
   (map! :g "s-<backspace>" #'evil-delete-backward-word)
   ;;; evil-key-binding
   (map!
-        :nv "[z" #'goto-last-change
-        :nv "]z" #'goto-last-change-reverse
         :n "Q" #'kill-current-buffer
+        :n "[f" #'+evil/previous-frame
+        :n "]f" #'+evil/next-frame
+        :n "[F" #'+evil/previous-file
+        :n "]F" #'+evil/next-file
         ;; C-n, C-p is binded to evil by default
         ;; to make them available in company-mode, disable them firstly
         :i "C-n" nil
         :i "C-p" nil
         :i "C-d" #'backward-delete-char-untabify
         ;; since I do not use repeat
-        ;; :n "'" #'basic-save-buffer
         :n "\\" #'basic-save-buffer
         ;; show doc
         :n "gh" #'+lookup/documentation
@@ -46,7 +47,6 @@
         :g "C-s" #'+default/search-buffer
         :g "M-`" #'+vterm/toggle
         ;; :n "U" 'undo-fu-only-redo
-
         ;;; add new command with this prefix
         ;; :n "r" nil
         ;;; inden t and fold
@@ -55,7 +55,6 @@
         :v "<tab><tab>" #'indent-region
         :n "<tab><tab>" #'indent-for-tab-command
         :n "<tab>j" #'evil-toggle-fold
-
         :map global-map
         :leader
         ;; :desc "test" :prefix "a"
@@ -72,7 +71,6 @@
         ;; toggle useful mode
         :desc "word wrap" "tw" #'toggle-word-wrap
         :desc "cdlatex" "tc" #'cdlatex-mode
-
         ;; window
         :desc "delete other windows" "1" #'delete-other-windows
         :desc "delete window" "0" #'delete-window
@@ -80,26 +78,16 @@
         :desc "winner-redo" "3" #'winner-redo
         :desc "window-size" "ww" #'hydra-window-size/body
         :desc "window-size" "w`'" #'evil-window-next
-
-        ;; :desc "previous buffer" "[" #'previous-buffer
-        ;; :desc "next buffer" "]" #'next-buffer
-
         ;; switch themes
         :desc "switch theme" "tT" #'dwt/random-load-theme
-
         ;; shell command
         :desc "shell command" ">" #'async-shell-command
-
         ;; file
         :desc "file log" "fh" #'magit-log-buffer-file
         :desc "find file other window" "fv" #'find-file-other-window
-
-        ;; kill ring
-
         ;; link
         :desc "insert link" "nl" #'org-insert-link
         :desc "store link" "nL" #'org-store-link
-
         ;; help
         :desc "battery" "hB" #'battery)
   ;;; use C-z to undo and C-S-z to redo
