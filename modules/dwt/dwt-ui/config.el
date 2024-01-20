@@ -100,21 +100,34 @@
 (setq dwt/gui-dark-theme 'doom-opera
       dwt/gui-light-theme 'modus-operandi
       ;; dwt/tui-dark-theme 'doom-zenburn)
-      dwt/tui-dark-theme dwt/gui-dark-theme)
+      dwt/tui-dark-theme dwt/gui-dark-theme
+      dwt/linux-large-font-size 210
+      dwt/linux-small-font-size 120)
 ;; font
-(defun dwt/doom-font()
+(defun dwt/doom-font(&optional big)
+  (let ((fontsize dwt/linux-small-font-size)
+        (weight 'semi-bold))
+    (when big
+      (setq fontsize dwt/linux-large-font-size))
     (when IS-MAC
-      ;; (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 150)
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 150)
-      (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
-      (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
-    (when IS-LINUX
-      (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120 :weight 'semibold)
-      ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 105)
-      ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 200)
-      (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
-      (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)))
-
+      (setq fontsize (+ fontsize 30)
+            weight 'regular))
+    (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height fontsize :weight weight)
+    (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
+    (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)
+    (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "LXGW WenKai Mono")))) ;; set Chinese font 落霞孤鹜
+    ;; (when IS-MAC
+    ;;   ;; (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 150)
+    ;;   (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 150)
+    ;;   (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
+    ;;   (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend))
+    ;; (when IS-LINUX
+    ;;   (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 120 :weight 'semi-bold)
+    ;;   ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 105)
+    ;;   ;; (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 220 :weight 'semi-bold)
+    ;;   (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
+    ;;   (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)
+    ;;   (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "LXGW WenKai Mono"))))) ;; set Chinese font 落霞孤鹜
     ;; (setq doom-font (font-spec :family "Sarasa Mono SC Nerd" :size dwt/fontsize :weight 'Medium))
     ;; chinese font
     ;; (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend)
@@ -122,7 +135,17 @@
     ;;   (set-fontset-font (frame-parameter nil 'font)
     ;;                     charset
     ;;                     (font-spec :family "Sarasa Term SC Nerd")))) ;; 14 16 20 22 28
-                        ;; (font-spec :family "Source Han Serif CN"))))) ;; 14 16 20 22 28
+                        ;; (font-spec :family "Source Han Serif CN")))) ;; 14 16 20 22 28
+                        ;;
+(define-minor-mode dwt/big-font-mode
+  "Toggle font size."
+  :init-value nil
+  :global t
+  :lighter " B"
+  :group 'dwt
+  (if dwt/big-font-mode
+      (dwt/doom-font 1)
+    (dwt/doom-font)))
 
 ;; Make the fringe of modus theme invisible
 (setq modus-themes-common-palette-overrides
