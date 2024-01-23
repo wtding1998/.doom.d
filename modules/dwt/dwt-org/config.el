@@ -329,7 +329,7 @@
                 "oc" #'org-roam-capture
                 "oC" #'org-roam-dailies-goto-today)
   :config
-  (run-with-idle-timer 10 nil #'org-roam-db-sync)
+  (run-with-idle-timer 20 nil #'org-roam-db-sync)
   (defun dwt/org-roam-fix-hash ()
     "fix error: org-id-add-location: Wrong type argument: hash-table-p, nil"
     (interactive)

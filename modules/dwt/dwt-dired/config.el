@@ -78,6 +78,13 @@
   (setq dirvish-preview-dispatchers
       (cl-substitute 'pdf-preface 'pdf dirvish-preview-dispatchers))
   (setq dirvish-reuse-session t)
+  (setq dirvish-emerge-groups
+    '(("Recent files" (predicate . recent-files-2h))
+      ("Documents" (extensions "pdf" "tex" "bib" "doc" "xlsx" "xls"))
+      ("Video" (extensions "mp4" "mkv" "webm"))
+      ("Pictures" (extensions "jpg" "png" "svg" "gif"))
+      ("Audio" (extensions "mp3" "flac" "wav" "ape" "aac"))
+      ("Archives" (extensions "gz" "rar" "zip"))))
   (map! :map dirvish-mode-map
         :n "q" #'dirvish-quit
         :n "a" #'dirvish-quick-access

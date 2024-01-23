@@ -90,7 +90,7 @@
       (dwt/doom-font 1)
     (dwt/doom-font)))
 
-(map! :leader :desc "toggle sentence" "ta" #'dwt/big-font-mode)
+(map! :leader :desc "toggle sentence" "tb" #'dwt/big-font-mode) ;; replace doom/big-font-mode
 ;; Make the fringe of modus theme invisible
 (setq modus-themes-common-palette-overrides
       '((fringe unspecified)))
@@ -447,7 +447,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "BUE PA ")
+(setq dwt/my-mode-line-info "SDBUePa ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (defun dwt/toggle-mode-line-info ()
