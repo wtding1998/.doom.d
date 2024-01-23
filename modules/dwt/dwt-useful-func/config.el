@@ -322,3 +322,11 @@
 ;; (use-package! blink-search
 ;;   :config
 ;;   (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/blink-search/backend"))
+;;
+;;; which-key coppied from https://discourse.doomemacs.org/t/echo-area-covers-bottom-of-which-key/3026/2
+(after! which-key
+  (defadvice! fix-which-key--show-popup (fn act-popup-dim)
+    :around #'which-key--show-popup
+    (let ((height (car act-popup-dim))
+          (width  (cdr act-popup-dim)))
+      (funcall fn (cons (+ height 1) width)))))
