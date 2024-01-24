@@ -637,4 +637,8 @@
   (setq citar-bibliography '("~/Zotero/My Library.bib")
         citar-notes-paths '("~/org/roam"))
   (setq citar-org-roam-note-title-template "${author} - ${title}")
-  (setq citar-org-roam-capture-template-key "n"))
+  (setq citar-org-roam-capture-template-key "n")
+  :config
+  (map! :leader
+        "nB" #'citar-open-files
+        "nE" #'citar-open-entry))
