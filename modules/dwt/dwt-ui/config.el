@@ -405,7 +405,7 @@
   :preface
   (defun my-pulse-momentary-line (&rest _)
     "Pulse the current line."
-    (pulse-momentary-highlight-one-line (point) 'next-error))
+    (pulse-momentary-highlight-one-line (point) 'next-error-message))
 
   (defun my-pulse-momentary (&rest _)
     "Pulse the current line."
@@ -436,11 +436,12 @@
                  evil-scroll-line-to-center
                  evil-scroll-down evil-scroll-up
                  pager-page-down pager-page-up
-                 symbol-overlay-basic-jump))
+                 symbol-overlay-basic-jump
+                 goto-last-change
+                 goto-last-change-reverse))
     (advice-add cmd :after #'my-pulse-momentary-line))
   (dolist (cmd '(pop-to-mark-command
-                 pop-global-mark
-                 goto-last-change))
+                 pop-global-mark))
     (advice-add cmd :after #'my-recenter-and-pulse))
   :config
   (setq pulse-iterations 2
