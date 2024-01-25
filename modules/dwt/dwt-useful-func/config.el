@@ -330,3 +330,15 @@
     (let ((height (car act-popup-dim))
           (width  (cdr act-popup-dim)))
       (funcall fn (cons (+ height 1) width)))))
+
+(defcustom dwt/last-loaded-session nil
+  "The last loaded session.")
+
+(defadvice! dwt/save-last-loaded-session (fn file)
+  :around #'doom/load-session
+  (funcall fn file)
+  (customize-save-variable 'dwt/last-loaded-session file))
+
+(map! :leader
+      "qj" #'dwt/load-last-loaded-session
+      "qJ" #'dwt/save-current-session-to-last-loaded-session)
