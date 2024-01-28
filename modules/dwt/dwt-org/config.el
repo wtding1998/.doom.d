@@ -643,11 +643,12 @@
         (setq org-pomodoro-count (- org-pomodoro-count 1))
         (org-pomodoro '(16)))))
 
-  (defun dwt/org-pomodoro-start-reminder ()
-    (let* ((org-pomodoro-start-answer-list '("5" "10" "15" "20" "Yes"))
-           (org-pomodoro-start-answer (consult--read org-pomodoro-start-answer-list :prompt "Continue? "))
+  (defun dwt/org-pomodoro-break-finish-reminder ()
+    (let* ((org-pomodoro-start-answer-list '("5" "10" "15" "20" "No"))
+           (org-pomodoro-start-answer (consult--read org-pomodoro-start-answer-list :prompt "Continue! Postpone? "))
            (org-pomodoro-start-time (string-to-number org-pomodoro-start-answer)))
-      (if (> org-pomodoro-length 0)
+      (message(format "%d" org-pomodoro-start-time))
+      (if (> org-pomodoro-start-time 0)
         (run-with-timer (* org-pomodoro-start-time 60) nil #'dwt/org-pomodoro-start-reminder)
         (org-pomodoro '(16)))))
   ;; (add-hook 'org-pomodoro-finished-hook (lambda ()
@@ -655,7 +656,7 @@
   ;; (add-hook 'org-pomodoro-finished-hook #'dwt/pop-org-pomodoro-buffer-finish)
   ;; (add-hook 'org-pomodoro-started-hook #'dwt/pop-org-pomodoro-buffer-start)
   (add-hook 'org-pomodoro-started-hook (lambda () (message "1. Work or Walk; 2. 5 minutes rule")))
-  (add-hook 'org-pomodoro-break-finished-hook 'dwt/org-pomodoro-start-reminder)
+  (add-hook 'org-pomodoro-break-finished-hook 'dwt/org-pomodoro-break-finish-reminder)
   (add-hook 'org-pomodoro-finished-hook #'dwt/org-pomodoro-finished-ask-postpone))
 
 (use-package! org-modern
