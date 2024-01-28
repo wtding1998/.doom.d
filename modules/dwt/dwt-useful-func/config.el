@@ -337,7 +337,8 @@
 (defadvice! dwt/save-last-loaded-session (fn file)
   :around #'doom/load-session
   (funcall fn file)
-  (customize-save-variable 'dwt/last-loaded-session file))
+  (unless (string-equal file dwt/last-loaded-session)
+    (customize-save-variable 'dwt/last-loaded-session file)))
 
 (map! :leader
       "qj" #'dwt/load-last-loaded-session

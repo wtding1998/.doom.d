@@ -11,10 +11,10 @@
   (matlab-cedet-setup)
   (load-library "matlab-load")
   ;; TODO: set font-lock-reference-face
-  (defface font-lock-reference-face
-    '((t :inherit 'font-lock-comment-face))
-    "Face used in matlab-mode"
-    :group 'matlab-mode)
+  ;; (defface font-lock-reference-face
+  ;;   '((t :inherit 'font-lock-comment-face))
+  ;;   "Face used in matlab-mode"
+  ;;   :group 'matlab-mode)
   (setq matlab-shell-command "/Applications/MATLAB_R2021a.app/bin/matlab")
   (setq matlab-shell-command-switches (list "-nodisplay"))
   ;; (setq matlab-shell-buffer-name "MATLAB SHELL")
