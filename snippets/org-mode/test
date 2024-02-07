@@ -1,5 +1,0 @@
-# key: tes
-# name: test
-# condition: (looking-back "^tes_" nil)
-# --
-test:success
