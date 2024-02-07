@@ -26,8 +26,13 @@
 ;; use & to open pdf
 (after! dired-x
   (setq dired-guess-shell-alist-user '(("\\.pdf\\'" "zathura")))
-  (setq dired-omit-extensions (delete ".aux" dired-omit-extensions))
-  (setq dired-omit-extensions (delete ".toc" dired-omit-extensions)))
+  (add-to-list 'dired-omit-extensions ".nav")
+  (add-to-list 'dired-omit-extensions ".fls")
+  (add-to-list 'dired-omit-extensions ".snm")
+  (add-to-list 'dired-omit-extensions ".run.xml")
+  (add-to-list 'dired-omit-extensions ".out")
+  (add-to-list 'dired-omit-extensions ".synctex.gz")
+  (setq dired-omit-files (concat "\\.auctex-auto\\|" dired-omit-files)))
 (setq delete-by-moving-to-trash t)
 (after! dired
   ;; sort by date by default

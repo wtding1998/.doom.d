@@ -69,7 +69,8 @@
       ;; dwt/tui-dark-theme 'doom-zenburn)
       dwt/tui-dark-theme dwt/gui-dark-theme
       dwt/linux-large-font-size 210
-      dwt/linux-small-font-size 120)
+      ;; dwt/linux-small-font-size 120)
+      dwt/linux-small-font-size 210)
 ;; font
 (defun dwt/doom-font(&optional big)
   (let ((fontsize dwt/linux-small-font-size)
@@ -219,16 +220,14 @@
   (map! :map awesome-tab-mode-map :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
 
   ;; height
-  (if (not IS-MAC)
-      ;; arch
-      (progn
-        (setq awesome-tab-height 120
-              awesome-tab-active-bar-height 20))
+  (if IS-MAC
       ;; mac
-      (progn
-        (setq awesome-tab-height 110
-              awesome-tab-icon-height 0.7
-              awesome-tab-active-bar-height 15)))
+      (setq awesome-tab-height 110
+            awesome-tab-icon-height 0.7
+            awesome-tab-active-bar-height 15)
+      ;; arch
+      (setq awesome-tab-height 120
+            awesome-tab-active-bar-height 20))
 
   ;; define tab-hide-rule
   (defun awesome-tab-hide-tab (x)
@@ -267,7 +266,8 @@
 ;; (setq-default frame-title-format '("Emacs - " user-login-name " - %b"))
 (if IS-LINUX
     (progn
-      (setq frame-title-format "Emacs")
+      ;; (setq frame-title-format '("Emacs @ " "%f"))
+      (setq frame-title-format "Emacs @ wtding")
       (setq doom-big-font-increment 5)) ;; for doom big font mode
       ;; (toggle-frame-fullscreen))
   (setq frame-title-format

@@ -327,7 +327,7 @@
 
   (defun dwt/clean-emacs-latex-file ()
     (interactive)
-    (async-shell-command "rm indent.log")
+    (async-shell-command "rm -f indent.log")
     (TeX-command "Clean" #'TeX-master-file)
     (TeX-command "Remove .auctex" #'TeX-master-file))
 
@@ -464,7 +464,7 @@
         ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
         (?F    ("\\Phi"))
         ;; now just conveniance
-        (?.    ("\\cdot" "\\dots" "\succeq"))
+        (?.    ("\\cdot" "\\dots" "\\succeq"))
         (?:    ("\\vdots" "\\ddots"))
         (?_     ("_"          ""             ""))
         (?4     ("$"          ""             ""))
