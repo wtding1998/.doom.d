@@ -7,9 +7,11 @@
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
           ;; '(""))
-          '("所谓诚其意者，毋自欺也。"
-            "如恶恶臭，如好好色，此之谓自谦。"
-            "故君子必慎其独也。"))
+          ;; '("所谓诚其意者，毋自欺也。"
+          ;;   "如恶恶臭，如好好色，此之谓自谦。"
+          ;;   "故君子必慎其独也。"))
+          '("1. 平时不打开手机，包括但不限于不打开微博和微信朋友圈，手机只做最简单的用途：通讯和理财"
+            "2. 强迫自己打开蚂蚁财富的时间只有下午2点40到3点05之间"))
           ;; '("苟日新"
           ;;   "日日新"
           ;;   "又日新"))
@@ -217,6 +219,7 @@
   (map! :map awesome-tab-mode-map :ni "C-8" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-9" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-<tab>" #'awesome-tab-forward-tab)
+  (map! :map awesome-tab-mode-map :ni "<backtab>" #'awesome-tab-backward-tab)
   (map! :map awesome-tab-mode-map :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
 
   ;; height

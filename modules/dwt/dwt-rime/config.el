@@ -9,6 +9,7 @@
   ;; set to minibuffer for better performance
   ;; (rime-show-candidate 'minibuffer)
   :config
+  (add-to-list 'rime-translate-keybindings "<tab>")
   (setq dwt/rime-modeline '(:eval (rime-lighter)))
   (setq-default +modeline-format-right (push "  " +modeline-format-right))
   (setq-default +modeline-format-right (push dwt/rime-modeline +modeline-format-right))
