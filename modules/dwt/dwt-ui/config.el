@@ -71,8 +71,9 @@
       ;; dwt/tui-dark-theme 'doom-zenburn)
       dwt/tui-dark-theme dwt/gui-dark-theme
       dwt/linux-large-font-size 210
-      ;; dwt/linux-small-font-size 120)
-      dwt/linux-small-font-size 210)
+      ; default font size
+      dwt/linux-small-font-size 120)
+      ;; dwt/linux-small-font-size 210)
 ;; font
 (defun dwt/doom-font(&optional big)
   (let ((fontsize dwt/linux-small-font-size)

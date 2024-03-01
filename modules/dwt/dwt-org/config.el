@@ -213,6 +213,11 @@
                  "* %? %U \n"))
 
   (add-to-list 'org-capture-templates
+               '("f" "fin"
+                 entry (file+headline "~/OneDrive/Documents/diary/org/finance.org" "My Thought")
+                 "* %? %U \n"))
+
+  (add-to-list 'org-capture-templates
                '("p" "principle"
                  entry (file+headline "~/OneDrive/Documents/roam/try_your_best.org" "My Principle")
                  "* %? %U\n"))

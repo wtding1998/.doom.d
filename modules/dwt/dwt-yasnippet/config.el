@@ -70,6 +70,7 @@
     ".z" ";"
     ".x" ":"
     ".c" " "
+    ".v" (lambda () (interactive) (yas-expand-snippet "\\verb\|$0\|"))
     ;; set condition!
     :cond #'texmathp ; expand only while in math
     "<<" "\\leq"

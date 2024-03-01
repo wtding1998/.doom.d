@@ -377,35 +377,25 @@
 
 ;;;###autoload
 (defun dwt/new-latex-dir-project ()
-  "Make new dir in DIR-PATH with name DIR-NAME."
   (interactive)
   (let (project-path dir-name subdir-names)
-    (setq project-path (ivy-read "Switch to project: " projectile-known-projects))
-    ;; TODO list only the name of dir rather than their path
+    (setq project-path (consult-dir--pick "Switch to project: "))
     (setq subdir-names '())
     (dolist (path (f-directories project-path))
       (push (car (last (split-string path "/"))) subdir-names))
-    ;; (setq dir-name (ivy-read "New dir name: " (f-directories project-path)))
-    (setq dir-name (ivy-read "New dir name: " subdir-names))
-    (unless (member dir-name subdir-names)
-      (make-directory (concat project-path dir-name))
-      (find-file (concat project-path dir-name "/" dir-name ".tex")))))
+    (setq dir-name (consult--read subdir-names :prompt "New dir name: " :initial (format-time-string "%Y%m%d_")))
+    (make-directory (concat project-path dir-name))
+    (find-file (concat project-path dir-name "/" dir-name ".tex"))))
 
 ;;;###autoload
-(defun dwt/new-latex-dir ()
-  "Create latex project."
+(defun dwt/new-latex-dir-default-dir ()
   (interactive)
-  (let* ((dir-path (counsel-read-directory-name "Path of project: "))
-         (current-date (format-time-string "%Y%m%d_"))
-         (project-name (concat current-date (read-from-minibuffer "Name of project: ")))
-         (project-path (concat dir-path project-name)))
-    (message project-path)
-    (make-directory project-name dir-path)
-    (find-file (concat project-path "/" project-name ".tex"))))
+  (let* ((latex-project-name (consult--read '() :prompt "New project name: " :initial (format-time-string "%Y%m%d_"))))
+    (find-file (concat default-directory "/" latex-project-name "/" latex-project-name ".tex"))))
 
 (map! :leader
-      :desc "New TeX dir" "ol" #'dwt/new-latex-dir
-      :desc "New TeX dir in project" "oL" #'dwt/new-latex-dir-project)
+      :desc "New TeX dir" "ol" #'dwt/new-latex-dir-project
+      :desc "New TeX dir in project" "oL" #'dwt/new-latex-dir-default-dir)
 
 (set-company-backend! 'latex-mode '(+latex--company-backends company-dabbrev company-yasnippet))
 ;; set company-backends
