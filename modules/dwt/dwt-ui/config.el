@@ -2,19 +2,10 @@
 
 ;; https://discourse.doomemacs.org/t/how-to-change-your-splash-screen/57
 (defun doom-dashboard-draw-ascii-emacs-banner-fn ()
-  (let* ((banner
+  (let* ((banner)
           ;; '(",---.,-.-.,---.,---.,---."
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
-          ;; '(""))
-          ;; '("所谓诚其意者，毋自欺也。"
-          ;;   "如恶恶臭，如好好色，此之谓自谦。"
-          ;;   "故君子必慎其独也。"))
-          '("1. 平时不打开手机，包括但不限于不打开微博和微信朋友圈，手机只做最简单的用途：通讯和理财"
-            "2. 强迫自己打开蚂蚁财富的时间只有下午2点40到3点05之间"))
-          ;; '("苟日新"
-          ;;   "日日新"
-          ;;   "又日新"))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)
@@ -33,38 +24,12 @@
                :action dwt/load-last-loaded-session))
 ;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
-(setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
+;; (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 
 
 (use-package! printed-theme)
 (use-package! joker-theme)
 (use-package! storybook-theme)
-
-(defvar dwt/dark-themes '(doom-material
-                          doom-oceanic-next
-                          doom-nova
-                          doom-opera
-                          doom-monokai-pro
-                          gruvbox
-                          doom-nord
-                          doom-horizon
-                          doom-monokai-pro
-                          doom-monokai-octagon))
-
-(defvar dwt/light-themes '(doom-homage-white
-                           notink
-                           modus-operandi))
-
-(defun dwt/load-light-themes ()
-  "Load light theme."
-  (interactive)
-  (load-theme (nth (random (length dwt/light-themes)) dwt/light-themes) t nil))
-
-
-(defun dwt/load-dark-themes ()
-  "Load theme randomly from dwt/dark-themes."
-  (interactive)
-  (load-theme (nth (random (length dwt/dark-themes)) dwt/light-themes) t nil))
 
 (setq dwt/gui-dark-theme 'doom-opera
       dwt/gui-light-theme 'modus-operandi

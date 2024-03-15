@@ -84,13 +84,21 @@
                                    t                                ; active in all modes
                                    :help "Remove git, copy preambles and compress"))
   (setq TeX-source-correlate-start-server t)
-  (when IS-MAC
-    (setq TeX-view-program-selection '((output-pdf "PDF Tools"))))
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools")
+                                     (output-pdf "Zathura")
+                                     (output-pdf "preview-pane")
+                                     (output-pdf "Evince")
+                                     ((output-dvi has-no-display-manager)
+                                      "dvi2tty")
+                                     ((output-dvi style-pstricks)
+                                      "dvips and gv")
+                                     (output-dvi "xdvi")
+                                     (output-html "xdg-open")))
     ;; FIXME: if the cursor is in the usepackage, will get error
-  (defun dwt/view-pdf-by-pdf-tools ()
+  (defun dwt/view-pdf-by-zathura ()
     "view pdf by pdf tools"
     (interactive)
-    (let ((TeX-view-program-selection '((output-pdf "PDF Tools"))))
+    (let ((TeX-view-program-selection '((output-pdf "Zathura"))))
       (TeX-view)))
 
   (defmacro define-and-bind-text-object (key start-regex end-regex)
@@ -297,7 +305,7 @@
         :desc "View" "v" #'TeX-view
         :desc "Output" "o" #'TeX-recenter-output-buffer
         :desc "Error" "e" #'TeX-next-error
-        :desc "View by pdf-tools" "d" #'dwt/view-pdf-by-pdf-tools
+        :desc "View by zathura" "d" #'dwt/view-pdf-by-zathura
         :desc "Run" "a" #'dwt/latex-file
         :desc "Run" "c" #'dwt/TeX-save-and-run-all
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode

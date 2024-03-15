@@ -343,3 +343,10 @@
 (map! :leader
       "qj" #'dwt/load-last-loaded-session
       "qJ" #'dwt/save-current-session-to-last-loaded-session)
+
+(use-package! pass
+  :init
+  (map! :leader
+        "oP" #'pass)
+  :config
+  (setq pass-username-fallback-on-filename t))
