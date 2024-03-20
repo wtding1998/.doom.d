@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name: preamble-seminar
+# key: preamble-seminar
+# --
+\documentclass{beamer}
+
+\makeatletter
+\def\input@path{{\string~/OneDrive/Documents/research/latex_preamble/}}
+\makeatother
+\input{basic_setting.tex}
+\input{beamer_setting.tex}
+\input{UI_UCB.tex}
+\input{command.tex}
+
+\addbibresource{ref.bib}
+
+\title[]{}
+\date{\today}
+\author[Wentao Ding]{Wentao Ding}
+\institute[CUHKSZ]{
+  School of Data Science \\
+  The Chinese University of Hong Kong, Shenzhen}
+
+\begin{document}
+\frame{\titlepage}
+
+\end{document}

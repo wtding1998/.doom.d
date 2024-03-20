@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: command-beamer-table-of-contents-section
+# key: com-toc-s
+# --
+\AtBeginSubsection[]
+{
+	\begin{frame}
+		\frametitle{Overview}
+		{\small
+			\tableofcontents[currentsubsection]
+		}
+	\end{frame}
+}
