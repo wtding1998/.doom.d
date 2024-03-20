@@ -462,3 +462,8 @@ The window layout is restored when full-screen is toggled off."
 
 
 (use-package! shrink-path)
+
+(use-package! posframe
+  :config
+  (map! :leader
+        "tp" #'posframe-delete-all))
