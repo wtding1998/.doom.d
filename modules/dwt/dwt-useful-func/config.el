@@ -173,10 +173,18 @@
           (insert (concat "[[file:" file-path-wsl "]] ")))
       (message "No image exists"))))
 
+(defun dwt/new-window-dir ()
+  "open the current dir, and choose new dir in a new window"
+  (interactive)
+  (find-file ".")
+  (evil-window-vsplit)
+  (call-interactively #'consult-dir))
+
 
 (map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir
               :desc "move screenshot" "f1" #'dwt/copy-file-from-screenshot-download
-              :desc "org download screenshot" "f2" #'dwt/org-download-clipboard-through-powershell)
+              :desc "org download screenshot" "f2" #'dwt/org-download-clipboard-through-powershell
+              :desc "new window dir" "f3" #'dwt/new-window-dir)
 
 ;; ;;;###autoload
 ;; (defun dwt/replace-path ()
