@@ -8,7 +8,6 @@
 (package! org-pomodoro :recipe (:host github :repo "marcinkoziej/org-pomodoro"))
 (when IS-MAC
   (package! osx-dictionary :recipe (:host github :repo "xuchunyang/osx-dictionary.el")))
-;; (package! org-roam :recipe (:host github :repo "org-roam/org-roam"))
 ;; (package! org-clock-watch :recipe (:host github :repo "wztdream/org-clock-watch"))
 ;; (package! alert :recipe (:host github :repo "jwiegley/alert"))
 (package! org-modern :recipe (:host github :repo "minad/org-modern"))
