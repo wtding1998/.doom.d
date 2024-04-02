@@ -143,7 +143,7 @@
          (package-path (concat dwt/repos-dir package-name)))
     (find-file package-path)))
 
-(setq dwt/freqneutly-used-directories '("~/Downloads" "~/Pictures/screenshot/"))
+(setq dwt/freqneutly-used-directories '("~/Downloads/" "~/Pictures/screenshot/" "~/windows_desktop/"))
 (defun dwt/copy-file-from-screenshot-download()
   (interactive)
   (let (files-path directory-path new-files-path new-file-name file-path)
@@ -155,8 +155,36 @@
     (copy-file file-path (expand-file-name new-file-name))))
 
 
+;;image cut settings
+(defun dwt/org-download-clipboard-through-powershell()
+  "to simplify the logic, use c:/Users/Public as temporary directoy, and move it into current directoy"
+  (interactive)
+  (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe")
+         (file-name (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))
+         ;; (file-path-powershell (concat "c:/Users/\$env:USERNAME/" file-name))
+         (file-path-wsl (concat "/mnt/d/Documents/screenshots/" file-name)))
+
+    ;; (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/\\$env:USERNAME/" file-name "\\\")\""))
+    (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"D:/Documents/screenshots/" file-name "\\\")\""))
+    (if (file-exists-p file-path-wsl)
+        (progn
+          (org-indent-line)
+          (insert (concat "#+ATTR_LATEX: :width 0.5\\textwidth\n"))
+          (insert (concat "[[file:" file-path-wsl "]] ")))
+      (message "No image exists"))))
+
+(defun dwt/new-window-dir ()
+  "open the current dir, and choose new dir in a new window"
+  (interactive)
+  (find-file ".")
+  (evil-window-vsplit)
+  (call-interactively #'consult-dir))
+
+
 (map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir
-              :desc "copy screenshot" "f1" #'dwt/copy-file-from-screenshot-download)
+              :desc "move screenshot" "f1" #'dwt/copy-file-from-screenshot-download
+              :desc "org download screenshot" "f2" #'dwt/org-download-clipboard-through-powershell
+              :desc "new window dir" "f3" #'dwt/new-window-dir)
 
 ;; ;;;###autoload
 ;; (defun dwt/replace-path ()

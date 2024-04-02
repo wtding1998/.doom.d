@@ -42,7 +42,7 @@
   ;;; auctex preview scale
   (after! preview
     (if IS-LINUX
-      (setq-default preview-scale 2.5)
+      (setq-default preview-scale 1.4)
       (setq-default preview-scale 1.4)))
   (set-popup-rules!
     ;; '(("^\\*Python*" :side right :size 15 :select t)))

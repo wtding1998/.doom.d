@@ -688,6 +688,21 @@
   (setq-default org-download-heading-lvl nil)
   (setq org-download-method 'directory))
 
+
+  ;; (when IS-LINUX
+  ;;   (setenv "XDG_SESSION_TYPE" "wayland")
+  ;;   ;;; 修复 WSL 下粘贴剪贴板中的图片错误
+  ;;   (defun org-download-clipboard (&optional basename)
+  ;;     "Capture the image from the clipboard and insert the resulting file."
+  ;;     (interactive)
+  ;;     (let ((org-download-screenshot-method
+  ;;             (if (executable-find "wl-paste")
+  ;;                 "wl-paste -t image/bmp | convert bmp:- %s"
+  ;;               (user-error
+  ;;                 "Please install the \"wl-paste\" program included in wl-clipboard"))))
+  ;;       (org-download-screenshot basename))))
+  ;; (setq org-download-screenshot-method "powershell.exe -Command \"(Get-Clipboard -Format image).Save('$(wslpath -w %s)')\""))
+
 ;; (use-package! org-clock-watch
 ;;   :config
 ;;   (org-clock-watch-toggle 'off)
