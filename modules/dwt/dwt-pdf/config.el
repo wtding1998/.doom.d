@@ -43,6 +43,11 @@
   ;; (call-interactively #'other-window)
   (call-interactively #'pdf-sync-backward-search-mouse))
 
+;;;###autoload
+;; (defun dwt/switch-between-pdf-tex-name ()
+;;   (let ((buf-name buffer-file-name))
+;;     (if (file-name-extension buf-name))))
+
 
 ;;;###autoload
 (defun dwt/open-by-zathura ()
