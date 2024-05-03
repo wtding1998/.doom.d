@@ -640,3 +640,7 @@
   (map! :leader
         "nB" #'citar-open-files
         "nE" #'citar-open-entry))
+
+(use-package citar-org-roam
+  :after (citar org-roam)
+  :config (citar-org-roam-mode))
