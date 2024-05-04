@@ -78,7 +78,8 @@
                                    t                                ; active in all modes
                                    :help "Remove .auctex dir"))
   (add-to-list 'TeX-command-list '("Archieve"
-                                   "mkdir -p preamble && cp ~/OneDrive/Documents/research/latex_preamble/*.tex ./preamble && zip -r ../%(s-filename-only).zip ./ -x ./git"
+                                   ;; "mkdir -p preamble && cp ~/OneDrive/Documents/research/latex_preamble/*.tex ./preamble && zip -r ../%(s-filename-only).zip ./ -x ./git"
+                                   "mkdir -p latex_preamble && cp ~/OneDrive/Documents/research/latex_preamble/*.tex ./latex_preamble"
                                    TeX-run-command
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
@@ -306,8 +307,7 @@
         :desc "Output" "o" #'TeX-recenter-output-buffer
         :desc "Error" "e" #'TeX-next-error
         :desc "View by zathura" "d" #'dwt/view-pdf-by-zathura
-        :desc "Run" "a" #'dwt/latex-file
-        :desc "Run" "c" #'dwt/TeX-save-and-run-all
+        :desc "Run" "c" #'dwt/latex-file
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
         :desc "Preview Environment" "e" #'preview-environment
         :desc "Preview Buffer" "b" #'preview-buffer
@@ -341,6 +341,10 @@
 
   (defun dwt/archieve-latex-file ()
     (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (search-forward "\\string~\/OneDrive\/Documents\/research\/")
+      (replace-match ""))
     (dwt/clean-emacs-latex-file)
     (call-interactively #'+format/buffer)
     (TeX-command "Archieve" #'TeX-master-file))
@@ -641,6 +645,7 @@
         "nB" #'citar-open-files
         "nE" #'citar-open-entry))
 
-(use-package citar-org-roam
+(use-package! citar-org-roam
   :after (citar org-roam)
-  :config (citar-org-roam-mode))
+  :defer 20
+  :config (citar-org-roam-mode 1))
