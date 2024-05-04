@@ -208,8 +208,10 @@
 
 (use-package! emacs-devdocs-browser
   :defer t
-  :commands (devdocs-browser-open))
-
+  :commands (devdocs-browser-open devdocs-browser-open-in)
+  :init
+  (map! :leader "cb" #'devdocs-browser-open
+                "cB" #'devdocs-browser-open-in))
 
 ;;; refer to https://github.com/doomemacs/doomemacs/issues/2480 about how to set new leader key
 (setq doom-localleader-alt-key "C-SPC m")
