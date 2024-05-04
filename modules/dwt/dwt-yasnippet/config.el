@@ -29,12 +29,13 @@
   (after! warnings
     (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 
-  (defun dwt/math-auto-expand-yasnippet ()
+  (defun dwt/search-in-yasnippet ()
     (interactive)
-    (insert "# condition: (and (texmathp) 'auto)"))
+    (let ((yasnippet-dir (concat doom-user-dir "snippets")))
+      (consult-ripgrep yasnippet-dir)))
 
   (map! :leader
-        :desc "math auto expand" "ia" #'dwt/math-auto-expand-yasnippet))
+        :desc "math auto expand" "ia" #'dwt/search-in-yasnippet))
   
 
 
