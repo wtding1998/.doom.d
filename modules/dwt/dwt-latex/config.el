@@ -289,7 +289,7 @@
     (interactive)
     (if (texmathp)
         (progn
-          (insert "^{t}"))
+          (insert "^{T}"))
       (progn
         (if (thing-at-point 'word)
             (progn
@@ -308,6 +308,7 @@
         :desc "Error" "e" #'TeX-next-error
         :desc "View by zathura" "d" #'dwt/view-pdf-by-zathura
         :desc "Run" "c" #'dwt/latex-file
+        :desc "Run" "x" #'dwt/bibtex-latex-file
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
         :desc "Preview Environment" "e" #'preview-environment
         :desc "Preview Buffer" "b" #'preview-buffer
@@ -333,11 +334,16 @@
     (basic-save-buffer)
     (TeX-command "LaTeX" #'TeX-master-file))
 
+  (defun dwt/bibtex-latex-file ()
+    (interactive)
+    (save-buffer)
+    (TeX-command "BibTeX" #'TeX-master-file))
+
   (defun dwt/clean-emacs-latex-file ()
     (interactive)
     (async-shell-command "rm -f indent.log")
-    (TeX-command "Clean" #'TeX-master-file)
-    (TeX-command "Remove .auctex" #'TeX-master-file))
+    (TeX-command "Remove .auctex" #'TeX-master-file)
+    (TeX-command "Clean" #'TeX-master-file))
 
   (defun dwt/archieve-latex-file ()
     (interactive)

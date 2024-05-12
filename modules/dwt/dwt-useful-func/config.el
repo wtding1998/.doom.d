@@ -378,3 +378,7 @@
         "oP" #'pass)
   :config
   (setq pass-username-fallback-on-filename t))
+
+(use-package! projectile
+  :config
+  (setq projectile-project-search-path '(("~/my_projects" . 1))))

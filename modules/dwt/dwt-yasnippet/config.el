@@ -35,7 +35,7 @@
       (consult-ripgrep yasnippet-dir)))
 
   (map! :leader
-        :desc "math auto expand" "ia" #'dwt/search-in-yasnippet))
+        :desc "math auto expand" "ig" #'dwt/search-in-yasnippet))
   
 
 

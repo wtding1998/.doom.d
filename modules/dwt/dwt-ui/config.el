@@ -36,9 +36,11 @@
       ;; dwt/tui-dark-theme 'doom-zenburn)
       dwt/tui-dark-theme dwt/gui-dark-theme
       dwt/linux-large-font-size 210
+      dwt/linux-small-font-size 120
       ; default font size
-      dwt/linux-small-font-size 120)
-      ;; dwt/linux-small-font-size 210)
+      ;; dwt/default-font-size dwt/linux-large-font-size)
+      dwt/default-font-size dwt/linux-small-font-size)
+
 ;; font
 (defun dwt/doom-font(&optional big)
   (let ((fontsize dwt/linux-small-font-size)
@@ -422,7 +424,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "ULP ")
+(setq dwt/my-mode-line-info "FP ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (defun dwt/toggle-mode-line-info ()

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cmd-beamer-title-page
+# key: cmd-beamer-title-page
+# condition: t
+# --
+\begin{frame}{}
+\maketitle
+\end{frame}

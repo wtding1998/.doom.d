@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cmd-beamer-references-print-biblio
+# key: cmd-beamer-references-print-biblio
+# --
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\printbibliography[heading=none] % avoid reference shown in navigation bar
+\end{frame}
