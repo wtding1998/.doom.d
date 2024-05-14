@@ -143,16 +143,21 @@
          (package-path (concat dwt/repos-dir package-name)))
     (find-file package-path)))
 
-(setq dwt/freqneutly-used-directories '("~/Downloads/" "~/Pictures/screenshot/" "~/windows_desktop/"))
+(if IS-LINUX
+  (setq dwt/freqneutly-used-directories '("~/Downloads/" "~/Pictures/screenshot/" "~/windows_desktop/"))
+  (setq dwt/freqneutly-used-directories '("~/Downloads/")))
+
 (defun dwt/copy-file-from-screenshot-download()
   (interactive)
-  (let (files-path directory-path new-files-path new-file-name file-path)
+  (let (files-path new-files-path new-file-name file-path old-file-name extension-name)
     (dolist (directory-path dwt/freqneutly-used-directories)
       (setq new-files-path (directory-files directory-path 'full))
       (setq files-path (append new-files-path files-path)))
     (setq file-path (consult--read files-path :prompt "File Path: "))
-    (setq new-file-name (consult--read (list (file-name-nondirectory file-path)) :prompt "New Name: "))
-    (copy-file file-path (expand-file-name new-file-name))))
+    (setq old-file-name (file-name-nondirectory file-path))
+    (setq extension-name (file-name-extension old-file-name))
+    (setq new-file-name (consult--read (list (file-name-sans-extension old-file-name)) :prompt "New Name: "))
+    (copy-file file-path (expand-file-name (concat new-file-name "." extension-name)))))
 
 
 ;;image cut settings
