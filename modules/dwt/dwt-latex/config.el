@@ -610,8 +610,30 @@
         :localleader
         :desc "search entry" "s" #'bibtex-search-entry
         :desc "next entry" "]" #'bibtex-next-entry
-        :desc "prev entry" "[" #'bibtex-previous-entry))
+        :desc "prev entry" "[" #'bibtex-previous-entry)
+  (map! :map bibtex-mode-map
+        :desc "next entry" :n "]e" #'bibtex-next-entry
+        :desc "next entry" :n "[e" #'bibtex-previous-entry)
 
+  ;; Define the text object function
+  (defun bibtex-entry-text-object (count &optional beg end type)
+    "Select the BibTeX entry."
+    (let ((start (save-excursion
+                  (bibtex-beginning-of-entry)
+                  (point)))
+          (finish (save-excursion
+                    (bibtex-end-of-entry)
+                    (point))))
+      (evil-range start finish type)))
+
+  ;; Register the text object
+  (evil-define-text-object my-evil-bibtex-entry (count &optional beg end type)
+    "BibTeX entry text object."
+    (bibtex-entry-text-object count beg end type))
+
+  ;; Bind the text object to key sequences
+  (define-key evil-outer-text-objects-map "E" 'my-evil-bibtex-entry)
+  (define-key evil-inner-text-objects-map "E" 'my-evil-bibtex-entry))
 ;; (use-package! ivy-bibtex
 ;;   :commands (bibtex-completion-candidates)
 ;;   :init
