@@ -222,10 +222,14 @@
         :desc "rg" "fg" #'consult-ripgrep
         :desc "consult-dir" "fd" #'consult-dir
         :desc "fd" "od" #'+vertico/consult-fd)
-  (map! :map minibuffer-mode-map
+
+  (map! :map vertico-map
+        ;; "C-d" #'vertico-scroll-up
         "C-d" #'vertico-scroll-up
         "C-u" #'vertico-scroll-down
-        "C-'" #'vertico-quick-jump))
+        "C-'" #'vertico-quick-jump
+        "C-h" nil
+        "C-<backspace>" (lambda () (interactive) (delete-char -1))))
 
 (use-package! embark
   :config
