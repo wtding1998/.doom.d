@@ -186,10 +186,21 @@
   (call-interactively #'consult-dir))
 
 
+(defun dwt/new-window-dir-new-workspce ()
+  "open the current dir, and choose new dir in a new window in the new workspace"
+  (interactive)
+  (let ((current-dir default-directory))
+    (+workspace/new)
+    (find-file current-dir)
+    (evil-window-vsplit)
+    (call-interactively #'consult-dir)))
+
+
 (map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir
               :desc "move screenshot" "f1" #'dwt/copy-file-from-screenshot-download
               :desc "org download screenshot" "f2" #'dwt/org-download-clipboard-through-powershell
-              :desc "new window dir" "f3" #'dwt/new-window-dir)
+              :desc "new window dir" "f3" #'dwt/new-window-dir
+              :desc "new window dir workspace" "f4" #'dwt/new-window-dir-new-workspce)
 
 ;; ;;;###autoload
 ;; (defun dwt/replace-path ()
