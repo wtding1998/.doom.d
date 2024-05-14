@@ -589,7 +589,6 @@
   (evil-tex-bind-to-env-map '(("q" . "quote")
                               ("f" "\\begin{figure}[!ht]" . "\\end{figure}")))
   (evil-tex-bind-to-delim-map '(("|" "\\|" . "\\|")))
-  (add-to-list 'evil-tex-surround-delimiters '(?$ "$" . "$"))
   (cl-destructuring-bind (inner-map . outer-map)
       (if (and (boundp  'evil-surround-local-inner-text-object-map-list)
               (boundp  'evil-surround-local-outer-text-object-map-list))
@@ -602,7 +601,21 @@
     (define-key outer-map ":" 'evil-tex-a-superscript)
     (define-key outer-map ";" 'evil-tex-a-subscript)
     (define-key inner-map ":" 'evil-tex-inner-superscript)
-    (define-key inner-map ";" 'evil-tex-inner-subscript)))
+    (define-key inner-map ";" 'evil-tex-inner-subscript))
+
+  (setq evil-tex-surround-delimiters
+    `((?m "\\(" . "\\)")
+      (?M "\\[" . "\\]")
+      (?$ "$" . "$")
+      (?c . ,#'evil-tex-surround-command-prompt)
+      (?e . ,#'evil-tex-surround-env-prompt)
+      (?d . ,#'evil-tex-surround-delim-prompt)
+      ;; (?' . ,#'evil-tex-surround-cdlatex-accents-prompt)
+      (?q "`" . "'")
+      (?Q "``" . "''")
+      (?: "^{" . "}")
+      (?\; "_{" . "}")
+      (?T "&" . "&"))))
 
 (use-package! bibtex
   :config
