@@ -589,6 +589,7 @@
   (evil-tex-bind-to-env-map '(("q" . "quote")
                               ("f" "\\begin{figure}[!ht]" . "\\end{figure}")))
   (evil-tex-bind-to-delim-map '(("|" "\\|" . "\\|")))
+  (add-to-list 'evil-tex-surround-delimiters '(?$ "$" . "$"))
   (cl-destructuring-bind (inner-map . outer-map)
       (if (and (boundp  'evil-surround-local-inner-text-object-map-list)
               (boundp  'evil-surround-local-outer-text-object-map-list))
