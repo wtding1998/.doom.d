@@ -300,6 +300,12 @@
           (insert "$^{T}$"))
         (left-char))))
 
+  (defun dwt/remove-command (cmd)
+    "change \\cmd{...} to ..."
+    (interactive "sEnter the command to remove: ")
+    (save-excursion
+      (evil-ex (format "%%s/\\\\%s\\\{\\(.*?\\)\\\}/\\1/g" cmd))))
+
   (map! :map LaTeX-mode-map
         :n "<RET>" #'dwt/TeX-save-and-run-all
         :localleader
