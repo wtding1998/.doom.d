@@ -306,6 +306,7 @@
     (save-excursion
       (evil-ex (format "%%s/\\\\%s\\\{\\(.*?\\)\\\}/\\1/g" cmd))))
 
+
   (map! :map LaTeX-mode-map
         :n "<RET>" #'dwt/TeX-save-and-run-all
         :localleader
@@ -625,11 +626,24 @@
 
 (use-package! bibtex
   :config
+  (setq dwt/excluded-fields '("file" "langid" "abstract" "urldate" "issn" "doi"))
+  (defun dwt/delete-lines-containing-excluded-fields ()
+    "Delete lines containing any string from the list `dwt/excluded-fields`."
+    (interactive)
+    (let ((excluded-fields dwt/excluded-fields))
+      (save-excursion
+        (dolist (field excluded-fields)
+          (goto-char (point-min))
+          (while (re-search-forward (regexp-quote (concat field " = ")) nil t)
+            (beginning-of-line)
+            (delete-region (point) (progn (forward-line 1) (point)))))))
+    (basic-save-buffer))
   (map! :map bibtex-mode-map
         :localleader
         :desc "search entry" "s" #'bibtex-search-entry
         :desc "next entry" "]" #'bibtex-next-entry
-        :desc "prev entry" "[" #'bibtex-previous-entry)
+        :desc "prev entry" "[" #'bibtex-previous-entry
+        :desc "delete excluded fields" "d" #'dwt/delete-lines-containing-excluded-fields)
   (map! :map bibtex-mode-map
         :desc "next entry" :n "]e" #'bibtex-next-entry
         :desc "next entry" :n "[e" #'bibtex-previous-entry)
