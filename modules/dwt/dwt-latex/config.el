@@ -70,20 +70,25 @@
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
                                    :help "Convert DVI->PDF"))
-
-  (add-to-list 'TeX-command-list '("Remove .auctex"
+  (add-to-list 'TeX-command-list '("Clean auctex"
                                    "rm -rf ./.auctex-auto && rm -rf _region_.prv"
                                    TeX-run-command
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
                                    :help "Remove .auctex dir"))
-  (add-to-list 'TeX-command-list '("Archieve"
+  (add-to-list 'TeX-command-list '("Clean git"
+                                   "rm -rf ./.git"
+                                   TeX-run-command
+                                   nil                              ; ask for confirmation
+                                   t                                ; active in all modes
+                                   :help "Remove git"))
+  (add-to-list 'TeX-command-list '("Copy preamble"
                                    ;; "mkdir -p preamble && cp ~/OneDrive/Documents/research/latex_preamble/*.tex ./preamble && zip -r ../%(s-filename-only).zip ./ -x ./git"
                                    "mkdir -p latex_preamble && cp ~/OneDrive/Documents/research/latex_preamble/*.tex ./latex_preamble"
                                    TeX-run-command
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
-                                   :help "Remove git, copy preambles and compress"))
+                                   :help "Copy preamble"))
   (setq TeX-source-correlate-start-server t)
   (setq TeX-view-program-selection '((output-pdf "PDF Tools")
                                      (output-pdf "Zathura")
@@ -349,7 +354,7 @@
   (defun dwt/clean-emacs-latex-file ()
     (interactive)
     (async-shell-command "rm -f indent.log")
-    (TeX-command "Remove .auctex" #'TeX-master-file)
+    (TeX-command "Clean acutex" #'TeX-master-file)
     (TeX-command "Clean" #'TeX-master-file))
 
   (defun dwt/archieve-latex-file ()
@@ -360,7 +365,8 @@
       (replace-match ""))
     (dwt/clean-emacs-latex-file)
     (call-interactively #'+format/buffer)
-    (TeX-command "Archieve" #'TeX-master-file))
+    (TeX-command "Clean git" #'TeX-master-file)
+    (TeX-command "Copy preamble" #'TeX-master-file))
 
   (defun dwt/replace-math-deli ()
     (interactive)
@@ -697,11 +703,10 @@
 ;;   (map! :leader :desc "open pdf" "nB" #'dwt/ivy-bibtex-open-pdf))
 
 (use-package! citar
+  :defer 20
   :init
   (setq citar-bibliography '("~/Zotero/My Library.bib")
         citar-notes-paths '("~/org/roam"))
-  (setq citar-org-roam-note-title-template "${author} - ${title}")
-  (setq citar-org-roam-capture-template-key "n")
   :config
   (map! :leader
         "nB" #'citar-open-files
@@ -710,4 +715,7 @@
 (use-package! citar-org-roam
   :after (citar org-roam)
   :defer 20
+  :init
+  (setq citar-org-roam-note-title-template "${author} - ${title}")
+  (setq citar-org-roam-capture-template-key "n")
   :config (citar-org-roam-mode 1))

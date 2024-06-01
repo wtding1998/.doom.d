@@ -38,15 +38,15 @@
       dwt/linux-large-font-size 210
       dwt/linux-small-font-size 120
       ; default font size
-      ;; dwt/default-font-size dwt/linux-large-font-size)
-      dwt/default-font-size dwt/linux-small-font-size)
+      dwt/linux-default-font-size dwt/linux-large-font-size)
+      ;; dwt/linux-default-font-size dwt/linux-small-font-size)
 
 ;; font
 (defun dwt/doom-font(&optional big)
-  (let ((fontsize dwt/linux-small-font-size)
+  (let ((fontsize dwt/linux-default-font-size)
         (weight 'semi-bold))
     (when big
-      (setq fontsize dwt/linux-large-font-size))
+      (setq fontsize (+ 90 dwt/linux-default-font-size)))
     (when IS-MAC
       (setq fontsize (+ fontsize 30)
             weight 'regular))
