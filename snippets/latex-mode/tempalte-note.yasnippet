@@ -2,7 +2,7 @@
 # name: template-note
 # key: template-note
 # --
-\documentclass[11pt]{article}
+\documentclass[11pt,dvipsnames]{article}
 % set path
 \makeatletter
 \def\input@path{{\string~/OneDrive/Documents/research/latex_preamble/}}
@@ -12,6 +12,8 @@
 \input{command.tex}
 \input{note_setting.tex}
 
+\addbibresource{ref.bib}
+
 \title{}
 \date{\today}
 \author{Wentao Ding}
@@ -19,6 +21,5 @@
 \begin{document}
 \maketitle
 
-\newpage
 \printbibliography
 \end{document}
