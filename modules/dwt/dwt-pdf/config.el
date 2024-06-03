@@ -2,8 +2,8 @@
 
 (use-package! pdf-tools
   :hook ((pdf-tools-enabled . pdf-view-auto-slice-minor-mode)
-         (pdf-tools-disabled . hide-mode-line-mode)
-         (pdf-tools-enabled . pdf-view-themed-minor-mode))
+         (pdf-tools-disabled . hide-mode-line-mode))
+         ;; (pdf-tools-enabled . pdf-view-themed-minor-mode))
   :config
   (setq pdf-view-resize-factor 1.1)
   (map! :map pdf-view-mode-map

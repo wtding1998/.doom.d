@@ -33,6 +33,7 @@
 
 (setq dwt/gui-dark-theme 'doom-opera
       dwt/gui-light-theme 'modus-operandi
+      dwt/gui-theme dwt/gui-light-theme
       ;; dwt/tui-dark-theme 'doom-zenburn)
       dwt/tui-dark-theme dwt/gui-dark-theme
       dwt/linux-large-font-size 210
@@ -65,7 +66,7 @@
       (dwt/doom-font 1)
     (dwt/doom-font)))
 
-(map! :leader :desc "toggle sentence" "tb" #'dwt/big-font-mode) ;; replace doom/big-font-mode
+(map! :leader :desc "big font mode" "tb" #'dwt/big-font-mode) ;; replace doom/big-font-mode
 ;; Make the fringe of modus theme invisible
 (setq modus-themes-common-palette-overrides
       '((fringe unspecified)))
@@ -80,7 +81,7 @@
           (when (equal doom-theme 'doom-one)
             (dwt/doom-font)
           ;; theme for GUI in daemon
-            (load-theme dwt/gui-dark-theme t nil)))
+            (load-theme dwt/gui-theme t nil)))
           ;; (load-theme dwt/gui-light-theme t nil)
       ;;; theme for TUI in daemon
       (load-theme dwt/tui-dark-theme t nil))))
@@ -92,7 +93,7 @@
       (progn
         ;; (load-theme 'modus-operandi t nil)
         (when (equal doom-theme 'doom-one)
-          (load-theme dwt/gui-dark-theme t nil)
+          (load-theme dwt/gui-theme t nil)
           ;; (load-theme dwt/gui-light-theme t nil)
           (dwt/doom-font)))
     ;; theme for TUI without daemon
@@ -424,7 +425,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "FP ")
+(setq dwt/my-mode-line-info "FP Q ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (defun dwt/toggle-mode-line-info ()
