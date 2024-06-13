@@ -39,8 +39,8 @@
       dwt/linux-large-font-size 210
       dwt/linux-small-font-size 120
       ; default font size
-      dwt/linux-default-font-size dwt/linux-large-font-size)
-      ;; dwt/linux-default-font-size dwt/linux-small-font-size)
+      ;; dwt/linux-default-font-size dwt/linux-large-font-size
+      dwt/linux-default-font-size dwt/linux-small-font-size)
 
 ;; font
 (defun dwt/doom-font(&optional big)
