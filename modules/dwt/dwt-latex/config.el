@@ -353,9 +353,9 @@
 
   (defun dwt/clean-emacs-latex-file ()
     (interactive)
-    (async-shell-command "rm -f indent.log")
-    (TeX-command "Clean acutex" #'TeX-master-file)
-    (TeX-command "Clean" #'TeX-master-file))
+    (TeX-command "Clean" #'TeX-master-file)
+    (TeX-command "Clean auctex" #'TeX-master-file)
+    (async-shell-command "rm -f indent.log"))
 
   (defun dwt/archieve-latex-file ()
     (interactive)
