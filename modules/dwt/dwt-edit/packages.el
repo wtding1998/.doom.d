@@ -8,6 +8,7 @@
 (package! evil-motion-trainer :recipe (:host github :repo "martinbaillie/evil-motion-trainer"))
 (package! vundo)
 (package! evil-textobj-line :recipe (:host github :repo "emacsorphanage/evil-textobj-line"))
+(package! symbol-overlay :recipe (:host github :repo "wolray/symbol-overlay"))
 ;; (package! evil-mark-replace)
 ;; (package! awesome-pair :recipe (:host github :repo "manateelazycat/awesome-pair"))
 

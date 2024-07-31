@@ -66,6 +66,10 @@
     ",." (lambda () (interactive)
            (unless (texmathp)
             (yas-expand-snippet "\\\\[ $0  \\\\]")))
+    ".4" (lambda () (interactive)
+           (yas-expand-snippet "$$0$"))
+    ".b" (lambda () (interactive)
+           (yas-expand-snippet "\\\\)$0\\\\("))
     ;; ".q" "_"
     ;; ".w" "^"
     ".z" ";"

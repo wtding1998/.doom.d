@@ -39,6 +39,7 @@
   ;;; use xetex ass default engin
   (setq-default TeX-engine 'xetex
                 TeX-PDF-mode t)
+  (setq dwt/latex-preamble-dir "~/OneDrive/Documents/research/latex_preamble/")
   ;;; auctex preview scale
   (after! preview
     (if IS-LINUX
@@ -77,7 +78,7 @@
                                    t                                ; active in all modes
                                    :help "Remove .auctex dir"))
   (add-to-list 'TeX-command-list '("Clean git"
-                                   "rm -rf ./.git"
+                                   "rm -rf ./.git && rm -f .gitignore"
                                    TeX-run-command
                                    nil                              ; ask for confirmation
                                    t                                ; active in all modes
@@ -355,6 +356,7 @@
     (interactive)
     (TeX-command "Clean" #'TeX-master-file)
     (TeX-command "Clean auctex" #'TeX-master-file)
+    (TeX-command "Clean git" #'TeX-master-file)
     (async-shell-command "rm -f indent.log"))
 
   (defun dwt/archieve-latex-file ()
@@ -365,8 +367,7 @@
       (replace-match ""))
     (dwt/clean-emacs-latex-file)
     (call-interactively #'+format/buffer)
-    (TeX-command "Clean git" #'TeX-master-file)
-    (TeX-command "Copy preamble" #'TeX-master-file))
+    (dwt/process-latex-preamble))
 
   (defun dwt/replace-math-deli ()
     (interactive)
@@ -416,13 +417,35 @@
       (push (car (last (split-string path "/"))) subdir-names))
     (setq dir-name (consult--read subdir-names :prompt "New dir name: " :initial (format-time-string "%Y%m%d_")))
     (make-directory (concat project-path dir-name))
+    (write-file (concat project-path dir-name "/ref.bib"))
+    (write-file (concat project-path dir-name "/" dir-name ".tex"))
     (find-file (concat project-path dir-name "/" dir-name ".tex"))))
 
 ;;;###autoload
 (defun dwt/new-latex-dir-default-dir ()
   (interactive)
-  (let* ((latex-project-name (consult--read '() :prompt "New project name: " :initial (format-time-string "%Y%m%d_"))))
-    (find-file (concat default-directory "/" latex-project-name "/" latex-project-name ".tex"))))
+  (let ((project-name (consult--read '() :prompt "New project name: " :initial (format-time-string "%Y%m%d_"))))
+    (dwt/create-latex-project default-directory project-name)))
+
+(defun dwt/create-latex-project (dir project-name)
+  "Create a LaTeX project.
+DIR is the base directory.
+PROJECT-NAME is the name of the project."
+  (interactive "DDirectory: \nsProject name: ")
+  (let* ((project-dir (expand-file-name project-name dir))
+         (bib-file (expand-file-name "ref.bib" project-dir))
+         (tex-file (expand-file-name (concat project-name ".tex") project-dir)))
+    ;; Create the project directory
+    (unless (file-exists-p project-dir)
+      (make-directory project-dir t))
+    ;; Create an empty ref.bib file
+    (with-temp-buffer
+      (write-region (point-min) (point-min) bib-file))
+    ;; Create an empty project-name.tex file
+    (with-temp-buffer
+      (write-region (point-min) (point-min) tex-file))
+    ;; Open the project-name.tex file
+    (find-file tex-file)))
 
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-latex-dir-project

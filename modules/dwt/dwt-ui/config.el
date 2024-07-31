@@ -21,8 +21,8 @@
       dwt/linux-large-font-size 210
       dwt/linux-small-font-size 120
       ; default font size
-      ;; dwt/linux-default-font-size dwt/linux-large-font-size
-      dwt/linux-default-font-size dwt/linux-small-font-size)
+      dwt/linux-default-font-size dwt/linux-large-font-size)
+      ;; dwt/linux-default-font-size dwt/linux-small-font-size)
 
 
 (define-minor-mode dwt/big-font-mode
@@ -123,10 +123,10 @@
     ("q" nil "quit"))
 
   (map! :map awesome-tab-mode-map
-        :n "[t" #'awesome-tab-ace-jump
-        :n "]t" #'awesome-tab-fast-switch/body
-        :n "[T" #'awesome-tab-backward-group
-        :n "]T" #'awesome-tab-forward-group)
+        :n "[T" #'awesome-tab-ace-jump
+        :n "]T" #'awesome-tab-fast-switch/body
+        :n "[t" #'awesome-tab-backward-tab
+        :n "]t" #'awesome-tab-forward-tab)
   (map! :map awesome-tab-mode-map :leader
         :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
         :desc "kill group" "t0" #'awesome-tab-kill-all-buffers-in-current-group
@@ -360,7 +360,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "FP Q ")
+(setq dwt/my-mode-line-info "FP X ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (map! :g "<f10>" #'dwt/hide-pdf-window)

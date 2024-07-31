@@ -62,3 +62,41 @@
 ;;     (interactive)
 ;;     (let ((ivy-bibtex-default-action 'ivy-bibtex-open-pdf))
 ;;       (call-interactively #'ivy-bibtex))))
+
+
+;;;###autoload
+(defun dwt/collect-latex-input-files ()
+  "Collect all filenames used in \\input{...} commands in the current .tex file."
+  (interactive)
+  (let ((file-list '()))
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "\\\\input{\\([^}]+\\)}" nil t)
+        (let ((filename (match-string 1)))
+          (add-to-list 'file-list filename))))
+    (setq dwt/latex-input-files file-list)
+    (message "Input files: %s" (mapconcat 'identity file-list ", "))))
+
+;;;###autoload
+(defun dwt/copy-latex-preamble-files ()
+  "Copy the LaTeX preamble files to a directory named `latex_preamble`."
+  (interactive)
+  (let ((preamble-dir (expand-file-name dwt/latex-preamble-dir))
+        (dest-dir (expand-file-name "latex_preamble" (file-name-directory buffer-file-name)))
+        (files dwt/latex-input-files))
+    (unless (file-exists-p dest-dir)
+      (make-directory dest-dir))
+    (dolist (file files)
+      (let ((source-file (expand-file-name file preamble-dir))
+            (dest-file (expand-file-name file dest-dir)))
+        (if (file-exists-p source-file)
+            (copy-file source-file dest-file t)
+          (message "File not found: %s" source-file))))
+    (message "Preamble files copied to %s" dest-dir)))
+
+;;;###autoload
+(defun dwt/process-latex-preamble ()
+  "Collect LaTeX input files and copy them to the `latex_preamble` directory."
+  (interactive)
+  (dwt/collect-latex-input-files)
+  (dwt/copy-latex-preamble-files))
