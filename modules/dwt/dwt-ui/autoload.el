@@ -71,13 +71,13 @@ The window layout is restored when full-screen is toggled off."
 ;; font
 ;;;###autoload
 (defun dwt/doom-font(&optional big)
-  (let ((fontsize dwt/linux-default-font-size)
+  (interactive)
+  (let ((fontsize dwt/default-font-size)
         (weight 'semi-bold))
     (when big
-      (setq fontsize (+ 90 dwt/linux-default-font-size)))
+      (setq fontsize (+ 90 dwt/default-font-size)))
     (when IS-MAC
-      (setq fontsize (+ fontsize 30)
-            weight 'regular))
+      (setq weight 'regular))
     (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height fontsize :weight weight)
     (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
     (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)
