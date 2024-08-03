@@ -361,13 +361,9 @@
 
   (defun dwt/archieve-latex-file ()
     (interactive)
-    (save-excursion
-      (goto-char (point-min))
-      (search-forward "\\string~\/OneDrive\/Documents\/research\/")
-      (replace-match ""))
-    (dwt/clean-emacs-latex-file)
     (call-interactively #'+format/buffer)
-    (dwt/process-latex-preamble))
+    (dwt/process-latex-preamble)
+    (dwt/clean-emacs-latex-file))
 
   (defun dwt/replace-math-deli ()
     (interactive)

@@ -81,6 +81,11 @@
 (defun dwt/copy-latex-preamble-files ()
   "Copy the LaTeX preamble files to a directory named `latex_preamble`."
   (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (search-forward "\\string~\/OneDrive\/Documents\/research\/")
+    (replace-match ""))
+  (basic-save-buffer)
   (let ((preamble-dir (expand-file-name dwt/latex-preamble-dir))
         (dest-dir (expand-file-name "latex_preamble" (file-name-directory buffer-file-name)))
         (files dwt/latex-input-files))
