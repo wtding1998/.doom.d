@@ -399,3 +399,6 @@
 (use-package! projectile
   :config
   (setq projectile-project-search-path '(("~/my_projects" . 1))))
+
+;; https://github.com/doomemacs/doomemacs/issues/7981
+(define-key y-or-n-p-map " " #'y-or-n-p-insert-y)
