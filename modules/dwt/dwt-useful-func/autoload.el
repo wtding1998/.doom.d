@@ -10,3 +10,12 @@
   (interactive)
   (when (y-or-n-p (format "save to %s ? " dwt/last-loaded-session))
     (doom/save-session dwt/last-loaded-session)))
+
+;;;###autoload
+(defun dwt/auto-save-session ()
+  (doom/save-session dwt/auto-saved-session))
+
+;;;###autoload
+(defun dwt/load-auto-saved-session ()
+  (interactive)
+  (doom/load-session dwt/auto-saved-session))

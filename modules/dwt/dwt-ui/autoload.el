@@ -86,10 +86,11 @@ The window layout is restored when full-screen is toggled off."
 ;; https://discourse.doomemacs.org/t/how-to-change-your-splash-screen/57
 ;;;###autoload
 (defun doom-dashboard-draw-ascii-emacs-banner-fn ()
-  (let* ((banner)
+  (let* ((banner
           ;; '(",---.,-.-.,---.,---.,---."
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
+          '("==========================================="))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)
