@@ -469,7 +469,9 @@ PROJECT-NAME is the name of the project."
         :i ":" #'dwt/insert-superscript
         ;; :i "M-n" #'cdlatex-tab
         :nv "}" #'dwt/find-math-next
-        :nv "{" #'dwt/find-math-prev)
+        :nv "{" #'dwt/find-math-prev
+        :nv "g!" #'dwt/avy-goto-backslash-word
+        :nv "g@" #'dwt/avy-goto-backslash-word-2chars)
 
   (defun dwt/insert (input-string)
     "Input string"

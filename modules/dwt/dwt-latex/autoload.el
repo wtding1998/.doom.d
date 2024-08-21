@@ -105,3 +105,28 @@
   (interactive)
   (dwt/collect-latex-input-files)
   (dwt/copy-latex-preamble-files))
+
+;;;###autoload
+(defun dwt/avy-goto-backslash-word (char &optional arg)
+  "Jump to the currently visible word that starts with CHAR after a backslash (\\).
+The window scope is determined by `avy-all-windows' (ARG negates it)."
+  (interactive (list (read-char "char: " t)
+                     current-prefix-arg))
+  (avy-with avy-goto-backslash-word
+    (avy-jump (concat "\\\\" (regexp-quote (string char)))
+              :window-flip arg
+              :beg (point-min)
+              :end (point-max))))
+
+;;;###autoload
+(defun dwt/avy-goto-backslash-word-2chars (char1 char2 &optional arg)
+  "Jump to the currently visible word that starts with CHAR1 and CHAR2 after a backslash (\\).
+The window scope is determined by `avy-all-windows' (ARG negates it)."
+  (interactive (list (read-char "First char: " t)
+                     (read-char "Second char: " t)
+                     current-prefix-arg))
+  (avy-with avy-goto-backslash-word-2chars
+    (avy-jump (concat "\\\\" (regexp-quote (string char1 char2)))
+              :window-flip arg
+              :beg (point-min)
+              :end (point-max))))
