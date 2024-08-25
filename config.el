@@ -69,3 +69,11 @@
 
 ;;; system
 (setq system-time-locale "C")
+
+(defvar IS-WSL nil
+  "Flag indicating whether we are running inside WSL with the expected distro.")
+
+(let ((expt-distro "Debian"))
+  (when (and (getenv "WSL_DISTRO_NAME")
+             (string= (getenv "WSL_DISTRO_NAME") expt-distro))
+    (setq IS-WSL t)))
