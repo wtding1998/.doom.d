@@ -582,7 +582,7 @@
 ;;         (setq pdf-list (append pdf-list f))))
 ;;     (setq pdf-list pdf-list)))
 
-    
+
 
 (after! flyspell
   (map! :leader :desc "flyspell" "ts" #'flyspell-mode
@@ -685,9 +685,16 @@
   (map! :leader
         "op" #'org-download-clipboard)
   :config
-  (setq-default org-download-image-dir "~/OneDrive/Pictures/org-download-pictures")
+  ;; (setq-default org-download-image-dir "~/OneDrive/Pictures/org-download-pictures")
+  (setq-default org-download-image-dir nil)
   (setq-default org-download-heading-lvl nil)
-  (setq org-download-method 'directory))
+  (setq org-download-method 'directory)
+  (when IS-WSL
+    (defun org-download-clipboard (&optional basename)
+      "Capture the image from the clipboard and insert the resulting file."
+      (interactive)
+      (let ((org-download-screenshot-method "wl-paste -t image/bmp | convert bmp:- %s"))
+          (org-download-screenshot basename)))))
 
 
   ;; (when IS-LINUX
