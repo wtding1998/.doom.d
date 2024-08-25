@@ -388,7 +388,7 @@
 (defcustom dwt/idle-saved-session (file-name-concat doom-data-dir "workspaces" "idle-saved-session")
   "The last automatically saved session.")
 
-(defvar dwt/idle-save-session-interval 20)
+(defvar dwt/idle-save-session-interval 1)
 (run-with-idle-timer dwt/idle-save-session-interval t #'dwt/auto-save-session-idle)
 
 (map! :leader
