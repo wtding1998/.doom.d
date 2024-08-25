@@ -121,7 +121,7 @@
         "ce" #'org-set-effort)
   (add-hook 'cdlatex-mode-hook (lambda ()
                                 (map! :map org-mode-map
-                                      "<tab>" nil)))
+                                      :i "<tab>" nil)))
   (setq org-use-fast-todo-selection t)
   (setq org-agenda-start-day "-1d")
   (setq org-agenda-span 8)

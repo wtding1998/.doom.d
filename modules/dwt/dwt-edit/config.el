@@ -236,3 +236,17 @@
 
 (use-package! evil-textobj-line
   :after evil)
+
+(use-package! smart-hungry-delete
+  :after (smart-hungry-delete-backward-char)
+  :init
+  (map! :i "M-d" #'smart-hungry-delete-backward-char))
+
+(use-package! symbol-overlay
+  :after (symbol-overlay-put)
+  :init
+  (map! :vn "g8" #'symbol-overlay-put
+        :vn "g0" #'symbol-overlay-switch-forward
+        :vn "g9" #'symbol-overlay-switch-backward
+        :vn "g)" #'symbol-overlay-remove-all
+        :vn "g(" #'symbol-overlay-mode))
