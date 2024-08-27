@@ -90,9 +90,12 @@
   ;;; remove hl-line
   (add-hook 'org-mode-hook (lambda () (hl-line-mode -1)))
   ;;; clock
-  (map! :map org-mode-map :localleader
+  (map! :map org-mode-map
+        :localleader
         "cu" #'org-dblock-update
         "c." #'dwt/current-org-time-stamp-inactive)
+  (map! :map evil-org-mode-map
+        :i "C-d" nil)
   (map! :leader
         :desc "insert org image" "ti" #'dwt/insert-org-image)
   (defun dwt/insert-org-image ()

@@ -28,7 +28,7 @@
         ;; to make them available in company-mode, disable them firstly
         :i "C-n" nil
         :i "C-p" nil
-        :i "C-d" #'backward-delete-char-untabify
+        :i "M-d" #'backward-delete-char-untabify
         ;; since I do not use repeat
         :n "-" #'basic-save-buffer
         ;; show doc
@@ -238,12 +238,12 @@
   :after evil)
 
 (use-package! smart-hungry-delete
-  :after (smart-hungry-delete-backward-char)
+  :commands (smart-hungry-delete-backward-char)
   :init
-  (map! :i "M-d" #'smart-hungry-delete-backward-char))
+  (map! :i "C-M-d" #'smart-hungry-delete-backward-char))
 
 (use-package! symbol-overlay
-  :after (symbol-overlay-put)
+  :commands (symbol-overlay-put)
   :init
   (map! :vn "g8" #'symbol-overlay-put
         :vn "g0" #'symbol-overlay-switch-forward
