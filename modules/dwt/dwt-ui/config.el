@@ -148,7 +148,7 @@
   (map! :map awesome-tab-mode-map :ni "C-9" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-<tab>" #'awesome-tab-forward-tab)
   (map! :map awesome-tab-mode-map :ni "<backtab>" #'awesome-tab-backward-tab)
-  (map! :map awesome-tab-mode-map :ni "C-<iso-lefttab>" #'awesome-tab-backward-tab)
+  (map! :map awesome-tab-mode-map :ni "C-S-<tab>" #'awesome-tab-backward-tab)
 
   ;; height
   (if IS-MAC
