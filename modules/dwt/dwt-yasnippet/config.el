@@ -104,7 +104,7 @@
                (yas-expand-snippet "^{\\ast}")
              (yas-expand-snippet "^{*}")))
     ".d" "^{-1}"
-    ".a" "^{\\top}"
+    ".a" "^\\top"
     ".l" (lambda () (interactive)
            (yas-expand-snippet "${1:,} \\ldots $1 $0"))
     "pmx" (lambda () (interactive)
