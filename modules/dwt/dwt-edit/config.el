@@ -39,11 +39,11 @@
         :nv "g3" #'evil-avy-goto-word-1
         :nv "g4" #'evil-avy-goto-word-0
         :n "zw" #'widen
-        :nv "ga" #'evil-avy-goto-char-timer
+        :nv "g/" #'evil-avy-goto-char-timer
         :nv "go" #'avy-goto-line
         ;; :nv "g[" #'evil-avy-goto-word-1
         ;; :nv "g]" #'evil-avy-goto-char
-        :nv "g/" #'evil-avy-goto-word-0
+        :nv "ga" #'evil-avy-goto-word-0
         :v "gC" #'capitalize-region
         :v "v" #'er/expand-region
         :g "C-s" #'+default/search-buffer
