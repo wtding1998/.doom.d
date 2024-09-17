@@ -319,12 +319,12 @@
         :desc "View" "v" #'TeX-view
         :desc "Output" "o" #'TeX-recenter-output-buffer
         :desc "Error" "e" #'TeX-next-error
-        :desc "View by zathura" "d" #'dwt/view-pdf-by-zathura
+        :desc "View by zathura" ";" #'dwt/view-pdf-by-zathura
         :desc "Run" "c" #'dwt/latex-file
-        :desc "Run" "x" #'dwt/bibtex-latex-file
+        :desc "Run" "b" #'dwt/bibtex-latex-file
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
         :desc "Preview Environment" "e" #'preview-environment
-        :desc "Preview Buffer" "b" #'preview-buffer
+        :desc "Preview Buffer" "B" #'preview-buffer
         :desc "Preview at Point" "p" #'preview-at-point
         :desc "Clean preview" "R" #'preview-clearout-buffer
         :desc "Clean preview" "r" #'preview-clearout-at-point
