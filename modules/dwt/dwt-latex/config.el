@@ -108,6 +108,17 @@
     (let ((TeX-view-program-selection '((output-pdf "Zathura"))))
       (TeX-view)))
 
+  (defun dwt/toggle-view-program ()
+    "Toggle view program between pdf tools and zathura"
+    (interactive)
+    (let ((first (nth 0 TeX-view-program-selection))
+          (second (nth 1 TeX-view-program-selection)))
+      (setq TeX-view-program-selection
+            (cons second
+                  (cons first
+                        (nthcdr 2 TeX-view-program-selection))))
+     (message "%s" (car TeX-view-program-selection))))
+
   (defmacro define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-name"))
           (outer-name (make-symbol "outer-name")))
@@ -211,39 +222,6 @@
           (insert "\\(_{}\\)")
           (left-char 6)))))
 
-  ;; (defun dwt/insert-space ()
-  ;;   "Wrap a single char with inline math"
-  ;;   (interactive)
-  ;;   (if (string-equal "-" (string (char-before (- (point) 1))))
-  ;;       (insert " ")
-  ;;       (progn
-  ;;         (if (and (not (texmathp)) (thing-at-point-looking-at "[[:alpha:]]"))
-  ;;           (let ((length-current-word (length (word-at-point))))
-  ;;             (if (and (equal length-current-word 1) (not (string-equal (word-at-point) "a")) (not (string-equal (word-at-point) "I")) (not (string-equal (word-at-point) "A")))
-  ;;                 (progn
-  ;;                   (call-interactively #'backward-word)
-  ;;                   (insert "\\( ")
-  ;;                   (call-interactively #'forward-word)
-  ;;                   (insert " \\)")
-  ;;                   (backward-char 3))
-  ;;               (insert " ")))
-  ;;           (insert " ")))))
-
-  ;; (defun dwt/insert-space ()
-  ;;   "Wrap a single char with inline math"
-  ;;   (interactive)
-  ;;   (if (texmathp)
-  ;;       (insert " ")
-  ;;     (progn
-  ;;       (let ((current-point-word (thing-at-point 'word)))
-  ;;         (cond ((not current-point-word) (insert " "))
-  ;;               ((> (length current-point-word) 1) (insert " "))
-  ;;               ((not (string-match "\\([A-Za-z]\\)" current-point-word)) (insert " "))
-  ;;               ((string-match "\\([aIA]\\)" current-point-word) (insert " "))
-  ;;               ((not (string-equal " " (string (char-before (- (point) 1))))) (insert " "))
-  ;;               (t (dwt/wrap-inline-math)))))))
-
-
   (defun dwt/insert-space ()
     "Wrap a single char with inline math"
     (interactive)
@@ -258,20 +236,6 @@
                 ((not (string-equal last-char " ")) (insert " "))
                 (t (dwt/wrap-inline-math)))))))
 
-  ;; (defun dwt/wrap-inline-math ()
-  ;;   (if (derived-mode-p 'org-mode)
-  ;;       (progn
-  ;;         (backward-char)
-  ;;         (insert "\\( ")
-  ;;         (forward-char)
-  ;;         (insert " \\)")
-  ;;         (backward-char 3))
-  ;;       (progn
-  ;;         (backward-char)
-  ;;         (insert "$ ")
-  ;;         (forward-char)
-  ;;         (insert " $")
-  ;;         (backward-char 2))))
   (defun dwt/wrap-inline-math ()
     (backward-char)
     (insert "\\( ")
@@ -321,7 +285,8 @@
         :desc "Error" "e" #'TeX-next-error
         :desc "View by zathura" ";" #'dwt/view-pdf-by-zathura
         :desc "Run" "c" #'dwt/latex-file
-        :desc "Run" "b" #'dwt/bibtex-latex-file
+        :desc "Bibtex" "b" #'dwt/bibtex-latex-file
+        :desc "Toggle view" "t" #'dwt/toggle-view-program
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
         :desc "Preview Environment" "e" #'preview-environment
         :desc "Preview Buffer" "B" #'preview-buffer
