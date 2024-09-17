@@ -41,8 +41,7 @@
   (map! :n "_" #'dirvish-side
         ;; :n "-" #'dired-jump
         ;; :n "\\" #'dirvish-dwim
-        :n "g\\" #'dirvish-dwim
-        :n "|" #'evil-execute-in-emacs-state
+        :n "|" #'dirvish-dwim
         :map dired-mode-map
         :n "J" nil
         :n "[[" nil
