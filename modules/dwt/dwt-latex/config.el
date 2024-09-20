@@ -91,25 +91,25 @@
                                    t                                ; active in all modes
                                    :help "Copy preamble"))
   (setq TeX-source-correlate-start-server t)
-  (setq TeX-view-program-selection '((output-pdf "PDF Tools")
-                                     (output-pdf "Zathura")
-                                     (output-pdf "preview-pane")
-                                     (output-pdf "Evince")
-                                     ((output-dvi has-no-display-manager)
-                                      "dvi2tty")
-                                     ((output-dvi style-pstricks)
-                                      "dvips and gv")
-                                     (output-dvi "xdvi")
-                                     (output-html "xdg-open")))
-    ;; FIXME: if the cursor is in the usepackage, will get error
-  (defun dwt/view-pdf-by-zathura ()
+  (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools")
+  ;; (if (featurep :system 'macos)
+  ;;   (progn
+      ;; (add-to-list 'TeX-view-program-list '("Zathura" ("zathura %o" (mode-io-correlate " --synctex-forward %n:0:\"%b\" -x \"emacsclient +%{line} %{input}\"")) "zathura")))
+      ;; (add-to-list 'TeX-view-program-list-builtin '("Zathura" ("zathura %o") "zathura")) ;; zathura on mac is failed to synctex
+    (add-to-list 'TeX-view-program-list '(("Sioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 %1\"")))
+    (add-to-list 'TeX-view-program-selection '(output-pdf "Sioyek")))
+    ;; (add-to-list 'TeX-view-program-selection '(output-pdf "Zathura")))
+
+  (defun dwt/view-pdf-by-the-other-viewer ()
     "view pdf by pdf tools"
     (interactive)
-    (let ((TeX-view-program-selection '((output-pdf "Zathura"))))
-      (TeX-view)))
+    (let ((inhibit-message t))
+      (dwt/toggle-view-program)
+      (TeX-view)
+      (dwt/toggle-view-program)))
 
   (defun dwt/toggle-view-program ()
-    "Toggle view program between pdf tools and zathura"
+    "Toggle view program between first and second viewer"
     (interactive)
     (let ((first (nth 0 TeX-view-program-selection))
           (second (nth 1 TeX-view-program-selection)))
@@ -276,14 +276,14 @@
     (save-excursion
       (evil-ex (format "%%s/\\\\%s\\\{\\(.*?\\)\\\}/\\1/g" cmd))))
 
-
+;;; latex mode map
   (map! :map LaTeX-mode-map
         :n "<RET>" #'dwt/TeX-save-and-run-all
         :localleader
         :desc "View" "v" #'TeX-view
         :desc "Output" "o" #'TeX-recenter-output-buffer
         :desc "Error" "e" #'TeX-next-error
-        :desc "View by zathura" ";" #'dwt/view-pdf-by-zathura
+        :desc "View by the other" ";" #'dwt/view-pdf-by-the-other-viewer
         :desc "Run" "c" #'dwt/latex-file
         :desc "Bibtex" "b" #'dwt/bibtex-latex-file
         :desc "Toggle view" "t" #'dwt/toggle-view-program
