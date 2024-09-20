@@ -27,12 +27,6 @@
 
 
 (after! tex
-  ;; (use-package! popweb
-  ;;   :load-path ("~/.emacs.d/.local/straight/repos/popweb/extension/latex"
-  ;;               "~/.emacs.d/.local/straight/repos/popweb")
-  ;;   :config
-  ;;   (require 'popweb-latex)
-  ;;   (add-hook 'latex-mode-hook #'popweb-latex-mode))
   ;;; this mode show dismatch parens
   ;;; but it doesn't work will for (1,0]
   (remove-hook 'TeX-update-style-hook #'rainbow-delimiters-mode)
@@ -46,7 +40,6 @@
       (setq-default preview-scale 1.4)
       (setq-default preview-scale 1.4)))
   (set-popup-rules!
-    ;; '(("^\\*Python*" :side right :size 15 :select t)))
     '(("^\\*TeX Help*" :size 15)))
   (add-to-list 'TeX-command-list '("Shell Escape"
                                    "%`xelatex%(mode)%' -shell-escape %t"
@@ -61,10 +54,6 @@
                                    nil
                                    t
                                    :help "pdflatex"))
-;; (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t)
-  ;; (setq TeX-command-default "XeLaTeX"
-  ;;       TeX-save-query nil
-  ;;       TeX-show-compilation t)
   (add-to-list 'TeX-command-list '("DVI2PDF"
                                    "dvipdf %d"
                                    TeX-run-command
@@ -91,14 +80,9 @@
                                    t                                ; active in all modes
                                    :help "Copy preamble"))
   (setq TeX-source-correlate-start-server t)
-  (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools")
-  ;; (if (featurep :system 'macos)
-  ;;   (progn
-      ;; (add-to-list 'TeX-view-program-list '("Zathura" ("zathura %o" (mode-io-correlate " --synctex-forward %n:0:\"%b\" -x \"emacsclient +%{line} %{input}\"")) "zathura")))
-      ;; (add-to-list 'TeX-view-program-list-builtin '("Zathura" ("zathura %o") "zathura")) ;; zathura on mac is failed to synctex
-    (add-to-list 'TeX-view-program-list '(("Sioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 %1\"")))
-    (add-to-list 'TeX-view-program-selection '(output-pdf "Sioyek")))
-    ;; (add-to-list 'TeX-view-program-selection '(output-pdf "Zathura")))
+  (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools"))
+  (add-to-list 'TeX-view-program-selection '(output-pdf "Sioyek"))
+  (add-to-list 'TeX-view-program-list '("Sioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 %1\""))
 
   (defun dwt/view-pdf-by-the-other-viewer ()
     "view pdf by pdf tools"
