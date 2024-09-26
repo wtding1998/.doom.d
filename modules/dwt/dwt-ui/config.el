@@ -69,17 +69,6 @@
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
 
-(use-package! diff-hl
-  :config
-  (map! :n "[g" #'diff-hl-previous-hunk)
-  (map! :n "]g" #'diff-hl-next-hunk)
-  (diff-hl-margin-mode -1)
-  :hook
-  (tex-mode . diff-hl-mode)
-  ;; (tex-mode . diff-hl-flydiff-mode)
-  (prog-mode . diff-hl-mode))
-  ;; (prog-mode . diff-hl-flydiff-mode))
-
 (after! diff-hl
    (map! :n "[g" #'diff-hl-previous-hunk)
    (map! :n "]g" #'diff-hl-next-hunk)
@@ -339,12 +328,6 @@
     "Recenter and pulse the current line."
     (recenter)
     (my-pulse-momentary-line))
-
-  :hook (((dumb-jump-after-jump
-           imenu-after-jump) . my-recenter-and-pulse)
-         ((bookmark-after-jump
-           magit-diff-visit-file
-           next-error) . my-recenter-and-pulse-line))
   :init
   (dolist (cmd '(recenter-top-bottom
                  other-window ace-window windmove-do-window-select
