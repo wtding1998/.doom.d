@@ -64,7 +64,7 @@
 ;; (add-to-list 'default-frame-alist '(internal-border-width . 5))
 
 ;; frame
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; full screen may cause error for the frame created by emacs-everywhere
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (map! :leader :desc "Max Frame" "tM" #'toggle-frame-maximized)
@@ -199,6 +199,7 @@
     (progn
       ;; (setq frame-title-format '("Emacs @ " "%f"))
       (setq frame-title-format "Emacs @ wtding")
+      (setq icon-title-format frame-title-format)
       (setq doom-big-font-increment 5)) ;; for doom big font mode
       ;; (toggle-frame-fullscreen))
   (setq frame-title-format
