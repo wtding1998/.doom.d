@@ -81,6 +81,15 @@
         "-l --sort=time --almost-all --time-style=long-iso --human-readable --group-directories-first --no-group")
   (setq dirvish-preview-dispatchers
       (cl-substitute 'pdf-preface 'pdf dirvish-preview-dispatchers))
+
+
+  (dirvish-define-preview exa (file)
+    "Use `exa' to generate directory preview."
+    :require ("exa") ; tell Dirvish to check if we have the executable
+    (when (file-directory-p file) ; we only interest in directories here
+      `(shell . ("exa" "-al" "--color=always" "--icons"
+                 "--group-directories-first" ,file))))
+  (add-to-list 'dirvish-preview-dispatchers 'exa)
   (setq dirvish-reuse-session t)
   (setq dirvish-emerge-groups
     '(("Recent files" (predicate . recent-files-2h))
