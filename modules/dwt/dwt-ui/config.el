@@ -348,7 +348,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "FP X ")
+(setq dwt/my-mode-line-info "WHH FP X")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (map! :g "<f10>" #'dwt/hide-pdf-window)
