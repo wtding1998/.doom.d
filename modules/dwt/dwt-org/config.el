@@ -332,7 +332,7 @@
 (use-package! org-roam
   :init
   (setq org-roam-directory "~/org/roam")
-  (setq org-roam-db-location "~/.config/doom/cache/org-roam.db")
+  (setq org-roam-db-location (concat doom-cache-dir "org-roam.db"))
   (map! :leader "of" #'org-roam-node-find
                 "oi" #'org-roam-node-insert
                 "oc" #'org-roam-capture
