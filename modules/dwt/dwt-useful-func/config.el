@@ -409,3 +409,7 @@
 
 ;; https://github.com/doomemacs/doomemacs/issues/7981
 (define-key y-or-n-p-map " " #'y-or-n-p-insert-y)
+
+(use-package! magit-todos
+  :after magit
+  :config (magit-todos-mode 1))

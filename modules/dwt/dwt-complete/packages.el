@@ -6,3 +6,4 @@
 (package! ivy-posframe)
 (package! corfu)
 (package! cape)
+(package! consult-todo :recipe (:host github :repo "liuyinz/consult-todo"))

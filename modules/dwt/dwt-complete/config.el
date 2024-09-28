@@ -61,18 +61,6 @@
   (define-key company-active-map (kbd "TAB") nil)
   (define-key company-mode-map (kbd "TAB") nil)
   (define-key company-search-map (kbd "TAB") nil))
-  ;;(set-default company-backends '((company-capf :with company-yasnippet)
-   ;;                               (company-dabbrev-code company-keywords company-files company-dabbrev)))
-;; (after! anaconda-mode
-;;   (set-company-backend! 'anaconda-mode '(company-anaconda)))
-
-;; (after! lsp
-;;   ;; (set-company-backend! 'anaconda-mode '(company-anaconda company-yasnippet))
-;;   (setq +lsp-company-backends nil))
-
-;; (use-package! company-prescient
-;;   :defer t
-;;   :init (company-prescient-mode 1))
 
 (use-package! ivy
   :when (featurep 'ivy)
@@ -235,3 +223,11 @@
   :config
   (map! :n "g[" #'embark-dwim)
   (map! :map embark-file-map ">" #'dwt/embark-insert-file-name))
+
+(use-package! consult-todo
+  :defer t
+  :commands (consult-todo consult-todo-project)
+  :init
+  (map! :leader
+        :desc "todo" "st" #'consult-todo
+        :desc "todo-project" "sT" #'consult-todo-project))
