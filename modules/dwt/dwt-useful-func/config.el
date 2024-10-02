@@ -415,3 +415,11 @@
   :config
   (magit-todos-mode 1)
   (setq magit-todos-keyword-suffix "\\(?:[([][^])]+[])]\\)?[ :]"))
+
+(use-package! flow-state-mode
+  :load-path "~/my_projects/flow-state-mode"
+  :commands (flow-state-mode)
+  :init
+  (map! :leader "m`" :desc "flow-state" #'flow-state-mode)
+  :config
+  (add-to-list 'mode-line-misc-info `(flow-state-mode ("" flow-state-mode-left-time-string))))
