@@ -120,6 +120,7 @@
   ;; (add-hook 'org-mode-hook (lambda () (setq word-wrap nil)))
   (map! :map org-mode-map
         :localleader
+        "$" #'org-archive-subtree
         "C" #'cdlatex-mode
         "ce" #'org-set-effort)
   (add-hook 'cdlatex-mode-hook (lambda ()
@@ -130,9 +131,6 @@
   (setq org-agenda-span 8)
   (map! :map org-agenda-mode-map
         :m "go" #'evil-avy-goto-line)
-  (map! :map evil-org-mode-map
-        :ni "M-L" #'org-shiftright
-        :ni "M-H" #'org-shiftleft)
   (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "DONE(d)" "WAIT(w)"  "DONELOG(l@/!)" "ABORT(a@/!)")))
   (setq org-log-done t)
   (setq org-export-with-toc nil)
