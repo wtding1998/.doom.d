@@ -148,7 +148,7 @@
 
   (defun dwt/org-clear-cache ()
     (interactive)
-    (shell-command "rm -rf ~/.emacs.d/.local/cache/org-latex"))
+    (shell-command "rm -rf ~/.emacs.d/.local/cache/org-latex")) ;; TODO: change path and commpand
   (evil-define-key 'normal org-mode-map (kbd "<SPC>mR") #'dwt/org-clear-cache)
   ;; (setq org-preview-latex-default-process 'dvipng)
   ;; make background of fragments transparent
