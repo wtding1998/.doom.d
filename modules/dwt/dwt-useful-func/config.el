@@ -420,6 +420,6 @@
   :load-path "~/my_projects/flow-state-mode"
   :commands (flow-state-mode)
   :init
-  (map! :leader "m`" :desc "flow-state" #'flow-state-mode)
+  (map! :leader "t`" #'flow-state-mode)
   :config
   (add-to-list 'mode-line-misc-info `(flow-state-mode ("" flow-state-mode-left-time-string))))
