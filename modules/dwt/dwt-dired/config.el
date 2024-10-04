@@ -110,4 +110,4 @@
         "e" #'dirvish-emerge-menu
         "j" #'dirvish-fd-jump))
 
-(setq bookmark-default-file (concat doom-cache-dir "bookmark"))
+(setq bookmark-default-file (concat doom-cache-dir "bookmarks"))
