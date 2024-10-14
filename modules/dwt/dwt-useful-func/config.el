@@ -342,8 +342,8 @@
   (map! :v "gC" #'titlecase-region)
   (map! :n "gC" #'titlecase-sentence)
   :config
-  ;; (setq titlecase-style 'sentence)
-  (setq titlecase-style 'wikipedia)
+  (setq titlecase-style 'sentence)
+  ;; (setq titlecase-style 'wikipedia)
   (setq titlecase-dwim-non-region-function 'titlecase-sentence))
 
 (use-package! atomic-chrome
@@ -388,7 +388,7 @@
 (defcustom dwt/idle-saved-session (file-name-concat doom-data-dir "workspaces" "idle-saved-session")
   "The last automatically saved session.")
 
-(defvar dwt/idle-save-session-interval 1)
+(defvar dwt/idle-save-session-interval 5)
 (run-with-idle-timer dwt/idle-save-session-interval t #'dwt/auto-save-session-idle)
 
 (map! :leader
@@ -422,4 +422,5 @@
   :init
   (map! :leader "t`" #'flow-state-mode)
   :config
+  (setq flow-state-mode-timeout 10)
   (add-to-list 'mode-line-misc-info `(flow-state-mode ("" flow-state-mode-left-time-string))))

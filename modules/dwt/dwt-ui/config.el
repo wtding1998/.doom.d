@@ -24,10 +24,10 @@
       dwt/linux-default-font-size dwt/linux-large-font-size
       dwt/mac-default-font-size 150)
 (if IS-LINUX
-    (setq dwt/default-font-size dwt/linux-default-font-size)
-    (setq dwt/default-font-size dwt/mac-default-font-size))
-
-      ;; dwt/linux-default-font-size dwt/linux-small-font-size)
+    (progn
+      ;; (setq dwt/linux-default-font-size dwt/linux-small-font-size)
+      (setq dwt/default-font-size dwt/linux-default-font-size))
+  (setq dwt/default-font-size dwt/mac-default-font-size))
 
 
 (define-minor-mode dwt/big-font-mode
