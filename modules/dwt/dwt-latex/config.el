@@ -82,7 +82,8 @@
   (setq TeX-source-correlate-start-server t)
   (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools"))
   (add-to-list 'TeX-view-program-selection '(output-pdf "Sioyek"))
-  (add-to-list 'TeX-view-program-list '("Sioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 %1\""))
+  ; deal with file name with space by add "" around %1
+  (add-to-list 'TeX-view-program-list '("Sioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 \\\"%1\\\"\""))
 
   (defun dwt/view-pdf-by-the-other-viewer ()
     "view pdf by pdf tools"
