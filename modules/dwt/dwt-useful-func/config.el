@@ -398,8 +398,7 @@
 
 (use-package! pass
   :init
-  (map! :leader
-        "oP" #'pass)
+  (map! :leader "oP" #'pass)
   :config
   (setq pass-username-fallback-on-filename t))
 
@@ -424,3 +423,7 @@
   :config
   (setq flow-state-mode-timeout 10)
   (add-to-list 'mode-line-misc-info `(flow-state-mode ("" flow-state-mode-left-time-string))))
+
+;; (use-package! outli
+;;   :defer t
+;;   :commands (outli-mode))

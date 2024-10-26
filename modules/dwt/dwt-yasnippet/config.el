@@ -36,7 +36,7 @@
 
   (map! :leader
         :desc "math auto expand" "ig" #'dwt/search-in-yasnippet))
-  
+
 
 
 
@@ -66,8 +66,8 @@
     ",." (lambda () (interactive)
            (unless (texmathp)
             (yas-expand-snippet "\\\\[ $0  \\\\]")))
-    ".4" (lambda () (interactive)
-           (yas-expand-snippet "$$0$"))
+    ;; ".4" (lambda () (interactive)
+    ;;        (yas-expand-snippet "$0$"))
     ".b" (lambda () (interactive)
            (yas-expand-snippet "\\\\)$0\\\\("))
     ;; ".q" "_"

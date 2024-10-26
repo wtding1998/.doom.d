@@ -90,7 +90,7 @@ The window layout is restored when full-screen is toggled off."
           ;; '(",---.,-.-.,---.,---.,---."
           ;;   "|---'| | |,---||    `---."
           ;;   "`---'` ' '`---^`---'`---'"))
-          '("==========================================="))
+          '("==============================================="))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)

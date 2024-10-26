@@ -13,6 +13,7 @@
 (package! titlecase :recipe (:host github :repo "duckwork/titlecase.el"))
 (package! atomic-chrome :recipe (:host github :repo "alpha22jp/atomic-chrome"))
 (package! magit-todos :recipe (:host github :repo "alphapapa/magit-todos"))
+;; (package! outli :recipe (:host github :repo "jdtsmith/outli"))
 ;; (package! blink-search :recipe (:host github :repo "manateelazycat/blink-search"))
 ;; (package! mind-wave :recipe (:host github :repo "manateelazycat/mind-wave" :build nil))
 ;; (package! Bard.el :recipe (:host github :repo "AllTheLife/Bard.el" :build nil))

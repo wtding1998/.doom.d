@@ -84,6 +84,8 @@
   (add-to-list 'TeX-view-program-selection '(output-pdf "Sioyek"))
   ; deal with file name with space by add "" around %1
   (add-to-list 'TeX-view-program-list '("Sioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 \\\"%1\\\"\""))
+  (setq TeX-debug-warnings t)
+  ;; (setq TeX-debug-bad-boxes t)
 
   (defun dwt/view-pdf-by-the-other-viewer ()
     "view pdf by pdf tools"
@@ -267,13 +269,12 @@
         :localleader
         :desc "View" "v" #'TeX-view
         :desc "Output" "o" #'TeX-recenter-output-buffer
-        :desc "Error" "e" #'TeX-next-error
         :desc "View by the other" ";" #'dwt/view-pdf-by-the-other-viewer
         :desc "Run" "c" #'dwt/latex-file
         :desc "Bibtex" "b" #'dwt/bibtex-latex-file
         :desc "Toggle view" "t" #'dwt/toggle-view-program
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
-        :desc "Preview Environment" "e" #'preview-environment
+        :desc "Preview Environment" "e" #'TeX-error-overview
         :desc "Preview Buffer" "B" #'preview-buffer
         :desc "Preview at Point" "p" #'preview-at-point
         :desc "Clean preview" "R" #'preview-clearout-buffer
@@ -315,8 +316,7 @@
     (dwt/process-latex-preamble)
     (dwt/clean-emacs-latex-file))
 
-  (defun dwt/replace-math-deli ()
-    (interactive)
+  (defun dwt/replace-math-deli-oneside ()
     (save-excursion
       (goto-char (point-min))
       (while (search-forward "\\(" nil t)
@@ -324,9 +324,13 @@
       (while (search-forward "\\)" nil t)
         (replace-match "$"))))
 
+  (defun dwt/replace-math-deli ()
+    (interactive)
+    (dwt/replace-math-deli-oneside)
+    (dwt/replace-math-deli-oneside))
+
   (defun dwt/format-latex-file ()
     (interactive)
-    (call-interactively #'dwt/replace-math-deli)
     (call-interactively #'dwt/replace-math-deli)
     (call-interactively #'+format/buffer))
 
