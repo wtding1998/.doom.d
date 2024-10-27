@@ -685,7 +685,12 @@ PROJECT-NAME is the name of the project."
   :config
   (map! :leader
         "nB" #'citar-open-files
-        "nE" #'citar-open-entry))
+        "nE" #'citar-open-entry)
+  (setq citar-templates
+    '((main . "${author editor:30%sn}     ${date year issued:4}     ${title:48}")
+      (suffix . "          ${=key= id:15}    ${=type=:12}")
+      (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
+      (note . "Notes on ${author editor:%etal}, ${title}"))))
 
 (use-package! citar-org-roam
   :after (citar org-roam)
