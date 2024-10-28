@@ -222,7 +222,17 @@
 (use-package! embark
   :config
   (map! :n "g[" #'embark-dwim)
-  (map! :map embark-file-map ">" #'dwt/embark-insert-file-name))
+  (map! :map embark-file-map ">" #'dwt/embark-insert-file-name)
+
+  (defun dwt/embark-copy-grep-results (strings)
+    "Extract content from consult-ripgrep STRINGS by removing the file path and line number."
+    (let ((matched-string strings))
+      (when (string-match "^[^:]+:[0-9]+:\\(.*\\)" strings)
+            (setq matched-string (match-string 1 strings)))
+      (message "Copied: %s" matched-string)
+      (kill-new matched-string)))
+
+  (map! :map embark-general-map "W" #'dwt/embark-copy-grep-results))
 
 (use-package! consult-todo
   :defer t
