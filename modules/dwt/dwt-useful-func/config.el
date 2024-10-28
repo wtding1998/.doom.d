@@ -404,7 +404,19 @@
 
 (use-package! projectile
   :config
-  (setq projectile-project-search-path '(("~/my_projects" . 1))))
+  (setq projectile-project-search-path '(("~/my_projects" . 1)))
+
+  (defun dwt/grep-in-all-projects ()
+    (interactive)
+    (consult-ripgrep "~/my_projects"))
+
+  (defun dwt/grep-newcommand-in-all-projects ()
+    (interactive)
+    (consult-ripgrep "~/my_projects" "\\\\newcommand "))
+
+  (map! :leader
+        :desc "grep all projects" "ip" #'dwt/grep-in-all-projects
+        :desc "grep command all projects" "iP" #'dwt/grep-newcommand-in-all-projects))
 
 ;; https://github.com/doomemacs/doomemacs/issues/7981
 (define-key y-or-n-p-map " " #'y-or-n-p-insert-y)
