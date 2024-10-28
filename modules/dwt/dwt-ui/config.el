@@ -1,9 +1,9 @@
 ;;; dwt/dwt-ui/config.el -*- lexical-binding: t; -*-
 
-(add-to-list '+doom-dashboard-menu-sections
-             '("Reload last loaded session"
-               :icon (nerd-icons-faicon "nf-fa-reply" :face 'doom-dashboard-menu-title)
-               :action dwt/load-last-loaded-session))
+;; (add-to-list '+doom-dashboard-menu-sections
+;;              '("Reload last loaded session"
+;;                :icon (nerd-icons-faicon "nf-fa-reply" :face 'doom-dashboard-menu-title)
+;;                :action dwt/load-last-loaded-session))
 ;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
 (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)

@@ -29,13 +29,13 @@
   (after! warnings
     (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 
-  (defun dwt/search-in-yasnippet ()
+  (defun dwt/grep-in-yasnippet ()
     (interactive)
     (let ((yasnippet-dir (concat doom-user-dir "snippets")))
       (consult-ripgrep yasnippet-dir)))
 
   (map! :leader
-        :desc "math auto expand" "ig" #'dwt/search-in-yasnippet))
+        :desc "math auto expand" "ig" #'dwt/grep-in-yasnippet))
 
 
 
