@@ -101,8 +101,8 @@
     "==" "& ="
     ".s" (lambda () (interactive)
            (if (derived-mode-p 'org-mode)
-               (yas-expand-snippet "^{\\ast}")
-             (yas-expand-snippet "^{*}")))
+               (yas-expand-snippet "^{*}")
+             (yas-expand-snippet "^*")))
     ".d" "^{-1}"
     ".a" "^\\top"
     ".l" (lambda () (interactive)
