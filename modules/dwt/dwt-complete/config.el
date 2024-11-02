@@ -202,6 +202,23 @@
 
 (use-package! vertico
   :config
+
+  ;; https://emacs-china.org/t/package-buffer-name/28111/8?u=ldiwlty
+  (defun my-project-root ()
+    (when-let ((project (project-current nil)))
+      (if (fboundp #'project-root)
+          (project-root project)
+        (car (project-root project)))))
+
+  (define-advice consult--buffer-pair (:around (_ buffer) show-path)
+    "Also show path for file buffers so the user can filter them by path."
+    (let ((dir (or (my-project-root) default-directory)))
+      (if-let ((path (buffer-file-name buffer)))
+          (progn (when (file-in-directory-p path dir)
+                  (setq path (file-relative-name path dir)))
+                (cons path buffer))
+        (cons (buffer-name buffer) buffer))))
+
   (map! :mode vertico-mode :leader
         :desc "M-x" "<SPC>" #'execute-extended-command
         :desc "recentf" ";" #'recentf-open-files
