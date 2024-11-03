@@ -473,13 +473,17 @@ PROJECT-NAME is the name of the project."
       (call-interactively #'revert-buffer)))
   (dwt/set-cdlatex-keymap))
 
-(after! reftex-mode
-  ;; set company-backends
-  ;; default:
-  ;; Value in #<buffer optimization.tex>
-  ;; (company-reftex-labels company-reftex-citations
-  ;;                        (+latex-symbols-company-backend company-auctex-macros company-auctex-environments)
-  ;;                        company-dabbrev company-yasnippet company-ispell company-capf)
+;; (after! reftex-mode
+;;   ;; set company-backends in latex-mode as workaround
+;;   ;; default:
+;;   ;; Value in #<buffer optimization.tex>
+;;   ;; (company-reftex-labels company-reftex-citations
+;;   ;;                        (+latex-symbols-company-backend company-auctex-macros company-auctex-environments)
+;;   ;;                        company-dabbrev company-yasnippet company-ispell company-capf)
+;;   (set-company-backend! 'reftex-mode 'company-reftex-labels 'company-reftex-citations '(+latex-symbols-company-backend company-auctex-symbols
+;;                                                                                         company-dabbrev company-yasnippet dwt/company-existing-commands)))
+
+(after! reftex
   (set-company-backend! 'reftex-mode 'company-reftex-labels 'company-reftex-citations '(+latex-symbols-company-backend company-auctex-symbols
                                                                                         company-dabbrev company-yasnippet dwt/company-existing-commands)))
 
