@@ -10,21 +10,17 @@
   :init
   (setq company-icon-size '(auto-scale . 25))
   (setq
-        ;; company-tooltip-align-annotations t
-        ;; company-tooltip-limit 12
         company-idle-delay 0
         company-echo-delay (if (display-graphic-p) nil 0)
-        company-minimum-prefix-length 1
         company-require-match nil
         company-dabbrev-ignore-case nil
         ;; Number the candidates (use M-1, M-2 etc to select completions).
         company-show-quick-access t
-        company-dabbrev-downcase nil
-        company-global-modes '(not erc-mode message-mode help-mode
-                                   gud-mode eshell-mode shell-mode))
+        company-dabbrev-downcase nil)
   :config
   (setq company-idle-delay 0.1
-        company-minimum-prefix-length 3))
+        company-minimum-prefix-length 3)
+  (map! :i "C-x C-x" #'dwt/company-existing-commands))
   ;; (defun my-company-yasnippet ()
   ;;   "Hide the current completeions and show snippets."
   ;;   (interactive)
@@ -224,9 +220,9 @@
         :desc "recentf" ";" #'recentf-open-files
         :desc "repeat" "`" #'vertico-repeat
         :desc "kill ring" "sa" #'consult-yank-pop
+        :desc "recent tex" "fa" #'dwt/consult-recent-tex-file
         :desc "rg" "fg" #'consult-ripgrep
-        :desc "consult-dir" "fd" #'consult-dir
-        :desc "fd" "od" #'+vertico/consult-fd)
+        :desc "consult-dir" "fd" #'consult-dir)
 
   (map! :map vertico-map
         ;; "C-d" #'vertico-scroll-up
@@ -258,3 +254,64 @@
   (map! :leader
         :desc "todo" "st" #'consult-todo
         :desc "todo-project" "sT" #'consult-todo-project))
+
+;;;###autoload
+(defun dwt/company-existing-commands (command &optional arg &rest ignored)
+  "A `company-mode' backend for existing LaTeX commands in the current buffer."
+  (interactive (list 'interactive))
+  (cl-case command
+    (interactive (company-begin-backend 'dwt/company-existing-commands))
+    (prefix
+     (let ((prefix (dwt/company-existing-commands-current-command)))
+       ;; (message "Prefix found: %s" prefix) ;; Debug message
+       prefix))
+    (candidates
+     (let ((prefix arg)
+           (commands (dwt/company-existing-commands-collect arg)))
+       ;; Remove the command at point from candidates
+       (setq commands (remove (dwt/company-existing-commands-current-command) commands))
+       ;; (message "Candidates for prefix '%s': %s" prefix commands) ;; Debug message
+       (all-completions prefix commands)))))
+    ;; (meta (format "This is an existing LaTeX command: %s" arg))))
+
+;;;###autoload
+(defun dwt/company-existing-commands-collect (prefix)
+  "Collect all LaTeX commands in the current buffer that match PREFIX."
+  (let (commands)
+    (when prefix
+      (message "Collecting commands matching prefix: %s" prefix) ;; Debug message
+      (save-excursion
+        (goto-char (point-min))
+        (while (re-search-forward (concat "\\\\" (regexp-quote (substring prefix 1)) "[a-zA-Z]*") nil t)
+          (push (match-string 0) commands))))
+    (setq commands (delete-dups commands))
+    (message "Commands collected: %s" commands) ;; Debug message
+    commands))
+
+;;;###autoload
+(defun dwt/company-existing-commands-current-command ()
+  "Return the LaTeX command prefix at point, if any."
+  (save-excursion
+    (let ((command (when (looking-back (rx "\\" (1+ letter)) (line-beginning-position))
+                     (match-string 0))))
+      (message "Current command under cursor: %s" command) ;; Debug message
+      command)))
+
+;;;###autoload
+(defun dwt/consult-recent-tex-file ()
+  "Find recent .tex file using `completing-read'."
+  (interactive)
+  (let ((tex-files (seq-filter (lambda (file)
+                                 (string-suffix-p ".tex" file))
+                               (bound-and-true-p recentf-list))))
+    (if tex-files
+        (find-file
+         (consult--read
+          (mapcar #'consult--fast-abbreviate-file-name tex-files)
+          :prompt "Find recent .tex file: "
+          :sort nil
+          :require-match t
+          :category 'file
+          :state (consult--file-preview)
+          :history 'file-name-history))
+      (user-error "No recent .tex files found"))))

@@ -401,18 +401,6 @@ PROJECT-NAME is the name of the project."
       :desc "New TeX dir" "ol" #'dwt/new-latex-dir-project
       :desc "New TeX dir in project" "oL" #'dwt/new-latex-dir-default-dir)
 
-(set-company-backend! 'latex-mode '(+latex--company-backends company-dabbrev company-yasnippet))
-;; set company-backends
-;; default:
-;; Value in #<buffer optimization.tex>
-;; (company-reftex-labels company-reftex-citations
-;;                        (+latex-symbols-company-backend company-auctex-macros company-auctex-environments)
-;;                        company-dabbrev company-yasnippet company-ispell company-capf)
-(add-to-list '+latex--company-backends #'company-yasnippet nil #'eq)
-;; (add-to-list '+latex--company-backends #'company-auctex-macros nil #'eq)
-(add-to-list '+latex--company-backends #'company-dabbrev nil #'eq)
-(add-to-list '+latex--company-backends #'company-math-symbols-latex nil #'eq)
-
 (after! cdlatex
   (map! :map cdlatex-mode-map
         :i "<SPC>" #'dwt/insert-space
@@ -485,7 +473,20 @@ PROJECT-NAME is the name of the project."
       (call-interactively #'revert-buffer)))
   (dwt/set-cdlatex-keymap))
 
+(after! reftex-mode
+  ;; set company-backends
+  ;; default:
+  ;; Value in #<buffer optimization.tex>
+  ;; (company-reftex-labels company-reftex-citations
+  ;;                        (+latex-symbols-company-backend company-auctex-macros company-auctex-environments)
+  ;;                        company-dabbrev company-yasnippet company-ispell company-capf)
+  (set-company-backend! 'reftex-mode 'company-reftex-labels 'company-reftex-citations '(+latex-symbols-company-backend company-auctex-symbols
+                                                                                        company-dabbrev company-yasnippet dwt/company-existing-commands)))
+
 (after! latex
+
+
+
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
 
   (defun dwt/string-before-word ()
