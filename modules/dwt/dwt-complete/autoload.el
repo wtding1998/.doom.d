@@ -77,6 +77,6 @@
           :sort nil
           :require-match t
           :category 'file
-          :state (consult--file-preview)
+          :state  nil
           :history 'file-name-history))
       (user-error "No recent .pdf files found"))))
