@@ -61,3 +61,22 @@
           :state (consult--file-preview)
           :history 'file-name-history))
       (user-error "No recent .tex files found"))))
+
+;;;###autoload
+(defun dwt/consult-recent-pdf-file ()
+  "Find recent .pdf file using `completing-read'."
+  (interactive)
+  (let ((pdf-files (seq-filter (lambda (file)
+                                 (string-suffix-p ".pdf" file))
+                               (bound-and-true-p recentf-list))))
+    (if pdf-files
+        (find-file
+         (consult--read
+          (mapcar #'consult--fast-abbreviate-file-name pdf-files)
+          :prompt "Find recent .pdf file: "
+          :sort nil
+          :require-match t
+          :category 'file
+          :state (consult--file-preview)
+          :history 'file-name-history))
+      (user-error "No recent .pdf files found"))))

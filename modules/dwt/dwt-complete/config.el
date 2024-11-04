@@ -221,6 +221,7 @@
         :desc "repeat" "`" #'vertico-repeat
         :desc "kill ring" "sa" #'consult-yank-pop
         :desc "recent tex" "ft" #'dwt/consult-recent-tex-file
+        :desc "recent pdf" "ft" #'dwt/consult-recent-pdf-file
         :desc "consult-dir" "fd" #'consult-dir)
 
   (map! :map vertico-map
