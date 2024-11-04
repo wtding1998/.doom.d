@@ -125,7 +125,7 @@
         :desc "kill other tabs" "t1" #'awesome-tab-kill-other-buffers-in-current-group
         :desc "kill group" "t0" #'awesome-tab-kill-all-buffers-in-current-group
         :desc "tab fast switch" "tt" #'awesome-tab-fast-switch/body
-        :desc "switch group" "sT" #'awesome-tab-switch-group)
+        :desc "switch group" "tT" #'awesome-tab-switch-group)
   (map! :map awesome-tab-mode-map :ni "C-1" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-2" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-3" #'awesome-tab-select-visible-tab)

@@ -80,8 +80,6 @@
         :desc "winner-redo" "3" #'winner-redo
         :desc "window-size" "ww" #'hydra-window-size/body
         :desc "window-size" "w`'" #'evil-window-next
-        ;; switch themes
-        :desc "switch theme" "tT" #'dwt/random-load-theme
         ;; shell command
         :desc "shell command" ">" #'async-shell-command
         ;; file

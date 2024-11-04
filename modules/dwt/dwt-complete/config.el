@@ -19,7 +19,7 @@
         company-dabbrev-downcase nil)
   :config
   (setq company-idle-delay 0.1
-        company-minimum-prefix-length 3)
+        company-minimum-prefix-length 2)
   (map! :i "C-x C-x" #'dwt/company-existing-commands))
   ;; (defun my-company-yasnippet ()
   ;;   "Hide the current completeions and show snippets."
@@ -220,8 +220,7 @@
         :desc "recentf" ";" #'recentf-open-files
         :desc "repeat" "`" #'vertico-repeat
         :desc "kill ring" "sa" #'consult-yank-pop
-        :desc "recent tex" "fa" #'dwt/consult-recent-tex-file
-        :desc "rg" "fg" #'consult-ripgrep
+        :desc "recent tex" "ft" #'dwt/consult-recent-tex-file
         :desc "consult-dir" "fd" #'consult-dir)
 
   (map! :map vertico-map

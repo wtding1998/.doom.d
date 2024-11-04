@@ -10,8 +10,8 @@
   ;; (rime-show-candidate 'minibuffer)
   :config
   (add-to-list 'rime-translate-keybindings "<tab>")
+  (setq rime-title "ㄓ ") ;add space in the right
   (setq dwt/rime-modeline '(:eval (rime-lighter)))
-  (setq-default +modeline-format-right (push "  " +modeline-format-right))
   (setq-default +modeline-format-right (push dwt/rime-modeline +modeline-format-right))
   ;; set rime configuration dir
   (setq rime-user-data-dir "~/.config/fcitx/rime")
