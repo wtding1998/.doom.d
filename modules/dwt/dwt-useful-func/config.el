@@ -201,6 +201,7 @@
               :desc "org download screenshot" "f2" #'dwt/org-download-clipboard-through-powershell
               :desc "new window dir" "f3" #'dwt/new-window-dir
               :desc "new window dir workspace" "f4" #'dwt/new-window-dir-new-workspce)
+(map! :g "M-9" #'+workspace/other)
 
 ;; ;;;###autoload
 ;; (defun dwt/replace-path ()
@@ -388,7 +389,7 @@
 (defcustom dwt/idle-saved-session (file-name-concat doom-data-dir "workspaces" "idle-saved-session")
   "The last automatically saved session.")
 
-(defvar dwt/idle-save-session-interval 5)
+(defvar dwt/idle-save-session-interval 20)
 (run-with-idle-timer dwt/idle-save-session-interval t #'dwt/auto-save-session-idle)
 
 (map! :leader
