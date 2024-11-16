@@ -157,6 +157,7 @@
         (string-prefix-p "*epc" name)
         ;; (string-prefix-p "*" name)
         (string-prefix-p "*helm" name)
+        (string-prefix-p "*Dirvish" name)
         (string-prefix-p "_region_.tex" name)
         (string-prefix-p "*Compile-Log*" name)
         (string-prefix-p "*lsp" name)
@@ -275,10 +276,12 @@
   (setq awesome-tray-info-padding-right 4)
   (setq awesome-tray-evil-show-macro t)
   (setq awesome-tray-evil-show-cursor-count t)
-  (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
+  ;; (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
+  (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "date"))
   ;; (setq awesome-tray-essential-modules '("pdf-view-page"))
   (setq awesome-tray-input-method-zh-style "ㄓ"
-        awesome-tray-input-method-en-style ""
+        ;; awesome-tray-input-method-en-style ""
+        awesome-tray-input-method-local-style "ㄓ"
         awesome-tray-buffer-name-buffer-changed t
         awesome-tray-file-path-full-dirname-levels 0
         awesome-tray-file-path-truncate-dirname-levels 1
