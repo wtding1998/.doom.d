@@ -270,22 +270,16 @@
   :config
   (when (display-graphic-p)
     (awesome-tray-mode 1))
-  ;; (setq awesome-tray-active-modules '("- -> 0" "input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)
-  (setq awesome-tray-info-padding-right 4)
+  (setq awesome-tray-info-padding-right 0)
   (setq awesome-tray-evil-show-macro t)
   (setq awesome-tray-evil-show-cursor-count t)
-  ;; (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "battery" "date"))
-  (setq awesome-tray-active-modules '("input-method" "evil" "buffer-name" "org-pomodoro" "pdf-view-page" "location" "file-path" "date"))
-  ;; (setq awesome-tray-essential-modules '("pdf-view-page"))
-  (setq awesome-tray-input-method-zh-style "ㄓ"
-        ;; awesome-tray-input-method-en-style ""
-        awesome-tray-input-method-local-style "ㄓ"
+  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "org-pomodoro" "pdf-view-page" "location-or-page" "date"))
+  (setq awesome-tray-input-method-local-style "ㄓ"
         awesome-tray-buffer-name-buffer-changed t
-        awesome-tray-file-path-full-dirname-levels 0
-        awesome-tray-file-path-truncate-dirname-levels 1
-        awesome-tray-file-path-truncated-name-length 6))
+        awesome-tray-file-path-full-dirname-levels 3
+        awesome-tray-file-path-truncated-name-length 1))
 
 (use-package! sort-tab
   :commands (sort-tab-mode)

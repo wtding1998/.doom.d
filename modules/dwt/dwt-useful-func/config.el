@@ -310,6 +310,7 @@
       (unpulled . show)))
   (setq magit-status-initial-section '(2))
   (setq-default magit-diff-refine-hunk 'all)
+  (map! :leader "gfC" #'magit-file-checkout)
   (add-hook 'magit-mode-hook #'(lambda () (interactive) (visual-line-mode 1))))
 
 ;;;###autoload
@@ -407,16 +408,18 @@
   :config
   (setq projectile-project-search-path '(("~/my_projects" . 1)))
 
-  (defun dwt/grep-in-all-projects ()
+  (defun dwt/grep-in-all-tex-projects ()
     (interactive)
-    (consult-ripgrep "~/my_projects"))
+    (consult-ripgrep "~/my_projects" " -- -t tex");; convert string to rg
+    (call-interactively #'move-beginning-of-line))
+  ;; or search by #...#tex
 
   (defun dwt/grep-newcommand-in-all-projects ()
     (interactive)
     (consult-ripgrep "~/my_projects" "\\\\newcommand "))
 
   (map! :leader
-        :desc "grep all projects" "ip" #'dwt/grep-in-all-projects
+        :desc "grep all projects" "ip" #'dwt/grep-in-all-tex-projects
         :desc "grep command all projects" "iP" #'dwt/grep-newcommand-in-all-projects))
 
 ;; https://github.com/doomemacs/doomemacs/issues/7981
