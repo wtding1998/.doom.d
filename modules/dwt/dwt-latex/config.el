@@ -650,9 +650,27 @@ PROJECT-NAME is the name of the project."
     "BibTeX entry text object."
     (bibtex-entry-text-object count beg end type))
 
+
+  (evil-define-text-object evil-bibtex-key-object (count &optional beg end type)
+    "Select the BibTeX key at point."
+    (let ((start (save-excursion
+                  (when (re-search-backward "@\\w+{" nil t) ; Move to the start of the BibTeX entry
+                    (search-forward "{") ; Move to the start of the BibTeX key
+                    (point))))
+          (end (save-excursion
+                (when (and (re-search-backward "@\\w+{" nil t)
+                          (search-forward "{")) ; Find the start of the key
+                  (re-search-forward "," nil t) ; Find characters up to the comma or end brace
+                  (point)))))
+      (if (and start end)
+          (evil-range start (1- end) type) ; Adjust end to exclude the comma
+        (user-error "No BibTeX key found"))))
+
   ;; Bind the text object to key sequences
   (define-key evil-outer-text-objects-map "E" 'my-evil-bibtex-entry)
-  (define-key evil-inner-text-objects-map "E" 'my-evil-bibtex-entry))
+  (define-key evil-inner-text-objects-map "E" 'my-evil-bibtex-entry)
+  (define-key evil-outer-text-objects-map "K" 'evil-bibtex-key-object)
+  (define-key evil-inner-text-objects-map "K" 'evil-bibtex-key-object))
 ;; (use-package! ivy-bibtex
 ;;   :commands (bibtex-completion-candidates)
 ;;   :init
