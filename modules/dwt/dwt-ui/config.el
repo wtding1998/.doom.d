@@ -266,16 +266,16 @@
 
 
 (use-package! awesome-tray
-  :defer t
+  ;; :defer t
   :config
-  (when (display-graphic-p)
-    (awesome-tray-mode 1))
+  (awesome-tray-mode 1)
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-info-padding-right 0)
   (setq awesome-tray-evil-show-macro t)
+  (setq awesome-tray-adjust-mode-line-color-enable t)
   (setq awesome-tray-evil-show-cursor-count t)
-  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "org-pomodoro" "pdf-view-page" "location-or-page" "date"))
+  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "git" "org-pomodoro" "pdf-view-page" "location-or-page" "date"))
   (setq awesome-tray-input-method-local-style "ㄓ"
         awesome-tray-buffer-name-buffer-changed t
         awesome-tray-file-path-full-dirname-levels 3

@@ -43,15 +43,14 @@
           ("r" "~/Documents/research/" "Research")
           ("t" "~/.Trash/" "Trash")
           ("d" "~/Downloads/" "Downloads")))
-  ;; (setq dirvish-use-header-line 'global)
-  (setq dirvish-use-header-line t)
-  (setq dirvish-use-mode-line t)
-  (setq dirvish-header-line-height 20)
+  (setq dirvish-use-header-line 'global)
+  (setq dirvish-use-mode-line nil)
+  (setq dirvish-header-line-height '(25 . 25))
   (setq dirvish-mode-line-height 20)
   (setq dirvish-header-line-format
-        '(:left (path) :right (free-space)))
-  (setq dirvish-mode-line-format
-          '(:left (symlink file-time file-size) :right (vc-info omit yank sort index)))
+        '(:left (path) :right (vc-info omit sort index)))
+  ;; (setq dirvish-mode-line-format
+  ;;         '(:left (symlink file-time file-size) :right (vc-info omit yank sort index)))
   (setq dired-listing-switches
         "-l --sort=time --almost-all --time-style=long-iso --human-readable --group-directories-first --no-group")
   (setq dirvish-preview-dispatchers
@@ -74,7 +73,7 @@
             `(shell . ("eza" "-al" "--color=always" "--icons=always"
                         "--group-directories-first" ,file))))
         (add-to-list 'dirvish-preview-dispatchers 'eza)))
-  (setq dirvish-reuse-session t)
+  (setq dirvish-reuse-session nil)
   (setq dirvish-emerge-groups
     '(("Recent files" (predicate . recent-files-2h))
       ("Documents" (extensions "pdf" "tex" "bib" "doc" "xlsx" "xls"))
