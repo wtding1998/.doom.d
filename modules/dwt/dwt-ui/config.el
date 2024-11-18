@@ -266,7 +266,7 @@
 
 
 (use-package! awesome-tray
-  ;; :defer t
+  :defer t
   :config
   (awesome-tray-mode 1)
   (setq awesome-tray-position 'right)
