@@ -44,3 +44,18 @@
   (interactive)
   (calendar-goto-today)
   (calendar-forward-day 1))
+
+;;;###autoload
+(defun dwt/grep-in-all-tex-projects ()
+  (interactive)
+  (consult-ripgrep "~/my_projects" " -- -t tex"));; convert string to rg or search by #...#tex
+
+;;;###autoload
+(defun dwt/grep-in-my-preamble ()
+  (interactive)
+  (consult-ripgrep "~/OneDrive/Documents/research/latex_preamble"))
+
+;;;###autoload
+(defun dwt/grep-newcommand-in-all-projects ()
+  (interactive)
+  (consult-ripgrep "~/my_projects" "\\\\newcommand "))

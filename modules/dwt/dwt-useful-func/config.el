@@ -402,7 +402,9 @@
 (map! :leader
       "qj" #'dwt/load-last-loaded-session
       "qJ" #'dwt/save-current-session-to-last-loaded-session
-      "qn" #'dwt/load-newest-session)
+      "qn" #'dwt/load-newest-session
+      :desc "grep all projects" "ip" #'dwt/grep-in-all-tex-projects
+      :desc "grep command all projects" "iP" #'dwt/grep-in-my-preamble)
 
 (use-package! pass
   :init
@@ -412,21 +414,7 @@
 
 (use-package! projectile
   :config
-  (setq projectile-project-search-path '(("~/my_projects" . 1)))
-
-  (defun dwt/grep-in-all-tex-projects ()
-    (interactive)
-    (consult-ripgrep "~/my_projects" " -- -t tex");; convert string to rg
-    (call-interactively #'move-beginning-of-line))
-  ;; or search by #...#tex
-
-  (defun dwt/grep-newcommand-in-all-projects ()
-    (interactive)
-    (consult-ripgrep "~/my_projects" "\\\\newcommand "))
-
-  (map! :leader
-        :desc "grep all projects" "ip" #'dwt/grep-in-all-tex-projects
-        :desc "grep command all projects" "iP" #'dwt/grep-newcommand-in-all-projects))
+  (setq projectile-project-search-path '(("~/my_projects" . 1))))
 
 ;; https://github.com/doomemacs/doomemacs/issues/7981
 (define-key y-or-n-p-map " " #'y-or-n-p-insert-y)
