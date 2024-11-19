@@ -38,3 +38,9 @@
             (setq newest-time mod-time)
             (setq newest-file file)))))
     (doom/load-session newest-file)))
+
+;;;###autoload
+(defun dwt/calendar-goto-tomorrow ()
+  (interactive)
+  (calendar-goto-today)
+  (calendar-forward-day 1))
