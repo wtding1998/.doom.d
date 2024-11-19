@@ -12,14 +12,17 @@
     (doom/save-session dwt/last-loaded-session)))
 
 ;;;###autoload
-(defun dwt/auto-save-session-idle ()
-  (let ((inhibit-message t))
-    (doom/save-session dwt/idle-saved-session)))
+(defun dwt/idle-save-session-quick-save ()
+  "Save session in idle time after new files are opened "
+  (when dwt/idle-save-session-new-file-open
+    (let ((inhibit-message t))
+      (doom/save-session dwt/idle-save-session-path)
+      (setq dwt/idle-save-session-new-file-open nil))))
 
 ;;;###autoload
 (defun dwt/load-auto-saved-session ()
   (interactive)
-  (doom/load-session dwt/idle-saved-session))
+  (doom/load-session dwt/idle-save-session-path))
 
 ;;;###autoload
 (defun dwt/load-newest-session ()

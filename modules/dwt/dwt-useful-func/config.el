@@ -384,14 +384,18 @@
 (defadvice! dwt/save-last-loaded-session (fn file)
   :around #'doom/load-session
   (funcall fn file)
-  (unless (or (string-equal file dwt/last-loaded-session) (string-equal file dwt/idle-saved-session))
+  (unless (or (string-equal file dwt/last-loaded-session) (string-equal file dwt/idle-save-session-path))
     (customize-save-variable 'dwt/last-loaded-session file)))
 
-(defcustom dwt/idle-saved-session (file-name-concat doom-data-dir "workspaces" "idle-saved-session")
+(defcustom dwt/idle-save-session-path (file-name-concat doom-data-dir "workspaces" "idle-saved-session")
   "The last automatically saved session.")
 
-(defvar dwt/idle-save-session-interval 20)
-(run-with-idle-timer dwt/idle-save-session-interval t #'dwt/auto-save-session-idle)
+(defvar dwt/idle-save-session-interval 10)
+(defvar dwt/idle-save-session-new-file-open nil)
+
+(add-hook 'find-file-hook (lambda () (interactive) (setq dwt/idle-save-session-new-file-open t)))
+
+(run-with-idle-timer dwt/idle-save-session-interval t #'dwt/idle-save-session-quick-save)
 
 (map! :leader
       "qj" #'dwt/load-last-loaded-session
