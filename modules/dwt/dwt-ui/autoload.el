@@ -39,8 +39,7 @@ The window layout is restored when full-screen is toggled off."
   (if display-time-day-and-date
       (setq display-time-day-and-date nil)
     (setq display-time-day-and-date t))
-  (display-time-mode)
-  (display-time-mode))
+  (display-time-mode 1))
 
 ;;;###autoload
 (defun dwt/reload-new-theme ()
