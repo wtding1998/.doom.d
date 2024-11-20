@@ -42,14 +42,14 @@
   (set-popup-rules!
     '(("^\\*TeX Help*" :size 15)))
   (add-to-list 'TeX-command-list '("Shell Escape"
-                                   "%`xelatex%(mode)%' -shell-escape %t"
+                                   "%`xelatex%(mode)%' -shell-escape -interaction=nonstopmode %t"
                                    TeX-run-TeX
                                    nil
                                    t
                                    :help "For Minted"))
 
   (add-to-list 'TeX-command-list '("pdflatex"
-                                   "%`pdflatex%(mode)%' --synctex=1%(mode)% %t"
+                                   "%`pdflatex%(mode)%' -synctex=1 -interaction=nonstopmode %t"
                                    TeX-run-TeX
                                    nil
                                    t
@@ -431,7 +431,7 @@ PROJECT-NAME is the name of the project."
         (?2    ("\\cap"           "\\sqrt{?}"     ""))
         (?3    ("\\nabla"           "\\dim"  ""))
         (?4    ("\\nabla^2"           ""  ""))
-        (?5    ("\\partial"           ""  ""))
+        (?5    ("\\partial "           ""  ""))
         (?j    ("\\| ? \\|"           ""  ""))
         (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
         (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
