@@ -488,8 +488,7 @@ PROJECT-NAME is the name of the project."
                                                                                         company-dabbrev company-yasnippet dwt/company-existing-commands)))
 
 (after! latex
-
-
+  (setq dwt/latex-rename-cha '("X" "Y" "Z" "I"))
 
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
 
