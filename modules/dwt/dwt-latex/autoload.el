@@ -141,14 +141,15 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
       (while (search-forward cha nil t)  ;; Look for CHA
           ;; Check if we are inside a math environment and not preceded by \b
         (when (and (texmathp)  ;; inside a math environment
-                   (not (looking-back (concat "\\\\b" cha))))  ;; check if \b is not before CHA
+                   (not (looking-back (concat "\\\\b" cha)))  ;; check if \b is not before CHA
+                   (not (looking-back (concat "\\mathcal{" cha))))  ;; check if \b is not before CHA
           ;; Move backward to before CHA and insert \b
           (forward-char (- 0 (length cha)))
-          (insert "\\b")))))
+          (insert "\\b"))))))
 
 ;;;###autoload
-  (defun dwt/replace-cha-in-math-env-for-list ()
-    "Run dwt/replace-cha-in-math-env for each string in dwt/latex-rename-cha list."
-    (interactive)
-    (dolist (cha dwt/latex-rename-cha)  ;; Loop over each string in the list
-      (dwt/replace-cha-in-math-env cha))))  ;; Call your function for each string
+(defun dwt/replace-cha-in-math-env-for-list ()
+  "Run dwt/replace-cha-in-math-env for each string in dwt/latex-rename-cha list."
+  (interactive)
+  (dolist (cha dwt/latex-rename-cha)  ;; Loop over each string in the list
+    (dwt/replace-cha-in-math-env cha)))  ;; Call your function for each string
