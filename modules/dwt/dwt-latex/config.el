@@ -288,64 +288,6 @@
         :desc "archieve" "A" #'dwt/archieve-latex-file
         :desc "goto label" "l" #'reftex-goto-label)
 
-  (defun dwt/TeX-save-and-run-all ()
-    (interactive)
-    (save-buffer)
-    (call-interactively #'TeX-command-run-all))
-
-  (defun dwt/latex-file ()
-    (interactive)
-    (basic-save-buffer)
-    (TeX-command "LaTeX" #'TeX-master-file))
-
-  (defun dwt/bibtex-latex-file ()
-    (interactive)
-    (save-buffer)
-    (TeX-command "BibTeX" #'TeX-master-file))
-
-  (defun dwt/clean-emacs-latex-file ()
-    (interactive)
-    (TeX-command "Clean" #'TeX-master-file)
-    (TeX-command "Clean auctex" #'TeX-master-file)
-    (TeX-command "Clean git" #'TeX-master-file)
-    (async-shell-command "rm -f indent.log"))
-
-  (defun dwt/archieve-latex-file ()
-    (interactive)
-    (call-interactively #'+format/buffer)
-    (dwt/process-latex-preamble)
-    (dwt/clean-emacs-latex-file))
-
-  (defun dwt/replace-math-deli-oneside ()
-    (save-excursion
-      (goto-char (point-min))
-      (while (search-forward "\\(" nil t)
-        (replace-match "$"))
-      (while (search-forward "\\)" nil t)
-        (replace-match "$"))))
-
-  (defun dwt/replace-math-deli ()
-    (interactive)
-    (dwt/replace-math-deli-oneside)
-    (dwt/replace-math-deli-oneside))
-
-  (defun dwt/format-latex-file ()
-    (interactive)
-    (call-interactively #'dwt/replace-math-deli)
-    (call-interactively #'+format/buffer))
-
-  (defun dwt/latex-double-quote ()
-    (interactive)
-    (let ((input-key (edmacro-format-keys (vector (read-key "input:")))))
-      (if (string-equal input-key "\"")
-        (progn (insert "\"\"")
-              (backward-char))
-        (if (string-equal input-key ":")
-            (insert ":")
-            (if (string-equal input-key "SPC")
-                (insert " ")
-                (insert input-key))))))
-
   ; exclude spell fu faces in latex-mode
   (setf (alist-get 'latex-mode +spell-excluded-faces-alist)
         ' (font-latex-math-face
@@ -357,45 +299,6 @@
            font-lock-variable-name-face)))
 
 
-;;;###autoload
-(defun dwt/new-latex-dir-project ()
-  (interactive)
-  (let (project-path dir-name subdir-names)
-    (setq project-path (consult-dir--pick "Switch to project: "))
-    (setq subdir-names '())
-    (dolist (path (f-directories project-path))
-      (push (car (last (split-string path "/"))) subdir-names))
-    (setq dir-name (consult--read subdir-names :prompt "New dir name: " :initial (format-time-string "%Y%m%d_")))
-    (make-directory (concat project-path dir-name))
-    (write-file (concat project-path dir-name "/ref.bib"))
-    (write-file (concat project-path dir-name "/" dir-name ".tex"))
-    (find-file (concat project-path dir-name "/" dir-name ".tex"))))
-
-;;;###autoload
-(defun dwt/new-latex-dir-default-dir ()
-  (interactive)
-  (let ((project-name (consult--read '() :prompt "New project name: " :initial (format-time-string "%Y%m%d_"))))
-    (dwt/create-latex-project default-directory project-name)))
-
-(defun dwt/create-latex-project (dir project-name)
-  "Create a LaTeX project.
-DIR is the base directory.
-PROJECT-NAME is the name of the project."
-  (interactive "DDirectory: \nsProject name: ")
-  (let* ((project-dir (expand-file-name project-name dir))
-         (bib-file (expand-file-name "ref.bib" project-dir))
-         (tex-file (expand-file-name (concat project-name ".tex") project-dir)))
-    ;; Create the project directory
-    (unless (file-exists-p project-dir)
-      (make-directory project-dir t))
-    ;; Create an empty ref.bib file
-    (with-temp-buffer
-      (write-region (point-min) (point-min) bib-file))
-    ;; Create an empty project-name.tex file
-    (with-temp-buffer
-      (write-region (point-min) (point-min) tex-file))
-    ;; Open the project-name.tex file
-    (find-file tex-file)))
 
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-latex-dir-project
@@ -413,75 +316,7 @@ PROJECT-NAME is the name of the project."
         :nv "}" #'dwt/find-math-next
         :nv "{" #'dwt/find-math-prev
         :nv "g\\" #'dwt/avy-goto-backslash-word
-        :nv "g|" #'dwt/avy-goto-backslash-word-2chars)
-
-  (defun dwt/insert (input-string)
-    "Input string"
-    (interactive "sEnter String: ")
-    (insert input-string))
-
-  (defun dwt/set-cdlatex-keymap ()
-    "Set cdlatex-keymap. Do not know why sometimes the keymap fails"
-    (interactive)
-    (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
-      cdlatex-math-symbol-alist
-      '( ;; adding missing functions to 3rd level symbols
-        (?_    ("\\downarrow"  ""           "\\inf"))
-        (?1    ("\\cup"           "\\sqrt{?}"     ""))
-        (?2    ("\\cap"           "\\sqrt{?}"     ""))
-        (?3    ("\\nabla"           "\\dim"  ""))
-        (?4    ("\\nabla^2"           ""  ""))
-        (?5    ("\\partial "           ""  ""))
-        (?j    ("\\| ? \\|"           ""  ""))
-        (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
-        (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
-        (?^    ("\\uparrow"    ""           "\\sup"))
-        (?H    ("\\nabla^2"    ""           ""))
-        (?T    ("\\Theta"    ""           ""))
-        (?k    ("\\kappa"      ""           "\\ker"))
-        (?E    ("\\exists"      "\\varnothing"           ""))
-        (?m    ("\\mu"         ""           "\\lim"))
-        (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
-        (?d    ("\\delta"      "\\partial"  "\\dim"))
-        (?D    ("\\Delta"      "\\nabla"    "\\deg"))
-        (?,    ("\\preceq"     ""  ""))
-        ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
-        (?F    ("\\Phi"))
-        ;; now just conveniance
-        (?.    ("\\cdot" "\\dots" "\\succeq"))
-        (?:    ("\\vdots" "\\ddots"))
-        (?_     ("_"          ""             ""))
-        (?4     ("$"          ""             ""))
-        (?7     ("\\nabla "          ""             ""))
-        (?i     ("\\grad "          ""             ""))
-        (?*    ("\\times" "\\star" "\\ast")))
-      cdlatex-math-modify-alist
-      '( ;; my own stuff
-        (?a    "\\mathbb"        nil          t    nil  nil)
-        (?h    "\\hat"        nil          t    nil  nil)
-        (?q    "\\matr"        nil          t    nil  nil)
-        (?v    "\\vect"        nil          t    nil  nil)
-        ;; (?t    "\\tens"        nil          t    nil  nil)
-        (?T    "\\text"        nil          t    nil  nil)
-        (?1    "\\tilde"           nil          t    nil  nil)
-        (?2    "\\hat"           nil          t    nil  nil)
-        (?3    "\\bar"           nil          t    nil  nil)
-        (?l    "\\label"           "\\label"          t    nil  nil)
-        (?s    "\\mathscr"           nil          t    nil  nil)
-        (?A    "\\abs"           nil          t    nil  nil)))
-    (when (derived-mode-p 'latex-mode)
-      (call-interactively #'revert-buffer)))
-  (dwt/set-cdlatex-keymap))
-
-;; (after! reftex-mode
-;;   ;; set company-backends in latex-mode as workaround
-;;   ;; default:
-;;   ;; Value in #<buffer optimization.tex>
-;;   ;; (company-reftex-labels company-reftex-citations
-;;   ;;                        (+latex-symbols-company-backend company-auctex-macros company-auctex-environments)
-;;   ;;                        company-dabbrev company-yasnippet company-ispell company-capf)
-;;   (set-company-backend! 'reftex-mode 'company-reftex-labels 'company-reftex-citations '(+latex-symbols-company-backend company-auctex-symbols
-;;                                                                                         company-dabbrev company-yasnippet dwt/company-existing-commands)))
+        :nv "g|" #'dwt/avy-goto-backslash-word-2chars))
 
 (after! reftex
   (set-company-backend! 'reftex-mode 'company-reftex-labels 'company-reftex-citations '(+latex-symbols-company-backend company-auctex-symbols
@@ -489,20 +324,7 @@ PROJECT-NAME is the name of the project."
 
 (after! latex
   (setq dwt/latex-rename-cha '("X" "Y" "Z" "I"))
-
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
-
-  (defun dwt/string-before-word ()
-    (char-to-string (char-before (car (bounds-of-thing-at-point 'word)))))
-
-  (defun dwt/evil-multiedit-clean-nonmath-candidate ()
-    (interactive)
-    (save-excursion
-      (goto-char (point-min))
-      (while (call-interactively #'evil-multiedit-next)
-        (unless (and (texmathp) (not (string-equal "\\" (dwt/string-before-word))))
-          (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
-
   (map! :map evil-multiedit-state-map
         "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate))
 
@@ -559,19 +381,6 @@ PROJECT-NAME is the name of the project."
   (when IS-LINUX
     (setq org-latex-impatient-scale 1.2)))
 
-;;;###autoload
-(defun dwt/toggle-org-latex-impatient-mode ()
-  (interactive)
-  (if (bound-and-true-p org-latex-impatient-mode)
-      (progn
-        (unless (derived-mode-p 'org-mode)
-          (hl-line-mode 1))
-        (org-latex-impatient-mode -1))
-      (progn
-        (hl-line-mode -1)
-        (org-latex-impatient-mode 1))))
-
-
 (use-package! evil-tex
   :after tex
   :config
@@ -612,17 +421,6 @@ PROJECT-NAME is the name of the project."
 (use-package! bibtex
   :config
   (setq dwt/excluded-fields '("file" "langid" "abstract" "urldate" "issn" "doi"))
-  (defun dwt/delete-lines-containing-excluded-fields ()
-    "Delete lines containing any string from the list `dwt/excluded-fields`."
-    (interactive)
-    (let ((excluded-fields dwt/excluded-fields))
-      (save-excursion
-        (dolist (field excluded-fields)
-          (goto-char (point-min))
-          (while (re-search-forward (regexp-quote (concat field " = ")) nil t)
-            (beginning-of-line)
-            (delete-region (point) (progn (forward-line 1) (point)))))))
-    (basic-save-buffer))
   (map! :map bibtex-mode-map
         :localleader
         :desc "search entry" "s" #'bibtex-search-entry
@@ -632,17 +430,6 @@ PROJECT-NAME is the name of the project."
   (map! :map bibtex-mode-map
         :desc "next entry" :n "]e" #'bibtex-next-entry
         :desc "next entry" :n "[e" #'bibtex-previous-entry)
-
-  ;; Define the text object function
-  (defun bibtex-entry-text-object (count &optional beg end type)
-    "Select the BibTeX entry."
-    (let ((start (save-excursion
-                  (bibtex-beginning-of-entry)
-                  (point)))
-          (finish (save-excursion
-                    (bibtex-end-of-entry)
-                    (point))))
-      (evil-range start finish type)))
 
   ;; Register the text object
   (evil-define-text-object my-evil-bibtex-entry (count &optional beg end type)

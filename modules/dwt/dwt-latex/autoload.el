@@ -153,3 +153,222 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
   (interactive)
   (dolist (cha dwt/latex-rename-cha)  ;; Loop over each string in the list
     (dwt/replace-cha-in-math-env cha)))  ;; Call your function for each string
+
+;;;###autoload
+(defun dwt/TeX-save-and-run-all ()
+  (interactive)
+  (save-buffer)
+  (call-interactively #'TeX-command-run-all))
+
+;;;###autoload
+(defun dwt/latex-file ()
+  (interactive)
+  (basic-save-buffer)
+  (TeX-command "LaTeX" #'TeX-master-file))
+
+;;;###autoload
+(defun dwt/bibtex-latex-file ()
+  (interactive)
+  (save-buffer)
+  (TeX-command "BibTeX" #'TeX-master-file))
+
+;;;###autoload
+(defun dwt/clean-emacs-latex-file ()
+  (interactive)
+  (TeX-command "Clean" #'TeX-master-file)
+  (TeX-command "Clean auctex" #'TeX-master-file)
+  (TeX-command "Clean git" #'TeX-master-file)
+  (async-shell-command "rm -f indent.log"))
+
+;;;###autoload
+(defun dwt/archieve-latex-file ()
+  (interactive)
+  (call-interactively #'+format/buffer)
+  (dwt/process-latex-preamble)
+  (dwt/clean-emacs-latex-file))
+
+;;;###autoload
+(defun dwt/replace-math-deli-oneside ()
+  (save-excursion
+    (goto-char (point-min))
+    (while (search-forward "\\(" nil t)
+      (replace-match "$"))
+    (while (search-forward "\\)" nil t)
+      (replace-match "$"))))
+
+;;;###autoload
+(defun dwt/replace-math-deli ()
+  (interactive)
+  (dwt/replace-math-deli-oneside)
+  (dwt/replace-math-deli-oneside))
+
+;;;###autoload
+(defun dwt/format-latex-file ()
+  (interactive)
+  (call-interactively #'dwt/replace-math-deli)
+  (call-interactively #'+format/buffer))
+
+;;;###autoload
+(defun dwt/latex-double-quote ()
+  (interactive)
+  (let ((input-key (edmacro-format-keys (vector (read-key "input:")))))
+    (if (string-equal input-key "\"")
+      (progn (insert "\"\"")
+            (backward-char))
+      (if (string-equal input-key ":")
+          (insert ":")
+          (if (string-equal input-key "SPC")
+              (insert " ")
+              (insert input-key))))))
+
+;;;###autoload
+(defun dwt/new-latex-dir-project ()
+  (interactive)
+  (let (project-path dir-name subdir-names)
+    (setq project-path (consult-dir--pick "Switch to project: "))
+    (setq subdir-names '())
+    (dolist (path (f-directories project-path))
+      (push (car (last (split-string path "/"))) subdir-names))
+    (setq dir-name (consult--read subdir-names :prompt "New dir name: " :initial (format-time-string "%Y%m%d_")))
+    (make-directory (concat project-path dir-name))
+    (write-file (concat project-path dir-name "/ref.bib"))
+    (write-file (concat project-path dir-name "/" dir-name ".tex"))
+    (find-file (concat project-path dir-name "/" dir-name ".tex"))))
+
+;;;###autoload
+(defun dwt/new-latex-dir-default-dir ()
+  (interactive)
+  (let ((project-name (consult--read '() :prompt "New project name: " :initial (format-time-string "%Y%m%d_"))))
+    (dwt/create-latex-project default-directory project-name)))
+
+;;;###autoload
+(defun dwt/create-latex-project (dir project-name)
+  "Create a LaTeX project.
+DIR is the base directory.
+PROJECT-NAME is the name of the project."
+  (interactive "DDirectory: \nsProject name: ")
+  (let* ((project-dir (expand-file-name project-name dir))
+         (bib-file (expand-file-name "ref.bib" project-dir))
+         (tex-file (expand-file-name (concat project-name ".tex") project-dir)))
+    ;; Create the project directory
+    (unless (file-exists-p project-dir)
+      (make-directory project-dir t))
+    ;; Create an empty ref.bib file
+    (with-temp-buffer
+      (write-region (point-min) (point-min) bib-file))
+    ;; Create an empty project-name.tex file
+    (with-temp-buffer
+      (write-region (point-min) (point-min) tex-file))
+    ;; Open the project-name.tex file
+    (find-file tex-file)))
+
+;;;###autoload
+(defun dwt/insert (input-string)
+  "Input string"
+  (interactive "sEnter String: ")
+  (insert input-string))
+
+;;;###autoload
+(defun dwt/set-cdlatex-keymap ()
+  "Set cdlatex-keymap. Do not know why sometimes the keymap fails"
+  (interactive)
+  (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
+    cdlatex-math-symbol-alist
+    '( ;; adding missing functions to 3rd level symbols
+      (?_    ("\\downarrow"  ""           "\\inf"))
+      (?1    ("\\cup"           "\\sqrt{?}"     ""))
+      (?2    ("\\cap"           "\\sqrt{?}"     ""))
+      (?3    ("\\nabla"           "\\dim"  ""))
+      (?4    ("\\nabla^2"           ""  ""))
+      (?5    ("\\partial "           ""  ""))
+      (?j    ("\\| ? \\|"           ""  ""))
+      (?9    ("\\left(?\\right)"           "\\left[?\\right]"  ""))
+      (?0    ("\\left\\{?\\right\\}"           "\\left[?\\right]"  ""))
+      (?^    ("\\uparrow"    ""           "\\sup"))
+      (?H    ("\\nabla^2"    ""           ""))
+      (?T    ("\\Theta"    ""           ""))
+      (?k    ("\\kappa"      ""           "\\ker"))
+      (?E    ("\\exists"      "\\varnothing"           ""))
+      (?m    ("\\mu"         ""           "\\lim"))
+      (?c    ("\\contr{?}"             "\\circ"     "\\cos"))
+      (?d    ("\\delta"      "\\partial"  "\\dim"))
+      (?D    ("\\Delta"      "\\nabla"    "\\deg"))
+      (?,    ("\\preceq"     ""  ""))
+      ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
+      (?F    ("\\Phi"))
+      ;; now just conveniance
+      (?.    ("\\cdot" "\\dots" "\\succeq"))
+      (?:    ("\\vdots" "\\ddots"))
+      (?_     ("_"          ""             ""))
+      (?4     ("$"          ""             ""))
+      (?7     ("\\nabla "          ""             ""))
+      (?i     ("\\grad "          ""             ""))
+      (?*    ("\\times" "\\star" "\\ast")))
+    cdlatex-math-modify-alist
+    '( ;; my own stuff
+      (?a    "\\mathbb"        nil          t    nil  nil)
+      (?h    "\\hat"        nil          t    nil  nil)
+      (?q    "\\matr"        nil          t    nil  nil)
+      (?v    "\\vect"        nil          t    nil  nil)
+      ;; (?t    "\\tens"        nil          t    nil  nil)
+      (?T    "\\text"        nil          t    nil  nil)
+      (?1    "\\tilde"           nil          t    nil  nil)
+      (?2    "\\hat"           nil          t    nil  nil)
+      (?3    "\\bar"           nil          t    nil  nil)
+      (?l    "\\label"           "\\label"          t    nil  nil)
+      (?s    "\\mathscr"           nil          t    nil  nil)
+      (?A    "\\abs"           nil          t    nil  nil)))
+  (when (derived-mode-p 'latex-mode)
+    (call-interactively #'revert-buffer)
+    (dwt/set-cdlatex-keymap)))
+
+;;;###autoload
+(defun dwt/string-before-word ()
+  (char-to-string (char-before (car (bounds-of-thing-at-point 'word)))))
+
+;;;###autoload
+(defun dwt/evil-multiedit-clean-nonmath-candidate ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (call-interactively #'evil-multiedit-next)
+      (unless (and (texmathp) (not (string-equal "\\" (dwt/string-before-word))))
+        (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
+
+;;;###autoload
+(defun dwt/toggle-org-latex-impatient-mode ()
+  (interactive)
+  (if (bound-and-true-p org-latex-impatient-mode)
+      (progn
+        (unless (derived-mode-p 'org-mode)
+          (hl-line-mode 1))
+        (org-latex-impatient-mode -1))
+      (progn
+        (hl-line-mode -1)
+        (org-latex-impatient-mode 1))))
+
+;;; bibtex
+;;;###autoload
+(defun dwt/delete-lines-containing-excluded-fields ()
+  "Delete lines containing any string from the list `dwt/excluded-fields`."
+  (interactive)
+  (let ((excluded-fields dwt/excluded-fields))
+    (save-excursion
+      (dolist (field excluded-fields)
+        (goto-char (point-min))
+        (while (re-search-forward (regexp-quote (concat field " = ")) nil t)
+          (beginning-of-line)
+          (delete-region (point) (progn (forward-line 1) (point)))))))
+  (basic-save-buffer))
+
+;;;###autoload
+;; Define the text object function
+(defun bibtex-entry-text-object (count &optional beg end type)
+  "Select the BibTeX entry."
+  (let ((start (save-excursion
+                (bibtex-beginning-of-entry)
+                (point)))
+        (finish (save-excursion
+                  (bibtex-end-of-entry)
+                  (point))))
+    (evil-range start finish type)))
