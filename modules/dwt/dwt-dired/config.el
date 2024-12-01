@@ -45,7 +45,7 @@
           ("d" "~/Downloads/" "Downloads")))
   (setq dirvish-use-header-line 'global)
   (setq dirvish-use-mode-line nil)
-  (setq dirvish-header-line-height '(25 . 25))
+  (setq dirvish-header-line-height '(20 . 20))
   (setq dirvish-mode-line-height 20)
   (setq dirvish-header-line-format
         '(:left (path) :right (vc-info omit sort index)))
