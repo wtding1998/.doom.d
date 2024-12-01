@@ -158,7 +158,8 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 (defun dwt/TeX-save-and-run-all ()
   (interactive)
   (save-buffer)
-  (call-interactively #'TeX-command-run-all))
+  ;; (call-interactively #'TeX-command-run-all))
+  (TeX-command "dwtLaTeXMk" #'TeX-master-file))
 
 ;;;###autoload
 (defun dwt/latex-file ()
@@ -372,3 +373,9 @@ PROJECT-NAME is the name of the project."
                   (bibtex-end-of-entry)
                   (point))))
     (evil-range start finish type)))
+
+;;;###autoload
+(defun dwt/compile-latex-idle ()
+  (interactive)
+  (when (derived-mode-p 'latex-mode)
+    (TeX-command "LaTeXMk" #'TeX-master-file)))

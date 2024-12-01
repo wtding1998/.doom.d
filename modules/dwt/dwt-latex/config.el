@@ -41,6 +41,15 @@
       (setq-default preview-scale 1.4)))
   (set-popup-rules!
     '(("^\\*TeX Help*" :size 15)))
+
+  (add-to-list 'TeX-engine-alist '(pdftex "PdfTeX" "pdftex" "pdflatex" "pdftex"))
+
+  (add-to-list 'TeX-command-list '("dwtLaTeXMk"
+                                   "latexmk -pdf -%(latex) %t"
+                                   TeX-run-TeX
+                                   nil
+                                   t
+                                   :help "Run my latexmk"))
   (add-to-list 'TeX-command-list '("Shell Escape"
                                    "%`xelatex%(mode)%' -shell-escape -interaction=nonstopmode %t"
                                    TeX-run-TeX
@@ -84,9 +93,9 @@
   (add-to-list 'TeX-view-program-selection '(output-pdf "Sioyek"))
   ; deal with file name with space by add "" around %1
   (add-to-list 'TeX-view-program-list '("Sioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 \\\"%1\\\"\""))
-  (setq TeX-debug-warnings t)
+  (setq TeX-debug-warnings nil)
   ;; (setq TeX-debug-bad-boxes t)
-
+  (run-with-idle-timer 10 t #'dwt/compile-latex-idle)
   (defun dwt/view-pdf-by-the-other-viewer ()
     "view pdf by pdf tools"
     (interactive)
