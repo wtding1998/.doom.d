@@ -145,7 +145,7 @@
 
 (if IS-LINUX
   (setq dwt/freqneutly-used-directories '("~/Downloads/" "~/Pictures/screenshot/" "~/windows_desktop/"))
-  (setq dwt/freqneutly-used-directories '("~/Downloads/")))
+  (setq dwt/freqneutly-used-directories '("~/Downloads/" "~/Pictures/screenshot")))
 
 (defun dwt/copy-file-from-screenshot-download()
   (interactive)
