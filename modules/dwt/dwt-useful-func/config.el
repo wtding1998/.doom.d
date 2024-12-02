@@ -437,3 +437,7 @@
 ;; (use-package! outli
 ;;   :defer t
 ;;   :commands (outli-mode))
+(use-package! aider
+  :config
+  (setq aider-args '("--no-auto-commits" "--model" "deepseek")))
+  ;; (setq aider-args '("--no-auto-commits" "--model" "groq/llama3-70b-8192")))
