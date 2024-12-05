@@ -158,7 +158,7 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 (defun dwt/TeX-save-and-run-all ()
   (interactive)
   (save-buffer)
-  ;; (call-interactively #'TeX-command-run-all))
+  ;; (call-interactively #'TeX-command-run-all)
   (TeX-command "dwtLaTeXMk" #'TeX-master-file))
 
 ;;;###autoload

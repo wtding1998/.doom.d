@@ -45,7 +45,7 @@
   (add-to-list 'TeX-engine-alist '(pdftex "PdfTeX" "pdftex" "pdflatex" "pdftex"))
 
   (add-to-list 'TeX-command-list '("dwtLaTeXMk"
-                                   "latexmk -pdf -%(latex) %t"
+                                   "latexmk -%(latex) -pdf %t"
                                    TeX-run-TeX
                                    nil
                                    t
