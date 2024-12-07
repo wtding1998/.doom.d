@@ -43,9 +43,14 @@
     '(("^\\*TeX Help*" :size 15)))
 
   (add-to-list 'TeX-engine-alist '(pdftex "PdfTeX" "pdftex" "pdflatex" "pdftex"))
+  ;; HACK: force the output extension to be pdf. To fix the issue where it is xdv casued by latexmk -xelatex
+  (defun dwt/TeX-output-extension-override (&rest _args)
+    "Advice to make `TeX-output-extension` always return \"pdf\"."
+    "pdf")
 
+  (advice-add 'TeX-output-extension :override #'dwt/TeX-output-extension-override)
   (add-to-list 'TeX-command-list '("dwtLaTeXMk"
-                                   "latexmk -%(latex) -pdf %t"
+                                   "latexmk -%(latex) %t"
                                    TeX-run-TeX
                                    nil
                                    t
