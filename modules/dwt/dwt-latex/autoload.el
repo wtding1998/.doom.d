@@ -333,8 +333,15 @@ PROJECT-NAME is the name of the project."
   (save-excursion
     (goto-char (point-min))
     (while (call-interactively #'evil-multiedit-next)
-      (unless (and (texmathp) (not (string-equal "\\" (dwt/string-before-word))))
-        (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
+      (let ((face (get-text-property (point) 'face)))
+        (unless
+          (if (listp face)
+              (and (member 'font-latex-math-face face)
+                   (not (member 'font-latex-sedate-face face))
+                   (not (member 'font-lock-constant-face face)))
+            (eq face 'font-latex-math-face))
+        ;; (unless (and (eq (get-text-property (point) 'face) 'font-latex-math-face) (not (string-equal "\\" (dwt/string-before-word))))
+          (call-interactively #'evil-multiedit-toggle-or-restrict-region))))))
 
 ;;;###autoload
 (defun dwt/toggle-org-latex-impatient-mode ()
