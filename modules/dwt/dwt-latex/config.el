@@ -339,7 +339,7 @@
 (after! latex
   (setq dwt/latex-rename-cha '("X" "Y" "Z" "I"))
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
-  (map! :map evil-multiedit-state-map
+  (map! :map evil-multiedit-mode-map
         "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate))
 
 
