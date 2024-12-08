@@ -247,3 +247,7 @@
         :vn "g9" #'symbol-overlay-switch-backward
         :vn "g)" #'symbol-overlay-remove-all
         :vn "g(" #'symbol-overlay-mode))
+
+(after! iedit
+  :config
+  (map! :map iedit-mode-keymap "TAB" nil))
