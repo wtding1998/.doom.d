@@ -426,7 +426,7 @@
   (setq magit-todos-keyword-suffix "\\(?:[([][^])]+[])]\\)?[ :]"))
 
 (use-package! flow-state-mode
-  :load-path "~/my_projects/flow-state-mode"
+  :load-path "~/external_repos/flow-state-mode"
   :commands (flow-state-mode)
   :init
   (map! :leader "t`" #'flow-state-mode)
@@ -443,3 +443,20 @@
   :config
   (setq aider-args '("--no-auto-commits" "--model" "deepseek")))
   ;; (setq aider-args '("--no-auto-commits" "--model" "groq/llama3-70b-8192")))
+
+(use-package! musicfox
+  :load-path "~/external_repos/musicfox"
+  :commands (musicfox-open)
+  :init
+  (map! :leader "tJ" #'musicfox-open)
+  :config
+  (defhydra musicfox (:color red)
+    "musicfox"
+    ("[" musicfox-prev "prev")
+    ("]" musicfox-next "next")
+    ("-" musicfox-decrease-volume "decrease")
+    ("=" musicfox-increase-volume "increase")
+    ("<SPC>" musicfox-pause "toggle pause")
+    ("o" musicfox-open)
+    ("q" nil "quit"))
+  (map! :leader "tj" #'musicfox/body))
