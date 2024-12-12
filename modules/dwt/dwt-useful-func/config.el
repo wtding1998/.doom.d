@@ -380,6 +380,7 @@
           (width  (cdr act-popup-dim)))
       (funcall fn (cons (+ height 1) width)))))
 
+;;; save sessions
 (defcustom dwt/last-loaded-session nil
   "The last loaded session.")
 
@@ -396,8 +397,11 @@
 (defvar dwt/idle-save-session-new-file-open nil)
 
 (add-hook 'find-file-hook (lambda () (interactive) (setq dwt/idle-save-session-new-file-open t)))
-
 (run-with-idle-timer dwt/idle-save-session-interval t #'dwt/idle-save-session-quick-save)
+
+;;; dotfiles
+(defcustom dwt/dotfiles '("~/dotfiles" "~/.config/doom")
+  "My dotfiles repos")
 
 (map! :leader
       "qj" #'dwt/load-last-loaded-session

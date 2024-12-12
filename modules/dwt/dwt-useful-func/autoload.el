@@ -59,3 +59,18 @@
 (defun dwt/grep-newcommand-in-all-projects ()
   (interactive)
   (consult-ripgrep "~/my_projects" "\\\\newcommand "))
+
+;;;###autoload
+(defun dwt/check-and-open-magit-status ()
+  "Check conditions for git repos in ~/dotfiles and ~/.config/doom, and open magit-status if any condition is met:
+1. Unstaged changes.
+2. Local branch is behind the remote.
+3. Remote branch has commits ahead of the local branch."
+  (interactive)
+  (dolist (repo dwt/dotfiles)
+    (let ((default-directory repo))
+      (when (or (not (zerop (call-process-shell-command "git diff --quiet")))
+                (not (zerop (call-process-shell-command "git fetch origin && git status | grep 'Your branch is behind'")))
+                (not (zerop (call-process-shell-command "git fetch origin && git status | grep 'Your branch is ahead'"))))
+        (message "Opening magit-status for %s" repo)
+        (magit-status repo)))))
