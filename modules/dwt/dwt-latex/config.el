@@ -283,8 +283,8 @@
         :localleader
         :desc "View" "v" #'TeX-view
         :desc "Output" "o" #'TeX-recenter-output-buffer
-        :desc "View by the other" ";" #'dwt/view-pdf-by-the-other-viewer
-        :desc "Run" "c" #'dwt/latex-file
+        :desc "View by the other" "V" #'dwt/view-pdf-by-the-other-viewer
+        :desc "Run" "C" #'dwt/latex-file
         :desc "Bibtex" "b" #'dwt/bibtex-latex-file
         :desc "Toggle view" "t" #'dwt/toggle-view-program
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
