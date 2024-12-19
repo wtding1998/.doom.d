@@ -508,6 +508,7 @@
   :config
   (map! :leader
         "nB" #'citar-open-files
+        "nP" #'dwt/citar-open-files-by-system
         "nE" #'citar-open-entry)
   (setq citar-templates
     '((main . "${author editor:30%sn}     ${date year issued:4}     ${title:48}")

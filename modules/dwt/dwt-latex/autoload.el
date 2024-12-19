@@ -388,3 +388,8 @@ PROJECT-NAME is the name of the project."
   (when (derived-mode-p 'latex-mode)
     (TeX-command "dwtLaTeXMk" #'TeX-master-file)))
 
+;;;###autoload
+(defun dwt/citar-open-files-by-system ()
+  (interactive)
+  (let ((citar-file-open-functions (list (cons t #'dwt/open-in-system))))
+    (call-interactively #'citar-open-files)))

@@ -1,6 +1,6 @@
 ;;; dwt/dwt-wsl2/config.el -*- lexical-binding: t; -*-
 
-(defvar dwt/system-default "explorer.exe")
+(defvar dwt/system-default "ii_wrapper")
 (when IS-MAC
   ;; (setq ns-right-command-modifier 'control)
   (setq mac-command-modifier 'meta)
@@ -111,12 +111,17 @@
   (shell-command (format "%s ." dwt/system-default)))
 
 ;;;###autoload
-(defun dwt/open-in-system ()
+(defun dwt/open-in-system (&optional file-path)
+  "Open FILE-PATH in the system's default application.
+If called interactively, use the current file in Dired or the current buffer."
   (interactive)
-  (let* ((file-path (if (derived-mode-p 'dired-mode)
-                      (dired-get-filename)
-                      (buffer-file-name)))
-         (file-name (file-name-nondirectory file-path))
-         (command (format "%s %s" dwt/system-default file-name)))
+  (let* ((path (or file-path
+                   (if (derived-mode-p 'dired-mode)
+                       (dired-get-filename)
+                     (buffer-file-name))))
+         (command (format "%s %s" dwt/system-default (shell-quote-argument path))))
+    (unless path
+      (user-error "No file path provided or found"))
+    (message "Opening: %s" path)
+    (message command)
     (shell-command-to-string command)))
-
