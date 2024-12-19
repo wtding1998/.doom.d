@@ -158,6 +158,7 @@
         ;; (string-prefix-p "*" name)
         (string-prefix-p "*helm" name)
         (string-prefix-p "*Dirvish" name)
+        (string-prefix-p " *eldoc-box*" name)
         (string-prefix-p "_region_.tex" name)
         (string-prefix-p "*Compile-Log*" name)
         (string-prefix-p "*lsp" name)

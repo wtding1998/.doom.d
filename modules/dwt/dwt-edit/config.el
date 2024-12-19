@@ -251,3 +251,6 @@
 (after! iedit
   :config
   (map! :map iedit-mode-keymap "TAB" nil))
+
+(use-package! eldoc-box
+  :hook ((eldoc-mode . eldoc-box-hover-mode)))

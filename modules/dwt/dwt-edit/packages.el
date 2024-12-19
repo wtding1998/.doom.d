@@ -10,6 +10,7 @@
 (package! evil-textobj-line :recipe (:host github :repo "emacsorphanage/evil-textobj-line"))
 (package! symbol-overlay :recipe (:host github :repo "wolray/symbol-overlay"))
 (package! emacs-smart-hungry-delete :recipe (:host github :repo "hrehfeld/emacs-smart-hungry-delete"))
+(package! eldoc-box)
 ;; (package! evil-mark-replace)
 ;; (package! awesome-pair :recipe (:host github :repo "manateelazycat/awesome-pair"))
 
