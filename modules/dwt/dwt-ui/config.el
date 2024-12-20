@@ -72,6 +72,7 @@
 (after! diff-hl
    (map! :n "[g" #'diff-hl-previous-hunk)
    (map! :n "]g" #'diff-hl-next-hunk)
+   (setq diff-hl-flydiff-delay 1)
    (diff-hl-margin-mode -1))
 
 (use-package! awesome-tab
