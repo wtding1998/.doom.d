@@ -79,7 +79,9 @@ The window layout is restored when full-screen is toggled off."
       (setq weight 'regular))
     (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height fontsize :weight weight)
     (set-face-attribute 'variable-pitch nil :family "Bookerly" :height 1.03)
-    (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji") nil 'prepend)
+    (if IS-MAC
+      (set-fontset-font t 'unicode (font-spec :family "Noto Color Emoji") nil 'prepend)
+      (set-fontset-font t 'unicode (font-spec :family "Symbola") nil 'prepend))
     (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "LXGW WenKai Mono")))) ;; set Chinese font 落霞孤鹜
 
 ;; https://discourse.doomemacs.org/t/how-to-change-your-splash-screen/57
