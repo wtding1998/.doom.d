@@ -55,6 +55,12 @@
                                    nil
                                    t
                                    :help "Run my latexmk"))
+  (add-to-list 'TeX-command-list '("dwtLaTeXMkpvc"
+                                   "latexmk -pvc -%(latex) %t"
+                                   TeX-run-TeX
+                                   nil
+                                   t
+                                   :help "Run latexmk in pvc mode"))
   (add-to-list 'TeX-command-list '("Shell Escape"
                                    "%`xelatex%(mode)%' -shell-escape -interaction=nonstopmode %t"
                                    TeX-run-TeX
