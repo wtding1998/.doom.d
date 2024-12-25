@@ -100,7 +100,7 @@
   (add-to-list 'TeX-view-program-list '("dwtSioyek" "sioyek %o --forward-search-file \"%b\" --forward-search-line %n --inverse-search \"emacsclient +%2 \\\"%1\\\"\""))
   (setq TeX-debug-warnings nil)
   ;; (setq TeX-debug-bad-boxes t)
-  (run-with-idle-timer 10 t #'dwt/compile-latex-idle)
+  ;; (run-with-idle-timer 10 t #'dwt/compile-latex-idle)
   (defun dwt/view-pdf-by-the-other-viewer ()
     "view pdf by pdf tools"
     (interactive)

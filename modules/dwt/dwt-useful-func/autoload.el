@@ -74,3 +74,9 @@
                 (not (zerop (call-process-shell-command "git fetch && git status | grep 'Your branch is ahead'"))))
         (message "Opening magit-status for %s" repo)
         (magit-status repo)))))
+
+(defun dwt/unset-dedicated-and-remove-buffer ()
+  "Set the current window to be not dedicated and then remove it."
+  (interactive)
+  (set-window-dedicated-p (selected-window) nil)  ; Set the window to be not dedicated
+  (kill-buffer))  ; Remove the current window
