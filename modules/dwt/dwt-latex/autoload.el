@@ -393,3 +393,33 @@ PROJECT-NAME is the name of the project."
   (interactive)
   (let ((citar-file-open-functions (list (cons t #'dwt/open-in-system))))
     (call-interactively #'citar-open-files)))
+
+;;;###autoload
+(defun dwt/open-latexmk-vterm-buffer ()
+  "If the current buffer is a .tex file, create a vterm buffer named latexmk-<master-file-name>,
+and send the latexmk command with the correct TeX engine."
+  (interactive)
+  (when (and (derived-mode-p 'tex-mode) buffer-file-name)
+    ;; (let* ((master-file (TeX-master-file))
+    (let* ((working-directory (file-name-directory (buffer-file-name)))
+           (master-file (TeX-master-file t))
+           (master-file-name (file-name-sans-extension master-file))
+           (latex-vterm-buffer-name (concat "*vterm: latexmk-" (file-name-nondirectory master-file-name) "*")))
+      ;; Open the vterm buffer with the appropriate name
+      (if (get-buffer latex-vterm-buffer-name)
+          (progn
+            (+popup-buffer (get-buffer latex-vterm-buffer-name))
+            (+popup/other)
+            (call-interactively #'evil-insert))
+          (progn
+            (let* ((tex-engine (or TeX-engine 'xetex))  ;; Default to 'latex' if TeX-engine is not set
+                   (tex-engine-str (pcase tex-engine
+                                     ('luatex "lualatex")
+                                     ('pdftex "pdflatex")
+                                     (_ "xelatex")))  ;; Default fallback
+                   (command (concat "latexmk -pvc -" tex-engine-str " " master-file)))
+              (message (concat "Create vterm buffer:" latex-vterm-buffer-name))
+              (vterm latex-vterm-buffer-name)
+              ;; Change the working directory to the master file directory
+              (with-current-buffer latex-vterm-buffer-name
+                (vterm-send-string command))))))))

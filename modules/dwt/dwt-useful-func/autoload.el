@@ -67,13 +67,13 @@
 2. Local branch is behind the remote.
 3. Remote branch has commits ahead of the local branch."
   (interactive)
+  (+workspace-new "Git")
+  (+workspace-switch "Git")
   (dolist (repo dwt/dotfiles)
     (let ((default-directory repo))
-      (when (or (not (zerop (call-process-shell-command "git diff --quiet")))
-                (not (zerop (call-process-shell-command "git fetch && git status | grep 'Your branch is behind'")))
-                (not (zerop (call-process-shell-command "git fetch && git status | grep 'Your branch is ahead'"))))
-        (message "Opening magit-status for %s" repo)
-        (magit-status repo)))))
+      (call-process-shell-command "git fetch")
+      (message "Opening magit-status for %s" repo)
+      (magit-status repo))))
 
 (defun dwt/unset-dedicated-and-remove-buffer ()
   "Set the current window to be not dedicated and then remove it."

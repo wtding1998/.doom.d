@@ -55,12 +55,6 @@
                                    nil
                                    t
                                    :help "Run my latexmk"))
-  (add-to-list 'TeX-command-list '("dwtLaTeXMkpvc"
-                                   "latexmk -pvc -%(latex) %t"
-                                   TeX-run-TeX
-                                   nil
-                                   t
-                                   :help "Run latexmk in pvc mode"))
   (add-to-list 'TeX-command-list '("Shell Escape"
                                    "%`xelatex%(mode)%' -shell-escape -interaction=nonstopmode %t"
                                    TeX-run-TeX
@@ -293,6 +287,7 @@
         :desc "Run" "C" #'dwt/latex-file
         :desc "Bibtex" "b" #'dwt/bibtex-latex-file
         :desc "Toggle view" "t" #'dwt/toggle-view-program
+        :desc "vterm buffer" "x" #'dwt/open-latexmk-vterm-buffer
         ;; :desc "Toggle TeX-Fold" "f" #'TeX-fold-mode
         :desc "Preview Environment" "e" #'TeX-error-overview
         :desc "Preview Buffer" "B" #'preview-buffer
