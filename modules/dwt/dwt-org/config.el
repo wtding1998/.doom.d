@@ -263,7 +263,12 @@
       (call-interactively #'org-latex-preview)))
 
   (setq org-cite-global-bibliography '("~/Zotero/My Library.bib"))
-  ;; org-agenda-files is settd in custom.el
+  (setq org-agenda-files '("~/OneDrive/Documents/roam/research.org"
+                           "~/OneDrive/Documents/diary/org/agenda.org"
+                           "~/OneDrive/Documents/study note/org/cuhksz.org"
+                           "~/OneDrive/Documents/roam/inbox.org"))
+
+
 
   (setq org-agenda-custom-commands
         '(("g" "Get Things Done (GTD)"
