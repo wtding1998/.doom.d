@@ -457,7 +457,9 @@
   (defhydra musicfox (:color red)
     "musicfox"
     ("[" musicfox-prev "prev")
+    ("p" musicfox-prev "prev")
     ("]" musicfox-next "next")
+    ("n" musicfox-next "next")
     ("-" musicfox-decrease-volume "decrease")
     ("=" musicfox-increase-volume "increase")
     ("<SPC>" musicfox-pause "toggle pause")

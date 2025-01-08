@@ -20,6 +20,7 @@
     (interactive)
     (call-interactively #'evil-indent)
     (call-interactively #'align))
+  (dwt/set-cdlatex-keymap)
   (map! :map cdlatex-mode-map
         :n "=" #'dwt/latex-indent-align
         :i "_" nil
