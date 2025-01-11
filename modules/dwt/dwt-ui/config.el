@@ -268,16 +268,20 @@
 
 
 (use-package! awesome-tray
-  :defer t
+  ;; :defer t
   :config
   (awesome-tray-mode 1)
+  (+modeline-mode -1)
+  (anzu-mode -1)
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-info-padding-right 0)
   (setq awesome-tray-evil-show-macro t)
   (setq awesome-tray-adjust-mode-line-color-enable t)
   (setq awesome-tray-evil-show-cursor-count t)
-  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "git" "org-pomodoro" "pdf-view-page" "location-or-page" "date"))
+  (setq awesome-tray-git-format "%s")
+  (advice-add 'awesome-tray-module-clock-info :override #'dwt/awesome-tray-module-clock-info)
+  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "git" "org-pomodoro" "clock" "pdf-view-page" "location-or-page" "date"))
   (setq awesome-tray-input-method-local-style "ㄓ"
         awesome-tray-buffer-name-buffer-changed t
         awesome-tray-file-path-full-dirname-levels 3
@@ -287,6 +291,7 @@
   :commands (sort-tab-mode)
   :defer t
   :config
+  (setq sort-tab-hide-function '(lambda (buf) (with-current-buffer buf (derived-mode-p 'dired-mode))))
   (map! :ni "C-<tab>" #'sort-tab-select-next-tab
         :ni "C-<iso-lefttab>" #'sort-tab-select-prev-tab
         :n "gt" #'sort-tab-select-next-tab
@@ -349,7 +354,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "WHH FP X ")
+(setq dwt/my-mode-line-info "CML RP X ")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (map! :g "<f10>" #'dwt/hide-pdf-window)
