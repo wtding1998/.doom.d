@@ -55,15 +55,12 @@ The window layout is restored when full-screen is toggled off."
 (defun dwt/init-frame(frame)
   ;; setting for daemon
   (with-selected-frame frame
-    ;; font and theme for GUI
     (if (display-graphic-p)
         (progn
           ;; only load ui setting at start
           (when (equal doom-theme 'doom-one)
-            (dwt/doom-font)
           ;; theme for GUI in daemon
             (load-theme dwt/gui-theme t nil)))
-          ;; (load-theme dwt/gui-light-theme t nil)
       ;;; theme for TUI in daemon
       (load-theme dwt/tui-dark-theme t nil))))
 

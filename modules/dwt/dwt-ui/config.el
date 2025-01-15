@@ -29,6 +29,7 @@
       (setq dwt/default-font-size dwt/linux-default-font-size))
   (setq dwt/default-font-size dwt/mac-default-font-size))
 
+(add-hook 'after-setting-font-hook #'dwt/doom-font)
 
 (define-minor-mode dwt/big-font-mode
   "Toggle font size."
@@ -52,9 +53,7 @@
       (progn
         ;; (load-theme 'modus-operandi t nil)
         (when (equal doom-theme 'doom-one)
-          (load-theme dwt/gui-theme t nil)
-          ;; (load-theme dwt/gui-light-theme t nil)
-          (dwt/doom-font)))
+          (load-theme dwt/gui-theme t nil)))
     ;; theme for TUI without daemon
     (load-theme dwt/tui-dark-theme t nil)))
 
@@ -269,6 +268,7 @@
 
 (use-package! awesome-tray
   ;; :defer t
+  :when (display-graphic-p)
   :config
   (awesome-tray-mode 1)
   (+modeline-mode -1)
