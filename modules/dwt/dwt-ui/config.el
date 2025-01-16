@@ -16,8 +16,8 @@
 (setq dwt/gui-dark-theme 'doom-opera
       dwt/gui-light-theme 'modus-operandi
       dwt/gui-theme dwt/gui-light-theme
-      ;; dwt/tui-dark-theme 'doom-zenburn)
-      dwt/tui-dark-theme 'doom-rouge
+      dwt/tui-dark-theme 'doom-zenburn
+      ;; dwt/tui-dark-theme 'doom-rouge
       dwt/linux-large-font-size 210
       dwt/linux-small-font-size 120
       ; default font size

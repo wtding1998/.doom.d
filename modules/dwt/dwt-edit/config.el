@@ -254,3 +254,9 @@
 
 (use-package! eldoc-box
   :hook ((eldoc-mode . eldoc-box-hover-mode)))
+
+(use-package! evil-terminal-cursor-changer
+  :when (not (display-graphic-p))
+  :config
+  (setq etcc-term-type-override 'xterm)
+  (etcc-on))
