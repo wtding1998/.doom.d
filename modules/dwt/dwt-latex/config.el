@@ -16,10 +16,6 @@
         cdlatex-use-dollar-to-ensure-math nil)
   (push (list "lstlisting" "\\begin{lstlisting}\n?\n\\end{lstlisting}" ) cdlatex-env-alist-default)
   ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
-  (defun dwt/latex-indent-align ()
-    (interactive)
-    (call-interactively #'evil-indent)
-    (call-interactively #'align))
   (dwt/set-cdlatex-keymap)
   (map! :map cdlatex-mode-map
         :n "=" #'dwt/latex-indent-align

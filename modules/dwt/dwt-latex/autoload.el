@@ -273,7 +273,6 @@ PROJECT-NAME is the name of the project."
 ;;;###autoload
 (defun dwt/set-cdlatex-keymap ()
   "Set cdlatex-keymap. Do not know why sometimes the keymap fails"
-  (interactive)
   (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
     cdlatex-math-symbol-alist
     '( ;; adding missing functions to 3rd level symbols
@@ -319,7 +318,11 @@ PROJECT-NAME is the name of the project."
       (?3    "\\bar"           nil          t    nil  nil)
       (?l    "\\label"           "\\label"          t    nil  nil)
       (?s    "\\mathscr"           nil          t    nil  nil)
-      (?A    "\\abs"           nil          t    nil  nil)))
+      (?A    "\\abs"           nil          t    nil  nil))))
+
+;;;###autoload
+(defun dwt/set-cdlatex-keymap-manual ()
+  (interactive)
   (when (derived-mode-p 'latex-mode)
     (call-interactively #'revert-buffer)
     (dwt/set-cdlatex-keymap)))
@@ -423,3 +426,9 @@ and send the latexmk command with the correct TeX engine."
               ;; Change the working directory to the master file directory
               (with-current-buffer latex-vterm-buffer-name
                 (vterm-send-string command))))))))
+
+;;;###autoload
+(defun dwt/latex-indent-align ()
+  (interactive)
+  (call-interactively #'evil-indent)
+  (call-interactively #'align))
