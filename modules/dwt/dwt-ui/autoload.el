@@ -60,7 +60,8 @@ The window layout is restored when full-screen is toggled off."
           ;; only load ui setting at start
           (when (equal doom-theme 'doom-one)
           ;; theme for GUI in daemon
-            (load-theme dwt/gui-theme t nil)))
+            (load-theme dwt/gui-theme t nil)
+            (awesome-tray-enable)))
       ;;; theme for TUI in daemon
       (load-theme dwt/tui-dark-theme t nil))))
 

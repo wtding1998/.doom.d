@@ -268,7 +268,7 @@
 
 (use-package! awesome-tray
   ;; :defer t
-  :when (display-graphic-p)
+  :when (or (display-graphic-p) (daemonp))
   :config
   (awesome-tray-mode 1)
   (+modeline-mode -1)
