@@ -404,8 +404,7 @@ and send the latexmk command with the correct TeX engine."
   (interactive)
   (when (and (derived-mode-p 'tex-mode) buffer-file-name)
     ;; (let* ((master-file (TeX-master-file))
-    (let* ((working-directory (file-name-directory (buffer-file-name)))
-           (master-file (TeX-master-file t))
+    (let* ((master-file (TeX-master-file t))
            (master-file-name (file-name-sans-extension master-file))
            (latex-vterm-buffer-name (concat "*vterm: latexmk-" (file-name-nondirectory master-file-name) "*")))
       ;; Open the vterm buffer with the appropriate name
@@ -418,7 +417,7 @@ and send the latexmk command with the correct TeX engine."
             (let* ((tex-engine (or TeX-engine 'xetex))  ;; Default to 'latex' if TeX-engine is not set
                    (tex-engine-str (pcase tex-engine
                                      ('luatex "lualatex")
-                                     ('pdftex "pdflatex")
+                                     ('pdftex "pdf")
                                      (_ "xelatex")))  ;; Default fallback
                    (command (concat "latexmk -pvc -" tex-engine-str " " master-file)))
               (message (concat "Create vterm buffer:" latex-vterm-buffer-name))
