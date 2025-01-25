@@ -332,20 +332,24 @@ PROJECT-NAME is the name of the project."
   (char-to-string (char-before (car (bounds-of-thing-at-point 'word)))))
 
 ;;;###autoload
-(defun dwt/evil-multiedit-clean-nonmath-candidate ()
+(defun dwt/LaTeX-math-single-var ()
+  "Check if the point is in a single variable in math instead of part of a command."
+  (let ((face (get-text-property (point) 'face)))
+    (or (eq 'font-latex-math-face face)
+      (and (listp face)
+          (member 'font-latex-math-face face)
+          (not (member 'font-latex-sedate-face face))
+          (not (member 'font-lock-constant-face face))))))
+
+;;;###autoload
+(defun dwt/LaTeX-evil-multiedit-clean-nonmath-candidate ()
   (interactive)
   (save-excursion
     (goto-char (point-min))
     (while (call-interactively #'evil-multiedit-next)
-      (let ((face (get-text-property (point) 'face)))
-        (unless
-          (if (listp face)
-              (and (member 'font-latex-math-face face)
-                   (not (member 'font-latex-sedate-face face))
-                   (not (member 'font-lock-constant-face face)))
-            (eq face 'font-latex-math-face))
+      (when (dwt/LaTeX-math-single-var)
         ;; (unless (and (eq (get-text-property (point) 'face) 'font-latex-math-face) (not (string-equal "\\" (dwt/string-before-word))))
-          (call-interactively #'evil-multiedit-toggle-or-restrict-region))))))
+        (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
 
 ;;;###autoload
 (defun dwt/toggle-org-latex-impatient-mode ()
@@ -431,3 +435,193 @@ and send the latexmk command with the correct TeX engine."
   (interactive)
   (call-interactively #'evil-indent)
   (call-interactively #'align))
+
+;;;###autoload
+(defun dwt/view-pdf-by-the-other-viewer ()
+  "view pdf by pdf tools"
+  (interactive)
+  (let ((inhibit-message t))
+    (dwt/toggle-view-program)
+    (TeX-view)
+    (dwt/toggle-view-program)))
+
+;;;###autoload
+(defun dwt/toggle-view-program ()
+  "Toggle view program between first and second viewer"
+  (interactive)
+  (let ((first (nth 0 TeX-view-program-selection))
+        (second (nth 1 TeX-view-program-selection)))
+    (setq TeX-view-program-selection
+          (cons second
+                (cons first
+                      (nthcdr 2 TeX-view-program-selection))))
+    (message "%s" (car TeX-view-program-selection))))
+
+;;;###autoload
+(defun dwt/find-math-next()
+  "Goto the next math environment in tex buffer."
+  (interactive)
+  (while (texmathp)
+    (evil-forward-word-begin))
+  (while (not (texmathp))
+    (evil-forward-word-begin)))
+
+;;;###autoload
+(defun dwt/find-math-prev()
+  "Goto the last math environment in tex buffer."
+  (interactive)
+  (while (texmathp)
+    (evil-backward-word-begin))
+  (while (not (texmathp))
+    (evil-backward-word-begin)))
+
+;;;###autoload
+(defun dwt/insert-inline-math-env ()
+  "Insert a pair of dollar when texmathp returns false. If there is a word at point, also wrap it."
+  (interactive)
+  (when (derived-mode-p 'tex-mode)
+    (if (not (texmathp))
+        (progn
+          (if (thing-at-point 'word)
+              (progn
+                (call-interactively #'backward-word)
+                (insert "\\(")
+                (call-interactively #'forward-word)
+                (insert "\\)")
+                (left-char 3))
+
+            (insert "\\(\\)")
+            (left-char 3)))
+      (progn
+        (call-interactively #'cdlatex-math-modify))))
+  (when (derived-mode-p 'org-mode)
+    (if (not (texmathp))
+        (progn
+          (if (thing-at-point 'word)
+              (progn
+                (call-interactively #'backward-word)
+                (insert "\\(")
+                (call-interactively #'forward-word)
+                (insert " \\)")
+                (left-char 3))
+
+            (insert "\\( \\)")
+            (left-char 3)))
+      (progn
+        (call-interactively #'cdlatex-math-modify)))))
+
+;;;###autoload
+(defun dwt/insert-superscript ()
+  "If it's in math environment, insert a superscript, otherwise insert dollar and also wrap the word at point"
+  (interactive)
+  (if (texmathp)
+      (progn
+        (insert "^{}")
+        (left-char))
+    (progn
+      (if (thing-at-point 'word)
+          (progn
+            (call-interactively #'backward-word)
+            (insert "\\(")
+            (call-interactively #'forward-word)
+            (insert "^{}\\)")
+            (left-char 3))
+
+        (insert "\\(^{}\\)")
+        (left-char 6)))))
+
+;;;###autoload
+(defun dwt/insert-subscript ()
+  "If it's in math environment, insert a subscript, otherwise insert dollar and also wrap the word at point"
+  (interactive)
+  (if (texmathp)
+      (progn
+        (insert "_{}")
+        (left-char))
+    (progn
+      (if (thing-at-point 'word)
+          (progn
+            (call-interactively #'backward-word)
+            (insert "\\(")
+            (call-interactively #'forward-word)
+            (insert "_{}\\)")
+            (left-char 3))
+
+        (insert "\\(_{}\\)")
+        (left-char 6)))))
+
+;;;###autoload
+(defun dwt/insert-space ()
+  "Wrap a single char with inline math"
+  (interactive)
+  (if (texmathp)
+      (insert " ")
+    (progn
+      (let ((current-char (string (char-before)))
+            (last-char (string (char-before (- (point) 1)))))
+        (cond ((not (string-match "\\([A-Za-z]\\)" current-char)) (insert " "))
+              ((string-match "\\([aIA]\\)" current-char) (insert " "))
+              ((equal (line-beginning-position) (- (point) 1)) (dwt/wrap-inline-math))
+              ((not (string-equal last-char " ")) (insert " "))
+              (t (dwt/wrap-inline-math)))))))
+
+;;;###autoload
+(defun dwt/wrap-inline-math ()
+  (backward-char)
+  (insert "\\( ")
+  (forward-char)
+  (insert " \\)")
+  (backward-char 3))
+
+;;;###autoload
+(defun dwt/copy-next-label ()
+  "Copy the next label."
+  (interactive)
+  (let ((pattern "\\b\\(label\\|cref\\|eqref\\)\\b")) ; Define a regular expression pattern
+      (if (search-forward-regexp pattern nil t)
+          (progn
+            (goto-char (match-beginning 0))
+            (execute-kbd-macro "f{yi{"))
+        (message "No label found."))))
+
+;;;###autoload
+(defun dwt/insert-transpose ()
+  "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
+  (interactive)
+  (if (texmathp)
+      (progn
+        (insert "^{T}"))
+    (progn
+      (if (thing-at-point 'word)
+          (progn
+            (call-interactively #'backward-word)
+            (insert "$")
+            (call-interactively #'forward-word)
+            (insert "^{T}$"))
+        (insert "$^{T}$"))
+      (left-char))))
+
+;;;###autoload
+(defun dwt/remove-command (cmd)
+  "change \\cmd{xxx} to xxx"
+  (interactive "sEnter the command to remove: ")
+  (save-excursion
+    (evil-ex (format "%%s/\\\\%s\\\{\\(.*?\\)\\\}/\\1/g" cmd))))
+
+(defun dwt/LaTeX-wrap-var-command (var command)
+  "Wrap VAR with COMMAND in LaTeX math environments."
+  (interactive "sString to wrap: \nSLaTeX command: ")
+  (save-excursion
+    (goto-char (point-min))
+    (while (search-forward var nil t)
+      (when (dwt/LaTeX-math-single-var)
+        (let ((prev-char (char-before (match-beginning 0))))
+          (cond
+            ;; Case 1: Previous char is ^ or _
+            ((or (eq prev-char ?^) (eq prev-char ?_))
+             (replace-match (format "{\\\\%s{%s}}" command var)))
+            ;; Case 2: Previous char is {
+            ((eq prev-char (string-to-char "{")))
+            ;; Default case: Wrap with \command{var}
+            (t
+             (replace-match (format "\\\\%s{%s}" command var)))))))))

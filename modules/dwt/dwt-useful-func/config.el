@@ -466,3 +466,24 @@
     ("o" musicfox-open)
     ("q" nil "quit"))
   (map! :leader "tj" #'musicfox/body))
+
+(use-package! gptel
+  :defer t
+  :commands (gptel gptel-send gptel-add gptel-menu)
+  :init
+  (map! :leader
+        "tll" #'gptel
+        "tla" #'gptel-add
+        "tlA" #'gptel-add-file
+        "tls" #'gptel-send
+        "tlm" #'gptel-menu)
+  :config
+  (setq gptel-model 'deepseek-chat)
+  ;; (setq gptel-model 'deepseek-reasoner)
+  ;; DeepSeek offers an OpenAI compatible API
+  (gptel-make-openai "DeepSeek"       ;Any name you want
+    :host "api.deepseek.com"
+    :endpoint "/chat/completions"
+    :stream t
+    :key (lambda () (getenv "DEEPSEEK_API_KEY"));can be a function that returns the key
+    :models '(deepseek-chat deepseek-coder deepseek-reasoner)))

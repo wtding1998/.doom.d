@@ -104,24 +104,6 @@
   (setq TeX-debug-warnings nil)
   ;; (setq TeX-debug-bad-boxes t)
   ;; (run-with-idle-timer 10 t #'dwt/compile-latex-idle)
-  (defun dwt/view-pdf-by-the-other-viewer ()
-    "view pdf by pdf tools"
-    (interactive)
-    (let ((inhibit-message t))
-      (dwt/toggle-view-program)
-      (TeX-view)
-      (dwt/toggle-view-program)))
-
-  (defun dwt/toggle-view-program ()
-    "Toggle view program between first and second viewer"
-    (interactive)
-    (let ((first (nth 0 TeX-view-program-selection))
-          (second (nth 1 TeX-view-program-selection)))
-      (setq TeX-view-program-selection
-            (cons second
-                  (cons first
-                        (nthcdr 2 TeX-view-program-selection))))
-     (message "%s" (car TeX-view-program-selection))))
 
   (defmacro define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-name"))
@@ -138,147 +120,6 @@
   (setq dwt/tex-pair-regex "\\\\sim\\|\\\\leq\\|\\\\geq\\|<\\|>\\|=\\|\\\\in")
   (define-and-bind-text-object "=" dwt/tex-pair-regex dwt/tex-pair-regex)
 
-  (defun dwt/find-math-next()
-    "Goto the next math environment in tex buffer."
-    (interactive)
-    (while (texmathp)
-      (evil-forward-word-begin))
-    (while (not (texmathp))
-      (evil-forward-word-begin)))
-
-  (defun dwt/find-math-prev()
-    "Goto the last math environment in tex buffer."
-    (interactive)
-    (while (texmathp)
-      (evil-backward-word-begin))
-    (while (not (texmathp))
-      (evil-backward-word-begin)))
-
-  (defun dwt/insert-inline-math-env ()
-    "Insert a pair of dollar when texmathp returns false. If there is a word at point, also wrap it."
-    (interactive)
-    (when (derived-mode-p 'tex-mode)
-      (if (not (texmathp))
-          (progn
-            (if (thing-at-point 'word)
-                (progn
-                  (call-interactively #'backward-word)
-                  (insert "\\(")
-                  (call-interactively #'forward-word)
-                  (insert "\\)")
-                  (left-char 3))
-
-              (insert "\\(\\)")
-              (left-char 3)))
-        (progn
-          (call-interactively #'cdlatex-math-modify))))
-    (when (derived-mode-p 'org-mode)
-      (if (not (texmathp))
-          (progn
-            (if (thing-at-point 'word)
-                (progn
-                  (call-interactively #'backward-word)
-                  (insert "\\(")
-                  (call-interactively #'forward-word)
-                  (insert " \\)")
-                  (left-char 3))
-
-              (insert "\\( \\)")
-              (left-char 3)))
-        (progn
-          (call-interactively #'cdlatex-math-modify)))))
-
-  (defun dwt/insert-superscript ()
-    "If it's in math environment, insert a superscript, otherwise insert dollar and also wrap the word at point"
-    (interactive)
-    (if (texmathp)
-        (progn
-          (insert "^{}")
-          (left-char))
-      (progn
-        (if (thing-at-point 'word)
-            (progn
-              (call-interactively #'backward-word)
-              (insert "\\(")
-              (call-interactively #'forward-word)
-              (insert "^{}\\)")
-              (left-char 3))
-
-          (insert "\\(^{}\\)")
-          (left-char 6)))))
-
-  (defun dwt/insert-subscript ()
-    "If it's in math environment, insert a subscript, otherwise insert dollar and also wrap the word at point"
-    (interactive)
-    (if (texmathp)
-        (progn
-          (insert "_{}")
-          (left-char))
-      (progn
-        (if (thing-at-point 'word)
-            (progn
-              (call-interactively #'backward-word)
-              (insert "\\(")
-              (call-interactively #'forward-word)
-              (insert "_{}\\)")
-              (left-char 3))
-
-          (insert "\\(_{}\\)")
-          (left-char 6)))))
-
-  (defun dwt/insert-space ()
-    "Wrap a single char with inline math"
-    (interactive)
-    (if (texmathp)
-        (insert " ")
-      (progn
-        (let ((current-char (string (char-before)))
-              (last-char (string (char-before (- (point) 1)))))
-          (cond ((not (string-match "\\([A-Za-z]\\)" current-char)) (insert " "))
-                ((string-match "\\([aIA]\\)" current-char) (insert " "))
-                ((equal (line-beginning-position) (- (point) 1)) (dwt/wrap-inline-math))
-                ((not (string-equal last-char " ")) (insert " "))
-                (t (dwt/wrap-inline-math)))))))
-
-  (defun dwt/wrap-inline-math ()
-    (backward-char)
-    (insert "\\( ")
-    (forward-char)
-    (insert " \\)")
-    (backward-char 3))
-
-  (defun dwt/copy-next-label ()
-    "Copy the next label."
-    (interactive)
-    (let ((pattern "\\b\\(label\\|cref\\|eqref\\)\\b")) ; Define a regular expression pattern
-        (if (search-forward-regexp pattern nil t)
-            (progn
-              (goto-char (match-beginning 0))
-              (execute-kbd-macro "f{yi{"))
-          (message "No label found."))))
-
-
-  (defun dwt/insert-transpose ()
-    "If it's in math environment, insert a transpose, otherwise insert dollar and also wrap the word at point"
-    (interactive)
-    (if (texmathp)
-        (progn
-          (insert "^{T}"))
-      (progn
-        (if (thing-at-point 'word)
-            (progn
-              (call-interactively #'backward-word)
-              (insert "$")
-              (call-interactively #'forward-word)
-              (insert "^{T}$"))
-          (insert "$^{T}$"))
-        (left-char))))
-
-  (defun dwt/remove-command (cmd)
-    "change \\cmd{xxx} to xxx"
-    (interactive "sEnter the command to remove: ")
-    (save-excursion
-      (evil-ex (format "%%s/\\\\%s\\\{\\(.*?\\)\\\}/\\1/g" cmd))))
 
 ;;; latex mode map
   (map! :map LaTeX-mode-map
@@ -316,8 +157,6 @@
            font-lock-keyword-face
            font-lock-variable-name-face)))
 
-
-
 (map! :leader
       :desc "New TeX dir" "ol" #'dwt/new-latex-dir-project
       :desc "New TeX dir in project" "oL" #'dwt/new-latex-dir-default-dir)
@@ -344,7 +183,7 @@
   (setq dwt/latex-rename-cha '("X" "Y" "Z" "I"))
   (add-to-list 'TeX-outline-extra '("\\\\frametitle\\b" 4))
   (map! :map evil-multiedit-mode-map
-        "C-j" #'dwt/evil-multiedit-clean-nonmath-candidate))
+        "C-j" #'dwt/LaTeX-evil-multiedit-clean-nonmath-candidate))
 
 
 ;;; reftex

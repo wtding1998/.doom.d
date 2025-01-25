@@ -14,3 +14,4 @@
 (package! atomic-chrome :recipe (:host github :repo "alpha22jp/atomic-chrome"))
 (package! magit-todos :recipe (:host github :repo "alphapapa/magit-todos"))
 (package! aider :recipe (:host github :repo "tninja/aider.el" :files ("*.el")))
+(package! gptel)
