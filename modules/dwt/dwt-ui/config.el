@@ -42,6 +42,7 @@
     (dwt/doom-font)))
 
 (map! :leader :desc "big font mode" "tb" #'dwt/big-font-mode) ;; replace doom/big-font-mode
+(map! :leader :desc "toggle line number" "tL" #'doom/toggle-line-numbers) ;; replace doom/big-font-mode
 ;; Make the fringe of modus theme invisible
 (setq modus-themes-common-palette-overrides
       '((fringe unspecified)))

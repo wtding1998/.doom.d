@@ -472,6 +472,7 @@
   :commands (gptel gptel-send gptel-add gptel-menu)
   :init
   (map! :leader
+        "tl" nil
         "tll" #'gptel
         "tla" #'gptel-add
         "tlA" #'gptel-add-file
