@@ -104,10 +104,11 @@ The window layout is restored when full-screen is toggled off."
 
 ;;;###autoload
 (defun dwt/awesome-tray-module-clock-info ()
-  (if (org-clocking-p)
-      (format "[%s/%s]"
-              (org-duration-from-minutes
-                (floor (org-time-convert-to-integer
-                        (org-time-since org-clock-start-time))
-                      60))
-              org-clock-effort)))
+  (when (org-clocking-p)
+    (let ((elapsed (org-duration-from-minutes
+                    (floor (org-time-convert-to-integer
+                            (org-time-since org-clock-start-time))
+                           60))))
+      (if org-clock-effort
+          (format "%s/%s" elapsed org-clock-effort)
+        (format "%s" elapsed)))))

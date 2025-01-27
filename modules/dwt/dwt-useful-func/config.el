@@ -469,13 +469,14 @@
 
 (use-package! gptel
   :defer t
-  :commands (gptel gptel-send gptel-add gptel-menu)
+  :commands (gptel gptel-send gptel-add gptel-menu gptel-rewrite)
   :init
   (map! :leader
         "tl" nil
         "tll" #'gptel
         "tla" #'gptel-add
         "tlA" #'gptel-add-file
+        "tlr" #'gptel-rewrite
         "tls" #'gptel-send
         "tlm" #'gptel-menu)
   :config
@@ -488,3 +489,14 @@
     :stream t
     :key (lambda () (getenv "DEEPSEEK_API_KEY"));can be a function that returns the key
     :models '(deepseek-chat deepseek-coder deepseek-reasoner)))
+
+(use-package! elysium
+  :commands (elysium-query elysium-add-context)
+  :init
+  (map! :leader
+        "tlq" #'elysium-query
+        "tlv" #'elysium-add-context)
+  :custom
+  ;; Below are the default values
+  (elysium-window-size 0.33) ; The elysium buffer will be 1/3 your screen
+  (elysium-window-style 'vertical)) ; Can be customized to horizontal

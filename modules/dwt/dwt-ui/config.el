@@ -148,7 +148,7 @@
             awesome-tab-icon-height 0.7
             awesome-tab-active-bar-height 15)
       ;; arch
-      (setq awesome-tab-height 120
+      (setq awesome-tab-height 140
             awesome-tab-active-bar-height 20))
 
   ;; define tab-hide-rule
