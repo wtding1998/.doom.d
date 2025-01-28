@@ -16,7 +16,8 @@
 (setq dwt/gui-dark-theme 'doom-opera
       dwt/gui-light-theme 'modus-operandi
       dwt/gui-theme dwt/gui-light-theme
-      dwt/tui-dark-theme 'doom-zenburn
+      ;; dwt/tui-dark-theme 'doom-zenburn
+      dwt/tui-dark-theme 'doom-tomorrow-night
       ;; dwt/tui-dark-theme 'doom-rouge
       dwt/linux-large-font-size 210
       dwt/linux-small-font-size 120
@@ -56,7 +57,8 @@
         (when (equal doom-theme 'doom-one)
           (load-theme dwt/gui-theme t nil)))
     ;; theme for TUI without daemon
-    (load-theme dwt/tui-dark-theme t nil)))
+    (load-theme dwt/tui-dark-theme t nil)
+    (copy-face 'button 'lazy-highlight)))
 
 ;; hide title bar
 ;; (setq default-frame-alist '((undecorated . t)))
