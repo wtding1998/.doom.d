@@ -334,12 +334,14 @@ PROJECT-NAME is the name of the project."
 ;;;###autoload
 (defun dwt/LaTeX-math-single-var ()
   "Check if the point is in a single variable in math instead of part of a command."
-  (let ((face (get-text-property (point) 'face)))
+  ;; (let ((face (get-text-property (point) 'face)))
+  (let ((face (get-text-property (- (point) 1) 'face)))
     (or (eq 'font-latex-math-face face)
       (and (listp face)
           (member 'font-latex-math-face face)
           (not (member 'font-latex-sedate-face face))
-          (not (member 'font-lock-constant-face face))))))
+          (not (member 'font-lock-constant-face face))
+          (not (member 'font-lock-function-name-face face))))))
 
 ;;;###autoload
 (defun dwt/LaTeX-evil-multiedit-clean-nonmath-candidate ()
@@ -602,26 +604,42 @@ and send the latexmk command with the correct TeX engine."
       (left-char))))
 
 ;;;###autoload
-(defun dwt/remove-command (cmd)
+(defun dwt/LaTeX-unwrap-command (cmd)
   "change \\cmd{xxx} to xxx"
   (interactive "sEnter the command to remove: ")
   (save-excursion
     (evil-ex (format "%%s/\\\\%s\\\{\\(.*?\\)\\\}/\\1/g" cmd))))
 
+;;;###autoload
 (defun dwt/LaTeX-wrap-var-command (var command)
   "Wrap VAR with COMMAND in LaTeX math environments."
-  (interactive "sString to wrap: \nSLaTeX command: ")
+  (interactive "sString to wrap: \nsLaTeX command: ")
   (save-excursion
     (goto-char (point-min))
-    (while (search-forward var nil t)
-      (when (dwt/LaTeX-math-single-var)
-        (let ((prev-char (char-before (match-beginning 0))))
-          (cond
-            ;; Case 1: Previous char is ^ or _
-            ((or (eq prev-char ?^) (eq prev-char ?_))
-             (replace-match (format "{\\\\%s{%s}}" command var)))
-            ;; Case 2: Previous char is {
-            ((eq prev-char (string-to-char "{")))
-            ;; Default case: Wrap with \command{var}
-            (t
-             (replace-match (format "\\\\%s{%s}" command var)))))))))
+    ;; (message "Starting to search for '%s' in the buffer..." var)
+    (let ((command-last-char (string-to-char (substring command -1)))
+          (case-fold-search nil))
+      (while (search-forward var nil t)
+        ;; (message "Found '%s' at position %d" var (point))
+        (when (dwt/LaTeX-math-single-var)
+          (let ((prev-char (char-before (match-beginning 0)))
+                (prev-char-2 (char-before (- (match-beginning 0) 1))))
+            ;; (message "Previous character: %c" prev-char)
+            ;; (message "Second previous character: %c" prev-char-2)
+            (cond
+              ;; Case 1: Previous char is ^ or _
+              ((or (eq prev-char ?^) (eq prev-char ?_))
+               ;; (message "Case 1: Previous char is ^ or _")
+               (replace-match (format "{\\\\%s{%s}}" command var) t))
+              ;; Case 2: Previous char is { and matches the last character of command
+              ((and (eq prev-char (string-to-char "{"))
+                    (eq prev-char-2 command-last-char)))
+               ;; (message "Case 2: Previous char is { and matches last character of command"))
+              ;; Default case: Wrap with \command{var}
+              (t
+               ;; (message "Default case: Wrapping with \\%s{%s}" command var)
+               (replace-match (format "\\\\%s{%s}" command var) t)))))))))
+
+;;;###autoload
+;; (defun dwt/LaTeX-wrap-var-command-list ()
+;;   (dolist ))
