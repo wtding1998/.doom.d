@@ -44,16 +44,13 @@
   (defun dwt/TeX-output-extension-override (&rest _args)
     "Advice to make `TeX-output-extension` always return \"pdf\"."
     "pdf")
-
-
-
   (advice-add 'TeX-output-extension :override #'dwt/TeX-output-extension-override)
   (add-to-list 'TeX-expand-list '("%(dwtlatexmk)" (lambda nil
                                                     (if (eq TeX-engine 'pdftex)
                                                         "pdf"
                                                       (eval (nth 3 (TeX-engine-in-engine-alist TeX-engine)))))))
   (add-to-list 'TeX-command-list '("dwtLaTeXMk"
-                                   "latexmk -%(dwtlatexmk) %t"
+                                   "latexmk -%(dwtlatexmk) %(mode) %t"
                                    TeX-run-TeX
                                    nil
                                    t
