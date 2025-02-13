@@ -349,7 +349,7 @@ PROJECT-NAME is the name of the project."
   (save-excursion
     (goto-char (point-min))
     (while (call-interactively #'evil-multiedit-next)
-      (when (dwt/LaTeX-math-single-var)
+      (unless (dwt/LaTeX-math-single-var)
         ;; (unless (and (eq (get-text-property (point) 'face) 'font-latex-math-face) (not (string-equal "\\" (dwt/string-before-word))))
         (call-interactively #'evil-multiedit-toggle-or-restrict-region)))))
 
@@ -616,30 +616,22 @@ and send the latexmk command with the correct TeX engine."
   (interactive "sString to wrap: \nsLaTeX command: ")
   (save-excursion
     (goto-char (point-min))
-    ;; (message "Starting to search for '%s' in the buffer..." var)
     (let ((command-last-char (string-to-char (substring command -1)))
           (case-fold-search nil))
       (while (search-forward var nil t)
-        ;; (message "Found '%s' at position %d" var (point))
         (when (dwt/LaTeX-math-single-var)
           (let ((prev-char (char-before (match-beginning 0)))
                 (prev-char-2 (char-before (- (match-beginning 0) 1))))
-            ;; (message "Previous character: %c" prev-char)
-            ;; (message "Second previous character: %c" prev-char-2)
             (cond
               ;; Case 1: Previous char is ^ or _
               ((or (eq prev-char ?^) (eq prev-char ?_))
-               ;; (message "Case 1: Previous char is ^ or _")
                (replace-match (format "{\\\\%s{%s}}" command var) t))
               ;; Case 2: Previous char is { and matches the last character of command
               ((and (eq prev-char (string-to-char "{"))
                     (eq prev-char-2 command-last-char)))
-               ;; (message "Case 2: Previous char is { and matches last character of command"))
               ;; Default case: Wrap with \command{var}
               (t
-               ;; (message "Default case: Wrapping with \\%s{%s}" command var)
                (replace-match (format "\\\\%s{%s}" command var) t)))))))))
-
 ;;;###autoload
 ;; (defun dwt/LaTeX-wrap-var-command-list ()
 ;;   (dolist ))

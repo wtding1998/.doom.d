@@ -445,7 +445,8 @@
   :defer t
   :commands (aider-run-aider)
   :config
-  (setq aider-args '("--no-auto-commits" "--model" "deepseek")))
+  ;; (setq aider-args '("--no-auto-commits" "--model" "deepseek")))
+  (setq aider-args '("--no-auto-commits" "--model" "gemini/gemini-2.0-flash-exp")))
   ;; (setq aider-args '("--no-auto-commits" "--model" "groq/llama3-70b-8192")))
 
 (use-package! musicfox
@@ -483,6 +484,14 @@
   (setq gptel-model 'deepseek-chat)
   ;; (setq gptel-model 'deepseek-reasoner)
   ;; DeepSeek offers an OpenAI compatible API
+  (gptel-make-gemini "Gemini" :key "AIzaSyCSe1QeUoqxxGflB1o9ct9EtHbRBSt8DSU" :stream t)
+  (gptel-make-openai "SILICON_DeepSeek"       ;Any name you want
+    :host "api.siliconflow.cn/v1"
+    :endpoint "/chat/completions"
+    :stream t
+    :key (lambda () (getenv "SILICONFLOW_API_KEY"));can be a function that returns the key
+    :models '(deepseedeepseek-ai/DeepSeek-V3-coder))
+
   (gptel-make-openai "DeepSeek"       ;Any name you want
     :host "api.deepseek.com"
     :endpoint "/chat/completions"

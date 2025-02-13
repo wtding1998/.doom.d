@@ -618,7 +618,7 @@
   (setq org-pomodoro-length 30)
   (setq org-pomodoro-short-break-length 5)
   (setq org-pomodoro-long-break-length 15)
-  (setq org-pomodoro-long-break-frequency 3)
+  (setq org-pomodoro-long-break-frequency 2)
   (setq org-pomodoro-play-sounds nil)
   (setq org-pomodoro-short-break-sound-p nil)
   (setq org-pomodoro-long-break-sound-p nil)

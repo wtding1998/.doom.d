@@ -1,6 +1,6 @@
 ;; ;;; dwt/latex/config.el -*- lexical-binding: t; -*-
 
-
+(setq major-mode-remap-alist major-mode-remap-defaults) ;; HACK: https://github.com/doomemacs/doomemacs/issues/8191#issuecomment-2522039422
 ;; === latex init ===
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 (add-hook 'LaTeX-mode-hook 'hl-todo-mode)
@@ -125,7 +125,6 @@
   (map! :map LaTeX-mode-map
         :n "<RET>" #'dwt/TeX-save-and-run-all
         :localleader
-        :desc "View" "v" #'TeX-view
         :desc "Output" "o" #'TeX-recenter-output-buffer
         :desc "View by the other" "V" #'dwt/view-pdf-by-the-other-viewer
         :desc "Run" "C" #'dwt/latex-file

@@ -105,10 +105,12 @@ The window layout is restored when full-screen is toggled off."
 ;;;###autoload
 (defun dwt/awesome-tray-module-clock-info ()
   (when (org-clocking-p)
-    (let ((elapsed (org-duration-from-minutes
-                    (floor (org-time-convert-to-integer
-                            (org-time-since org-clock-start-time))
-                           60))))
+    ;; (let ((elapsed (org-duration-from-minutes
+    ;;                 (floor (org-time-convert-to-integer
+    ;;                         (org-time-since org-clock-start-time))
+    ;;                        60))))
+    ;; TODO: add the two strings up
+    (let ((elapsed org-clock-to))
       (if org-clock-effort
           (format "%s/%s" elapsed org-clock-effort)
         (format "%s" elapsed)))))

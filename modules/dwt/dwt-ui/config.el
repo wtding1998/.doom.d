@@ -7,7 +7,7 @@
 ;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
 (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
-
+(setq doom-theme 'modus-operandi)
 
 (use-package! printed-theme)
 (use-package! joker-theme)
@@ -120,8 +120,8 @@
     ("q" nil "quit"))
 
   (map! :map awesome-tab-mode-map
-        :n "[T" #'awesome-tab-ace-jump
-        :n "]T" #'awesome-tab-fast-switch/body
+        :n "gt" #'awesome-tab-ace-jump
+        :n "gT" #'awesome-tab-fast-switch/body
         :n "[t" #'awesome-tab-backward-tab
         :n "]t" #'awesome-tab-forward-tab)
   (map! :map awesome-tab-mode-map :leader
@@ -129,6 +129,7 @@
         :desc "kill group" "t0" #'awesome-tab-kill-all-buffers-in-current-group
         :desc "tab fast switch" "tt" #'awesome-tab-fast-switch/body
         :desc "switch group" "tT" #'awesome-tab-switch-group)
+
   (map! :map awesome-tab-mode-map :ni "C-1" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-2" #'awesome-tab-select-visible-tab)
   (map! :map awesome-tab-mode-map :ni "C-3" #'awesome-tab-select-visible-tab)
@@ -205,14 +206,14 @@
 (define-key global-map (kbd "M-p") #'+popup/other)
 ;;; +modeline, light line in doom
 (setq +modeline-height 1)
-(def-modeline-var! +modeline-buffer-identification ; slightly more informative buffer id
-  '((:eval
-     (propertize
-      (string-limit (or +modeline--buffer-id-cache (buffer-name)) 37 t) ; avoid too long length
-      'face (cond ((buffer-modified-p) '(error bold mode-line-buffer-id))
-                  ((+modeline-active)  'mode-line-buffer-id))
-      'help-echo (or +modeline--buffer-id-cache (buffer-name))))
-    (buffer-read-only (:propertize " RO" face warning))))
+; (def-modeline-var! +modeline-buffer-identification ; slightly more informative buffer id
+;   '((:eval
+;      (propertize
+;       (string-limit (or +modeline--buffer-id-cache (buffer-name)) 37 t) ; avoid too long length
+;       'face (cond ((buffer-modified-p) '(error bold mode-line-buffer-id))
+;                   ((+modeline-active)  'mode-line-buffer-id))
+;       'help-echo (or +modeline--buffer-id-cache (buffer-name))))
+;     (buffer-read-only (:propertize " RO" face warning))))
 ;; display time modeline
 (setq display-time-24hr-format t
       display-time-default-load-average nil)
@@ -273,9 +274,8 @@
   ;; :defer t
   :when (or (display-graphic-p) (daemonp))
   :config
-  (awesome-tray-mode 1)
-  (+modeline-mode -1)
-  (anzu-mode -1)
+  (add-hook 'doom-init-ui-hook #' (lambda ()
+                                    (awesome-tray-enable)))
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-info-padding-right 0)
