@@ -484,7 +484,7 @@
   (setq gptel-model 'deepseek-chat)
   ;; (setq gptel-model 'deepseek-reasoner)
   ;; DeepSeek offers an OpenAI compatible API
-  (gptel-make-gemini "Gemini" :key "AIzaSyCSe1QeUoqxxGflB1o9ct9EtHbRBSt8DSU" :stream t)
+  (gptel-make-gemini "Gemini" :key (lambda () (getenv "GEMINI_API_KEY")) :stream t)
   (gptel-make-openai "SILICON_DeepSeek"       ;Any name you want
     :host "api.siliconflow.cn/v1"
     :endpoint "/chat/completions"
