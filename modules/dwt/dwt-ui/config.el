@@ -272,10 +272,10 @@
 
 (use-package! awesome-tray
   ;; :defer t
+  :after-call (+doom-dashboard-mode-hook)
   :when (or (display-graphic-p) (daemonp))
   :config
-  (add-hook 'doom-init-ui-hook #' (lambda ()
-                                    (awesome-tray-enable)))
+  (+modeline-global-mode -1)
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-info-padding-right 0)
