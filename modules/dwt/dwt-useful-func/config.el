@@ -441,13 +441,15 @@
 ;; (use-package! outli
 ;;   :defer t
 ;;   :commands (outli-mode))
-(use-package! aider
-  :defer t
-  :commands (aider-run-aider)
+(use-package! aidermacs
+  :defer 10
   :config
   ;; (setq aider-args '("--no-auto-commits" "--model" "deepseek")))
-  (setq aider-args '("--no-auto-commits" "--model" "gemini/gemini-2.0-flash-exp")))
-  ;; (setq aider-args '("--no-auto-commits" "--model" "groq/llama3-70b-8192")))
+  (setq aidermacs-default-model "gemini/gemini-2.0-flash-exp")
+  ;; (setenv "GEMINI_API_KEY" anthropic-api-key)
+  (setq aidermacs-backend 'vterm)
+  (setq aidermacs-comint-multiline-newline-key "C-<return>")
+  (global-set-key (kbd "C-c a") 'aidermacs-transient-menu))
 
 (use-package! musicfox
   :load-path "~/external_repos/musicfox"
@@ -481,10 +483,11 @@
         "tls" #'gptel-send
         "tlm" #'gptel-menu)
   :config
-  (setq gptel-model 'deepseek-chat)
+  (setq gptel-model 'gemini-2.0-flash-exp)
   ;; (setq gptel-model 'deepseek-reasoner)
   ;; DeepSeek offers an OpenAI compatible API
-  (gptel-make-gemini "Gemini" :key (lambda () (getenv "GEMINI_API_KEY")) :stream t)
+  (setq gptel-backend
+    (gptel-make-gemini "Gemini" :key (lambda () (getenv "GEMINI_API_KEY")) :stream t))
   (gptel-make-openai "SILICON_DeepSeek"       ;Any name you want
     :host "api.siliconflow.cn/v1"
     :endpoint "/chat/completions"
