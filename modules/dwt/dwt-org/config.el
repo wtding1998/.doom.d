@@ -672,7 +672,8 @@
   (add-hook 'org-pomodoro-finished-hook #'dwt/org-pomodoro-finished-ask-postpone))
 
 (use-package! org-modern
-  :after org
+  :defer t
+  ;; :after org
   :config
   (global-org-modern-mode 1)
   ;; https://en.wikipedia.org/wiki/Miscellaneous_Symbols

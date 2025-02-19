@@ -73,7 +73,7 @@
             `(shell . ("eza" "-al" "--color=always" "--icons=always"
                         "--group-directories-first" ,file))))
         (add-to-list 'dirvish-preview-dispatchers 'eza)))
-  (setq dirvish-reuse-session nil)
+  (setq dirvish-reuse-session t)
   (setq dirvish-emerge-groups
     '(("Recent files" (predicate . recent-files-2h))
       ("Documents" (extensions "pdf" "tex" "bib" "doc" "xlsx" "xls"))

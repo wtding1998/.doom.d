@@ -276,6 +276,7 @@
   :when (or (display-graphic-p) (daemonp))
   :config
   (+modeline-global-mode -1)
+  (awesome-tray-enable)
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-info-padding-right 0)
@@ -284,7 +285,7 @@
   (setq awesome-tray-evil-show-cursor-count t)
   (setq awesome-tray-git-format "%s")
   (advice-add 'awesome-tray-module-clock-info :override #'dwt/awesome-tray-module-clock-info)
-  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "git" "org-pomodoro" "clock" "pdf-view-page" "location-or-page" "date"))
+  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "git" "org-pomodoro" "clock" "location-or-page" "date"))
   (setq awesome-tray-input-method-local-style "ㄓ"
         awesome-tray-buffer-name-buffer-changed t
         awesome-tray-file-path-full-dirname-levels 3
