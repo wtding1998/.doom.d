@@ -6,7 +6,7 @@
 (package! joker-theme :recipe (:host github :repo "DogLooksGood/joker-theme"))
 (package! printed-theme :recipe (:host github :repo "DogLooksGood/printed-theme"))
 (package! storybook-theme :recipe (:host github :repo "DogLooksGood/storybook-theme"))
-(package! modus-themes :recipe (:host github :repo "protesilaos/modus-themes"))
+(package! modus-themes :recipe (:host github :repo "protesilaos/modus-themes") :pin "ac394f8490f8b385df2bec322e8abf4df8402eef")
 (package! solaire-mode :disable t)
 (package! tao-theme :recipe (:host github :repo "11111000000/tao-theme-emacs"))
 (package! minimal-theme :recipe (:host github :repo "anler/minimal-theme"))
