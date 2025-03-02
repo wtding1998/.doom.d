@@ -245,6 +245,8 @@
   (map! :vn "g8" #'symbol-overlay-put
         :vn "g0" #'symbol-overlay-switch-forward
         :vn "g9" #'symbol-overlay-switch-backward
+        :vn "g]" #'symbol-overlay-jump-next
+        :vn "g[" #'symbol-overlay-jump-prev
         :vn "g)" #'symbol-overlay-remove-all
         :vn "g(" #'symbol-overlay-mode))
 

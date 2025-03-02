@@ -272,10 +272,11 @@
 
 (use-package! awesome-tray
   ;; :defer t
-  :after-call (+doom-dashboard-mode-hook)
+  :after-call (doom-first-file-hook)
   :when (or (display-graphic-p) (daemonp))
   :config
   (+modeline-global-mode -1)
+  (awesome-tray-mode 1)
   (awesome-tray-enable)
   (setq awesome-tray-position 'right)
   (setq awesome-tray-second-line nil)

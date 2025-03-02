@@ -5,3 +5,4 @@ flycheck_config.el
 cache
 
 custom.el
+.aider*
