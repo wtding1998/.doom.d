@@ -120,6 +120,32 @@
           :n "r" #'netease-cloud-music-change-repeat-mode
           :n "<tab>" #'netease-cloud-music-toggle-playlist-songs)))
 
+(after! persp-mode
+  (defhydra dwt/workspace (:hint nil)
+    ("1" +workspace/switch-to-0 "1")
+    ("2" +workspace/switch-to-1 "2")
+    ("3" +workspace/switch-to-2 "3")
+    ("4" +workspace/switch-to-3 "4")
+    ("5" +workspace/switch-to-4 "5")
+    ("6" +workspace/switch-to-5 "6")
+    ("d" +workspace/kill "kill")
+    ("]" +workspace/switch-right "right")
+    ("[" +workspace/switch-left "left")
+    ("n" +workspace/new "new")
+    ("N" +workspace/new-named "new-named")
+    ("r" +workspace/rename "rename")
+    ("o" +workspace/other "other")
+    ("h" +workspace/swap-left "left")
+    ("l" +workspace/swap-right "right")
+    ("q" nil "quit"))
+
+  (defun dwt/workspace-display ()
+    (interactive)
+    (+workspace/display)
+    (dwt/workspace/body))
+
+  (map! :leader))
+
 
 ;; weather
 ;; (defun dwt/weather ()
@@ -466,7 +492,7 @@
     ("-" musicfox-decrease-volume "decrease")
     ("=" musicfox-increase-volume "increase")
     ("<SPC>" musicfox-pause "toggle pause")
-    ("o" musicfox-open)
+    ("o" musicfox-open "open")
     ("q" nil "quit"))
   (map! :leader "tj" #'musicfox/body))
 
