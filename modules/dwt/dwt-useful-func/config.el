@@ -144,7 +144,8 @@
     (+workspace/display)
     (dwt/workspace/body))
 
-  (map! :leader))
+  (map! :leader
+        "<TAB><TAB>" #'dwt/workspace-display))
 
 
 ;; weather

@@ -4,6 +4,7 @@
 ;; === org-mode ===
 ;; org-function
 (after! org
+  (setq org-archive-location "%s_archive::datetree/") ;将archive项按日期树组织
   ;; reminder
   (defvar dwt/org-clock-reminder-timer nil)
   (defvar dwt/org-clock-reminder-last-replied-time (float-time))
