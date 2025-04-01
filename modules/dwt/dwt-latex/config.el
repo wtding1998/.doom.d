@@ -15,15 +15,15 @@
   (setq cdlatex-insert-auto-labels-in-env-templates nil
         cdlatex-use-dollar-to-ensure-math nil)
   (push (list "lstlisting" "\\begin{lstlisting}\n?\n\\end{lstlisting}" ) cdlatex-env-alist-default)
-  ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
-  (dwt/set-cdlatex-keymap)
   (map! :map cdlatex-mode-map
         :n "=" #'dwt/latex-indent-align
         :i "_" nil
         :i "^" nil))
+  ;; (define-key cdlatex-mode-map (kbd "<C-return>") nil)
 
 
 (after! tex
+  (dwt/set-cdlatex-keymap)
   ;;; this mode show dismatch parens
   ;;; but it doesn't work will for (1,0]
   (remove-hook 'TeX-update-style-hook #'rainbow-delimiters-mode)
