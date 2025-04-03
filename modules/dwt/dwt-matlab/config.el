@@ -4,8 +4,6 @@
   :hook ((matlab-mode . hl-todo-mode))
   :init
   (add-to-list 'auto-mode-alist '("\\.m\\'" . matlab-mode))
-  (setq matlab-shell-command-switches (list "-nodesktop"))
-  (setq matlab-shell-command "/Applications/MATLAB_R2021a.app/bin/matlab")
   :commands (matlab-mode)
   :config
   (matlab-cedet-setup)

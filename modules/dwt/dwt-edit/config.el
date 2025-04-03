@@ -194,10 +194,6 @@
   :config
   (setq evil-motion-trainer-threshold 5))
 
-(after! magit
-  (map! :map magit-mode-map
-        :n "go" #'evil-avy-goto-line))
-
 (use-package! evil-matchit
   :commands (evil-matchit-mode))
 
