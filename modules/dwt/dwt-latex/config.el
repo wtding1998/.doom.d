@@ -1,6 +1,4 @@
 ;; ;;; dwt/latex/config.el -*- lexical-binding: t; -*-
-(unless IS-MAC
-   (setq major-mode-remap-alist major-mode-remap-defaults)) ;; HACK: https://github.com/doomemacs/doomemacs/issues/8191#issuecomment-2522039422
 ;; === latex init ===
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 (add-hook 'LaTeX-mode-hook 'hl-todo-mode)

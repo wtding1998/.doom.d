@@ -43,7 +43,7 @@
           ("r" "~/Documents/research/" "Research")
           ("t" "~/.Trash/" "Trash")
           ("d" "~/Downloads/" "Downloads")))
-  (setq dirvish-use-header-line 'global)
+  (setq dirvish-use-header-line nil)
   (setq dirvish-use-mode-line nil)
   (setq dirvish-header-line-height '(20 . 20))
   (setq dirvish-mode-line-height 20)
@@ -53,8 +53,8 @@
   ;;         '(:left (symlink file-time file-size) :right (vc-info omit yank sort index)))
   (setq dired-listing-switches
         "-l --sort=time --almost-all --time-style=long-iso --human-readable --group-directories-first --no-group")
-  (setq dirvish-preview-dispatchers
-      (cl-substitute 'pdf-preface 'pdf dirvish-preview-dispatchers))
+  ;; (setq dirvish-preview-dispatchers
+  ;;     (cl-substitute 'pdf-preface 'pdf dirvish-preview-dispatchers))
 
   (if (featurep :system 'linux)
       (progn
@@ -62,7 +62,7 @@
           "Use `exa' to generate directory preview."
           :require ("exa") ; tell Dirvish to check if we have the executable
           (when (file-directory-p file) ; we only interest in directories here
-            `(shell . ("exa" "-al" "--color=always" "--icons"
+            `(shell . ("exa" "-al" "--color=always" "--icons" "--time-style=long-iso"
                         "--group-directories-first" ,file))))
         (add-to-list 'dirvish-preview-dispatchers 'exa))
       (progn
@@ -73,7 +73,7 @@
             `(shell . ("eza" "-al" "--color=always" "--icons=always"
                         "--group-directories-first" ,file))))
         (add-to-list 'dirvish-preview-dispatchers 'eza)))
-  (setq dirvish-reuse-session t)
+  (setq dirvish-reuse-session nil)
   (setq dirvish-emerge-groups
     '(("Recent files" (predicate . recent-files-2h))
       ("Documents" (extensions "pdf" "tex" "bib" "doc" "xlsx" "xls"))
