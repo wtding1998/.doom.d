@@ -107,3 +107,26 @@
                   (select-window org-window)
                   (throw 'found-org-buffer t))
               (message "No window found displaying buffer with org-mode."))))))))
+
+;;;###autoload
+(defun dwt/download-zotero-bib ()
+  "Move a file from ~/Desktop/My Library.bib to ~/Zotero/My Library.bib and replace a specific string."
+  (interactive)
+  (let ((source-file "~/windows_desktop/My Library.bib")
+        (target-file "~/Zotero/My Library.bib")
+        (source-location "D:\\OneDrive\\zotfile\\")
+        (target-location "~/OneDrive/zotfile/"))
+    ;; Move the file
+    (rename-file source-file target-file t)
+    ;; Open the target file
+    (find-file target-file)
+    ;; Replace the string
+    (goto-char (point-min))
+    (while (search-forward source-location nil t)
+      (replace-match target-location))
+    ;; Save the file
+    (save-buffer)
+    ;; Close the file
+    (kill-buffer (current-buffer))
+    ;; Inform the user
+    (message "File moved and string replaced successfully.")))

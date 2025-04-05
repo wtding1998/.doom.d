@@ -535,3 +535,8 @@
   ;; Below are the default values
   (elysium-window-size 0.33) ; The elysium buffer will be 1/3 your screen
   (elysium-window-style 'vertical)) ; Can be customized to horizontal
+
+(use-package! zoxide
+  :defer 1
+  :config
+  (add-hook 'find-file-hook #'zoxide-add))

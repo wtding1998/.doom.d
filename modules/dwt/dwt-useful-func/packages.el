@@ -16,3 +16,4 @@
 (package! aidermacs :recipe (:host github :repo "MatthewZMD/aidermacs" :files ("*.el")))
 (package! gptel)
 (package! elysium)
+(package! zoxide)
