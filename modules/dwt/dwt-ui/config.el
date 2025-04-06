@@ -151,7 +151,7 @@
             awesome-tab-icon-height 0.7
             awesome-tab-active-bar-height 15)
       ;; arch
-      (setq awesome-tab-height 150
+      (setq awesome-tab-height 170
             awesome-tab-active-bar-height 20))
 
   ;; define tab-hide-rule
@@ -285,7 +285,8 @@
   (setq awesome-tray-evil-show-cursor-count t)
   (setq awesome-tray-git-format "%s")
   (advice-add 'awesome-tray-module-clock-info :override #'dwt/awesome-tray-module-clock-info)
-  (setq awesome-tray-active-modules '("anzu" "input-method" "evil" "buffer-name" "file-path" "git" "org-pomodoro" "clock" "location-or-page" "date"))
+  (add-to-list 'awesome-tray-module-alist '("info" . (dwt/awesome-tray-module-info awesome-tray-module-awesome-tab-face)))
+  (setq awesome-tray-active-modules '("anzu" "input-method" "info" "evil" "buffer-name" "file-path" "git" "org-pomodoro" "clock" "location-or-page" "date"))
   (setq awesome-tray-input-method-local-style "ㄓ"
         awesome-tray-buffer-name-buffer-changed t
         awesome-tray-file-path-full-dirname-levels 3
@@ -358,7 +359,7 @@
         pulse-delay 0.08))
 
 (setq dwt/show-my-mode-line-info t)
-(setq dwt/my-mode-line-info "CML RP X ")
+(setq dwt/my-mode-line-info "Ant")
 (add-to-list 'mode-line-misc-info `(dwt/show-my-mode-line-info ("" dwt/my-mode-line-info)))
 
 (map! :g "<f10>" #'dwt/hide-pdf-window)
