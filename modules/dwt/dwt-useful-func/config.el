@@ -329,6 +329,8 @@
 
 ;;; magit
 (after! magit
+  (map! :map magit-mode-map
+        :n "go" #'evil-avy-goto-line)
   ;; control the initial state of each part
   ;; https://emacs-china.org/t/magit-magit-status/24181
   (setq magit-section-initial-visibility-alist
@@ -339,34 +341,10 @@
       (unpulled . show)))
   (setq magit-status-initial-section '(2))
   (setq-default magit-diff-refine-hunk 'all)
-  (map! :leader "gfC" #'magit-file-checkout)
+  (map! :leader
+        "gfC" #'magit-file-checkout
+        "gd" #'magit-diff-dwim)
   (add-hook 'magit-mode-hook #'(lambda () (interactive) (visual-line-mode 1))))
-
-;;;###autoload
-(defun dwt/buffers-in-all-windows ()
-  "Get a list of buffers displayed in all windows of the current frame."
-  (let (buffers)
-    (walk-windows
-     (lambda (window)
-       (let ((buffer (window-buffer window)))
-         (unless (minibufferp buffer) ; Exclude minibuffer from the list
-           (push buffer buffers)))))
-    buffers))
-
-;;;###autoload
-(defun dwt/switch-to-org-buffer-window ()
-  "Switches to the window displaying the first buffer with org-mode in all windows of the current frame."
-  (interactive)
-  (let ((buffers (dwt/buffers-in-all-windows)))
-    (catch 'found-org-buffer
-      (dolist (buffer buffers)
-        (when (with-current-buffer buffer (derived-mode-p 'org-mode))
-          (let ((org-window (get-buffer-window buffer)))
-            (if org-window
-                (progn
-                  (select-window org-window)
-                  (throw 'found-org-buffer t))
-              (message "No window found displaying buffer with org-mode."))))))))
 
 (use-package! titlecase
   :init
@@ -557,3 +535,8 @@
   ;; Below are the default values
   (elysium-window-size 0.33) ; The elysium buffer will be 1/3 your screen
   (elysium-window-style 'vertical)) ; Can be customized to horizontal
+
+(use-package! zoxide
+  :defer 1
+  :config
+  (add-hook 'find-file-hook #'zoxide-add))

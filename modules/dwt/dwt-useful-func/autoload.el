@@ -75,8 +75,58 @@
       (message "Opening magit-status for %s" repo)
       (magit-status repo))))
 
+;;;###autoload
 (defun dwt/unset-dedicated-and-remove-buffer ()
   "Set the current window to be not dedicated and then remove it."
   (interactive)
   (set-window-dedicated-p (selected-window) nil)  ; Set the window to be not dedicated
   (kill-buffer))  ; Remove the current window
+
+;;;###autoload
+(defun dwt/buffers-in-all-windows ()
+  "Get a list of buffers displayed in all windows of the current frame."
+  (let (buffers)
+    (walk-windows
+     (lambda (window)
+       (let ((buffer (window-buffer window)))
+         (unless (minibufferp buffer) ; Exclude minibuffer from the list
+           (push buffer buffers)))))
+    buffers))
+
+;;;###autoload
+(defun dwt/switch-to-org-buffer-window ()
+  "Switches to the window displaying the first buffer with org-mode in all windows of the current frame."
+  (interactive)
+  (let ((buffers (dwt/buffers-in-all-windows)))
+    (catch 'found-org-buffer
+      (dolist (buffer buffers)
+        (when (with-current-buffer buffer (derived-mode-p 'org-mode))
+          (let ((org-window (get-buffer-window buffer)))
+            (if org-window
+                (progn
+                  (select-window org-window)
+                  (throw 'found-org-buffer t))
+              (message "No window found displaying buffer with org-mode."))))))))
+
+;;;###autoload
+(defun dwt/download-zotero-bib ()
+  "Move a file from ~/Desktop/My Library.bib to ~/Zotero/My Library.bib and replace a specific string."
+  (interactive)
+  (let ((source-file "~/windows_desktop/My Library.bib")
+        (target-file "~/Zotero/My Library.bib")
+        (source-location "D:\\OneDrive\\zotfile\\")
+        (target-location "~/OneDrive/zotfile/"))
+    ;; Move the file
+    (rename-file source-file target-file t)
+    ;; Open the target file
+    (find-file target-file)
+    ;; Replace the string
+    (goto-char (point-min))
+    (while (search-forward source-location nil t)
+      (replace-match target-location))
+    ;; Save the file
+    (save-buffer)
+    ;; Close the file
+    (kill-buffer (current-buffer))
+    ;; Inform the user
+    (message "File moved and string replaced successfully.")))

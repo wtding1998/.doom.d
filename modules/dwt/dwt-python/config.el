@@ -86,9 +86,9 @@
 ;;     (setq conda-anaconda-home (expand-file-name "~/miniforge3/")
 ;;           conda-env-home-directory (expand-file-name "~/miniforge3/"))))
 
-(use-package! anaconda-mode
-  :config
-  (set-company-backend! 'anaconda-mode '(company-anaconda company-capf company-yasnippet company-files :with company-dabbrev-code)))
+;; (use-package! anaconda-mode
+;;   :config
+;;   (set-company-backend! 'anaconda-mode '(company-anaconda company-capf company-yasnippet company-files :with company-dabbrev-code)))
 
 (when IS-LINUX
   (use-package! elpy

@@ -113,3 +113,8 @@ The window layout is restored when full-screen is toggled off."
       (if org-clock-effort
           (format "%s/%s" elapsed org-clock-effort)
         (format "%s" elapsed)))))
+
+;;;###autoload
+(defun dwt/awesome-tray-module-info ()
+  (when dwt/show-my-mode-line-info
+    dwt/my-mode-line-info))
