@@ -446,15 +446,15 @@
 ;; (use-package! outli
 ;;   :defer t
 ;;   :commands (outli-mode))
-(use-package! aidermacs
-  :defer 10
-  :config
-  ;; (setq aider-args '("--no-auto-commits" "--model" "deepseek")))
-  (setq aidermacs-default-model "gemini/gemini-2.0-flash-exp")
-  ;; (setenv "GEMINI_API_KEY" anthropic-api-key)
-  (setq aidermacs-backend 'vterm)
-  (setq aidermacs-comint-multiline-newline-key "C-<return>")
-  (global-set-key (kbd "C-c a") 'aidermacs-transient-menu))
+; (use-package! aidermacs
+;   :defer 10
+;   :config
+;   ;; (setq aider-args '("--no-auto-commits" "--model" "deepseek")))
+;   (setq aidermacs-default-model "gemini/gemini-2.0-flash-exp")
+;   ;; (setenv "GEMINI_API_KEY" anthropic-api-key)
+;   (setq aidermacs-backend 'vterm)
+;   (setq aidermacs-comint-multiline-newline-key "C-<return>")
+;   (global-set-key (kbd "C-c a") 'aidermacs-transient-menu))
 
 (use-package! musicfox
   :load-path "~/external_repos/musicfox"

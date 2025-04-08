@@ -326,6 +326,10 @@
   (setq org-clock-clocked-in-display nil)
   (setq org-clock-mode-line-total 'today))
 
+(use-package! org-journal
+  :init
+  (setq org-journal-file-type 'weekly))
+
 ;; roam
 (use-package! org-roam
   :init
