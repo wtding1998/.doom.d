@@ -92,7 +92,7 @@
     ;; "//" (lambda () (interactive)
     ;;       (yas-expand-snippet "\\frac{ $0}{}"))
     ".n" (lambda () (interactive)
-           (yas-expand-snippet "\\\\| $0 \\\\|"))
+           (yas-expand-snippet "\\\\left( $0 \\\\right)"))
     ".e" (lambda () (interactive)
            (yas-expand-snippet "\\\\{ $0 \\\\}"))
     "''" (lambda () (interactive)

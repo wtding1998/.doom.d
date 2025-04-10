@@ -44,9 +44,17 @@
 
 (map! :leader :desc "big font mode" "tb" #'dwt/big-font-mode) ;; replace doom/big-font-mode
 (map! :leader :desc "toggle line number" "tL" #'doom/toggle-line-numbers) ;; replace doom/big-font-mode
-;; Make the fringe of modus theme invisible
-(setq modus-themes-common-palette-overrides
-      '((fringe unspecified)))
+
+(use-package! modus-themes
+  :config
+  ;; Make the fringe of modus theme invisible
+  (setq modus-themes-common-palette-overrides
+        '((fringe unspecified)))
+
+  ;; set the foreground of the org-list-dt to avoid it be overiding by org-indent
+  (defun dwt/set-org-list-dt-foreground (&rest _)
+    (set-face-attribute 'org-list-dt nil :foreground (face-attribute 'default :foreground)))
+  (add-hook 'modus-themes-after-load-theme-hook #'dwt/set-org-list-dt-foreground))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
