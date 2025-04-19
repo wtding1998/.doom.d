@@ -66,7 +66,8 @@
           (load-theme dwt/gui-theme t nil)))
     ;; theme for TUI without daemon
     (load-theme dwt/tui-dark-theme t nil)
-    (copy-face 'button 'evil-ex-lazy-highlight)))
+    (custom-set-faces!
+      `(lazy-highlight :background ,(doom-color 'yellow)))))
 
 ;; hide title bar
 ;; (setq default-frame-alist '((undecorated . t)))
