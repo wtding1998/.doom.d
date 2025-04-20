@@ -46,15 +46,24 @@
 (map! :leader :desc "toggle line number" "tL" #'doom/toggle-line-numbers) ;; replace doom/big-font-mode
 
 (use-package! modus-themes
-  :config
-  ;; Make the fringe of modus theme invisible
-  (setq modus-themes-common-palette-overrides
-        '((fringe unspecified)))
+  :init
+  (defun dwt/ensure-org-list-dt-face-has-foreground ()
+    "Ensure the org-list-dt face has a foreground color set. If not, set it to the default face's foreground."
+    (let ((default-fg (face-attribute 'font-lock-type-face :foreground)))
+      (when (eq (face-attribute 'org-list-dt :foreground) 'unspecified)
+        (set-face-attribute 'org-list-dt nil :foreground default-fg))))
 
-  ;; set the foreground of the org-list-dt to avoid it be overiding by org-indent
-  (defun dwt/set-org-list-dt-foreground (&rest _)
-    (set-face-attribute 'org-list-dt nil :foreground (face-attribute 'default :foreground)))
-  (add-hook 'modus-themes-after-load-theme-hook #'dwt/set-org-list-dt-foreground))
+  ;; Add the function to the after-load-theme-hook
+  (add-hook 'doom-load-theme-hook 'dwt/ensure-org-list-dt-face-has-foreground))
+  ;; :config
+  ;; ;; Make the fringe of modus theme invisible
+  ;; (setq modus-themes-common-palette-overrides
+  ;;       '((fringe unspecified)))
+
+  ;; ;; set the foreground of the org-list-dt to avoid it be overiding by org-indent
+  ;; (defun dwt/set-org-list-dt-foreground (&rest _)
+  ;;   (set-face-attribute 'org-list-dt nil :foreground (face-attribute 'default :foreground)))
+  ;; (add-hook 'modus-themes-after-load-theme-hook #'dwt/set-org-list-dt-foreground))
 
 (if (and (fboundp 'daemonp) (daemonp))
   (add-hook 'after-make-frame-functions #'dwt/init-frame)
