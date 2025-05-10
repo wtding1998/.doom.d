@@ -49,7 +49,7 @@
   :init
   (defun dwt/ensure-org-list-dt-face-has-foreground ()
     "Ensure the org-list-dt face has a foreground color set. If not, set it to the default face's foreground."
-    (let ((default-fg (face-attribute 'font-lock-type-face :foreground)))
+    (let ((default-fg (face-attribute 'font-lock-string-face :foreground)))
       (when (eq (face-attribute 'org-list-dt :foreground) 'unspecified)
         (set-face-attribute 'org-list-dt nil :foreground default-fg))))
 

@@ -112,4 +112,5 @@
 (setq bookmark-default-file (concat doom-cache-dir "bookmarks"))
 
 (after! nerd-icons
+  ; set icon for matlab in find-files
   (add-to-list 'nerd-icons-extension-icon-alist '("m" nerd-icons-codicon "nf-cod-triangle_up" :face nerd-icons-orange)))
