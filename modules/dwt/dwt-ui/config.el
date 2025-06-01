@@ -20,13 +20,13 @@
       dwt/tui-dark-theme 'doom-tomorrow-night
       ;; dwt/tui-dark-theme 'doom-rouge
       dwt/linux-large-font-size 210
-      dwt/linux-small-font-size 120
+      dwt/linux-small-font-size 180
       ; default font size
-      dwt/linux-default-font-size dwt/linux-large-font-size
+      ;; dwt/linux-default-font-size dwt/linux-large-font-size
+      dwt/linux-default-font-size dwt/linux-small-font-size
       dwt/mac-default-font-size 150)
 (if IS-LINUX
     (progn
-      ;; (setq dwt/linux-default-font-size dwt/linux-small-font-size)
       (setq dwt/default-font-size dwt/linux-default-font-size))
   (setq dwt/default-font-size dwt/mac-default-font-size))
 

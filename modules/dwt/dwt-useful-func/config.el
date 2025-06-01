@@ -351,8 +351,8 @@
   (map! :v "gC" #'titlecase-region)
   (map! :n "gC" #'titlecase-sentence)
   :config
-  (setq titlecase-style 'sentence)
-  ;; (setq titlecase-style 'wikipedia)
+  ;; (setq titlecase-style 'sentence)
+  (setq titlecase-style 'wikipedia)
   (setq titlecase-dwim-non-region-function 'titlecase-sentence))
 
 (use-package! atomic-chrome
