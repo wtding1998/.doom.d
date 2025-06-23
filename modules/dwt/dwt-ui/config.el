@@ -184,6 +184,7 @@
         (string-prefix-p " *eldoc-box*" name)
         (string-prefix-p "_region_.tex" name)
         (string-prefix-p "*Compile-Log*" name)
+        (string-prefix-p "emacs-everywhere" name)
         (string-prefix-p "*lsp" name)
         (string-prefix-p "*org-latex" name)
         (string-suffix-p ".synctex.gz" name)
@@ -390,3 +391,7 @@
   :config
   (map! :leader
         "tp" #'posframe-delete-all))
+
+(after! nerd-icons
+  ; set icon for matlab in find-files
+  (add-to-list 'nerd-icons-extension-icon-alist '("m" nerd-icons-devicon "nf-dev-matlab" :face nerd-icons-orange)))

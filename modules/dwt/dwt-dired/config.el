@@ -23,6 +23,7 @@
         :n "J" nil
         :n "[[" nil
         :n "]]" nil
+        :n "|" #'(lambda () (interactive) (dirvish-layout-toggle) (evil-window-vsplit) (consult-dir))
         :n "Q" #'kill-current-buffer
         :n "go" #'evil-avy-goto-line
         :n "h" #'dired-up-directory
@@ -110,7 +111,3 @@
         "j" #'dirvish-fd-jump))
 
 (setq bookmark-default-file (concat doom-cache-dir "bookmarks"))
-
-(after! nerd-icons
-  ; set icon for matlab in find-files
-  (add-to-list 'nerd-icons-extension-icon-alist '("m" nerd-icons-codicon "nf-cod-triangle_up" :face nerd-icons-orange)))
