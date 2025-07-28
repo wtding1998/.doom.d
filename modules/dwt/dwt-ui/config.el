@@ -20,7 +20,7 @@
       dwt/tui-dark-theme 'doom-tomorrow-night
       ;; dwt/tui-dark-theme 'doom-rouge
       dwt/linux-large-font-size 210
-      dwt/linux-small-font-size 180
+      dwt/linux-small-font-size 170
       ; default font size
       ;; dwt/linux-default-font-size dwt/linux-large-font-size
       dwt/linux-default-font-size dwt/linux-small-font-size
