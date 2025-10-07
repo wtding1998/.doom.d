@@ -83,7 +83,11 @@
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (search-forward "\\string~\/OneDrive\/Documents\/research\/")
+    (search-forward "{..\/..\/OneDrive\/Documents\/research\/latex_preamble}")
+    (replace-match ""))
+  (save-excursion
+    (goto-char (point-min))
+    (search-forward "{..\/..\/OneDrive\/Documents\/research\/latex_preamble\/logos}")
     (replace-match ""))
   (basic-save-buffer)
   (let ((preamble-dir (expand-file-name dwt/latex-preamble-dir))
@@ -177,15 +181,16 @@ The window scope is determined by `avy-all-windows' (ARG negates it)."
 ;;;###autoload
 (defun dwt/clean-emacs-latex-file ()
   (interactive)
-  (TeX-command "Clean" #'TeX-master-file)
+  ;; (TeX-command "Clean" #'TeX-master-file)
   (TeX-command "Clean auctex" #'TeX-master-file)
   (TeX-command "Clean git" #'TeX-master-file)
+  (async-shell-command "latexmk -C")
   (async-shell-command "rm -f indent.log"))
 
 ;;;###autoload
 (defun dwt/archieve-latex-file ()
   (interactive)
-  (call-interactively #'+format/buffer)
+  ;; (call-interactively #'+format/buffer)
   (dwt/process-latex-preamble)
   (dwt/clean-emacs-latex-file))
 
