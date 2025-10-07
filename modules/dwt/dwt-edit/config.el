@@ -65,7 +65,7 @@
         :desc "shell command" ":" #'shell-command
         :desc "eval expression" "'" #'eval-expression
         :desc "buffer" "," #'persp-switch-to-buffer
-        :desc "snippet" "it" #'company-yasnippet
+        :desc "snippet" "it" #'consult-yasnippet
         ;; :desc "jump item" "ii" #'evilmi-jump-items
         :desc "delete item" "id" #'evilmi-delete-items
         :desc "select item" "is" #'evilmi-select-items

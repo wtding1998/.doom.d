@@ -258,7 +258,7 @@
       (call-interactively #'org-latex-preview)))
 
   (setq org-cite-global-bibliography '("~/Zotero/My Library.bib"))
-  (setq org-agenda-files '("~/OneDrive/Documents/roam/research.org"
+  (setq org-agenda-files '("~/OneDrive/Documents/roam/daily.org"
                            "~/OneDrive/Documents/diary/org/agenda.org"
                            "~/OneDrive/Documents/study note/org/cuhksz.org"
                            "~/OneDrive/Documents/roam/inbox.org"))
