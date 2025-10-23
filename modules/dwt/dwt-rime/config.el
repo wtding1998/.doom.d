@@ -16,11 +16,16 @@
   ;; set rime configuration dir
   (setq rime-user-data-dir "~/.config/fcitx/rime")
   ;; set dir for mac especially
-  (when IS-MAC
-    (setq rime-librime-root "~/mycode/rime-1.7.2-osx/dist")
-    ;; (setq rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.0.50/include")
-    (setq rime-emacs-module-header-root "/opt/homebrew/opt/emacs-plus@30/include")
-    (setq rime-user-data-dir "~/Library/Rime"))
+  (if dwt/mac14
+      (progn
+        (setq rime-librime-root "/opt/homebrew")
+        (setq rime-emacs-module-header-root "/opt/homebrew/opt/emacs-plus@30/30.2/include")
+        (setq rime-user-data-dir "~/Library/Rime"))
+    (progn
+        (setq rime-librime-root "~/mycode/rime-1.7.2-osx/dist")
+        (setq rime-emacs-module-header-root "/opt/homebrew/opt/emacs-plus@30/include")
+        (setq rime-user-data-dir "~/Library/Rime")))
+
   ;; set UI
   ;; (unless IS-MAC
   ;;   (setq rime-posframe-properties

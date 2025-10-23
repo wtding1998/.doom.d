@@ -7,7 +7,9 @@
 ;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
 (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
-(setq doom-theme 'modus-operandi)
+(if dwt/mac14
+  (setq doom-theme 'doom-tomorrow-night)
+  (setq doom-theme 'modus-operandi))
 
 (use-package! printed-theme)
 (use-package! joker-theme)

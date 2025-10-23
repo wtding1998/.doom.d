@@ -21,7 +21,10 @@
 (defvar dwt/lenovo nil)
 (setq dwt/lenovo (not (string-equal "1" (getenv "lenovo"))))
 (when IS-MAC
-  (setq dwt/lenovo nil))
+  (setq dwt/lenovo nil)
+  (if (equal emacs-minor-version 2)
+    (setq dwt/mac14 1)
+    (setq dwt/mac14 nil)))
 (doom! :input
        ;;chinese
        ;;japanese

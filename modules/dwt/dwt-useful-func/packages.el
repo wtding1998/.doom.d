@@ -10,7 +10,8 @@
 ;; (package! chatgpt
 ;;   :recipe (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el")))
 (package! cliphist :recipe (:host github :repo "redguardtoo/cliphist"))
-(package! titlecase :recipe (:host github :repo "duckwork/titlecase.el"))
+; (package! titlecase :recipe (:host github :repo "duckwork/titlecase.el"))
+(package! titlecase)
 (package! atomic-chrome :recipe (:host github :repo "alpha22jp/atomic-chrome"))
 (package! magit-todos :recipe (:host github :repo "alphapapa/magit-todos"))
 ; (package! aidermacs :recipe (:host github :repo "MatthewZMD/aidermacs" :files ("*.el")))
