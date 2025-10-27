@@ -7,15 +7,12 @@
 ;; (unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
 ;;   (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
 (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
-(if dwt/mac14
-  (setq doom-theme 'doom-tomorrow-night)
-  (setq doom-theme 'modus-operandi))
 
 (use-package! printed-theme)
 (use-package! joker-theme)
 (use-package! storybook-theme)
 
-(setq dwt/gui-dark-theme 'doom-opera
+(setq dwt/gui-dark-theme 'doom-tomorrow-night
       dwt/gui-light-theme 'modus-operandi
       dwt/gui-theme dwt/gui-light-theme
       ;; dwt/tui-dark-theme 'doom-zenburn
@@ -30,7 +27,8 @@
 (if IS-LINUX
     (progn
       (setq dwt/default-font-size dwt/linux-default-font-size))
-  (setq dwt/default-font-size dwt/mac-default-font-size))
+  (progn
+    (setq dwt/default-font-size dwt/mac-default-font-size)))
 
 (add-hook 'after-setting-font-hook #'dwt/doom-font)
 
@@ -102,6 +100,7 @@
   ;; :commands (awesome-tab-mode)
   :config
   (awesome-tab-mode 1)
+  (add-hook 'doom-load-theme-hook 'awesome-tab-refresh-display)
   (defhydra awesome-tab-fast-switch (:hint nil)
     "
   ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
