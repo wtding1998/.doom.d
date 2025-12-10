@@ -18,3 +18,34 @@
   (let ((string-cite-key (symbol-name citekey)))
     (message string-cite-key)
     (car (gethash string-cite-key (citar-get-files string-cite-key)))))
+
+;;;###autoload
+(defun dwt/org-set-export-path-smart ()
+  "Insert the custom #+EXPORT_FILE_NAME property after the
+  :PROPERTIES: drawer's :END: line in the current Org file.
+  If no :END: is found, it inserts it at the beginning of the file."
+  (interactive)
+  (when (string-equal (file-name-extension (buffer-file-name)) "org")
+    (let* ((filename (file-name-nondirectory (buffer-file-name)))
+           (basename (file-name-sans-extension filename))
+           ;; Construct the full export line with the dynamic file name.
+           (export-string (format "#+EXPORT_FILE_NAME: ~/my_projects/org_tex/%s.pdf\n" basename)))
+
+      ;; Preserve the cursor position while operating on the buffer
+      (save-excursion
+        (goto-char (point-min))
+
+        ;; Search for the :END: line (start of line, exact match)
+        (if (re-search-forward "^:END:" nil t)
+            ;; SUCCESS: :END: found.
+            (progn
+              (forward-line 1) ; Move past the :END: line
+              (insert "\n")
+              (insert export-string)
+              (message "Inserted EXPORT_FILE_NAME after :END:."))
+
+          ;; FAILURE: :END: not found. Insert at the start.
+          (progn
+            (goto-char (point-min))
+            (insert export-string)
+            (message "Inserted EXPORT_FILE_NAME at file beginning (no :END: found).")))))))

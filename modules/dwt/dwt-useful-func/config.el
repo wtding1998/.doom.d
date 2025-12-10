@@ -488,7 +488,7 @@
         "tls" #'gptel-send
         "tlm" #'gptel-menu)
   :config
-  (setq gptel-model 'gemini-2.0-flash-exp)
+  (setq gptel-model 'gemini-2.5-flash)
   ;; (setq gptel-model 'deepseek-reasoner)
   ;; DeepSeek offers an OpenAI compatible API
   (setq gptel-backend

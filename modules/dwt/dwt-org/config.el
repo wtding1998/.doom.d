@@ -297,19 +297,13 @@
 
    ;; latex export
   (setq org-latex-classes '(("dwt-article" "\\documentclass[11pt]{article}\n\\input{~/OneDrive/Documents/research/latex_preamble/basic_setting.tex}\n\\input{~/OneDrive/Documents/research/latex_preamble/command.tex}\n\\input{~/OneDrive/Documents/research/latex_preamble/org_preamble.tex}\n"
-                              ("\\section*{%s}" . "\\section*{%s}")
-                              ("\\subsection*{%s}" . "\\subsection*{%s}")
-                              ("\\subsubsection*{%s}" . "\\subsubsection*{%s}")
-                              ("\\paragraph*{%s}" . "\\paragraph*{%s}")
-                              ("\\subparagraph*{%s}" . "\\subparagraph*{%s}"))
-                            ("dwt-beamer" "\\documentclass[11pt]{beamer}\n
-                                           \\input{~/OneDrive/Documents/research/latex_preamble/basic_setting.tex}
-                                           \\input{~/OneDrive/Documents/research/latex_preamble/beamer_setting.tex}
-                                           \\input{~/OneDrive/Documents/research/latex_preamble/UI_UCB.tex}
-                                           \\input{~/OneDrive/Documents/research/latex_preamble/command.tex}"
-                              ("\\section*{%s}" . "\\section*{%s}")
-                              ("\\subsection*{%s}" . "\\subsection*{%s}")
-                              ("\\subsubsection*{%s}" . "\\subsubsection*{%s}"))))
+                              ("\\section{%s}" . "\\section*{%s}")
+                              ("\\subsection{%s}" . "\\subsection*{%s}")
+                              ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                              ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                              ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                            ("dwt-beamer" "\\input{~/OneDrive/Documents/research/latex_preamble/org_beamer.tex}"
+                              ("\\begin{frame}[allowframebreaks]{%s}" "\\end{frame}" "\\begin{frame}[allowframebreaks]{%s}" "\\end{frame}"))))
   (setq org-latex-src-block-backend 'listings)
   (setq org-latex-default-class "dwt-article")
   (setq org-latex-default-packages-alist nil)
@@ -691,8 +685,7 @@
   (map! :leader
         "op" #'org-download-clipboard)
   :config
-  ;; (setq-default org-download-image-dir "~/OneDrive/Pictures/org-download-pictures")
-  (setq-default org-download-image-dir nil)
+  (setq-default org-download-image-dir "~/OneDrive/Pictures/org-download-pictures")
   (setq-default org-download-heading-lvl nil)
   (setq org-download-method 'directory)
   (when IS-WSL
