@@ -302,7 +302,7 @@
                               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                               ("\\paragraph{%s}" . "\\paragraph*{%s}")
                               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                            ("dwt-beamer" "\\input{~/OneDrive/Documents/research/latex_preamble/org_beamer.tex}"
+                            ("dwt-beamer" "\\documentclass[9pt]{beamer}\n\\input{~/OneDrive/Documents/research/latex_preamble/basic_setting.tex}\n\\input{~/OneDrive/Documents/research/latex_preamble/command.tex}\n\\input{~/OneDrive/Documents/research/latex_preamble/beamer_setting.tex}\n"
                               ("\\begin{frame}[allowframebreaks]{%s}" "\\end{frame}" "\\begin{frame}[allowframebreaks]{%s}" "\\end{frame}"))))
   (setq org-latex-src-block-backend 'listings)
   (setq org-latex-default-class "dwt-article")
@@ -639,16 +639,17 @@
       (+popup-buffer buf)))
 
   (defun dwt/org-pomodoro-finished-ask-postpone ()
+    (dwt/notifications-notify-start-process :title "Org" :timeout 3 :body "Finish!")
     (let* ((org-pomodoro-finish-answer-list '("No" "5" "10" "15" "20"))
            (org-pomodoro-finish-answer (consult--read org-pomodoro-finish-answer-list :prompt "Finished! Postpone? "))
            (org-pomodoro-length (string-to-number org-pomodoro-finish-answer)))
-      (dwt/notifications-notify-start-process :title "Org" :timeout 3 :body "Finish!")
       (when (> org-pomodoro-length 0)
         (org-pomodoro-kill)
         (setq org-pomodoro-count (- org-pomodoro-count 1))
         (org-pomodoro '(16)))))
 
   (defun dwt/org-pomodoro-break-finish-reminder ()
+    (dwt/notifications-notify-start-process :title "Org" :timeout 3 :body "Finish!")
     (let* ((org-pomodoro-start-answer-list '("5" "10" "15" "20" "No"))
            (org-pomodoro-start-answer (consult--read org-pomodoro-start-answer-list :prompt "Continue! Postpone? "))
            (org-pomodoro-start-time (string-to-number org-pomodoro-start-answer)))
