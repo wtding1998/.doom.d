@@ -637,6 +637,28 @@ and send the latexmk command with the correct TeX engine."
               ;; Default case: Wrap with \command{var}
               (t
                (replace-match (format "\\\\%s{%s}" command var) t)))))))))
+
 ;;;###autoload
-;; (defun dwt/LaTeX-wrap-var-command-list ()
-;;   (dolist ))
+(defun dwt/clean-latex-buffer ()
+  "Remove LaTeX comments, \\dwtremoved, \\dwtima, \\fin, and collapse excess empty lines.
+
+LaTeX comments (from '%' to end of line) are deleted.
+The commands \\dwtremoved, \\dwtima, and \\fin are removed wherever they appear.
+Any block of 3 or more consecutive empty (or whitespace-only) lines is reduced to a single empty line."
+  (interactive)
+  (save-excursion
+    ;; 1. Remove LaTeX comments
+    (goto-char (point-min))
+    (while (re-search-forward "%[^\n]*" nil t)
+      (replace-match ""))
+
+    ;; 2. Remove specific commands
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\dwtremoved\\|\\\\dwtima\\|\\\\fin" nil t)
+      (replace-match ""))
+
+    ;; 3. Collapse 3+ empty lines into one empty line
+    (goto-char (point-min))
+    ;; Match 3 or more consecutive lines that contain only spaces/tabs (or nothing)
+    (while (re-search-forward "^\\([[:space:]]*\n\\)\\{3,\\}" nil t)
+      (replace-match "\n"))))

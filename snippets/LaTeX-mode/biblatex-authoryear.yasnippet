@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: biblatex-authoryear
+# key: pkg-biblatex-auth
+# --
+\usepackage[backend=bibtex,style=authoryear,maxalphanames=5,maxbibnames=99]{biblatex}
+% Redefine \cite to use square brackets
+\DeclareCiteCommand{\cite}[\mkbibbrackets]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
