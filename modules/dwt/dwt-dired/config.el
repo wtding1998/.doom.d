@@ -6,6 +6,8 @@
   (add-to-list 'dired-omit-extensions ".nav")
   (add-to-list 'dired-omit-extensions ".fls")
   (add-to-list 'dired-omit-extensions ".snm")
+  (add-to-list 'dired-omit-extensions ".xdv")
+  (add-to-list 'dired-omit-extensions ".fdb_latexmk")
   (add-to-list 'dired-omit-extensions ".run.xml")
   (add-to-list 'dired-omit-extensions ".out")
   (add-to-list 'dired-omit-extensions ".synctex.gz")
@@ -41,7 +43,9 @@
   (setq dirvish-hide-details t) ; if t, open dired-hide-details-mode at startup.
   (setq dirvish-quick-access-entries
         '(("h" "~/" "Home")
-          ("r" "~/Documents/research/" "Research")
+          ("p" "~/my_projects" "Projects")
+          ("e" "~/external_repos" "External")
+          ("s" "/Users/dingwentao/Pictures/screenshoot" "Screenshot")
           ("t" "~/.Trash/" "Trash")
           ("d" "~/Downloads/" "Downloads")))
   (setq dirvish-use-header-line nil)
