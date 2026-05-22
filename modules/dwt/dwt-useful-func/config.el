@@ -220,7 +220,7 @@
     (+workspace/new)
     (find-file current-dir)
     (evil-window-vsplit)
-    (call-interactively #'consult-dir)))
+    (find-file "~/Downloads")))
 
 
 (map! :leader :desc "goto package dir" "hG" #'dwt/goto-package-dir

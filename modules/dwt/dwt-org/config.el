@@ -261,6 +261,7 @@
   (setq org-agenda-files '("~/OneDrive/Documents/roam/daily.org"
                            "~/OneDrive/Documents/diary/org/agenda.org"
                            "~/OneDrive/Documents/study note/org/cuhksz.org"
+                           "/Users/dingwentao/Library/CloudStorage/OneDrive-Personal/Documents/roam/research.org"
                            "~/OneDrive/Documents/roam/inbox.org"))
 
 

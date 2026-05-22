@@ -45,7 +45,7 @@
         '(("h" "~/" "Home")
           ("p" "~/my_projects" "Projects")
           ("e" "~/external_repos" "External")
-          ("s" "/Users/dingwentao/Pictures/screenshoot" "Screenshot")
+          ("s" "/Users/dingwentao/Pictures/screenshot" "Screenshot")
           ("t" "~/.Trash/" "Trash")
           ("d" "~/Downloads/" "Downloads")))
   (setq dirvish-use-header-line nil)
