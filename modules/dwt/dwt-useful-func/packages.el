@@ -18,3 +18,4 @@
 (package! gptel)
 (package! elysium)
 (package! zoxide)
+(package! ghostel :recipe (:host github :repo "dakra/ghostel"))

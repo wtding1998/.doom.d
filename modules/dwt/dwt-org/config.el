@@ -732,11 +732,11 @@
 (use-package! grip-mode
   :commands (grip-mode)
   :init
+  (setq grip-command 'go-grip)
   (map! :map org-mode-map :localleader
         "GG" #'grip-mode
         "Gb" #'grip-browse-preview
-        "Gs" #'grip-stop-preview)
-  (setq grip-binary-path "/home/wtding/.local/bin/grip"))
+        "Gs" #'grip-stop-preview))
   ;; (setq grip-preview-use-webkit nil))
 
 (use-package! ox-gfm
