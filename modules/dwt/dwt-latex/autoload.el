@@ -654,7 +654,7 @@ Any block of 3 or more consecutive empty (or whitespace-only) lines is reduced t
 
     ;; 2. Remove specific commands
     (goto-char (point-min))
-    (while (re-search-forward "\\\\dwtremoved\\|\\\\dwtima\\|\\\\fin" nil t)
+    (while (re-search-forward "\\\\wtdremoved\\|\\\\wtdima\\|\\\\fin" nil t)
       (replace-match ""))
 
     ;; 3. Collapse 3+ empty lines into one empty line
