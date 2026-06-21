@@ -401,8 +401,11 @@
 (defvar dwt/idle-save-session-interval 10)
 (defvar dwt/idle-save-session-new-file-open nil)
 
-(add-hook 'find-file-hook (lambda () (interactive) (setq dwt/idle-save-session-new-file-open t)))
-(run-with-idle-timer dwt/idle-save-session-interval t #'dwt/idle-save-session-quick-save)
+(setq dwt/idle-save-session-p nil)
+
+(when dwt/idle-save-session-p
+  (add-hook 'find-file-hook (lambda () (interactive) (setq dwt/idle-save-session-new-file-open t)))
+  (run-with-idle-timer dwt/idle-save-session-interval t #'dwt/idle-save-session-quick-save))
 
 ;;; dotfiles
 (defcustom dwt/dotfiles '("~/dotfiles" "~/.config/doom")
