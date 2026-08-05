@@ -5,7 +5,8 @@
 \documentclass{beamer}
 
 \makeatletter
-\def\input@path{{\string~/OneDrive/Documents/research/latex_preamble/}}
+\def\input@path{{\string~/OneDrive/Documents/research/latex_preamble/}{./latex_preamble}}
+\graphicspath{{./figs}}
 \makeatother
 \input{basic_setting.tex}
 \input{beamer_setting.tex}
@@ -16,10 +17,8 @@
 
 \title[]{}
 \date{\today}
-\author[Wentao Ding]{Presenter: Wentao Ding}
-\institute[CUHKSZ]{
-  School of Data Science \\\\
-  The Chinese University of Hong Kong, Shenzhen}
+\author[]{}
+\institute[]{}
 
 \begin{document}
 \frame{\titlepage}

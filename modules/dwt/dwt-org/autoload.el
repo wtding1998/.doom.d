@@ -49,3 +49,52 @@
             (goto-char (point-min))
             (insert export-string)
             (message "Inserted EXPORT_FILE_NAME at file beginning (no :END: found).")))))))
+
+;; 神圣座位：只保持最大编号，每次追加一条 `- [时间] 内容'
+;;;###autoload
+(defun dwt/sacred-seat-log ()
+  "在 try_your_best.org 的 record/神圣座位 下记录一次神圣座位。
+自动更新最大编号（只保留一行），并追加一条 `- [时间] 内容'。"
+  (interactive)
+  (let* ((file (expand-file-name "~/Library/CloudStorage/OneDrive-Personal/Documents/roam/try_your_best.org"))
+         (buf (find-file-noselect file))
+         (topic (read-string "What I have done: "))
+         (max-n 0)
+         num-line-pos)
+    (with-current-buffer buf
+      (goto-char (point-min))
+      (unless (re-search-forward "^\\*\\* 神圣座位" nil t)
+        (user-error "未找到「神圣座位」区域"))
+      ;; 1. 统计最大编号，记住 number 行位置
+      (while (re-search-forward "^- number \\([0-9]+\\)" nil t)
+        (setq max-n (max max-n (string-to-number (match-string 1))))
+        (setq num-line-pos (match-beginning 0)))
+      (setq max-n (1+ max-n))
+      ;; 2. 更新 number 行为最大值（没有则新建）
+      (if num-line-pos
+          (save-excursion
+            (goto-char num-line-pos)
+            (looking-at "- number [0-9]+")
+            (replace-match (format "- number %d" max-n)))
+        (save-excursion
+          (goto-char (point-min))
+          (re-search-forward "^\\*\\* 神圣座位" nil t)
+          (if (re-search-forward "^\\* " nil t)
+              (goto-char (match-beginning 0))
+            (goto-char (point-max))
+            (unless (bolp) (insert "\n")))
+          (insert (format "- number %d\n" max-n))))
+      ;; 3. 在子树末尾追加一条 item
+      (goto-char (point-min))
+      (re-search-forward "^\\*\\* 神圣座位" nil t)
+      (if (re-search-forward "^\\* " nil t)
+          (goto-char (match-beginning 0))
+        (goto-char (point-max))
+        (unless (bolp) (insert "\n")))
+      (insert "- ")
+      (org-insert-time-stamp nil t t)   ; ← 自动当前日期+时间
+      (unless (string-empty-p topic)
+        (insert " " topic))
+      (insert "\n")
+      (save-buffer))
+    (message "神圣座位 #%d 已记录" max-n)))
