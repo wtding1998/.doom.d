@@ -84,6 +84,7 @@
         :desc "shell command" ">" #'async-shell-command
         ;; file
         :desc "file log" "fh" #'magit-log-buffer-file
+        :desc "ediff file" "g=" #'vc-ediff
         :desc "find file other window" "fv" #'find-file-other-window
         ;; link
         :desc "insert link" "nl" #'org-insert-link
