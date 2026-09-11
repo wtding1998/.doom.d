@@ -411,6 +411,26 @@
 (defcustom dwt/dotfiles '("~/dotfiles" "~/.config/doom")
   "My dotfiles repos")
 
+
+(defvar dwt/overleaf-main-files
+  '(("jacobi"     . "/Users/dingwentao/my_projects/Jacobi_SG_code/paper/Jacobi-Nonsmooth/Jacobi-Nonsmooth.tex")
+    ("pdnnoc"     . "/Users/dingwentao/my_projects/LSALM_git/paper/PDNNOC.tex")
+    ("opt-for-llm" . "/Users/dingwentao/my_projects/GN_diag/paper/opt for llm.tex")))
+
+(defvar dwt/overleaf-main-history nil)
+
+(defun dwt/open-overleaf-main ()
+  "Open the main TeX file of a selected paper."
+  (interactive)
+  (let* ((name (completing-read
+                "Paper: "
+                (mapcar #'car dwt/overleaf-main-files)
+                nil t nil 'dwt/overleaf-main-history))
+         (file (cdr (assoc name dwt/overleaf-main-files))))
+      (unless (file-readable-p file)
+        (user-error "File does not exist or is not readable: %s" file))
+      (find-file file)))
+
 (map! :leader
       "qj" #'dwt/load-last-loaded-session
       "qJ" #'dwt/save-current-session-to-last-loaded-session
