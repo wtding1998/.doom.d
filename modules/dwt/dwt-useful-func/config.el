@@ -595,3 +595,30 @@ Like normal Emacs `C-k'.  Kill to end of line and put content in kill-ring."
   :load-path "/Users/dingwentao/.config/emacs/.local/straight/repos/ghostel/extensions/evil-ghostel"
   :after (ghostel evil)
   :hook (ghostel-mode . evil-ghostel-mode))
+
+(after! ediff
+  (defun dwt/ediff-edit-current-change ()
+    "Jump to the current change in buffer B for editing."
+    (interactive)
+    (unless (eq major-mode 'ediff-mode)
+      (user-error "Run this from the Ediff control panel"))
+    (unless (and (>= ediff-current-difference 0)
+                 (< ediff-current-difference
+                    ediff-number-of-differences))
+      (user-error "Select a change with n or p first"))
+    (let ((pos (ediff-get-diff-posn 'B 'beg))
+          (win (get-buffer-window ediff-buffer-B t)))
+      (unless (window-live-p win)
+        (user-error "Press C-l in Ediff to restore its windows"))
+      (select-frame-set-input-focus (window-frame win))
+      (select-window win)
+      (goto-char pos)
+      ;; Start typing immediately when using Doom's Evil mode.
+      (when (bound-and-true-p evil-local-mode)
+        (evil-normal-state))))
+
+  ;; set edit key
+  (defun dwt/ediff-edit-keys ()
+    (define-key ediff-mode-map (kbd "e")
+                #'dwt/ediff-edit-current-change))
+  (add-hook 'ediff-keymap-setup-hook #'dwt/ediff-edit-keys))

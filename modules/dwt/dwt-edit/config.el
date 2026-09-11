@@ -29,7 +29,6 @@
         :i "C-n" nil
         :i "C-p" nil
         :i "M-d" #'backward-delete-char-untabify
-        ;; since I do not use repeat
         :n "-" #'basic-save-buffer
         ;; show doc
         :n "gh" #'+lookup/documentation
