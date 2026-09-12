@@ -130,3 +130,16 @@
     (kill-buffer (current-buffer))
     ;; Inform the user
     (message "File moved and string replaced successfully.")))
+
+;;;###autoload
+(defun dwt/open-paper-main ()
+  "Open the main TeX file of a selected paper."
+  (interactive)
+  (let* ((name (completing-read
+                "Paper: "
+                (mapcar #'car dwt/overleaf-main-files)
+                nil t nil 'dwt/overleaf-main-history))
+         (file (cdr (assoc name dwt/overleaf-main-files))))
+      (unless (file-readable-p file)
+        (user-error "File does not exist or is not readable: %s" file))
+      (find-file file)))

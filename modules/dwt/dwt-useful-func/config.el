@@ -419,22 +419,11 @@
 
 (defvar dwt/overleaf-main-history nil)
 
-(defun dwt/open-overleaf-main ()
-  "Open the main TeX file of a selected paper."
-  (interactive)
-  (let* ((name (completing-read
-                "Paper: "
-                (mapcar #'car dwt/overleaf-main-files)
-                nil t nil 'dwt/overleaf-main-history))
-         (file (cdr (assoc name dwt/overleaf-main-files))))
-      (unless (file-readable-p file)
-        (user-error "File does not exist or is not readable: %s" file))
-      (find-file file)))
-
 (map! :leader
       "qj" #'dwt/load-last-loaded-session
       "qJ" #'dwt/save-current-session-to-last-loaded-session
       "qn" #'dwt/load-newest-session
+      "qp" #'dwt/open-paper-main
       :desc "grep all projects" "ip" #'dwt/grep-in-all-tex-projects
       :desc "grep command all projects" "iP" #'dwt/grep-in-my-preamble)
 
